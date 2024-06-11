@@ -24,7 +24,7 @@ l1.place(x = 70,y = 53)
 l2.place(x = 70,y = 81)
 
 scrollable_frame = customtkinter.CTkScrollableFrame(screen,height = 470,width = 800,orientation = "vertical",fg_color = "white",border_width = 0.8,border_color = "black",scrollbar_button_color = "white",scrollbar_fg_color = "black")
-f1 = customtkinter.CTkFrame(scrollable_frame,fg_color = "white",height = 900,width = 800)
+f1 = customtkinter.CTkFrame(scrollable_frame,fg_color = "white",height = 950,width = 800)
 scrollable_frame.place(x = 70,y = 125)
 f1.pack()
 
@@ -36,6 +36,29 @@ l3 = customtkinter.CTkLabel(f1,text = "Basic Information",text_color = "black",f
 l4 = customtkinter.CTkLabel(f1,text = "* Event Title",text_color = "black",font = ("thin",19))
 l3.place(x = 67,y = 9)
 l4.place(x = 30,y = 50)
+
+def check_x1():
+    if x1.get() == "":
+        messagebox.showerror(title = "Error",message = "Please input Event Title")
+
+    if x2.get() == "":
+        messagebox.showerror(title = "Error",message = "Please choose Event Category")
+    
+    if x6.get() == "":
+        messagebox.showerror(title = "Error",message = "Please input your last name")
+
+    if x7.get() == "":
+        messagebox.showerror(title = "Error",message = "Please input your Email")
+
+    if x8.get() == "":
+        messagebox.showerror(title = "Error",message = "Please input full Format")
+
+    if x10.get() == "":
+        messagebox.showerror(title = "Error",message = "Please input full format")
+
+    if x14.get() == "":
+        messagebox.showerror(title = "Error",message = "Please choose the state")
+
 
 x1 = StringVar()
 e1 = customtkinter.CTkEntry(f1,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 690,textvariable = x1)
@@ -78,7 +101,7 @@ x7 = StringVar()
 e4 = customtkinter.CTkEntry(f1,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 200,textvariable = x7)
 e4.place(x = 520,y = 250)
 
-img5 = customtkinter.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\Event Mangement\party.png"),size = (250,280))
+img5 = customtkinter.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\Event Mangement\event-management.png"),size = (280,280))
 labimg5 = customtkinter.CTkLabel(screen,image = img5,text = "")
 labimg5.place(x = 900,y = 130)
 
@@ -195,10 +218,10 @@ e15.place(x = 540,y = 768)
 
 img7 = customtkinter.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\Event Mangement\calendar (1).png"),size = (30,30))
 labimg7 = customtkinter.CTkLabel(e12,image = img7,text = "")
-labimg7.place(x = 5,y = 2)
+labimg7.place(x = 105,y = 2)
 
 labimg8 = customtkinter.CTkLabel(e14,image = img7,text = "")
-labimg8.place(x = 5,y = 2)
+labimg8.place(x = 105,y = 2)
 
 label17 = customtkinter.CTkLabel(f1,text = "Time Zone",text_color = "black",font = ("thin",19))
 label17.place(x = 30,y = 810)
@@ -206,4 +229,8 @@ label17.place(x = 30,y = 810)
 x21 = StringVar()
 opt6 = customtkinter.CTkComboBox(f1,variable = x21,height = 35,width = 690,corner_radius = 5,border_width = 1,border_color = "gray",fg_color = "white",text_color = "black",button_hover_color = "#7D6D6D",font = ("semibold",17),values = ["(GMT+05:30) India","(GMT+09:05) USA","(GMT-03:40) New Zealand"])
 opt6.place(x = 30,y = 850)
+
+b1 = customtkinter.CTkButton(f1,text = "Submit",height = 40,width = 170,corner_radius =10,fg_color = "lightgreen",text_color = "black",command = check_x1)
+b1.place(x = 300,y = 904)
+
 screen.mainloop()
