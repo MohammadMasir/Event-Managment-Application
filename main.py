@@ -421,7 +421,7 @@ class DemoApplication(ctk.CTk):
         scrollable_frame.place(x = 70,y = 105)
         f1.pack(expand=True)
 
-        img1 = ctk.CTkImage(dark_image = Image.open(r"C:\Users\admin\Python Concepts\Customkinter_learning\pics\info.png"),size = (30,30))
+        img1 = ctk.CTkImage(dark_image = Image.open(r"pics\info.png"),size = (30,30))
         labimg1 = ctk.CTkLabel(f1,image = img1,text = "")
         labimg1.place(x = 30,y = 9)
 
@@ -494,16 +494,16 @@ class DemoApplication(ctk.CTk):
         e4 = ctk.CTkEntry(f1,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 200,textvariable = x7)
         e4.place(x = 520,y = 250)
 
-        # img5 = ctk.CTkImage(dark_image = Image.open(r"C:\Users\admin\Python Concepts\Customkinter_learning\pics\event-management.png"),size = (280,280))
-        # labimg5 = ctk.CTkLabel(self.ticket_tab,image = img5,text = "")
-        # labimg5.place(x = 900,y = 130)
+        img5 = ctk.CTkImage(dark_image = Image.open(r"pics\management.png"),size = (340,280))
+        labimg5 = ctk.CTkLabel(self.ticket_tab,image = img5,text = "")
+        labimg5.place(x = 940,y = 130)
 
         label2 = ctk.CTkLabel(self.ticket_tab,text = "This is just the start..!!",text_color = "black",fg_color = "#F0F0F0",font = ("semibold",21))
-        label2.place(x = 900,y = 420)
+        label2.place(x = 940,y = 420)
         label3 = ctk.CTkLabel(self.ticket_tab,text = "We can't wait to see what kind of event you put on!",text_color = "black",fg_color = "#F0F0F0",font = ("thin",16))
-        label3.place(x = 900,y = 450)
+        label3.place(x = 940,y = 450)
 
-        img2 = ctk.CTkImage(dark_image = Image.open(r"C:\Users\admin\Python Concepts\Customkinter_learning\pics\location.png"),size = (30,30))
+        img2 = ctk.CTkImage(dark_image = Image.open(r"pics\location.png"),size = (30,30))
         labimg2 = ctk.CTkLabel(f1,image = img2,text = "")
         labimg2.place(x = 30,y = 310)
 
@@ -531,11 +531,11 @@ class DemoApplication(ctk.CTk):
         e8 = ctk.CTkEntry(f1,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 690,textvariable = x11)
         e8.place(x = 30,y = 478)
 
-        img3 = ctk.CTkImage(dark_image = Image.open(r"C:\Users\admin\Python Concepts\Customkinter_learning\pics\close.png"),size = (20,20))
+        img3 = ctk.CTkImage(dark_image = Image.open(r"pics\close.png"),size = (20,20))
         labimg3 = ctk.CTkButton(self.ticket_tab,image = img3,text = "",fg_color = "#F0F0F0",hover_color = "white",width = 15,border_width = 1,border_color = "#F0F0F0")
         labimg3.place(x = 1225,y = 5)
 
-        img4 = ctk.CTkImage(dark_image = Image.open(r"C:\Users\admin\Python Concepts\Customkinter_learning\pics\mall.png"),size = (20,20))
+        img4 = ctk.CTkImage(dark_image = Image.open(r"pics\mall.png"),size = (20,20))
         labimg4 = ctk.CTkLabel(e8,image = img4,text = "")
         labimg4.place(x = 653,y = 3)
 
@@ -574,7 +574,7 @@ class DemoApplication(ctk.CTk):
         opt5 = ctk.CTkComboBox(f1,variable = x16,height = 35,width = 145,corner_radius = 5,border_width = 1,border_color = "gray",fg_color = "white",text_color = "black",button_hover_color = "#7D6D6D",font = ("semibold",17),values = ["India","New Zealand","USA","Russia"])
         opt5.place(x = 540,y = 646)
 
-        img6 = ctk.CTkImage(dark_image = Image.open(r"C:\Users\admin\Python Concepts\Customkinter_learning\pics\calendar.png"),size = (30,30))
+        img6 = ctk.CTkImage(dark_image = Image.open(r"pics\calendar.png"),size = (30,30))
         labimg6 = ctk.CTkLabel(f1,image = img6,text = "")
         labimg6.place(x = 30,y = 692)
 
@@ -609,7 +609,7 @@ class DemoApplication(ctk.CTk):
         e15 = ctk.CTkEntry(f1,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 145,textvariable = x20)
         e15.place(x = 540,y = 768)
 
-        img7 = ctk.CTkImage(dark_image = Image.open(r"C:\Users\admin\Python Concepts\Customkinter_learning\pics\calendar (1).png"),size = (30,30))
+        img7 = ctk.CTkImage(dark_image = Image.open(r"pics\calendar (1).png"),size = (30,30))
         labimg7 = ctk.CTkLabel(e12,image = img7,text = "")
         labimg7.place(x = 105,y = 2)
 
