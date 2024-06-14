@@ -8,11 +8,6 @@ root.configure(fg_color = "#F0F0F0")
 root.geometry("800x800")
 root.title("Home Screen")
 
-
-'''f0 = customtkinter.CTkScrollableFrame(root,height = 900,width = 1300,fg_color = "#F0F0F0")
-f0.place(x = 250,y = 82)
-'''
-
 f1 = customtkinter.CTkFrame(root,height = 41,width = 1300,fg_color = "white")
 f1.place(x = 0,y = 0)
 
@@ -134,8 +129,14 @@ opt7.place(x = 5,y = 250)
 b1 = customtkinter.CTkLabel(f3,text = "Integrations",fg_color = "white",text_color = "black")
 b1.place(x = 10,y = 300)
 
-f4 = customtkinter.CTkFrame(root,height = 220,width = 1150,fg_color = "white",border_width = 1,border_color = "lightgray")
-f4.place(x = 249,y = 82)
+f0 = customtkinter.CTkScrollableFrame(root,height = 700,width = 1010,fg_color = "#F0F0F0")
+f0.place(x = 250,y = 82)
+
+f01 = customtkinter.CTkFrame(f0,height = 900,width = 1010,fg_color = "#F0F0F0")
+f01.grid(row = 0,column = 0)
+
+f4 = customtkinter.CTkFrame(f01,height = 200,width = 1150,fg_color = "#ffffff")
+f4.place(x = 0,y = 0)
 
 label7 = customtkinter.CTkLabel(f4,text = "DemEven",fg_color = "white",text_color = "black",font = customtkinter.CTkFont(size = 25,weight = "bold"))
 label7.place(x = 20,y = 80)
@@ -159,6 +160,64 @@ label10.place(x = 522,y = 137)
 
 x9 = StringVar()
 x9.set("Actions")
-opt8 = customtkinter.CTkComboBox(f4,height = 35,width = 150,variable = x9,fg_color = "white",button_hover_color = "#4B9EFC",border_width = 1,border_color = "lightgray",corner_radius = 7,dropdown_hover_color = "#4B9EFC",button_color = "lightgray",text_color = "#4B9EFC",values = ["","","",""])
+opt8 = customtkinter.CTkComboBox(f4,height = 35,width = 150,variable = x9,fg_color = "white",button_hover_color = "#4B9EFC",border_width = 1,border_color = "lightgray",corner_radius = 7,dropdown_hover_color = "#4B9EFC",button_color = "lightgray",text_color = "#0966F1",values = ["","","",""])
 opt8.place(x = 800,y = 96)
+
+img10 = customtkinter.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\Event Mangement\light-bulb.png"),size = (50,50))
+labimg10 = customtkinter.CTkLabel(f0,image = img10,text = "")
+labimg10.place(x = 8,y = 205)
+
+label11 = customtkinter.CTkLabel(f0,text = "Up next for your event",text_color = "black",font = customtkinter.CTkFont(size = 18,weight = "bold"))
+label11.place(x = 50,y = 215)
+
+f5 = customtkinter.CTkFrame(f01,height = 150,width = 265,fg_color = "#ffffff",border_width = 1,border_color = "lightgray")
+f5.place(x = 8,y = 255)
+
+img11 = customtkinter.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\Event Mangement\features.png"),size = (38,38))
+labimg11 = customtkinter.CTkLabel(f5,image = img11,text = "")
+labimg11.place(x = 15,y = 48)
+
+label12 = customtkinter.CTkLabel(f5,text = "Add Event Features",text_color = "#000000",font = customtkinter.CTkFont(size = 17,weight = "bold"))
+label12.place(x = 75,y = 20)
+
+label13 = customtkinter.CTkLabel(f5,text = "Make sure you have all the\nfeatures you need for your event",text_color = "#000000",font = customtkinter.CTkFont(size = 12,weight = "normal"))
+label13.place(x = 75,y = 55)
+
+def funbut1():
+    pass
+
+button1 = customtkinter.CTkButton(f5,text = "Add features",corner_radius = 5,border_width = 1,width = 6,hover_color = "lightgray",border_color = "#3fa6fb",fg_color = "#ffffff",border_spacing = 3,text_color = "#3fa6fb",command = funbut1)
+button1.place(x = 75,y = 100)
+
+def skip1():
+    pass
+
+button2 = customtkinter.CTkButton(f5,text = "Skip",width = 6,fg_color = "#ffffff",text_color = "#3fa6fb",hover_color = "#ffffff",command = skip1)
+button2.place(x = 185,y = 100)
+
+f6 = customtkinter.CTkFrame(f01,height = 150,width = 270,fg_color = "#ffffff",border_width = 1,border_color = "lightgray")
+f6.place(x = 290,y = 255)
+
+img12 = customtkinter.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\Event Mangement\registration.png"),size = (42,38))
+labimg12 = customtkinter.CTkLabel(f6,image = img12,text = "")
+labimg12.place(x = 15,y = 48)
+
+label14 = customtkinter.CTkLabel(f6,text = "Set up registration types",text_color = "#000000",font = customtkinter.CTkFont(size = 17,weight = "bold"))
+label14.place(x = 45,y = 20)
+
+label15 = customtkinter.CTkLabel(f6,text = "Add registration types to\ncustomize the registration...",text_color = "#000000",font = customtkinter.CTkFont(size = 12,weight = "normal"))
+label15.place(x = 75,y = 55)
+
+def funbut2():
+    pass
+
+button3 = customtkinter.CTkButton(f6,text = "Get Started",corner_radius = 5,border_width = 1,width = 6,hover_color = "lightgray",border_color = "#3fa6fb",fg_color = "#ffffff",border_spacing = 3,text_color = "#3fa6fb",command = funbut2)
+button3.place(x = 75,y = 100)
+
+def skip2():
+    pass
+
+button4 = customtkinter.CTkButton(f6,text = "Skip",width = 6,fg_color = "#ffffff",text_color = "#3fa6fb",hover_color = "#ffffff",command = skip2)
+button4.place(x = 185,y = 100)
+
 root.mainloop()
