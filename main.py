@@ -4,7 +4,7 @@ import pymysql as pq
 import tkinter as tk
 from tkinter.messagebox import showinfo, showwarning, showerror
 
-'''INSPECTION BRANCH'''
+
 #COLORS :  #093838 -> Primary Color.    } In the Theme,
            #8bceba -> Secondary Color.  }  both the Primary & Secondary colors are used interchangeably.
            #gainsboro -> Background Color.
@@ -468,14 +468,58 @@ class DemoApplication(ctk.CTk):
         canvas1 = tk.Canvas(self.event_tab,height = 3,width = 1920,bg = "#0061ff",relief = "raised")
         canvas1.place(x = 0,y = 56)
 
-        f2 = ctk.CTkFrame(self.event_tab,height = 44,width = 1300,fg_color = "white")
+        f2 = ctk.CTkFrame(self.event_tab,height = 44,width = 1300,fg_color = self.secondary_color)
         f2.place(x = 0,y = 41)
 
-        def butimg6():
-            pass
+        self.click_count = 0
+        def menu_animation(): # MENU ANIMATION COMMAND ...
+            self.click_count += 1
+
+            if self.click_count % 2 != 0 :
+                self.after(1, animate(250,82, 0.808))
+
+                self.f3 = ctk.CTkFrame(self.event_tab,fg_color = "white",height = 600,width = 250,border_width = 1,border_color = "lightgray")
+                self.f3.place(x = 0,y = 81)
+
+                label6 = ctk.CTkLabel(self.f3,text = "HOME",text_color = "#3fa6fb",font = (ctk.CTkFont(size = 20,weight = "bold")))
+                label6.place(x = 13,y = 17)
+
+                x4 =ctk.StringVar()
+                x4.set("General")
+                opt3 = ctk.CTkOptionMenu(self.f3,variable = x4,button_color = "white",button_hover_color = "white",height = 35,width = 230,fg_color = "white",text_color = "black",dropdown_hover_color = "lightblue",font = ctk.CTkFont(size = 13,weight = "normal"),values = ["","","",""])
+                opt3.place(x = 5,y = 50)
+
+                x5 =ctk.StringVar()
+                x5.set("Marketing")
+                opt4 = ctk.CTkOptionMenu(self.f3,variable = x5,button_color = "white",button_hover_color = "white",height = 35,width = 230,fg_color = "white",text_color = "black",dropdown_hover_color = "lightblue",font = ctk.CTkFont(size = 13,weight = "normal"),values = ["","","",""])
+                opt4.place(x = 5,y = 100)
+
+                x6 =ctk.StringVar()
+                x6.set("Email")
+                opt5 = ctk.CTkOptionMenu(self.f3,variable = x6,button_color = "white",button_hover_color = "white",height = 35,width = 230,fg_color = "white",text_color = "black",dropdown_hover_color = "lightblue",font = ctk.CTkFont(size = 13,weight = "normal"),values = ["","","",""])
+                opt5.place(x = 5,y = 150)
+
+                x7 =ctk.StringVar()
+                x7.set("Attendees")
+                opt6 = ctk.CTkOptionMenu(self.f3,variable = x7,button_color = "white",button_hover_color = "white",height = 35,width = 230,fg_color = "white",text_color = "black",dropdown_hover_color = "lightblue",font = ctk.CTkFont(size = 13,weight = "normal"),values = ["","","",""])
+                opt6.place(x = 5,y = 200)
+
+                x8 =ctk.StringVar()
+                x8.set("Reports")
+                opt7 = ctk.CTkOptionMenu(self.f3,height = 35,width = 230,variable = x8,fg_color = "white",dropdown_hover_color = "lightblue",text_color = "black",button_color = "white",button_hover_color = "white",values = ["","","",""])
+                opt7.place(x = 5,y = 250)
+
+                b1 = ctk.CTkLabel(self.f3,text = "Integrations",fg_color = "white",text_color = "black")
+                b1.place(x = 10,y = 300)
+            else:
+                self.f3.destroy()
+                self.f0.place(x=0, y=82,relwidth=1.0)
+
+        def animate(x,y,relwidth=None):
+            self.f0.place(x=x, y=y, relwidth=relwidth)
 
         img6 = ctk.CTkImage(dark_image = Image.open(r"C:\Users\admin\Event Managment Application\pics\lines.png"),size = (20,20))
-        butimg6 = ctk.CTkButton(f2,image = img6,text = "",fg_color = "white",width = 20,hover_color = "white",command = butimg6)
+        butimg6 = ctk.CTkButton(f2,image = img6,text = "",fg_color = "white",width = 20,hover_color = "white",command = menu_animation)
         butimg6.place(x = 6,y = 5)
 
         label5 = ctk.CTkLabel(f2,text = "DemEven",text_color = "black",font = (ctk.CTkFont(size = 15,weight = "normal")))
@@ -492,44 +536,12 @@ class DemoApplication(ctk.CTk):
         butimg7 = ctk.CTkButton(f2,image = img7,text = "",fg_color = "white",width = 20,border_width = 1,border_color = "black",hover_color = "#8BFAFF",command = butimg7)
         butimg7.place(x = 958,y = 5)
 
-        f3 = ctk.CTkFrame(self.event_tab,fg_color = "white",height = 600,width = 250,border_width = 1,border_color = "lightgray")
-        f3.place(x = 0,y = 81)
+#-----------------------
 
-        label6 = ctk.CTkLabel(f3,text = "HOME",text_color = "#3fa6fb",font = (ctk.CTkFont(size = 20,weight = "bold")))
-        label6.place(x = 13,y = 17)
+        self.f0 = ctk.CTkScrollableFrame(self.event_tab,height = 700,fg_color = "#F0F0F0")
+        self.f0.place(x = 0,y = 82, relwidth=1.0)
 
-        x4 =ctk.StringVar()
-        x4.set("General")
-        opt3 = ctk.CTkOptionMenu(f3,variable = x4,button_color = "white",button_hover_color = "white",height = 35,width = 230,fg_color = "white",text_color = "black",dropdown_hover_color = "lightblue",font = ctk.CTkFont(size = 13,weight = "normal"),values = ["","","",""])
-        opt3.place(x = 5,y = 50)
-
-        x5 =ctk.StringVar()
-        x5.set("Marketing")
-        opt4 = ctk.CTkOptionMenu(f3,variable = x5,button_color = "white",button_hover_color = "white",height = 35,width = 230,fg_color = "white",text_color = "black",dropdown_hover_color = "lightblue",font = ctk.CTkFont(size = 13,weight = "normal"),values = ["","","",""])
-        opt4.place(x = 5,y = 100)
-
-        x6 =ctk.StringVar()
-        x6.set("Email")
-        opt5 = ctk.CTkOptionMenu(f3,variable = x6,button_color = "white",button_hover_color = "white",height = 35,width = 230,fg_color = "white",text_color = "black",dropdown_hover_color = "lightblue",font = ctk.CTkFont(size = 13,weight = "normal"),values = ["","","",""])
-        opt5.place(x = 5,y = 150)
-
-        x7 =ctk.StringVar()
-        x7.set("Attendees")
-        opt6 = ctk.CTkOptionMenu(f3,variable = x7,button_color = "white",button_hover_color = "white",height = 35,width = 230,fg_color = "white",text_color = "black",dropdown_hover_color = "lightblue",font = ctk.CTkFont(size = 13,weight = "normal"),values = ["","","",""])
-        opt6.place(x = 5,y = 200)
-
-        x8 =ctk.StringVar()
-        x8.set("Reports")
-        opt7 = ctk.CTkOptionMenu(f3,height = 35,width = 230,variable = x8,fg_color = "white",dropdown_hover_color = "lightblue",text_color = "black",button_color = "white",button_hover_color = "white",values = ["","","",""])
-        opt7.place(x = 5,y = 250)
-
-        b1 = ctk.CTkLabel(f3,text = "Integrations",fg_color = "white",text_color = "black")
-        b1.place(x = 10,y = 300)
-
-        f0 = ctk.CTkScrollableFrame(self.event_tab,height = 700,width = 1010,fg_color = "#F0F0F0")
-        f0.place(x = 250,y = 82)
-
-        f01 = ctk.CTkFrame(f0,height = 900,width = 1010,fg_color = "#F0F0F0")
+        f01 = ctk.CTkFrame(self.f0,height = 900,width = 1010,fg_color = "#F0F0F0")
         f01.grid(row = 0,column = 0)
 
         f4 = ctk.CTkFrame(f01,height = 200,width = 1150,fg_color = "#ffffff")
@@ -561,10 +573,10 @@ class DemoApplication(ctk.CTk):
         opt8.place(x = 800,y = 96)
 
         img10 = ctk.CTkImage(dark_image = Image.open(r"C:\Users\admin\Event Managment Application\pics\light-bulb.png"),size = (50,50))
-        labimg10 = ctk.CTkLabel(f0,image = img10,text = "")
+        labimg10 = ctk.CTkLabel(self.f0,image = img10,text = "")
         labimg10.place(x = 8,y = 205)
 
-        label11 = ctk.CTkLabel(f0,text = "Up next for your event",text_color = "black",font = ctk.CTkFont(size = 18,weight = "bold"))
+        label11 = ctk.CTkLabel(self.f0,text = "Up next for your event",text_color = "black",font = ctk.CTkFont(size = 18,weight = "bold"))
         label11.place(x = 50,y = 215)
 
         f5 = ctk.CTkFrame(f01,height = 150,width = 265,fg_color = "#ffffff",border_width = 1,border_color = "lightgray")
