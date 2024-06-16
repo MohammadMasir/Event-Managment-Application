@@ -91,7 +91,7 @@ class DemoApplication(ctk.CTk):
                  ipady=None,
                  ipadx=None,
                  ):
-        back_img = ctk.CTkImage(dark_image=Image.open("back.png"))
+        back_img = ctk.CTkImage(dark_image=Image.open(r"pics\back.png"))
 
         back_button = ctk.CTkButton(
             parent,
@@ -136,7 +136,7 @@ class DemoApplication(ctk.CTk):
         self.buttons_frame = ctk.CTkFrame(self, corner_radius=20, fg_color="gainsboro")
         self.buttons_frame.grid(row=0, column=1, padx=20, pady=(5, 10), ipady=70, ipadx=58)
 
-        self.bg_image = ctk.CTkImage(dark_image=Image.open("loginscreen_image.png"), size=(350, 510))
+        self.bg_image = ctk.CTkImage(dark_image=Image.open("pics\loginscreen_image.png"), size=(350, 510))
         self.image_label = ctk.CTkLabel(self.image_frame, text="", image=self.bg_image)
         self.image_label.pack()
         
@@ -195,7 +195,7 @@ class DemoApplication(ctk.CTk):
         self.buttons_frame = ctk.CTkFrame(self, corner_radius=20, fg_color="gainsboro")
         self.buttons_frame.grid(row=0, column=1, padx=20, pady=(0, 10))
 
-        self.bg_image = ctk.CTkImage(dark_image=Image.open("loginscreen_image.png"), size=(350, 510))
+        self.bg_image = ctk.CTkImage(dark_image=Image.open("pics\loginscreen_image.png"), size=(350, 510))
         self.image_label = ctk.CTkLabel(self.image_frame, text="", image=self.bg_image)
         self.image_label.pack()
 
@@ -287,7 +287,7 @@ class DemoApplication(ctk.CTk):
         self.buttons_frame = ctk.CTkFrame(self, corner_radius=20, fg_color="gainsboro")
         self.buttons_frame.grid(row=0,column=1, padx=20, pady=(0,10),ipadx=3)
 
-        self.bg_image = ctk.CTkImage(dark_image=Image.open("loginscreen_image.png"), size=(350,510))
+        self.bg_image = ctk.CTkImage(dark_image=Image.open("pics\loginscreen_image.png"), size=(350,510))
         self.image_label = ctk.CTkLabel(self.image_frame, text="", image=self.bg_image)
         self.image_label.pack()
 
@@ -633,7 +633,7 @@ class DemoApplication(ctk.CTk):
     def tickettab_widgets(self):
         # ctk.CTkLabel(self.ticket_tab, text="Handle registrations and tickets", font=ctk.CTkFont(size=20, weight="bold")).pack(pady=20)
 
-        my_img = ctk.CTkImage(dark_image = Image.open(r"back.png"),size = (20,20))
+        my_img = ctk.CTkImage(dark_image = Image.open(r"pics\back.png"),size = (20,20))
         labimg = ctk.CTkButton(self.ticket_tab,image = my_img,text = "",fg_color = "#F0F0F0",hover_color = "white",width = 15,border_width = 1,border_color = "#F0F0F0")
         labimg.place(x = 8,y = 5)
 
