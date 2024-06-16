@@ -75,8 +75,8 @@ f2 = customtkinter.CTkFrame(root,height = 44,width = 1300,fg_color = "white")
 f2.place(x = 0,y = 41)
 
 def butimg6():
-    pass
-
+    pass 
+    
 img6 = customtkinter.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\Event Mangement\lines.png"),size = (20,20))
 butimg6 = customtkinter.CTkButton(f2,image = img6,text = "",fg_color = "white",width = 20,hover_color = "white",command = butimg6)
 butimg6.place(x = 6,y = 5)
@@ -85,7 +85,7 @@ label5 = customtkinter.CTkLabel(f2,text = "DemEven",text_color = "black",font = 
 label5.place(x = 47,y = 5)
 
 x3 = StringVar()
-e1 = customtkinter.CTkEntry(f2,height = 28,width = 250,fg_color = "white",corner_radius = 15,placeholder_text = "Search this Event",placeholder_text_color = "gray",text_color = "black",textvariable = x3)
+e1 = customtkinter.CTkEntry(f2,height = 28,width = 250,corner_radius = 15,fg_color = "#ffffff",text_color = "black",placeholder_text = "Search this event",placeholder_text_color = "black",textvariable = x3)
 e1.place(x = 1000,y = 5)
 
 def butimg7():
@@ -97,6 +97,9 @@ butimg7.place(x = 958,y = 5)
 
 f3 = customtkinter.CTkFrame(root,fg_color = "white",height = 600,width = 250,border_width = 1,border_color = "lightgray")
 f3.place(x = 0,y = 81)
+
+#sidebar_frame = customtkinter.CTkFrame(f3,height = 300,width = 500,fg_color = "lightgray")
+#sidebar_frame.place(x = -500,y = 50)
 
 label6 = customtkinter.CTkLabel(f3,text = "HOME",text_color = "#3fa6fb",font = (customtkinter.CTkFont(size = 20,weight = "bold")))
 label6.place(x = 13,y = 17)
@@ -219,5 +222,34 @@ def skip2():
 
 button4 = customtkinter.CTkButton(f6,text = "Skip",width = 6,fg_color = "#ffffff",text_color = "#3fa6fb",hover_color = "#ffffff",command = skip2)
 button4.place(x = 185,y = 100)
+
+label16 = customtkinter.CTkLabel(f0,text = "Event Overview",text_color = "black",font = customtkinter.CTkFont(size = 18,weight = "bold"))
+label16.place(x = 8,y = 420)
+
+f7 = customtkinter.CTkFrame(f01,height = 150,width = 270,fg_color = "#ffffff",border_width = 1,border_color = "lightgray")
+f7.place(x = 8,y = 460)
+
+label17 = customtkinter.CTkLabel(f7,text = "Registration",fg_color = "#ffffff",text_color = "#000000",font = customtkinter.CTkFont(size = 17,weight = "bold"))
+label17.place(x = 20,y = 20)
+
+label18 = customtkinter.CTkLabel(f7,text = "Invitee Conversion Rate",text_color = "#000000",font = customtkinter.CTkFont(size = 12,weight = "normal"))
+label18.place(x = 20,y = 50)
+
+label19 =  customtkinter.CTkLabel(f7,text = "0.0%",fg_color = "#ffffff",text_color = "#000000",font = customtkinter.CTkFont(size = 17,weight = "bold"))
+label19.place(x = 20,y = 75)
+
+img13 = customtkinter.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\Event Mangement\light-bulb.png"),size = (30,30))
+labimg13 = customtkinter.CTkLabel(f7,image = img13,text = "")
+labimg13.place(x = 15,y = 105)
+
+label20 = customtkinter.CTkLabel(f7,text = "Set your event's deadline\nand capacity",text_color = "#3fa6fb",font = customtkinter.CTkFont(size = 12,weight = "normal"))
+label20.place(x = 60,y = 105)
+
+def butimg14():
+    pass 
+
+img14 = customtkinter.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\Event Mangement\ellipsis.png"),size = (30,20))
+butimg14 = customtkinter.CTkButton(f7,image = img14,text = "",command = butimg14,width = 20,fg_color = "#ffffff",hover_color = "#ffffff")
+butimg14.place(x = 220,y = 20)
 
 root.mainloop()
