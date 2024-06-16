@@ -4,7 +4,8 @@ import pymysql as pq
 import tkinter as tk
 from tkinter.messagebox import showinfo, showwarning, showerror
 
-
+            # INSPECTION BRANCH #
+            
 #COLORS :  #093838 -> Primary Color.    } In the Theme,
            #8bceba -> Secondary Color.  }  both the Primary & Secondary colors are used interchangeably.
            #gainsboro -> Background Color.
