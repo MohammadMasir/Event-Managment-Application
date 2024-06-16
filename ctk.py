@@ -633,7 +633,7 @@ class DemoApplication(ctk.CTk):
     def tickettab_widgets(self):
         # ctk.CTkLabel(self.ticket_tab, text="Handle registrations and tickets", font=ctk.CTkFont(size=20, weight="bold")).pack(pady=20)
 
-        my_img = ctk.CTkImage(dark_image = Image.open(r"back.png"),size = (20,20))
+        my_img = ctk.CTkImage(dark_image = Image.open(r"pics\back.png"),size = (20,20))
         labimg = ctk.CTkButton(self.ticket_tab,image = my_img,text = "",fg_color = "#F0F0F0",hover_color = "white",width = 15,border_width = 1,border_color = "#F0F0F0")
         labimg.place(x = 8,y = 5)
 
