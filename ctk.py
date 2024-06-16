@@ -91,7 +91,7 @@ class DemoApplication(ctk.CTk):
                  ipady=None,
                  ipadx=None,
                  ):
-        back_img = ctk.CTkImage(dark_image=Image.open("back.png"))
+        back_img = ctk.CTkImage(dark_image=Image.open(r"pics\back.png"))
 
         back_button = ctk.CTkButton(
             parent,
@@ -195,7 +195,7 @@ class DemoApplication(ctk.CTk):
         self.buttons_frame = ctk.CTkFrame(self, corner_radius=20, fg_color="gainsboro")
         self.buttons_frame.grid(row=0, column=1, padx=20, pady=(0, 10))
 
-        self.bg_image = ctk.CTkImage(dark_image=Image.open("loginscreen_image.png"), size=(350, 510))
+        self.bg_image = ctk.CTkImage(dark_image=Image.open("pics\loginscreen_image.png"), size=(350, 510))
         self.image_label = ctk.CTkLabel(self.image_frame, text="", image=self.bg_image)
         self.image_label.pack()
 
@@ -287,7 +287,7 @@ class DemoApplication(ctk.CTk):
         self.buttons_frame = ctk.CTkFrame(self, corner_radius=20, fg_color="gainsboro")
         self.buttons_frame.grid(row=0,column=1, padx=20, pady=(0,10),ipadx=3)
 
-        self.bg_image = ctk.CTkImage(dark_image=Image.open("loginscreen_image.png"), size=(350,510))
+        self.bg_image = ctk.CTkImage(dark_image=Image.open("pics\loginscreen_image.png"), size=(350,510))
         self.image_label = ctk.CTkLabel(self.image_frame, text="", image=self.bg_image)
         self.image_label.pack()
 
