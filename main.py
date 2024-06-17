@@ -16,7 +16,7 @@ class DemoApplication(ctk.CTk):
     def __init__(self):
         super().__init__()
         self.geometry("700x500")
-        self.resizable(width=False, height=False)
+        self.resizable(width=True, height=True)
         self.title("DemoApplication")
         self.configure(fg_color="#093838")
 
@@ -40,7 +40,7 @@ class DemoApplication(ctk.CTk):
             user="root",
             password="root",
             database="projects",
-            port=3306,
+            port=3307,
             charset="utf8"
         )
         return connection
@@ -541,10 +541,10 @@ class DemoApplication(ctk.CTk):
         self.f0 = ctk.CTkScrollableFrame(self.event_tab,height = 700,fg_color = "#F0F0F0")
         self.f0.place(x = 0,y = 82, relwidth=1.0)
 
-        f01 = ctk.CTkFrame(self.f0,height = 900,width = 1010,fg_color = "#F0F0F0")
+        f01 = ctk.CTkFrame(self.f0,height = 1050,width = 1010,fg_color = "#F0F0F0")
         f01.grid(row = 0,column = 0)
 
-        f4 = ctk.CTkFrame(f01,height = 200,width = 1150,fg_color = "#ffffff")
+        f4 = ctk.CTkFrame(f01,height = 200,width = 1010,fg_color = "#ffffff")
         f4.place(x = 0,y = 0)
 
         label7 = ctk.CTkLabel(f4,text = "DemEven",fg_color = "white",text_color = "black",font = ctk.CTkFont(size = 25,weight = "bold"))
@@ -629,6 +629,153 @@ class DemoApplication(ctk.CTk):
         button4 = ctk.CTkButton(f6,text = "Skip",width = 6,fg_color = "#ffffff",text_color = "#3fa6fb",hover_color = "#ffffff",command = skip2)
         button4.place(x = 185,y = 100)
 
+        label16 = ctk.CTkLabel(f01,text = "Event Overview",text_color = "black",font = ctk.CTkFont(size = 18,weight = "bold"))
+        label16.place(x = 8,y = 420)
+
+        f7 = ctk.CTkFrame(f01,height = 150,width = 270,fg_color = "#ffffff",border_width = 1,border_color = "lightgray")
+        f7.place(x = 8,y = 460)
+
+        label17 = ctk.CTkLabel(f7,text = "Registration",fg_color = "#ffffff",text_color = "#000000",font = ctk.CTkFont(size = 17,weight = "bold"))
+        label17.place(x = 20,y = 20)
+
+        label18 = ctk.CTkLabel(f7,text = "Invitee Conversion Rate",text_color = "#000000",font = ctk.CTkFont(size = 12,weight = "normal"))
+        label18.place(x = 20,y = 50)
+
+        label19 =  ctk.CTkLabel(f7,text = "0.0%",fg_color = "#ffffff",text_color = "#000000",font = ctk.CTkFont(size = 17,weight = "bold"))
+        label19.place(x = 20,y = 75)
+
+        img13 = ctk.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\Event Mangement\pics\light-bulb.png"),size = (30,30))
+        labimg13 = ctk.CTkLabel(f7,image = img13,text = "")
+        labimg13.place(x = 15,y = 105)
+
+        label20 = ctk.CTkLabel(f7,text = "Set your event's deadline\nand capacity",text_color = "#3fa6fb",font = ctk.CTkFont(size = 12,weight = "normal"))
+        label20.place(x = 60,y = 105)
+
+        def butimg14():
+            pass 
+
+        img14 = ctk.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\Event Mangement\pics\ellipsis.png"),size = (30,20))
+        butimg14 = ctk.CTkButton(f7,image = img14,text = "",command = butimg14,width = 20,fg_color = "#ffffff",hover_color = "#ffffff")
+        butimg14.place(x = 220,y = 20)
+
+        f8 = ctk.CTkFrame(f01,height = 150,width = 270,fg_color = "#ffffff",border_width = 1,border_color = "lightgray")
+        f8.place(x = 290,y = 460)
+
+        label21 = ctk.CTkLabel(f8,text = "Emails",fg_color = "#ffffff",text_color = "#000000",font = ctk.CTkFont(size = 17,weight = "bold"))
+        label21.place(x = 20,y = 20)
+
+        label22 = ctk.CTkLabel(f8,text = "Email sent",text_color = "#000000",font = ctk.CTkFont(size = 12,weight = "normal"))
+        label22.place(x = 20,y = 50)
+
+        label23 =  ctk.CTkLabel(f8,text = "0",fg_color = "#ffffff",text_color = "#000000",font = ctk.CTkFont(size = 17,weight = "bold"))
+        label23.place(x = 20,y = 75)
+
+        labimg15 = ctk.CTkLabel(f8,image = img13,text = "")
+        labimg15.place(x = 15,y = 105)
+
+        label24 = ctk.CTkLabel(f8,text = "Add any custom data tags you\nneed for your event",text_color = "#3fa6fb",font = ctk.CTkFont(size = 12,weight = "normal"))
+        label24.place(x = 60,y = 105)
+        
+        def butimg15():
+            pass
+
+        img15 = ctk.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\Event Mangement\pics\ellipsis.png"),size = (30,20))
+        butimg15 = ctk.CTkButton(f8,image = img15,text = "",command = butimg15,width = 20,fg_color = "#ffffff",hover_color = "#ffffff")
+        butimg15.place(x = 220,y = 20)
+        
+        f02 = ctk.CTkFrame(f01,height = 1050,width = 500,fg_color = "#F0F0F0")
+        f02.place(x = 567,y = 200)
+
+        def butimg16():
+            pass 
+
+        img16 = ctk.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\Event Mangement\pics\right-arrow.png"),size = (30,30))
+        butimg16 = ctk.CTkButton(f02,image = img16,text = "",command = butimg16,fg_color = "#C8C6F3",hover_color = "#ffffff",width = 20)
+        butimg16.place(x = 400,y = 0)
+
+        label25 = ctk.CTkLabel(f02,text = "Feature Status",text_color = "black",fg_color = "#F0F0F0",font = ctk.CTkFont(size = 17,weight = "bold"))
+        label25.place(x = 15,y = 40)
+
+        img17 = ctk.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\Event Mangement\pics\pending.png"),size = (30,25))
+        labimg17 = ctk.CTkLabel(f02,image = img17,text = "")
+        labimg17.place(x = 150,y = 40)
+
+        label26 = ctk.CTkLabel(f02,text = "Registration",fg_color = "#F0F0F0",text_color = "#000000",font = ctk.CTkFont(size = 19,weight = "normal"))
+        label26.place(x = 15,y = 80)
+
+        label27 = ctk.CTkLabel(f02,text = "Pending",fg_color = "#FEEEAB",text_color = "#EB9E29",corner_radius = 3,height = 10,width = 10,padx = 2,pady = 2,font = ctk.CTkFont(size = 19))
+        label27.place(x = 350,y = 80)
+
+        canvas2 = tk.Canvas(f02,height = 3,width = 620,bg = "gray",relief = tk.RAISED)
+        canvas2.place(x = 15,y = 190)
+
+        label28 = ctk.CTkLabel(f02,text = "Search for attendees",text_color = "black",fg_color = "#F0F0F0",font = ctk.CTkFont(size = 17,weight = "bold"))
+        label28.place(x = 15,y = 150)
+
+        x10 = tk.StringVar()
+        e2 = ctk.CTkEntry(f02,height = 30,width = 270,corner_radius = 15,fg_color = "#ffffff",text_color = "black",placeholder_text = "Enter a name or email",placeholder_text_color = "black",textvariable = x10)
+        e2.place(x = 15,y = 190)
+
+        def butimg18():
+            pass 
+
+        img18 = ctk.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\Event Mangement\pics\loupe.png"),size = (10,10))
+        butimg18 = ctk.CTkButton(e2,image = img7,text = "",fg_color = "white",hover_color = "#ffffff",corner_radius = 3,height = 10,width = 10,command = butimg18)
+        butimg18.place(x = 228,y = 3)
+
+        canvas3 =  tk.Canvas(f02,height = 3,width = 620,bg = "gray",relief = tk.RAISED)
+        canvas3.place(x = 15,y = 360)
+
+        label29 = ctk.CTkLabel(f02,text = "Event Information",text_color = "black",fg_color = "#F0F0F0",font = ctk.CTkFont(size = 17,weight = "bold"))
+        label29.place(x = 15,y = 260)
+
+        label30 = ctk.CTkLabel(f02,text = "Event Code",fg_color = "#F0F0F0",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "normal"))
+        label30.place(x = 15,y = 310)
+
+        x11 = tk.StringVar()
+        x11.set("BAMMCYD")
+        label31 = ctk.CTkLabel(f02,fg_color = "#F0F0F0",text_color = "#000000",textvariable = x11,font = ctk.CTkFont(size = 12,weight = "bold"))
+        label31.place(x = 15,y = 330)
+
+        label32 = ctk.CTkLabel(f02,text = "Event Format",fg_color = "#F0F0F0",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "normal"))
+        label32.place(x = 15,y = 380)
+
+        x12 = tk.StringVar()
+        x12.set("Hybrid")
+        label33 = ctk.CTkLabel(f02,fg_color = "#F0F0F0",text_color = "#000000",textvariable = x12,font = ctk.CTkFont(size = 12,weight = "bold"))
+        label33.place(x = 15,y = 400)
+
+        label34 = ctk.CTkLabel(f02,text = "Registration Capacity",fg_color = "#F0F0F0",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "normal"))
+        label34.place(x = 15,y = 450)
+
+        x13 = tk.StringVar()
+        x13.set("In Person:Unlimited | Virtual:Unlimited")
+        label35 = ctk.CTkLabel(f02,fg_color = "#F0F0F0",text_color = "#000000",textvariable = x13,font = ctk.CTkFont(size = 12,weight = "bold"))
+        label35.place(x = 15,y = 472)
+
+        label36 = ctk.CTkLabel(f02,text = "Registration Deadline",fg_color = "#F0F0F0",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "normal"))
+        label36.place(x = 15,y = 520)
+
+        x14 = tk.StringVar()
+        x14.set("30/7/2024 9:59 pm IST")
+        label37 = ctk.CTkLabel(f02,fg_color = "#F0F0F0",text_color = "#000000",textvariable = x14,font = ctk.CTkFont(size = 12,weight = "bold"))
+        label37.place(x = 15,y = 542)
+
+        label38 = ctk.CTkLabel(f02,text = "Planner",fg_color = "#F0F0F0",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "normal"))
+        label38.place(x = 15,y = 590)
+
+        x15 = tk.StringVar()
+        x15.set("Lucky Tungariya")
+        label39 = ctk.CTkLabel(f02,fg_color = "#F0F0F0",text_color = "#000000",textvariable = x15,font = ctk.CTkFont(size = 12,weight = "bold"))
+        label39.place(x = 15,y = 610)
+
+        label40 = ctk.CTkLabel(f02,text = "Planner's Email",fg_color = "#F0F0F0",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "normal"))
+        label40.place(x = 15,y = 660)
+
+        x16 = tk.StringVar()
+        x16.set("send@gmail.com")
+        label41 = ctk.CTkLabel(f02,fg_color = "#F0F0F0",text_color = "#000000",textvariable = x16,font = ctk.CTkFont(size = 12,weight = "bold"))
+        label41.place(x = 15,y = 680)
 
     def tickettab_widgets(self):
         # ctk.CTkLabel(self.ticket_tab, text="Handle registrations and tickets", font=ctk.CTkFont(size=20, weight="bold")).pack(pady=20)
