@@ -21,7 +21,7 @@ class DemoApplication(ctk.CTk):
         self.configure(fg_color="#093838")
 
         ctk.set_appearance_mode("dark")
-        ctk.set_default_color_theme("my_custom_theme")
+        ctk.set_default_color_theme("my_custom_theme.json")
 
         self.primary_color = "#093838"
         self.secondary_color = "#8bceba"
@@ -38,7 +38,7 @@ class DemoApplication(ctk.CTk):
         connection = pq.connect(
             host="localhost",
             user="root",
-            password="root",
+            password="sankalp",
             database="projects",
             port=3306,
             charset="utf8"
@@ -246,20 +246,21 @@ class DemoApplication(ctk.CTk):
                 if password.get() != retype_password.get():
                     showwarning("Try Again!", "Passwords do not match. Registration failed.")
                 else:
-                    with connection.cursor() as cursor:
-                        sql = "SELECT * FROM user WHERE user_name = %s"
-                        cursor.execute(sql, (email.get(),))
-                        result = cursor.fetchone()
+                    cur=connection.cursor()
+                    cur.execute('create table if not exists register(email_id varchar(30),password varchar(40));')
+                    sql = "SELECT * FROM register WHERE email_id = %s"
+                    cur.execute(sql, (email.get(),))
+                    result = cur.fetchone()
 
                     if result:
                         showinfo("Registration failed.", "email already exists.")
                     else:
-                        with connection.cursor() as cursor:
-                            sql = "INSERT INTO user (user_name, password) VALUES (%s, %s)"
-                            cursor.execute(sql, (email.get(), password.get()))
-                            connection.commit()
-                            showinfo("Done!", "Registration successful!\nNow you can Login.")
-                            self.login(self.connection)
+                       cur=connection.cursor()
+                       
+                       cur.execute("insert into register values(%s,%s);",(email.get(),password.get()))
+                       connection.commit()
+                       showinfo("Done!", "Registration successful!\nNow you can Login.")
+                       self.login(self.connection)
 
         check_button = ctk.CTkButton(
             self.buttons_frame, 
@@ -331,7 +332,7 @@ class DemoApplication(ctk.CTk):
                 showerror("Value Error!", "Please input Characters.")
             else:
                 cursor = connection.cursor()
-                sql = "SELECT * FROM user WHERE user_name = %s AND password = %s"
+                sql = "SELECT * FROM register WHERE email_id = %s AND password = %s"
                 cursor.execute(sql, (email.get(), password.get()))
                 result = cursor.fetchone()
 
