@@ -572,7 +572,7 @@ class DemoApplication(ctk.CTk):
         opt8 = ctk.CTkComboBox(f4,height = 35,width = 150,variable = x9,fg_color = "white",button_hover_color = "#4B9EFC",border_width = 1,border_color = "lightgray",corner_radius = 7,dropdown_hover_color = "#4B9EFC",button_color = "lightgray",text_color = "#0966F1",values = ["","","",""])
         opt8.place(x = 800,y = 96)
 
-        img10 = ctk.CTkImage(dark_image = Image.open(r"pics\light-bulb.png"),size = (50,50))
+        img10 = ctk.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\light-bulb.png"),size = (50,50))
         labimg10 = ctk.CTkLabel(self.f0,image = img10,text = "")
         labimg10.place(x = 8,y = 205)
 
@@ -582,7 +582,7 @@ class DemoApplication(ctk.CTk):
         f5 = ctk.CTkFrame(f01,height = 150,width = 265,fg_color = "#ffffff",border_width = 1,border_color = "lightgray")
         f5.place(x = 8,y = 255)
 
-        img11 = ctk.CTkImage(dark_image = Image.open(r"pics\features.png"),size = (38,38))
+        img11 = ctk.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\features.png"),size = (38,38))
         labimg11 = ctk.CTkLabel(f5,image = img11,text = "")
         labimg11.place(x = 15,y = 48)
 
@@ -607,7 +607,7 @@ class DemoApplication(ctk.CTk):
         f6 = ctk.CTkFrame(f01,height = 150,width = 270,fg_color = "#ffffff",border_width = 1,border_color = "lightgray")
         f6.place(x = 290,y = 255)
 
-        img12 = ctk.CTkImage(dark_image = Image.open(r"pics\registration.png"),size = (42,38))
+        img12 = ctk.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\registration.png"),size = (42,38))
         labimg12 = ctk.CTkLabel(f6,image = img12,text = "")
         labimg12.place(x = 15,y = 48)
 
@@ -644,7 +644,7 @@ class DemoApplication(ctk.CTk):
         label19 =  ctk.CTkLabel(f7,text = "0.0%",fg_color = "#ffffff",text_color = "#000000",font = ctk.CTkFont(size = 17,weight = "bold"))
         label19.place(x = 20,y = 75)
 
-        img13 = ctk.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\Event Mangement\pics\light-bulb.png"),size = (30,30))
+        img13 = ctk.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\light-bulb.png"),size = (30,30))
         labimg13 = ctk.CTkLabel(f7,image = img13,text = "")
         labimg13.place(x = 15,y = 105)
 
@@ -654,7 +654,7 @@ class DemoApplication(ctk.CTk):
         def butimg14():
             pass 
 
-        img14 = ctk.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\Event Mangement\pics\ellipsis.png"),size = (30,20))
+        img14 = ctk.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\ellipsis.png"),size = (30,20))
         butimg14 = ctk.CTkButton(f7,image = img14,text = "",command = butimg14,width = 20,fg_color = "#ffffff",hover_color = "#ffffff")
         butimg14.place(x = 220,y = 20)
 
@@ -679,7 +679,7 @@ class DemoApplication(ctk.CTk):
         def butimg15():
             pass
 
-        img15 = ctk.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\Event Mangement\pics\ellipsis.png"),size = (30,20))
+        img15 = ctk.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\ellipsis.png"),size = (30,20))
         butimg15 = ctk.CTkButton(f8,image = img15,text = "",command = butimg15,width = 20,fg_color = "#ffffff",hover_color = "#ffffff")
         butimg15.place(x = 220,y = 20)
         
@@ -689,14 +689,14 @@ class DemoApplication(ctk.CTk):
         def butimg16():
             pass 
 
-        img16 = ctk.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\Event Mangement\pics\right-arrow.png"),size = (30,30))
+        img16 = ctk.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\right-arrow.png"),size = (30,30))
         butimg16 = ctk.CTkButton(f02,image = img16,text = "",command = butimg16,fg_color = "#C8C6F3",hover_color = "#ffffff",width = 20)
         butimg16.place(x = 400,y = 0)
 
         label25 = ctk.CTkLabel(f02,text = "Feature Status",text_color = "black",fg_color = "#F0F0F0",font = ctk.CTkFont(size = 17,weight = "bold"))
         label25.place(x = 15,y = 40)
 
-        img17 = ctk.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\Event Mangement\pics\pending.png"),size = (30,25))
+        img17 = ctk.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\pending.png"),size = (30,25))
         labimg17 = ctk.CTkLabel(f02,image = img17,text = "")
         labimg17.place(x = 150,y = 40)
 
@@ -719,7 +719,7 @@ class DemoApplication(ctk.CTk):
         def butimg18():
             pass 
 
-        img18 = ctk.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\Event Mangement\pics\loupe.png"),size = (10,10))
+        img18 = ctk.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\loupe.png"),size = (10,10))
         butimg18 = ctk.CTkButton(e2,image = img7,text = "",fg_color = "white",hover_color = "#ffffff",corner_radius = 3,height = 10,width = 10,command = butimg18)
         butimg18.place(x = 228,y = 3)
 
