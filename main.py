@@ -40,7 +40,7 @@ class DemoApplication(ctk.CTk):
             user="root",
             password="root",
             database="projects",
-            port=3307,
+            port=3306,
             charset="utf8"
         )
         return connection
@@ -237,7 +237,7 @@ class DemoApplication(ctk.CTk):
         password_field.grid(row=2, column=1, sticky="nsew", padx=(0, 8))
         retype_pass_field.grid(row=3, column=1, sticky="nsew", pady=10, padx=(0, 8))
 
-        def check():
+        def check(e):
             if email.get().isdigit() or password.get().isdigit():
                 showerror("Value Error!", "Please input Characters.")
             elif email.get() == "" or password.get() == "":
@@ -272,6 +272,7 @@ class DemoApplication(ctk.CTk):
             text_color="#092928",
         )
         check_button.grid(row=4, column=0, columnspan=2, padx=(40, 20), pady=(17, 0))
+        check_button.bind("<Enter>", check)
 
         self.add_hover_effect(check_button)
 
@@ -375,7 +376,7 @@ class DemoApplication(ctk.CTk):
         labe.pack(pady=10, ipady=5,expand=True)
 
         # Create a notebook (tabbed interface)
-        notebook = ctk.CTkTabview(self, width=700, height=500, bg_color=self.bg, fg_color=self.bg, corner_radius=12) #3fa572 
+        notebook = ctk.CTkTabview(self, width=700, height=500, bg_color = "gainsboro", corner_radius=12) #3fa572 #333333
         notebook.pack(padx=20, pady=20, fill="both", expand=True)
         # notebook.set(self.event_tab)
 
@@ -398,6 +399,9 @@ class DemoApplication(ctk.CTk):
         # Survey and Feedback Tab
         self.survey_tab = notebook.add("Survey and Feedback")
         self.surveytab_widgets()
+
+        self.xomethin = notebook.add("Something")
+        ctk.CTkLabel(self.xomethin,text="Something")
 
     def dashboard_widgets(self):
         ctk.CTkLabel(self.dashboard_tab, text="Welcome to Your Dashboard!", font=ctk.CTkFont(size=20, weight="bold")).pack(pady=20)
@@ -541,10 +545,10 @@ class DemoApplication(ctk.CTk):
         self.f0 = ctk.CTkScrollableFrame(self.event_tab,height = 700,fg_color = "#F0F0F0")
         self.f0.place(x = 0,y = 82, relwidth=1.0)
 
-        f01 = ctk.CTkFrame(self.f0,height = 1050,width = 1010,fg_color = "#F0F0F0")
+        f01 = ctk.CTkFrame(self.f0,height = 1050,width = 970,fg_color = "#F0F0F0")
         f01.grid(row = 0,column = 0)
 
-        f4 = ctk.CTkFrame(f01,height = 200,width = 1010,fg_color = "#ffffff")
+        f4 = ctk.CTkFrame(f01,height = 200,width = 970,fg_color = "#ffffff")
         f4.place(x = 0,y = 0)
 
         label7 = ctk.CTkLabel(f4,text = "DemEven",fg_color = "white",text_color = "black",font = ctk.CTkFont(size = 25,weight = "bold"))
@@ -572,7 +576,7 @@ class DemoApplication(ctk.CTk):
         opt8 = ctk.CTkComboBox(f4,height = 35,width = 150,variable = x9,fg_color = "white",button_hover_color = "#4B9EFC",border_width = 1,border_color = "lightgray",corner_radius = 7,dropdown_hover_color = "#4B9EFC",button_color = "lightgray",text_color = "#0966F1",values = ["","","",""])
         opt8.place(x = 800,y = 96)
 
-        img10 = ctk.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\light-bulb.png"),size = (50,50))
+        img10 = ctk.CTkImage(dark_image = Image.open(r"pics\light-bulb.png"),size = (50,50))
         labimg10 = ctk.CTkLabel(self.f0,image = img10,text = "")
         labimg10.place(x = 8,y = 205)
 
@@ -582,7 +586,7 @@ class DemoApplication(ctk.CTk):
         f5 = ctk.CTkFrame(f01,height = 150,width = 265,fg_color = "#ffffff",border_width = 1,border_color = "lightgray")
         f5.place(x = 8,y = 255)
 
-        img11 = ctk.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\features.png"),size = (38,38))
+        img11 = ctk.CTkImage(dark_image = Image.open(r"pics\features.png"),size = (38,38))
         labimg11 = ctk.CTkLabel(f5,image = img11,text = "")
         labimg11.place(x = 15,y = 48)
 
@@ -607,7 +611,7 @@ class DemoApplication(ctk.CTk):
         f6 = ctk.CTkFrame(f01,height = 150,width = 270,fg_color = "#ffffff",border_width = 1,border_color = "lightgray")
         f6.place(x = 290,y = 255)
 
-        img12 = ctk.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\registration.png"),size = (42,38))
+        img12 = ctk.CTkImage(dark_image = Image.open(r"pics\registration.png"),size = (42,38))
         labimg12 = ctk.CTkLabel(f6,image = img12,text = "")
         labimg12.place(x = 15,y = 48)
 
@@ -644,7 +648,7 @@ class DemoApplication(ctk.CTk):
         label19 =  ctk.CTkLabel(f7,text = "0.0%",fg_color = "#ffffff",text_color = "#000000",font = ctk.CTkFont(size = 17,weight = "bold"))
         label19.place(x = 20,y = 75)
 
-        img13 = ctk.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\light-bulb.png"),size = (30,30))
+        img13 = ctk.CTkImage(dark_image = Image.open(r"pics\light-bulb.png"),size = (30,30))
         labimg13 = ctk.CTkLabel(f7,image = img13,text = "")
         labimg13.place(x = 15,y = 105)
 
@@ -654,7 +658,7 @@ class DemoApplication(ctk.CTk):
         def butimg14():
             pass 
 
-        img14 = ctk.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\ellipsis.png"),size = (30,20))
+        img14 = ctk.CTkImage(dark_image = Image.open(r"pics\ellipsis.png"),size = (30,20))
         butimg14 = ctk.CTkButton(f7,image = img14,text = "",command = butimg14,width = 20,fg_color = "#ffffff",hover_color = "#ffffff")
         butimg14.place(x = 220,y = 20)
 
@@ -679,103 +683,100 @@ class DemoApplication(ctk.CTk):
         def butimg15():
             pass
 
-        img15 = ctk.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\ellipsis.png"),size = (30,20))
+        img15 = ctk.CTkImage(dark_image = Image.open(r"pics\ellipsis.png"),size = (30,20))
         butimg15 = ctk.CTkButton(f8,image = img15,text = "",command = butimg15,width = 20,fg_color = "#ffffff",hover_color = "#ffffff")
         butimg15.place(x = 220,y = 20)
         
-        f02 = ctk.CTkFrame(f01,height = 1050,width = 500,fg_color = "#F0F0F0")
-        f02.place(x = 567,y = 200)
+        f02 = ctk.CTkFrame(self.f0,height = 730,width = 290,fg_color = "gainsboro",corner_radius=12)
+        f02.grid(row=0,column=1, padx=12, sticky="n")
 
         def butimg16():
             pass 
 
-        img16 = ctk.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\right-arrow.png"),size = (30,30))
+        img16 = ctk.CTkImage(dark_image = Image.open(r"pics\right-arrow.png"),size = (30,30))
         butimg16 = ctk.CTkButton(f02,image = img16,text = "",command = butimg16,fg_color = "#C8C6F3",hover_color = "#ffffff",width = 20)
         butimg16.place(x = 400,y = 0)
 
-        label25 = ctk.CTkLabel(f02,text = "Feature Status",text_color = "black",fg_color = "#F0F0F0",font = ctk.CTkFont(size = 17,weight = "bold"))
-        label25.place(x = 15,y = 40)
+        label25 = ctk.CTkLabel(f02,text = "Feature Status",text_color = "black",font = ctk.CTkFont(size = 17,weight = "bold"), corner_radius = 9, fg_color="#F0F0F0")
+        label25.place(x = 15,y = 30)
 
-        img17 = ctk.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\pending.png"),size = (30,25))
+        img17 = ctk.CTkImage(dark_image = Image.open(r"pics\pending.png"),size = (20,20))
         labimg17 = ctk.CTkLabel(f02,image = img17,text = "")
-        labimg17.place(x = 150,y = 40)
+        labimg17.place(x = 165,y = 30)
 
-        label26 = ctk.CTkLabel(f02,text = "Registration",fg_color = "#F0F0F0",text_color = "#000000",font = ctk.CTkFont(size = 19,weight = "normal"))
-        label26.place(x = 15,y = 80)
+        label26 = ctk.CTkLabel(f02,text = "Registration",text_color = "black", font = ctk.CTkFont(size = 19,weight = "normal"))
+        label26.place(x = 19,y = 60)
 
-        label27 = ctk.CTkLabel(f02,text = "Pending",fg_color = "#FEEEAB",text_color = "#EB9E29",corner_radius = 3,height = 10,width = 10,padx = 2,pady = 2,font = ctk.CTkFont(size = 19))
+        label27 = ctk.CTkLabel(f02,text = "Pending",text_color = "black",corner_radius = 19,height = 10,width = 10,padx = 2,pady = 2,font = ctk.CTkFont(size = 19))
         label27.place(x = 350,y = 80)
 
-        canvas2 = tk.Canvas(f02,height = 3,width = 620,bg = "gray",relief = tk.RAISED)
-        canvas2.place(x = 15,y = 190)
-
-        label28 = ctk.CTkLabel(f02,text = "Search for attendees",text_color = "black",fg_color = "#F0F0F0",font = ctk.CTkFont(size = 17,weight = "bold"))
-        label28.place(x = 15,y = 150)
+        label28 = ctk.CTkLabel(f02,text = "Search for attendees",text_color = "black",fg_color = "#F0F0F0",font = ctk.CTkFont(size = 17,weight = "bold"), corner_radius = 9, width=262)
+        label28.place(x = 15,y = 110)
 
         x10 = tk.StringVar()
-        e2 = ctk.CTkEntry(f02,height = 30,width = 270,corner_radius = 15,fg_color = "#ffffff",text_color = "black",placeholder_text = "Enter a name or email",placeholder_text_color = "black",textvariable = x10)
-        e2.place(x = 15,y = 190)
+        e2 = ctk.CTkEntry(f02,height = 30,width = 257,corner_radius = 15,fg_color = "#ffffff",text_color = "black",placeholder_text = "Enter a name or email",placeholder_text_color = "black",textvariable = x10)
+        e2.place(x = 18,y = 150)
+
+        canvas3 =  tk.Canvas(f02,height = 3,width = 262,bg = "gray",relief = tk.RAISED)
+        canvas3.place(x = 15,y = 215)
 
         def butimg18():
             pass 
 
-        img18 = ctk.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\loupe.png"),size = (10,10))
+        img18 = ctk.CTkImage(dark_image = Image.open(r"pics\loupe.png"),size = (10,10))
         butimg18 = ctk.CTkButton(e2,image = img7,text = "",fg_color = "white",hover_color = "#ffffff",corner_radius = 3,height = 10,width = 10,command = butimg18)
-        butimg18.place(x = 228,y = 3)
+        butimg18.place(x = 218,y = 3)
 
-        canvas3 =  tk.Canvas(f02,height = 3,width = 620,bg = "gray",relief = tk.RAISED)
-        canvas3.place(x = 15,y = 360)
-
-        label29 = ctk.CTkLabel(f02,text = "Event Information",text_color = "black",fg_color = "#F0F0F0",font = ctk.CTkFont(size = 17,weight = "bold"))
+        label29 = ctk.CTkLabel(f02,text = "Event Information",text_color = "black",fg_color = "#F0F0F0",font = ctk.CTkFont(size = 17,weight = "bold"), corner_radius = 9, width=262)
         label29.place(x = 15,y = 260)
 
-        label30 = ctk.CTkLabel(f02,text = "Event Code",fg_color = "#F0F0F0",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "normal"))
+        label30 = ctk.CTkLabel(f02,text = "Event Code",fg_color = "#F0F0F0",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "normal"), corner_radius = 9)
         label30.place(x = 15,y = 310)
 
         x11 = tk.StringVar()
         x11.set("BAMMCYD")
-        label31 = ctk.CTkLabel(f02,fg_color = "#F0F0F0",text_color = "#000000",textvariable = x11,font = ctk.CTkFont(size = 12,weight = "bold"))
-        label31.place(x = 15,y = 330)
+        label31 = ctk.CTkLabel(f02,text_color = "#000000",textvariable = x11,font = ctk.CTkFont(size = 12,weight = "bold"))
+        label31.place(x = 22,y = 340)
 
-        label32 = ctk.CTkLabel(f02,text = "Event Format",fg_color = "#F0F0F0",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "normal"))
+        label32 = ctk.CTkLabel(f02,text = "Event Format",fg_color = "#F0F0F0",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "normal"), corner_radius = 9)
         label32.place(x = 15,y = 380)
 
         x12 = tk.StringVar()
         x12.set("Hybrid")
-        label33 = ctk.CTkLabel(f02,fg_color = "#F0F0F0",text_color = "#000000",textvariable = x12,font = ctk.CTkFont(size = 12,weight = "bold"))
-        label33.place(x = 15,y = 400)
+        label33 = ctk.CTkLabel(f02,text_color = "#000000",textvariable = x12,font = ctk.CTkFont(size = 12,weight = "bold"))
+        label33.place(x = 22,y = 410)
 
-        label34 = ctk.CTkLabel(f02,text = "Registration Capacity",fg_color = "#F0F0F0",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "normal"))
+        label34 = ctk.CTkLabel(f02,text = "Registration Capacity",fg_color = "#F0F0F0",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "normal"), corner_radius = 9)
         label34.place(x = 15,y = 450)
 
         x13 = tk.StringVar()
         x13.set("In Person:Unlimited | Virtual:Unlimited")
-        label35 = ctk.CTkLabel(f02,fg_color = "#F0F0F0",text_color = "#000000",textvariable = x13,font = ctk.CTkFont(size = 12,weight = "bold"))
-        label35.place(x = 15,y = 472)
+        label35 = ctk.CTkLabel(f02,text_color = "#000000",textvariable = x13,font = ctk.CTkFont(size = 12,weight = "bold"))
+        label35.place(x = 22,y = 480)
 
-        label36 = ctk.CTkLabel(f02,text = "Registration Deadline",fg_color = "#F0F0F0",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "normal"))
+        label36 = ctk.CTkLabel(f02,text = "Registration Deadline",fg_color = "#F0F0F0",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "normal"), corner_radius = 9)
         label36.place(x = 15,y = 520)
 
         x14 = tk.StringVar()
         x14.set("30/7/2024 9:59 pm IST")
-        label37 = ctk.CTkLabel(f02,fg_color = "#F0F0F0",text_color = "#000000",textvariable = x14,font = ctk.CTkFont(size = 12,weight = "bold"))
-        label37.place(x = 15,y = 542)
+        label37 = ctk.CTkLabel(f02,text_color = "#000000",textvariable = x14,font = ctk.CTkFont(size = 12,weight = "bold"))
+        label37.place(x = 22,y = 550)
 
-        label38 = ctk.CTkLabel(f02,text = "Planner",fg_color = "#F0F0F0",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "normal"))
+        label38 = ctk.CTkLabel(f02,text = "Planner",fg_color = "#F0F0F0",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "normal"), corner_radius = 9)
         label38.place(x = 15,y = 590)
 
         x15 = tk.StringVar()
         x15.set("Lucky Tungariya")
-        label39 = ctk.CTkLabel(f02,fg_color = "#F0F0F0",text_color = "#000000",textvariable = x15,font = ctk.CTkFont(size = 12,weight = "bold"))
-        label39.place(x = 15,y = 610)
+        label39 = ctk.CTkLabel(f02,text_color = "#000000",textvariable = x15,font = ctk.CTkFont(size = 12,weight = "bold"))
+        label39.place(x = 22,y = 620)
 
-        label40 = ctk.CTkLabel(f02,text = "Planner's Email",fg_color = "#F0F0F0",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "normal"))
+        label40 = ctk.CTkLabel(f02,text = "Planner's Email",fg_color = "#F0F0F0",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "normal"), corner_radius = 9)
         label40.place(x = 15,y = 660)
 
         x16 = tk.StringVar()
         x16.set("send@gmail.com")
-        label41 = ctk.CTkLabel(f02,fg_color = "#F0F0F0",text_color = "#000000",textvariable = x16,font = ctk.CTkFont(size = 12,weight = "bold"))
-        label41.place(x = 15,y = 680)
+        label41 = ctk.CTkLabel(f02,text_color = "#000000",textvariable = x16,font = ctk.CTkFont(size = 12,weight = "bold"))
+        label41.place(x = 22,y = 690)
 
     def tickettab_widgets(self):
         # ctk.CTkLabel(self.ticket_tab, text="Handle registrations and tickets", font=ctk.CTkFont(size=20, weight="bold")).pack(pady=20)
