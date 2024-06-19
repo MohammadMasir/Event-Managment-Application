@@ -37,35 +37,35 @@ opt2.place(x = 670,y = 5)
 def butimg1():
     pass
 
-img1 = customtkinter.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\Event Mangement\pics\loupe.png"),size = (20,20))
+img1 = customtkinter.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\loupe.png"),size = (20,20))
 butimg1 = customtkinter.CTkButton(f1,image = img1,fg_color = "white",width = 20,text = "",hover_color = "#3fa6fb",command = butimg1)
 butimg1.place(x = 1040,y = 5)
 
 def butimg2():
     pass 
 
-img2 = customtkinter.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\Event Mangement\pics\file.png"),size = (20,20))
+img2 = customtkinter.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\file.png"),size = (20,20))
 butimg2 = customtkinter.CTkButton(f1,image = img2,text = "",fg_color = "white",width = 20,hover_color = "#3fa6fb",command = butimg2)
 butimg2.place(x = 1090,y = 5)
 
 def butimg3():
     pass
 
-img3 = customtkinter.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\Event Mangement\pics\question.png"),size = (20,20))
+img3 = customtkinter.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\question.png"),size = (20,20))
 butimg3 = customtkinter.CTkButton(f1,image = img3,text = "",fg_color = "white",width = 20,hover_color = "#3fa6fb",command = butimg3)
 butimg3.place(x = 1140,y = 5)
 
 def butimg4():
     pass
 
-img4 = customtkinter.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\Event Mangement\pics\user (1).png"),size = (20,20))
+img4 = customtkinter.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\user (1).png"),size = (20,20))
 butimg4 = customtkinter.CTkButton(f1,image = img4,text = "",fg_color = "white",width = 20,hover_color = "#3fa6fb",command = butimg4)
 butimg4.place(x = 1190,y = 5)
 
 def butimg5():
     pass
 
-img5 = customtkinter.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\Event Mangement\pics\menu.png"),size = (20,20))
+img5 = customtkinter.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\menu.png"),size = (20,20))
 butimg5 = customtkinter.CTkButton(f1,image = img5,text = "",fg_color = "white",width = 20,hover_color = "#3fa6fb",command = butimg5)
 butimg5.place(x = 1240,y = 5)
 
@@ -78,7 +78,7 @@ f2.place(x = 0,y = 41)
 def butimg6():
     pass 
     
-img6 = customtkinter.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\Event Mangement\pics\lines.png"),size = (20,20))
+img6 = customtkinter.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\lines.png"),size = (20,20))
 butimg6 = customtkinter.CTkButton(f2,image = img6,text = "",fg_color = "white",width = 20,hover_color = "white",command = butimg6)
 butimg6.place(x = 6,y = 5)
 
@@ -92,7 +92,7 @@ e1.place(x = 1000,y = 5)
 def butimg7():
     pass
 
-img7 = customtkinter.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\Event Mangement\pics\loupe.png"),size = (20,15))
+img7 = customtkinter.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\loupe.png"),size = (20,15))
 butimg7 = customtkinter.CTkButton(f2,image = img7,text = "",fg_color = "white",width = 20,border_width = 1,border_color = "black",hover_color = "#8BFAFF",command = butimg7)
 butimg7.place(x = 958,y = 5)
 
@@ -148,14 +148,14 @@ label7.place(x = 20,y = 80)
 label8 = customtkinter.CTkLabel(f4,text = "Upcoming",fg_color = "#FEEEAB",text_color = "#EB9E29",corner_radius = 5,height = 10,width = 9,padx = 2,pady = 2,font = ctk.CTkFont(size = 19))
 label8.place(x = 20,y = 140)
 
-img8 = customtkinter.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\Event Mangement\pics\calendar.png"),size = (20,20))
+img8 = customtkinter.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\calendar.png"),size = (20,20))
 labimg8 = customtkinter.CTkLabel(f4,image = img8,text = "")
 labimg8.place(x = 130,y = 137)
 
 label9 = customtkinter.CTkLabel(f4,text = "30/7/2024  6:00 pm - 10:00 pm  IST (61 days away)",text_color = "black",font = customtkinter.CTkFont(size = 13,weight = "normal"))
 label9.place(x = 150,y = 137)
 
-img9 = customtkinter.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\Event Mangement\pics\location.png"),size = (20,20))
+img9 = customtkinter.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\location.png"),size = (20,20))
 labimg9 = customtkinter.CTkLabel(f4,image = img9,text = "")
 labimg9.place(x = 500,y = 137)
 
@@ -167,7 +167,7 @@ x9.set("Actions")
 opt8 = customtkinter.CTkComboBox(f4,height = 35,width = 150,variable = x9,fg_color = "white",button_hover_color = "#4B9EFC",border_width = 1,border_color = "lightgray",corner_radius = 7,dropdown_hover_color = "#4B9EFC",button_color = "lightgray",text_color = "#0966F1",values = ["","","",""])
 opt8.place(x = 800,y = 96)
 
-img10 = customtkinter.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\Event Mangement\pics\light-bulb.png"),size = (50,50))
+img10 = customtkinter.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\light-bulb.png"),size = (50,50))
 labimg10 = customtkinter.CTkLabel(f0,image = img10,text = "")
 labimg10.place(x = 8,y = 205)
 
@@ -177,7 +177,7 @@ label11.place(x = 50,y = 215)
 f5 = customtkinter.CTkFrame(f01,height = 150,width = 265,fg_color = "#ffffff",border_width = 1,border_color = "lightgray")
 f5.place(x = 8,y = 255)
 
-img11 = customtkinter.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\Event Mangement\pics\features.png"),size = (38,38))
+img11 = customtkinter.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\features.png"),size = (38,38))
 labimg11 = customtkinter.CTkLabel(f5,image = img11,text = "")
 labimg11.place(x = 15,y = 48)
 
@@ -202,7 +202,7 @@ button2.place(x = 185,y = 100)
 f6 = customtkinter.CTkFrame(f01,height = 150,width = 270,fg_color = "#ffffff",border_width = 1,border_color = "lightgray")
 f6.place(x = 290,y = 255)
 
-img12 = customtkinter.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\Event Mangement\pics\registration.png"),size = (42,38))
+img12 = customtkinter.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\registration.png"),size = (42,38))
 labimg12 = customtkinter.CTkLabel(f6,image = img12,text = "")
 labimg12.place(x = 15,y = 48)
 
@@ -239,7 +239,7 @@ label18.place(x = 20,y = 50)
 label19 =  customtkinter.CTkLabel(f7,text = "0.0%",fg_color = "#ffffff",text_color = "#000000",font = customtkinter.CTkFont(size = 17,weight = "bold"))
 label19.place(x = 20,y = 75)
 
-img13 = customtkinter.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\Event Mangement\pics\light-bulb.png"),size = (30,30))
+img13 = customtkinter.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\light-bulb.png"),size = (30,30))
 labimg13 = customtkinter.CTkLabel(f7,image = img13,text = "")
 labimg13.place(x = 15,y = 105)
 
@@ -249,7 +249,7 @@ label20.place(x = 60,y = 105)
 def butimg14():
     pass 
 
-img14 = customtkinter.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\Event Mangement\pics\ellipsis.png"),size = (30,20))
+img14 = customtkinter.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\ellipsis.png"),size = (30,20))
 butimg14 = customtkinter.CTkButton(f7,image = img14,text = "",command = butimg14,width = 20,fg_color = "#ffffff",hover_color = "#ffffff")
 butimg14.place(x = 220,y = 20)
 
@@ -277,14 +277,14 @@ f02.place(x = 567,y = 200)
 def butimg16():
     pass 
 
-img16 = ctk.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\Event Mangement\pics\right-arrow.png"),size = (30,30))
+img16 = ctk.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\right-arrow.png"),size = (30,30))
 butimg16 = ctk.CTkButton(f02,image = img16,text = "",command = butimg16,fg_color = "#C8C6F3",hover_color = "#ffffff",width = 20)
 butimg16.place(x = 400,y = 0)
 
 label25 = ctk.CTkLabel(f02,text = "Feature Status",text_color = "black",fg_color = "#F0F0F0",font = ctk.CTkFont(size = 17,weight = "bold"))
 label25.place(x = 15,y = 40)
 
-img17 = ctk.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\Event Mangement\pics\pending.png"),size = (30,25))
+img17 = ctk.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\pending.png"),size = (30,25))
 labimg17 = ctk.CTkLabel(f02,image = img17,text = "")
 labimg17.place(x = 150,y = 40)
 
@@ -307,7 +307,7 @@ e2.place(x = 15,y = 190)
 def butimg18():
     pass 
 
-img18 = customtkinter.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\Event Mangement\pics\loupe.png"),size = (10,10))
+img18 = customtkinter.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\loupe.png"),size = (10,10))
 butimg18 = customtkinter.CTkButton(e2,image = img7,text = "",fg_color = "white",hover_color = "#ffffff",corner_radius = 3,height = 10,width = 10,command = butimg18)
 butimg18.place(x = 228,y = 3)
 
