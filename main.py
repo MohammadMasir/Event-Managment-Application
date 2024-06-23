@@ -4,7 +4,6 @@ import pymysql as pq
 import tkinter as tk
 from tkinter.messagebox import showinfo, showwarning, showerror
 
-            # INSPECTION BRANCH #
             
 #COLORS :  #093838 -> Primary Color.    } In the Theme,
            #8bceba -> Secondary Color.  }  both the Primary & Secondary colors are used interchangeably.
@@ -367,9 +366,6 @@ class DemoApplication(ctk.CTk):
         self.toggle_fullscreen()
         self.bind("<F11>", self.toggle_fullscreen)
 
-        for widget in self.winfo_children():
-            widget.destroy()
-
         frame2 = ctk.CTkFrame(self, height=30, fg_color=self.bg)
         frame2.pack(fill="x")
 
@@ -409,6 +405,394 @@ class DemoApplication(ctk.CTk):
 
     def eventtab_widgets(self):
         # ctk.CTkLabel(self.event_tab, text="Manage your events here", font=ctk.CTkFont(size=20, weight="bold")).pack(pady=20)
+
+        self.event_widg_frame = ctk.CTkFrame(self.event_tab,height = 41,width = 1300,fg_color = "white")
+        self.event_widg_frame.place(x = 0,y = 0)
+
+        label1 = ctk.CTkLabel(self.event_widg_frame,text = "cvent",text_color = "black",justify = "right",font = ctk.CTkFont(size =  20,weight = "bold"))
+        label1.place(x = 15,y = 5)
+
+        label2 = ctk.CTkLabel(self.event_widg_frame,text = "",width = 2,height = 20,fg_color = "black")
+        label2.place(x = 80,y = 9.5)
+
+        label3 = ctk.CTkLabel(self.event_widg_frame,text = "EVENTS",text_color = "#3fa6fb",font = ctk.CTkFont(size = 17,weight = "bold"))
+        label3.place(x = 95,y = 5)
+
+        label4 = ctk.CTkLabel(self.event_widg_frame,text = "All Events",text_color = "black",font = ctk.CTkFont(size = 17,weight = "normal"))
+        label4.place(x = 420,y = 5)
+
+        x1 = tk.StringVar()
+        x1.set("Calendar")
+        opt1 = ctk.CTkComboBox(self.event_widg_frame,variable = x1,height = 35,width = 150,fg_color = "white",text_color = "black",border_color = "white",button_color = "white",button_hover_color = "white",font = ctk.CTkFont(size = 13,weight = "normal"),values = ["Events calendar","Internal calendar"])
+        opt1.place(x = 540,y = 5)
+
+        x2 = tk.StringVar()
+        x2.set("More")
+        opt2 = ctk.CTkComboBox(self.event_widg_frame,variable = x2,height = 35,width = 150,fg_color = "white",text_color = "black",border_color = "white",button_color = "white",button_hover_color = "white",font = ctk.CTkFont(size = 13,weight = "normal"),values = ["","","",""])
+        opt2.place(x = 700,y = 5)
+
+        def butimg1():
+            pass
+
+        img1 = ctk.CTkImage(dark_image = Image.open(r"pics\loupe.png"),size = (20,20))
+        butimg1 = ctk.CTkButton(self.event_widg_frame,image = img1,fg_color = "white",width = 20,text = "",hover_color = "#3fa6fb",command = butimg1)
+        butimg1.place(x = 1040,y = 5)
+
+        def butimg2():
+            pass 
+
+        img2 = ctk.CTkImage(dark_image = Image.open(r"pics\file.png"),size = (20,20))
+        butimg2 = ctk.CTkButton(self.event_widg_frame,image = img2,text = "",fg_color = "white",width = 20,hover_color = "#3fa6fb",command = butimg2)
+        butimg2.place(x = 1090,y = 5)
+
+        def butimg3():
+            pass
+
+        img3 = ctk.CTkImage(dark_image = Image.open(r"pics\question.png"),size = (20,20))
+        butimg3 = ctk.CTkButton(self.event_widg_frame,image = img3,text = "",fg_color = "white",width = 20,hover_color = "#3fa6fb",command = butimg3)
+        butimg3.place(x = 1140,y = 5)
+
+        def butimg4():
+            pass
+
+        img4 = ctk.CTkImage(dark_image = Image.open(r"pics\user (1).png"),size = (20,20))
+        butimg4 = ctk.CTkButton(self.event_widg_frame,image = img4,text = "",fg_color = "white",width = 20,hover_color = "#3fa6fb",command = butimg4)
+        butimg4.place(x = 1190,y = 5)
+
+        def butimg5():
+            pass
+
+        img5 = ctk.CTkImage(dark_image = Image.open(r"pics\menu.png"),size = (20,20))
+        butimg5 = ctk.CTkButton(self.event_widg_frame,image = img5,text = "",fg_color = "white",width = 20,hover_color = "#3fa6fb",command = butimg5)
+        butimg5.place(x = 1240,y = 5)
+
+        self.canvas1 = tk.Canvas(self.event_tab,height = 3,width = 1920,bg = "#0061ff",relief = tk.RAISED)
+        self.canvas1.place(x = 0,y = 56)
+
+        self.label15 = ctk.CTkLabel(self.event_tab,text = "Events",text_color = "#000000",font = ctk.CTkFont(size = 20,weight = "bold"))
+        self.label15.place(x = 15,y = 65)
+
+
+        self.create_event_button = ctk.CTkButton(self.event_tab,text = "Create Event",height = 30,width = 40,fg_color = "#2380D2",text_color = "#ffffff",corner_radius = 7,command = self.create_event)
+        self.create_event_button.place(x = 1140,y = 65)
+
+        self.main_frame = ctk.CTkFrame(self.event_tab,height = 520,width = 1280,fg_color = "#E6E6E6")
+        self.main_frame.place(x = 0,y = 130)
+
+        x3 = tk.StringVar()
+        x3.set("Current Events")
+        current_events_opt = ctk.CTkComboBox(self.main_frame,variable = x3,height = 35,width = 140,fg_color = "#E6E6E6",text_color = "black",button_color = "#E6E6E6",border_color = "#E6E6E6",button_hover_color = "#E6E6E6",font = ctk.CTkFont(size = 13,weight = "normal"),values = ["","","","",""])
+        current_events_opt.place(x = 30,y = 30)
+
+        def create_view():
+            pass
+
+        create_view_button = ctk.CTkButton(self.main_frame,text = "Create View",text_color = "#000000",hover_color = "#A4A4A4",width = 100,fg_color = "#E6E6E6",command = create_view)
+        create_view_button.place(x = 180,y = 35)
+
+        advanced_search_label = ctk.CTkLabel(self.main_frame,text = "Advanced Search",text_color = "#000000")
+        advanced_search_label.place(x = 1140,y = 35)
+
+        child_frame = ctk.CTkFrame(self.main_frame,fg_color = "#ffffff",height = 250,width = 1235)
+        child_frame.place(x = 20,y = 130)
+
+        inner_frame1 = ctk.CTkFrame(child_frame,height = 130,width = 1175,fg_color = "#ffffff",border_width = 0.8,border_color = "#919191")
+        inner_frame1.place(x = 30,y = 20)
+
+        title_label = ctk.CTkLabel(inner_frame1,text = "Title",text_color = "#000000",font = ctk.CTkFont(size = 14,weight = "normal"))
+        title_label.place(x = 20,y = 10)
+
+        x4 = tk.StringVar()
+        x4.set("Code")
+        code_dropdown = ctk.CTkComboBox(inner_frame1,variable = x4,height = 35,width = 100,fg_color = "#ffffff",text_color = "#000000",button_color = "#ffffff",border_color = "#ffffff",button_hover_color = "#ffffff",font = ctk.CTkFont(size = 13,weight = "normal"),values = ["","","","",""])
+        code_dropdown.place(x = 450,y = 10)
+
+        x5 = tk.StringVar()
+        x5.set("Event Status")
+        event_status_dropdown = ctk.CTkComboBox(inner_frame1,variable = x5,height = 35,width = 140,fg_color = "#ffffff",text_color = "#000000",button_color = "#ffffff",border_color = "#ffffff",button_hover_color = "#ffffff",font = ctk.CTkFont(size = 13,weight = "normal"),values = ["","","","",""])
+        event_status_dropdown.place(x = 590,y = 10)
+
+        x6 = tk.StringVar()
+        x6.set("Start Date")
+        start_date_dropdown = ctk.CTkComboBox(inner_frame1,variable = x6,height = 35,width = 140,fg_color = "#ffffff",text_color = "#000000",button_color = "#ffffff",border_color = "#ffffff",button_hover_color = "#ffffff",font = ctk.CTkFont(size = 13,weight = "normal"),values = ["","","","",""])
+        start_date_dropdown.place(x = 750,y = 10)
+
+        x7 = tk.StringVar()
+        x7.set("Yes")
+        yes_dropdown = ctk.CTkComboBox(inner_frame1,variable = x7,height = 35,width = 90,fg_color = "#ffffff",text_color = "#000000",button_color = "#ffffff",border_color = "#ffffff",button_hover_color = "#ffffff",font = ctk.CTkFont(size = 13,weight = "normal"),values = ["","","","",""])
+        yes_dropdown.place(x = 920,y = 10)
+
+        img6 = ctk.CTkImage(dark_image = Image.open(r"pics\question.png"),size = (20,20))
+        labimg6 = ctk.CTkLabel(inner_frame1,image = img6,text = "")
+        labimg6.place(x = 1050,y = 10)
+
+        no_label = ctk.CTkLabel(inner_frame1,text = "No",text_color = "#000000",font = ctk.CTkFont(size = 12,weight = "normal"))
+        no_label.place(x = 1090,y = 10)
+
+        canvas2 = tk.Canvas(inner_frame1,height = 3,width = 1900,bg = "#858585",relief = tk.SUNKEN)
+        canvas2.place(x =  -2,y = 70)
+
+        inner_frame2 = ctk.CTkFrame(inner_frame1,height = 78,width = 1172,fg_color = "#E6E6E6")
+        inner_frame2.place(x = 1,y = 50)
+
+        x8 = tk.StringVar()
+        text = "There are no events in this view."
+        x8.set(text)
+        data_label = ctk.CTkLabel(inner_frame2,text_color = "#000000",textvariable = x8,font = ctk.CTkFont(size = 15,weight = "bold"))
+        data_label.place(x = 500,y = 10)
+
+        result_per_page_label = ctk.CTkLabel(child_frame,text = "Results per page",fg_color = "#ffffff",text_color = "#000000",font = ctk.CTkFont(size = 13,weight = "normal"))
+        result_per_page_label.place(x = 30,y = 170)
+
+        x9 = tk.IntVar()
+        result_per_page_dropdown = ctk.CTkComboBox(child_frame,variable = x9,height = 35,width = 60,fg_color = "#ffffff",text_color = "#000000",border_width = 0.6,button_color = "#ffffff",corner_radius = 5,border_color = "#ffffff",button_hover_color = "#ffffff",font = ctk.CTkFont(size = 13,weight = "normal"),values = ["25","30","35","40"])
+        result_per_page_dropdown.place(x = 180,y = 170)
+
+        x10 = tk.StringVar()
+        text = "Displaying result 0 of 0"
+        x10.set(text)
+        displaying_result_label = ctk.CTkLabel(child_frame,textvariable = x10,text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "normal"))
+        displaying_result_label.place(x = 600,y = 170)
+
+        down_line = tk.Canvas(self.main_frame,height = 9,width = 1920,bg = "#858585",relief = tk.SUNKEN)
+        down_line.place(x = -2,y = 768)
+
+
+    def create_event(self):
+        self.event_widg_frame.destroy()
+        self.main_frame.destroy()
+        self.canvas1.destroy()
+        self.create_event_button.destroy()
+        self.label15.destroy()
+
+        my_img = ctk.CTkImage(dark_image = Image.open(r"pics\back.png"),size = (20,20))
+        self.cvent_labimg = ctk.CTkButton(self.event_tab,image = my_img,text = "",fg_color = "#F0F0F0",hover_color = "white",width = 15,border_width = 1,border_color = "#F0F0F0", command=self.back)
+        self.cvent_labimg.place(x = 8,y = 5)
+
+        self.cvent_l1 = ctk.CTkLabel(self.event_tab,text = "New event",font = ("bold",26)) #,text_color = "black",fg_color = "#F0F0F0",
+        self.cvent_l2 = ctk.CTkLabel(self.event_tab,text = "Great! Tell us a little about your event.",font = ("thin",19)) #,text_color = "black",fg_color = "#F0F0F0"
+        self.cvent_l1.place(x = 70,y = 30)
+        self.cvent_l2.place(x = 70,y = 57)
+
+        self.cvent_scrollable_frame = ctk.CTkScrollableFrame(self.event_tab,height = 470,width = 800,orientation = "vertical",fg_color = "white",border_width = 0.8,border_color = "black",scrollbar_button_color = "white",scrollbar_fg_color = "black")
+        self.cvent_frame = ctk.CTkFrame(self.cvent_scrollable_frame,fg_color = "white",height = 950,width = 800)
+        self.cvent_scrollable_frame.place(x = 70,y = 105)
+        self.cvent_frame.pack(expand=True)
+
+        img1 = ctk.CTkImage(dark_image = Image.open(r"pics\info.png"),size = (30,30))
+        labimg1 = ctk.CTkLabel(self.cvent_frame,image = img1,text = "")
+        labimg1.place(x = 30,y = 9)
+
+        l3 = ctk.CTkLabel(self.cvent_frame,text = "Basic Information",text_color = "black",font = ("darkbold",23))
+        l4 = ctk.CTkLabel(self.cvent_frame,text = "* Event Title",text_color = "black",font = ("thin",19))
+        l3.place(x = 67,y = 9)
+        l4.place(x = 30,y = 50)
+
+        def check_x1():
+            if x1.get() == "":
+                showerror(title = "Error",message = "Please input Event Title")
+
+            if x2.get() == "":
+                showerror(title = "Error",message = "Please choose Event Category")
+            
+            if x6.get() == "":
+                showerror(title = "Error",message = "Please input your last name")
+
+            if x7.get() == "":
+                showerror(title = "Error",message = "Please input your Email")
+
+            if x8.get() == "":
+                showerror(title = "Error",message = "Please input full Format")
+
+            if x10.get() == "":
+                showerror(title = "Error",message = "Please input full format")
+
+            if x14.get() == "":
+                showerror(title = "Error",message = "Please choose the state")
+            self.events_home()
+
+
+        x1 =ctk.StringVar()
+        e1 = ctk.CTkEntry(self.cvent_frame,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 690,textvariable = x1)
+        l5 = ctk.CTkLabel(self.cvent_frame,text = "* Event Category",text_color = "black",font = ("thin",19))
+        e1.place(x = 30,y = 82)
+        l5.place(x = 30,y = 128)
+
+        x2 =ctk.StringVar()
+        opt1 = ctk.CTkComboBox(self.cvent_frame,variable = x2,height = 35,width = 200,corner_radius = 5,border_width = 1,border_color = "gray",fg_color = "white",text_color = "black",button_hover_color = "#7D6D6D",font = ("semibold",17),values = ["Educational","Business","Sports"])
+        opt1.place(x = 30,y = 165)
+
+        l6 = ctk.CTkLabel(self.cvent_frame,text = "Language",text_color = "black",font = ("thin",19))
+        l6.place(x = 280,y = 128)
+        x3 =ctk.StringVar()
+
+        opt2 =  ctk.CTkComboBox(self.cvent_frame,variable = x3,height = 35,width = 200,corner_radius = 5,border_width = 1,border_color = "gray",fg_color = "white",text_color = "black",button_hover_color = "#7D6D6D",font = ("semibold",17),values = ["English","Spanish","Hindi"])
+        opt2.place(x = 280,y = 165)
+        l7 = ctk.CTkLabel(self.cvent_frame,text = "Locale",text_color = "black",font = ("thin",19))
+        l7.place(x = 520,y = 128)
+
+        x4 =ctk.StringVar()
+        opt3 =  ctk.CTkComboBox(self.cvent_frame,variable = x4,height = 35,width = 200,corner_radius = 5,border_width = 1,border_color = "gray",fg_color = "white",text_color = "black",button_hover_color = "#7D6D6D",font = ("semibold",17),values = ["USA","INDIA","CANADA"])
+        opt3.place(x = 520,y = 165)
+        l8 = ctk.CTkLabel(self.cvent_frame,text = "* Planner First Name",text_color = "black",font = ("thin",19))
+        l8.place(x = 30,y = 220)
+
+        x5 =ctk.StringVar()
+        e2 = ctk.CTkEntry(self.cvent_frame,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 200,textvariable = x5)
+        e2.place(x = 30,y = 250)
+        l9 = ctk.CTkLabel(self.cvent_frame,text = "* Last Name",text_color = "black",font = ("thin",19))
+        l9.place(x = 280,y = 220)
+
+        x6 =ctk.StringVar()
+        e3 = ctk.CTkEntry(self.cvent_frame,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 200,textvariable = x6)
+        e3.place(x = 280,y = 250)
+        label1 = ctk.CTkLabel(self.cvent_frame,text = "* Planner Email",text_color = "black",font = ("thin",19))
+        label1.place(x = 520,y = 220)
+
+        x7 =ctk.StringVar()
+        e4 = ctk.CTkEntry(self.cvent_frame,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 200,textvariable = x7)
+        e4.place(x = 520,y = 250)
+
+        img5 = ctk.CTkImage(dark_image = Image.open(r"pics\management.png"),size = (340,280))
+        self.cvent_labimg5 = ctk.CTkLabel(self.event_tab,image = img5,text = "")
+        self.cvent_labimg5.place(x = 940,y = 130)
+
+        self.label2 = ctk.CTkLabel(self.event_tab,text = "This is just the start..!!",text_color = "black",fg_color = "#F0F0F0",font = ("semibold",21))
+        self.label2.place(x = 940,y = 420)
+        self.label3 = ctk.CTkLabel(self.event_tab,text = "We can't wait to see what kind of event you put on!",text_color = "black",fg_color = "#F0F0F0",font = ("thin",16))
+        self.label3.place(x = 940,y = 450)
+
+        img2 = ctk.CTkImage(dark_image = Image.open(r"pics\location.png"),size = (30,30))
+        labimg2 = ctk.CTkLabel(self.cvent_frame,image = img2,text = "")
+        labimg2.place(x = 30,y = 310)
+
+        label4 = ctk.CTkLabel(self.cvent_frame,text = "Location",text_color = "black",fg_color = "white",font = ("darkbold",23))
+        label4.place(x = 67,y = 310)
+        label5 = ctk.CTkLabel(self.cvent_frame,text = "* Format",text_color = "black",font = ("thin",19))
+        label5.place(x = 30,y = 352)
+
+        x8 =ctk.StringVar()
+        e5 = ctk.CTkEntry(self.cvent_frame,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 200,textvariable = x8)
+        e5.place(x = 30,y = 394)
+
+        x9 =ctk.StringVar()
+        e6 = ctk.CTkEntry(self.cvent_frame,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 200,textvariable = x9)
+        e6.place(x = 280,y = 394)
+
+        x10 =ctk.StringVar()
+        e7 = ctk.CTkEntry(self.cvent_frame,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 200,textvariable = x10)
+        e7.place(x = 520,y = 394)
+
+        label6 = ctk.CTkLabel(self.cvent_frame,text = "Venue",text_color = "black",font = ("thin",19))
+        label6.place(x = 30,y = 436)
+
+        x11 =ctk.StringVar()
+        e8 = ctk.CTkEntry(self.cvent_frame,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 690,textvariable = x11)
+        e8.place(x = 30,y = 478)
+
+        img3 = ctk.CTkImage(dark_image = Image.open(r"pics\close.png"),size = (20,20))
+        self.cvent_labimg3 = ctk.CTkButton(self.event_tab,image = img3,text = "",fg_color = "#F0F0F0",hover_color = "white",width = 15,border_width = 1,border_color = "#F0F0F0")
+        self.cvent_labimg3.place(x = 1225,y = 5)
+
+        img4 = ctk.CTkImage(dark_image = Image.open(r"pics\mall.png"),size = (20,20))
+        labimg4 = ctk.CTkLabel(e8,image = img4,text = "")
+        labimg4.place(x = 653,y = 3)
+
+        label7 = ctk.CTkLabel(self.cvent_frame,text = "Address",text_color = "black",font = ("thin",19))
+        label7.place(x = 30,y = 520)
+
+        x12 =ctk.StringVar()
+        e9 = ctk.CTkEntry(self.cvent_frame,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 690,textvariable = x12)
+        e9.place(x = 30,y = 562)
+
+        label8 = ctk.CTkLabel(self.cvent_frame,text = "City",text_color = "black",font = ("thin",19))
+        label8.place(x = 30,y = 604)
+
+        x13 =ctk.StringVar()
+        e10 = ctk.CTkEntry(self.cvent_frame,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 145,textvariable = x13)
+        e10.place(x = 30,y = 646)
+
+        label9 = ctk.CTkLabel(self.cvent_frame,text = "* State",text_color = "black",font = ("thin",19))
+        label9.place(x = 205,y = 604)
+
+        x14 =ctk.StringVar()
+        opt4 = ctk.CTkComboBox(self.cvent_frame,variable = x14,height = 35,width = 145,corner_radius = 5,border_width = 1,border_color = "gray",fg_color = "white",text_color = "black",button_hover_color = "#7D6D6D",font = ("semibold",17),values = ["Maharashtra","Rajasthan","Uttar Pradesh","Gujarat","Punjab"])
+        opt4.place(x = 205,y = 646)
+
+        label10 = ctk.CTkLabel(self.cvent_frame,text = "ZIP/Postal code",text_color = "black",font = ("thin",19))
+        label10.place(x = 375,y = 604)
+
+        x15 =ctk.StringVar()
+        e11 = ctk.CTkEntry(self.cvent_frame,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 145,textvariable = x15)
+        e11.place(x = 375,y = 646)
+
+        label11 = ctk.CTkLabel(self.cvent_frame,text = "Country",text_color = "black",font = ("thin",19))
+        label11.place(x = 540,y = 604)
+
+        x16 =ctk.StringVar()
+        opt5 = ctk.CTkComboBox(self.cvent_frame,variable = x16,height = 35,width = 145,corner_radius = 5,border_width = 1,border_color = "gray",fg_color = "white",text_color = "black",button_hover_color = "#7D6D6D",font = ("semibold",17),values = ["India","New Zealand","USA","Russia"])
+        opt5.place(x = 540,y = 646)
+
+        img6 = ctk.CTkImage(dark_image = Image.open(r"pics\calendar.png"),size = (30,30))
+        labimg6 = ctk.CTkLabel(self.cvent_frame,image = img6,text = "")
+        labimg6.place(x = 30,y = 692)
+
+        label12 = ctk.CTkLabel(self.cvent_frame,text = "Event Dates",text_color = "black",font = ("darkbold",23))
+        label12.place(x = 67,y = 692)
+
+        label13 = ctk.CTkLabel(self.cvent_frame,text = "Start Date",text_color = "black",font = ("thin",19))
+        label13.place(x = 30,y = 732)
+
+        x17 =ctk.StringVar()
+        e12 = ctk.CTkEntry(self.cvent_frame,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 145,textvariable = x17)
+        e12.place(x = 30,y = 768)
+
+        label14 = ctk.CTkLabel(self.cvent_frame,text = "Start Time",text_color = "black",font = ("thin",19))
+        label14.place(x = 205,y = 732)
+
+        x18 =ctk.StringVar()
+        e13 = ctk.CTkEntry(self.cvent_frame,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 145,textvariable = x18)
+        e13.place(x = 205,y = 768)
+
+        label15 = ctk.CTkLabel(self.cvent_frame,text = "End Date",text_color = "black",font = ("thin",19))
+        label15.place(x = 375,y = 732)
+
+        x19 =ctk.StringVar()
+        e14 = ctk.CTkEntry(self.cvent_frame,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 145,textvariable = x19)
+        e14.place(x = 375,y = 768)
+
+        label16 = ctk.CTkLabel(self.cvent_frame,text = "End Time",text_color = "black",font = ("thin",19))
+        label16.place(x = 540,y = 732)
+
+        x20 =ctk.StringVar()
+        e15 = ctk.CTkEntry(self.cvent_frame,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 145,textvariable = x20)
+        e15.place(x = 540,y = 768)
+
+        img7 = ctk.CTkImage(dark_image = Image.open(r"pics\calendar (1).png"),size = (30,30))
+        labimg7 = ctk.CTkLabel(e12,image = img7,text = "")
+        labimg7.place(x = 105,y = 2)
+
+        labimg8 = ctk.CTkLabel(e14,image = img7,text = "")
+        labimg8.place(x = 105,y = 2)
+
+        label17 = ctk.CTkLabel(self.cvent_frame,text = "Time Zone",text_color = "black",font = ("thin",19))
+        label17.place(x = 30,y = 810)
+
+        x21 =ctk.StringVar()
+        opt6 = ctk.CTkComboBox(self.cvent_frame,variable = x21,height = 35,width = 690,corner_radius = 5,border_width = 1,border_color = "gray",fg_color = "white",text_color = "black",button_hover_color = "#7D6D6D",font = ("semibold",17),values = ["(GMT+05:30) India","(GMT+09:05) USA","(GMT-03:40) New Zealand"])
+        opt6.place(x = 30,y = 850)
+
+        b1 = ctk.CTkButton(self.cvent_frame,text = "Submit",height = 40,width = 170,corner_radius =10,fg_color = "lightgreen",text_color = "black",command = check_x1)
+        b1.place(x = 300,y = 904)
+
+    def events_home(self):
+        self.cvent_frame.destroy()
+        self.cvent_l1.destroy()
+        self.cvent_l2.destroy()
+        self.cvent_labimg.destroy()
+        self.cvent_labimg3.destroy()
+        self.cvent_labimg5.destroy()
+        self.cvent_scrollable_frame.destroy()
 
         f1 = ctk.CTkFrame(self.event_tab,height = 41,width = 1300,fg_color = "white")
         f1.place(x = 0,y = 0)
@@ -780,226 +1164,7 @@ class DemoApplication(ctk.CTk):
         label41.place(x = 22,y = 690)
 
     def tickettab_widgets(self):
-        # ctk.CTkLabel(self.ticket_tab, text="Handle registrations and tickets", font=ctk.CTkFont(size=20, weight="bold")).pack(pady=20)
-
-        my_img = ctk.CTkImage(dark_image = Image.open(r"pics\back.png"),size = (20,20))
-        labimg = ctk.CTkButton(self.ticket_tab,image = my_img,text = "",fg_color = "#F0F0F0",hover_color = "white",width = 15,border_width = 1,border_color = "#F0F0F0")
-        labimg.place(x = 8,y = 5)
-
-        l1 = ctk.CTkLabel(self.ticket_tab,text = "New event",font = ("bold",26)) #,text_color = "black",fg_color = "#F0F0F0",
-        l2 = ctk.CTkLabel(self.ticket_tab,text = "Great! Tell us a little about your event.",font = ("thin",19)) #,text_color = "black",fg_color = "#F0F0F0"
-        l1.place(x = 70,y = 30)
-        l2.place(x = 70,y = 57)
-
-        scrollable_frame = ctk.CTkScrollableFrame(self.ticket_tab,height = 470,width = 800,orientation = "vertical",fg_color = "white",border_width = 0.8,border_color = "black",scrollbar_button_color = "white",scrollbar_fg_color = "black")
-        f1 = ctk.CTkFrame(scrollable_frame,fg_color = "white",height = 950,width = 800)
-        scrollable_frame.place(x = 70,y = 105)
-        f1.pack(expand=True)
-
-        img1 = ctk.CTkImage(dark_image = Image.open(r"pics\info.png"),size = (30,30))
-        labimg1 = ctk.CTkLabel(f1,image = img1,text = "")
-        labimg1.place(x = 30,y = 9)
-
-        l3 = ctk.CTkLabel(f1,text = "Basic Information",text_color = "black",font = ("darkbold",23))
-        l4 = ctk.CTkLabel(f1,text = "* Event Title",text_color = "black",font = ("thin",19))
-        l3.place(x = 67,y = 9)
-        l4.place(x = 30,y = 50)
-
-        def check_x1():
-            if x1.get() == "":
-                showerror(title = "Error",message = "Please input Event Title")
-
-            if x2.get() == "":
-                showerror(title = "Error",message = "Please choose Event Category")
-            
-            if x6.get() == "":
-                showerror(title = "Error",message = "Please input your last name")
-
-            if x7.get() == "":
-                showerror(title = "Error",message = "Please input your Email")
-
-            if x8.get() == "":
-                showerror(title = "Error",message = "Please input full Format")
-
-            if x10.get() == "":
-                showerror(title = "Error",message = "Please input full format")
-
-            if x14.get() == "":
-                showerror(title = "Error",message = "Please choose the state")
-
-
-        x1 =ctk.StringVar()
-        e1 = ctk.CTkEntry(f1,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 690,textvariable = x1)
-        l5 = ctk.CTkLabel(f1,text = "* Event Category",text_color = "black",font = ("thin",19))
-        e1.place(x = 30,y = 82)
-        l5.place(x = 30,y = 128)
-
-        x2 =ctk.StringVar()
-        opt1 = ctk.CTkComboBox(f1,variable = x2,height = 35,width = 200,corner_radius = 5,border_width = 1,border_color = "gray",fg_color = "white",text_color = "black",button_hover_color = "#7D6D6D",font = ("semibold",17),values = ["Educational","Business","Sports"])
-        opt1.place(x = 30,y = 165)
-
-        l6 = ctk.CTkLabel(f1,text = "Language",text_color = "black",font = ("thin",19))
-        l6.place(x = 280,y = 128)
-        x3 =ctk.StringVar()
-
-        opt2 =  ctk.CTkComboBox(f1,variable = x3,height = 35,width = 200,corner_radius = 5,border_width = 1,border_color = "gray",fg_color = "white",text_color = "black",button_hover_color = "#7D6D6D",font = ("semibold",17),values = ["English","Spanish","Hindi"])
-        opt2.place(x = 280,y = 165)
-        l7 = ctk.CTkLabel(f1,text = "Locale",text_color = "black",font = ("thin",19))
-        l7.place(x = 520,y = 128)
-
-        x4 =ctk.StringVar()
-        opt3 =  ctk.CTkComboBox(f1,variable = x4,height = 35,width = 200,corner_radius = 5,border_width = 1,border_color = "gray",fg_color = "white",text_color = "black",button_hover_color = "#7D6D6D",font = ("semibold",17),values = ["USA","INDIA","CANADA"])
-        opt3.place(x = 520,y = 165)
-        l8 = ctk.CTkLabel(f1,text = "* Planner First Name",text_color = "black",font = ("thin",19))
-        l8.place(x = 30,y = 220)
-
-        x5 =ctk.StringVar()
-        e2 = ctk.CTkEntry(f1,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 200,textvariable = x5)
-        e2.place(x = 30,y = 250)
-        l9 = ctk.CTkLabel(f1,text = "* Last Name",text_color = "black",font = ("thin",19))
-        l9.place(x = 280,y = 220)
-
-        x6 =ctk.StringVar()
-        e3 = ctk.CTkEntry(f1,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 200,textvariable = x6)
-        e3.place(x = 280,y = 250)
-        label1 = ctk.CTkLabel(f1,text = "* Planner Email",text_color = "black",font = ("thin",19))
-        label1.place(x = 520,y = 220)
-
-        x7 =ctk.StringVar()
-        e4 = ctk.CTkEntry(f1,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 200,textvariable = x7)
-        e4.place(x = 520,y = 250)
-
-        img5 = ctk.CTkImage(dark_image = Image.open(r"pics\management.png"),size = (340,280))
-        labimg5 = ctk.CTkLabel(self.ticket_tab,image = img5,text = "")
-        labimg5.place(x = 940,y = 130)
-
-        label2 = ctk.CTkLabel(self.ticket_tab,text = "This is just the start..!!",text_color = "black",fg_color = "#F0F0F0",font = ("semibold",21))
-        label2.place(x = 940,y = 420)
-        label3 = ctk.CTkLabel(self.ticket_tab,text = "We can't wait to see what kind of event you put on!",text_color = "black",fg_color = "#F0F0F0",font = ("thin",16))
-        label3.place(x = 940,y = 450)
-
-        img2 = ctk.CTkImage(dark_image = Image.open(r"pics\location.png"),size = (30,30))
-        labimg2 = ctk.CTkLabel(f1,image = img2,text = "")
-        labimg2.place(x = 30,y = 310)
-
-        label4 = ctk.CTkLabel(f1,text = "Location",text_color = "black",fg_color = "white",font = ("darkbold",23))
-        label4.place(x = 67,y = 310)
-        label5 = ctk.CTkLabel(f1,text = "* Format",text_color = "black",font = ("thin",19))
-        label5.place(x = 30,y = 352)
-
-        x8 =ctk.StringVar()
-        e5 = ctk.CTkEntry(f1,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 200,textvariable = x8)
-        e5.place(x = 30,y = 394)
-
-        x9 =ctk.StringVar()
-        e6 = ctk.CTkEntry(f1,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 200,textvariable = x9)
-        e6.place(x = 280,y = 394)
-
-        x10 =ctk.StringVar()
-        e7 = ctk.CTkEntry(f1,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 200,textvariable = x10)
-        e7.place(x = 520,y = 394)
-
-        label6 = ctk.CTkLabel(f1,text = "Venue",text_color = "black",font = ("thin",19))
-        label6.place(x = 30,y = 436)
-
-        x11 =ctk.StringVar()
-        e8 = ctk.CTkEntry(f1,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 690,textvariable = x11)
-        e8.place(x = 30,y = 478)
-
-        img3 = ctk.CTkImage(dark_image = Image.open(r"pics\close.png"),size = (20,20))
-        labimg3 = ctk.CTkButton(self.ticket_tab,image = img3,text = "",fg_color = "#F0F0F0",hover_color = "white",width = 15,border_width = 1,border_color = "#F0F0F0")
-        labimg3.place(x = 1225,y = 5)
-
-        img4 = ctk.CTkImage(dark_image = Image.open(r"pics\mall.png"),size = (20,20))
-        labimg4 = ctk.CTkLabel(e8,image = img4,text = "")
-        labimg4.place(x = 653,y = 3)
-
-        label7 = ctk.CTkLabel(f1,text = "Address",text_color = "black",font = ("thin",19))
-        label7.place(x = 30,y = 520)
-
-        x12 =ctk.StringVar()
-        e9 = ctk.CTkEntry(f1,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 690,textvariable = x12)
-        e9.place(x = 30,y = 562)
-
-        label8 = ctk.CTkLabel(f1,text = "City",text_color = "black",font = ("thin",19))
-        label8.place(x = 30,y = 604)
-
-        x13 =ctk.StringVar()
-        e10 = ctk.CTkEntry(f1,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 145,textvariable = x13)
-        e10.place(x = 30,y = 646)
-
-        label9 = ctk.CTkLabel(f1,text = "* State",text_color = "black",font = ("thin",19))
-        label9.place(x = 205,y = 604)
-
-        x14 =ctk.StringVar()
-        opt4 = ctk.CTkComboBox(f1,variable = x14,height = 35,width = 145,corner_radius = 5,border_width = 1,border_color = "gray",fg_color = "white",text_color = "black",button_hover_color = "#7D6D6D",font = ("semibold",17),values = ["Maharashtra","Rajasthan","Uttar Pradesh","Gujarat","Punjab"])
-        opt4.place(x = 205,y = 646)
-
-        label10 = ctk.CTkLabel(f1,text = "ZIP/Postal code",text_color = "black",font = ("thin",19))
-        label10.place(x = 375,y = 604)
-
-        x15 =ctk.StringVar()
-        e11 = ctk.CTkEntry(f1,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 145,textvariable = x15)
-        e11.place(x = 375,y = 646)
-
-        label11 = ctk.CTkLabel(f1,text = "Country",text_color = "black",font = ("thin",19))
-        label11.place(x = 540,y = 604)
-
-        x16 =ctk.StringVar()
-        opt5 = ctk.CTkComboBox(f1,variable = x16,height = 35,width = 145,corner_radius = 5,border_width = 1,border_color = "gray",fg_color = "white",text_color = "black",button_hover_color = "#7D6D6D",font = ("semibold",17),values = ["India","New Zealand","USA","Russia"])
-        opt5.place(x = 540,y = 646)
-
-        img6 = ctk.CTkImage(dark_image = Image.open(r"pics\calendar.png"),size = (30,30))
-        labimg6 = ctk.CTkLabel(f1,image = img6,text = "")
-        labimg6.place(x = 30,y = 692)
-
-        label12 = ctk.CTkLabel(f1,text = "Event Dates",text_color = "black",font = ("darkbold",23))
-        label12.place(x = 67,y = 692)
-
-        label13 = ctk.CTkLabel(f1,text = "Start Date",text_color = "black",font = ("thin",19))
-        label13.place(x = 30,y = 732)
-
-        x17 =ctk.StringVar()
-        e12 = ctk.CTkEntry(f1,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 145,textvariable = x17)
-        e12.place(x = 30,y = 768)
-
-        label14 = ctk.CTkLabel(f1,text = "Start Time",text_color = "black",font = ("thin",19))
-        label14.place(x = 205,y = 732)
-
-        x18 =ctk.StringVar()
-        e13 = ctk.CTkEntry(f1,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 145,textvariable = x18)
-        e13.place(x = 205,y = 768)
-
-        label15 = ctk.CTkLabel(f1,text = "End Date",text_color = "black",font = ("thin",19))
-        label15.place(x = 375,y = 732)
-
-        x19 =ctk.StringVar()
-        e14 = ctk.CTkEntry(f1,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 145,textvariable = x19)
-        e14.place(x = 375,y = 768)
-
-        label16 = ctk.CTkLabel(f1,text = "End Time",text_color = "black",font = ("thin",19))
-        label16.place(x = 540,y = 732)
-
-        x20 =ctk.StringVar()
-        e15 = ctk.CTkEntry(f1,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 145,textvariable = x20)
-        e15.place(x = 540,y = 768)
-
-        img7 = ctk.CTkImage(dark_image = Image.open(r"pics\calendar (1).png"),size = (30,30))
-        labimg7 = ctk.CTkLabel(e12,image = img7,text = "")
-        labimg7.place(x = 105,y = 2)
-
-        labimg8 = ctk.CTkLabel(e14,image = img7,text = "")
-        labimg8.place(x = 105,y = 2)
-
-        label17 = ctk.CTkLabel(f1,text = "Time Zone",text_color = "black",font = ("thin",19))
-        label17.place(x = 30,y = 810)
-
-        x21 =ctk.StringVar()
-        opt6 = ctk.CTkComboBox(f1,variable = x21,height = 35,width = 690,corner_radius = 5,border_width = 1,border_color = "gray",fg_color = "white",text_color = "black",button_hover_color = "#7D6D6D",font = ("semibold",17),values = ["(GMT+05:30) India","(GMT+09:05) USA","(GMT-03:40) New Zealand"])
-        opt6.place(x = 30,y = 850)
-
-        b1 = ctk.CTkButton(f1,text = "Submit",height = 40,width = 170,corner_radius =10,fg_color = "lightgreen",text_color = "black",command = check_x1)
-        b1.place(x = 300,y = 904)
+        ctk.CTkLabel(self.ticket_tab, text="Handle registrations and tickets", font=ctk.CTkFont(size=20, weight="bold")).pack(pady=20)
 
     def reporttab_widgets(self):
         ctk.CTkLabel(self.report_tab, text="View analytics and reports", font=ctk.CTkFont(size=20, weight="bold")).pack(pady=20)
