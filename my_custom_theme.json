@@ -1,14 +1,16 @@
 {
     "CTk": {
-      "fg_color": ["#8bceba", "#093838"]
+      "fg_color": ["#8bceba", "#093838"],
+      "selected_tab_fg_color" : ["#8bceba", "#8bceba"]
     },
     "CTkToplevel": {
-      "fg_color": ["#8bceba", "#093838"]
+      "fg_color": ["#8bceba", "#093838"],
+      "selected_tab_fg_color" : ["#8bceba", "#8bceba"]
     },
     "CTkFrame": {
       "corner_radius": 6,
       "border_width": 0,
-      "fg_color": ["#8bceba", "#093838"],
+      "fg_color": ["gainsboro", "gainsboro"],
       "top_fg_color": ["#8bceba", "#093838"],
       "border_color": ["#8bceba", "#093838"]
     },
@@ -111,7 +113,7 @@
       "corner_radius": 6,
       "border_width": 2,
       "fg_color": ["#8bceba", "#093838"],
-      "selected_color": ["#093838", "#093838"],
+      "selected_color": ["#20807f", "#20807f"],
       "selected_hover_color": ["#20807f", "#20807f"],
       "unselected_color": ["#8bceba", "#093838"],
       "unselected_hover_color": ["#20807f", "#20807f"],
