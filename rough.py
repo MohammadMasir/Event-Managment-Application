@@ -55,38 +55,234 @@
 
 # # ... (rest of the code remains the same)
 # if __name__ == "__main__":
-#     app = SidebarApp()
-#     app.mainloop()
+    # app = SidebarApp()
+    # app.mainloop()
+
+# import customtkinter as ctk
+
+# class SidebarApp(ctk.CTk):
+#     def __init__(self):
+#         super().__init__()
+
+#         self.title("Sidebar Example")
+#         self.geometry("800x600")
+
+#         # Create sidebar frame
+#         self.sidebar = ctk.CTkScrollableFrame(self, width=250, corner_radius=0)
+#         self.sidebar.pack(side="left", fill="y", expand=False)
+
+#         # Create main content area
+#         self.main_content = ctk.CTkFrame(self)
+#         self.main_content.pack(side="right", fill="both", expand=True)
+
+#         # Create sidebar menu items
+#         self.create_sidebar_item("General", ["Option 1", "Option 2"])
+#         self.create_sidebar_item("Registration", ["Register", "Unregister"])
+#         self.create_sidebar_item("Marketing", ["Campaigns", "Analytics"])
+#         self.create_sidebar_item("Email", ["Compose", "Inbox", "Sent"])
+#         self.create_sidebar_item("Attendees", ["List", "Groups"])
+#         self.create_sidebar_item("Surveys", ["Feedback Surveys", "Responses"])
+#         self.create_sidebar_item("Reports", ["Generate", "View"])
+#         self.create_sidebar_item("Integrations", ["Connect", "Manage"])
+
+#     def create_sidebar_item(self, label, subitems):
+#         frame = ctk.CTkFrame(self.sidebar, corner_radius=0)
+#         frame.pack(fill="x", pady=(0, 1))
+
+#         # Create a sub-frame for the button content
+#         button_frame = ctk.CTkFrame(frame, corner_radius=0, fg_color="#20807f")
+#         button_frame.pack(fill="x")
+
+#         # Label on the left
+#         label_widget = ctk.CTkButton(button_frame, text=label, anchor="w", command= lambda : self.toggle_subitems(frame, label, subitems), fg_color="#20807f", text_color="white")
+#         label_widget.pack(side="left")
+
+#         # Arrow on the right
+#         self.arrow_label = ctk.CTkLabel(button_frame, text="▼", anchor="e")
+#         self.arrow_label.pack(side="right",padx=(0,5))
+
+#         # Make the whole frame clickable
+#         button_frame.bind("<Button-1>", lambda event: self.toggle_subitems(frame, label, subitems))
+
+#         # Create hidden frame for subitems
+#         subframe = ctk.CTkFrame(frame, corner_radius=20, fg_color="#093838")
+#         subframe.pack(fill="x")
+#         subframe.pack_forget()  # Initially hidden
+
+#     # Create buttons for subitems
+#         for item in subitems:
+#             sub_button = ctk.CTkButton(subframe, text=f"  • {item}", anchor="w", fg_color="transparent", hover_color=("gray70", "gray30"), text_color="white")
+#             sub_button.pack(fill="x")
+
+#     def toggle_subitems(self, parent_frame, label, subitems):
+#         subframe = parent_frame.winfo_children()[1]  # The subframe
+#         self.arrow_label = parent_frame.winfo_children()[0].winfo_children()[1]  # The arrow label
+        
+#         if subframe.winfo_viewable():
+#             subframe.pack_forget()
+#             self.arrow_label.configure(text="▼")
+#         else:
+#             subframe.pack(fill="x")
+#             self.arrow_label.configure(text="▲")
+# # ... (rest of the code remains the same)
+# if __name__ == "__main__":
+    # app = SidebarApp()
+    # app.mainloop()
+
+# import customtkinter as ctk
+# from PIL import Image, ImageTk
+
+# class RegistrationFormBuilder:
+#     def __init__(self, master):
+#         self.master = master
+#         self.master.title("Registration Form Builder")
+#         self.master.geometry("1200x800")
+
+#         self.setup_layout()
+
+#     def setup_layout(self):
+#         # Main container
+#         self.main_container = ctk.CTkFrame(self.master)
+#         self.main_container.pack(fill="both", expand=True, padx=10, pady=10)
+
+#         # Form preview pane
+#         self.preview_pane = ctk.CTkFrame(self.main_container)
+#         self.preview_pane.pack(side="left", fill="both", expand=True, padx=5, pady=5)
+
+#         # Customization pane
+#         self.custom_pane = ctk.CTkFrame(self.main_container)
+#         self.custom_pane.pack(side="right", fill="y", padx=5, pady=5)
+
+#         self.setup_preview_pane()
+#         self.setup_custom_pane()
+
+#     def setup_preview_pane(self):
+#         # Add form elements here
+#         ctk.CTkLabel(self.preview_pane, text="DemEven", font=("Arial", 24, "bold")).pack(pady=10)
+#         ctk.CTkLabel(self.preview_pane, text="July 30, 2024").pack()
+#         ctk.CTkLabel(self.preview_pane, text="6:00 PM-10:00 PM").pack()
+#         ctk.CTkLabel(self.preview_pane, text="Chicago, Chicago, IL").pack(pady=(0, 20))
+
+#         ctk.CTkLabel(self.preview_pane, text="Personal Information", font=("Arial", 18)).pack(pady=10)
+        
+#         fields = ["First Name", "Last Name", "Email Address", "Mobile", "Company"]
+#         for field in fields:
+#             frame = ctk.CTkFrame(self.preview_pane)
+#             frame.pack(fill="x", padx=20, pady=5)
+#             ctk.CTkLabel(frame, text=f"* {field}" if field in ["First Name", "Last Name", "Email Address"] else field).pack(side="left")
+#             ctk.CTkEntry(frame).pack(side="right", expand=True, fill="x", padx=(10, 0))
+
+#     def setup_custom_pane(self):
+#         ctk.CTkLabel(self.custom_pane, text="Theme").pack(pady=10)
+        
+#         # Add logo upload button
+#         ctk.CTkButton(self.custom_pane, text="Add Logo").pack(pady=5)
+        
+#         # Add background image selection
+#         ctk.CTkButton(self.custom_pane, text="Edit Background Image").pack(pady=5)
+        
+#         # Add color selection
+#         ctk.CTkLabel(self.custom_pane, text="Colors").pack(pady=5)
+#         ctk.CTkOptionMenu(self.custom_pane, values=["Default", "Custom"]).pack(pady=5)
+
+#         # Add save and publish buttons
+#         ctk.CTkButton(self.custom_pane, text="Save").pack(side="bottom", pady=5)
+#         ctk.CTkButton(self.custom_pane, text="Publish").pack(side="bottom", pady=5)
+
+# if __name__ == "__main__":
+    # ctk.set_appearance_mode("light")
+    # root = ctk.CTk()
+    # app = RegistrationFormBuilder(root)
+    # root.mainloop()
 
 import customtkinter as ctk
+from PIL import Image
+import tkinter as tk
 
-class SidebarApp(ctk.CTk):
+class DemoApplication(ctk.CTk):
     def __init__(self):
         super().__init__()
+        self.geometry("700x500")
+        self.resizable(width=True, height=True)
+        self.title("DemoApplication")
+        self.configure(fg_color="#093838")
 
-        self.title("Sidebar Example")
-        self.geometry("800x600")
+        ctk.set_appearance_mode("dark")
+        ctk.set_default_color_theme("my_custom_theme")
 
-        # Create sidebar frame
-        self.sidebar = ctk.CTkScrollableFrame(self, width=250, corner_radius=0)
-        self.sidebar.pack(side="left", fill="y", expand=False)
+        self.primary_color = "#093838"
+        self.secondary_color = "#8bceba"
+        self.bg = "gainsboro"
+        self.text_color = "#092928"
+        self.hovercolor_bg = "#20807f"
+        self.hovercolor_txt = "white"
 
-        # Create main content area
-        self.main_content = ctk.CTkFrame(self)
-        self.main_content.pack(side="right", fill="both", expand=True)
+        self.click_count = 0
+        self.f3 = None
+        self.create_widgets()
 
-        # Create sidebar menu items
-        self.create_sidebar_item("General", ["Option 1", "Option 2"])
-        self.create_sidebar_item("Registration", ["Register", "Unregister"])
-        self.create_sidebar_item("Marketing", ["Campaigns", "Analytics"])
-        self.create_sidebar_item("Email", ["Compose", "Inbox", "Sent"])
-        self.create_sidebar_item("Attendees", ["List", "Groups"])
-        self.create_sidebar_item("Surveys", ["Feedback Surveys", "Responses"])
-        self.create_sidebar_item("Reports", ["Generate", "View"])
-        self.create_sidebar_item("Integrations", ["Connect", "Manage"])
+    def toggle_fullscreen(self, event=None):
+        # Set the application to fullscreen mode
+        self.attributes('-fullscreen', True)
+        self.bind("<Escape>", self.exit_fullscreen)
+
+    def exit_fullscreen(self, event=None):
+        width = self.winfo_screenwidth()
+        height = self.winfo_screenheight()
+        # Exit fullscreen mode
+        self.attributes('-fullscreen', False)
+        self.resizable(width=True, height=True)
+        self.geometry(f'{width - 200}x{height-100}')
+        self.maxsize(width,height)
+        # self.minsize(width,height)
+
+    def create_widgets(self):
+        self.toggle_fullscreen()
+        self.bind("<F11>", self.toggle_fullscreen)
+
+        frame2 = ctk.CTkFrame(self, height=30, fg_color=self.bg)
+        frame2.pack(fill="x")
+
+        labe = ctk.CTkLabel(frame2, text="Event Manager", font=("Segoe UI", 40, "bold"), text_color="white", fg_color=self.secondary_color, corner_radius=12)
+        labe.pack(pady=10, ipady=5,expand=True)
+
+        # Create a notebook (tabbed interface)
+        notebook = ctk.CTkTabview(self, width=700, height=500, bg_color = "gainsboro", corner_radius=12) #3fa572 #333333
+        notebook.pack(padx=20, pady=20, fill="both", expand=True)
+        # notebook.set(self.event_tab)
+
+        # Dashboard Tab
+        self.dashboard_tab = notebook.add("Dashboard")
+        self.dashboard_widgets()
+
+        # Event Management Tab
+        self.event_tab = notebook.add("Event Management")
+
+        self.full_frame1 = ctk.CTkFrame(self.event_tab, fg_color="white")
+        self.full_frame1.place(relx = 0.0, rely=0.0, relwidth =1, relheight = 1)
+
+        self.full_frame2 = ctk.CTkFrame(self.event_tab, fg_color=self.secondary_color, height=44)
+        self.full_frame2.place(relx = 0.0, y=41, relwidth =1)
+
+        self.full_frame3 = ctk.CTkFrame(self.event_tab, fg_color="#F0F0F0")
+        self.full_frame3.place(relx = 0.0,y = 82, relwidth =1, relheight = 1)
+
+        self.events_home()
+
+        # Registration and Ticketing Tab
+        self.ticket_tab = notebook.add("Registration and Ticketing")
+        self.tickettab_widgets()
+
+        # Reporting and Analytics Tab
+        self.report_tab = notebook.add("Reporting and Analytics")
+        self.reporttab_widgets()
+
+        # Survey and Feedback Tab
+        self.survey_tab = notebook.add("Survey and Feedback")
+        self.surveytab_widgets()
 
     def create_sidebar_item(self, label, subitems):
-        frame = ctk.CTkFrame(self.sidebar, corner_radius=0)
+        frame = ctk.CTkFrame(self.f3, corner_radius=0)
         frame.pack(fill="x", pady=(0, 1))
 
         # Create a sub-frame for the button content
@@ -94,37 +290,402 @@ class SidebarApp(ctk.CTk):
         button_frame.pack(fill="x")
 
         # Label on the left
-        label_widget = ctk.CTkButton(button_frame, text=label, anchor="w", command= lambda : self.toggle_subitems(frame, label, subitems), fg_color="#20807f", text_color="white")
+        label_widget = ctk.CTkButton(button_frame, text=label, anchor="w", command=lambda: self.toggle_subitems(frame, subitems), fg_color="#20807f", text_color="white")
         label_widget.pack(side="left")
 
         # Arrow on the right
-        self.arrow_label = ctk.CTkLabel(button_frame, text="▼", anchor="e")
-        self.arrow_label.pack(side="right",padx=(0,5))
+        arrow_label = ctk.CTkLabel(button_frame, text="▼", anchor="e")
+        arrow_label.pack(side="right", padx=(0, 5))
 
         # Make the whole frame clickable
-        button_frame.bind("<Button-1>", lambda event: self.toggle_subitems(frame, label, subitems))
+        button_frame.bind("<Button-1>", lambda event: self.toggle_subitems(frame, subitems))
 
         # Create hidden frame for subitems
         subframe = ctk.CTkFrame(frame, corner_radius=20, fg_color="#093838")
         subframe.pack(fill="x")
         subframe.pack_forget()  # Initially hidden
 
-    # Create buttons for subitems
+        # Create buttons for subitems
         for item in subitems:
             sub_button = ctk.CTkButton(subframe, text=f"  • {item}", anchor="w", fg_color="transparent", hover_color=("gray70", "gray30"), text_color="white")
             sub_button.pack(fill="x")
 
-    def toggle_subitems(self, parent_frame, label, subitems):
-        subframe = parent_frame.winfo_children()[1]  # The subframe
-        self.arrow_label = parent_frame.winfo_children()[0].winfo_children()[1]  # The arrow label
-        
+    def toggle_subitems(self, frame, subitems):
+        subframe = frame.winfo_children()[1]  # The subframe
+        arrow_label = frame.winfo_children()[0].winfo_children()[1]  # The arrow label
+
         if subframe.winfo_viewable():
             subframe.pack_forget()
-            self.arrow_label.configure(text="▼")
+            arrow_label.configure(text="▼")
         else:
             subframe.pack(fill="x")
-            self.arrow_label.configure(text="▲")
-# ... (rest of the code remains the same)
-if __name__ == "__main__":
-    app = SidebarApp()
+            arrow_label.configure(text="▲")
+
+    def menu_animation(self):
+        self.click_count += 1
+
+        if self.click_count % 2 != 0:
+            # Open sidebar
+            if self.f3 is None or not self.f3.winfo_exists():
+                self.f3 = ctk.CTkScrollableFrame(self.full_frame3, width=240, border_width=1, border_color="lightgray")
+                self.f3.place(relheight=1, relx=0, y=0)
+
+                self.create_sidebar_item("General", ["Option 1", "Option 2"])
+                self.create_sidebar_item("Registration", ["Register", "Unregister"])
+                self.create_sidebar_item("Marketing", ["Campaigns", "Analytics"])
+                self.create_sidebar_item("Email", ["Compose", "Inbox", "Sent"])
+                self.create_sidebar_item("Attendees", ["List", "Groups"])
+                self.create_sidebar_item("Surveys", ["Feedback Surveys", "Responses"])
+                self.create_sidebar_item("Reports", ["Generate", "View"])
+                self.create_sidebar_item("Integrations", ["Connect", "Manage"])
+
+            # Adjust main content
+            self.f0.place_configure(relx=0.25, y=0, relwidth=0.75)
+        else:
+            # Close sidebar
+            if self.f3 is not None and self.f3.winfo_exists():
+                self.f3.place_forget()
+
+            # Reset main content
+            self.f0.place_configure(relx=0.1, y=0, relwidth=1.0)
+
+        # No need for separate animate method
+        # self.after(1, lambda: self.animate(250, 82, 0.808))
+    def events_home(self):
+
+        f1 = ctk.CTkFrame(self.full_frame1, height=41, fg_color="white")
+        f1.place(relwidth = 1,relx=0.1, y=0)
+
+        label1 = ctk.CTkLabel(f1, text="cvent", text_color="black", justify="right", font=ctk.CTkFont(size=20, weight="bold"))
+        label1.place(x=15, y=5)
+
+        label2 = ctk.CTkLabel(f1, text="", width=2, height=20, fg_color="black")
+        label2.place(x=80, y=9.5)
+
+        label3 = ctk.CTkLabel(f1, text="EVENTS", text_color="#3fa6fb", font=ctk.CTkFont(size=17, weight="bold"))
+        label3.place(x=95, y=5)
+
+        label4 = ctk.CTkLabel(f1, text="All Events", text_color="black", font=ctk.CTkFont(size=17, weight="normal"))
+        label4.place(x=420, y=5)
+
+        x1 = ctk.StringVar()
+        x1.set("Calendar")
+        opt1 = ctk.CTkComboBox(f1, variable=x1, height=35, width=100, fg_color="white", text_color="black", border_color="white", button_color="white", button_hover_color="white", font=ctk.CTkFont(size=13, weight="normal"), values=["2020", "2021", "2022", "2023"])
+        opt1.place(x=540, y=5)
+
+        x2 = ctk.StringVar()
+        x2.set("More")
+        opt2 = ctk.CTkComboBox(f1, variable=x2, height=35, width=90, fg_color="white", text_color="black", border_color="white", button_color="white", button_hover_color="white", font=ctk.CTkFont(size=13, weight="normal"), values=["", "", "", ""])
+        opt2.place(x=670, y=5)
+
+        def butimg1():
+            pass
+
+        img1 = ctk.CTkImage(dark_image=Image.open(r"pics\loupe.png"), size=(20, 20))
+        butimg1 = ctk.CTkButton(f1, image=img1, fg_color="white", width=20, text="", hover_color="#3fa6fb", command=butimg1)
+        butimg1.place(x=1040, y=5)
+
+        def butimg2():
+            pass
+
+        img2 = ctk.CTkImage(dark_image=Image.open(r"pics\file.png"), size=(20, 20))
+        butimg2 = ctk.CTkButton(f1, image=img2, text="", fg_color="white", width=20, hover_color="#3fa6fb", command=butimg2)
+        butimg2.place(x=1090, y=5)
+
+        def butimg3():
+            pass
+
+        img3 = ctk.CTkImage(dark_image=Image.open(r"pics\question.png"), size=(20, 20))
+        butimg3 = ctk.CTkButton(f1, image=img3, text="", fg_color="white", width=20, hover_color="#3fa6fb", command=butimg3)
+        butimg3.place(x=1140, y=5)
+
+        def butimg4():
+            pass
+
+        img4 = ctk.CTkImage(dark_image=Image.open(r"pics\user (1).png"), size=(20, 20))
+        butimg4 = ctk.CTkButton(f1, image=img4, text="", fg_color="white", width=20, hover_color="#3fa6fb", command=butimg4)
+        butimg4.place(x=1190, y=5)
+
+        def butimg5():
+            pass
+
+        img5 = ctk.CTkImage(dark_image=Image.open(r"pics\menu.png"), size=(20, 20))
+        butimg5 = ctk.CTkButton(f1, image=img5, text="", fg_color="white", width=20, hover_color="#3fa6fb", command=butimg5)
+        butimg5.place(x=1240, y=5)
+
+        # canvas1 = tk.Canvas(self.event_tab, height=3, width=1920, bg="#0061ff", relief="raised")
+        # canvas1.place(x=0, y=56)
+
+        self.f2 = ctk.CTkFrame(self.full_frame2, height=44, fg_color="transparent")
+        self.f2.place(relwidth = 1,relx=0.107, y=0)
+
+            
+        img6 = ctk.CTkImage(dark_image=Image.open(r"pics\lines.png"), size=(20, 20))
+        butimg6 = ctk.CTkButton(self.f2, image=img6, text="", fg_color="white", width=20, hover_color="white", command=self.menu_animation)
+        butimg6.place(x=6, y=5)
+
+        label5 = ctk.CTkLabel(self.f2, text="DemEven", text_color="black", font=ctk.CTkFont(size=15, weight="normal"))
+        label5.place(x=47, y=5)
+
+        x3 =ctk.StringVar()
+        e1 = ctk.CTkEntry(self.f2,height = 28,width = 250,fg_color = "white",corner_radius = 15,placeholder_text = "Search this Event",placeholder_text_color = "gray",text_color = "black",textvariable = x3)
+        e1.place(x = 1000,y = 5)
+
+        def butimg7():
+            pass
+
+        img7 = ctk.CTkImage(dark_image = Image.open(r"pics\loupe.png"),size = (20,15))
+        butimg7 = ctk.CTkButton(self.f2,image = img7,text = "",fg_color = "white",width = 20,border_width = 1,border_color = "black",hover_color = "#8BFAFF",command = butimg7)
+        butimg7.place(x = 958,y = 5)
+
+#-----------------------
+
+        self.f0 = ctk.CTkScrollableFrame(self.full_frame3,width=1300,fg_color = "#F0F0F0")
+        self.f0.place(relheight = 1,relx = 0.1,y = 0)
+
+        f01 = ctk.CTkFrame(self.f0,height = 1050,width = 970,fg_color = "#F0F0F0")
+        f01.grid(row = 0,column = 0)
+
+        f4 = ctk.CTkFrame(f01,height = 200,width = 970,fg_color = "#ffffff")
+        f4.place(x = 0,y = 0)
+
+        label7 = ctk.CTkLabel(f4,text = "DemEven",fg_color = "white",text_color = "black",font = ctk.CTkFont(size = 25,weight = "bold"))
+        label7.place(x = 20,y = 80)
+
+        label8 = ctk.CTkLabel(f4,text = "Upcoming",fg_color = "#FEEEAB",text_color = "#EB9E29",corner_radius = 3,height = 10,width = 10,padx = 2,pady = 2)
+        label8.place(x = 20,y = 140)
+
+        img8 = ctk.CTkImage(dark_image = Image.open(r"pics\calendar.png"),size = (20,20))
+        labimg8 = ctk.CTkLabel(f4,image = img8,text = "")
+        labimg8.place(x = 120,y = 137)
+
+        label9 = ctk.CTkLabel(f4,text = "30/7/2024  6:00 pm - 10:00 pm  IST (61 days away)",text_color = "black",font = ctk.CTkFont(size = 13,weight = "normal"))
+        label9.place(x = 150,y = 137)
+
+        img9 = ctk.CTkImage(dark_image = Image.open(r"pics\location.png"),size = (20,20))
+        labimg9 = ctk.CTkLabel(f4,image = img9,text = "")
+        labimg9.place(x = 500,y = 137)
+
+        label10 = ctk.CTkLabel(f4,text = "Chicago",text_color = "black",font = ctk.CTkFont(size = 13,weight = "normal"))
+        label10.place(x = 522,y = 137)
+
+        x9 =ctk.StringVar()
+        x9.set("Actions")
+        opt8 = ctk.CTkComboBox(f4,height = 35,width = 150,variable = x9,fg_color = "white",button_hover_color = "#4B9EFC",border_width = 1,border_color = "lightgray",corner_radius = 7,dropdown_hover_color = "#4B9EFC",button_color = "lightgray",text_color = "#0966F1",values = ["","","",""])
+        opt8.place(x = 800,y = 96)
+
+        img10 = ctk.CTkImage(dark_image = Image.open(r"pics\light-bulb.png"),size = (50,50))
+        labimg10 = ctk.CTkLabel(self.f0,image = img10,text = "")
+        labimg10.place(x = 8,y = 205)
+
+        label11 = ctk.CTkLabel(self.f0,text = "Up next for your event",text_color = "black",font = ctk.CTkFont(size = 18,weight = "bold"))
+        label11.place(x = 50,y = 215)
+
+        f5 = ctk.CTkFrame(f01,height = 150,width = 265,fg_color = "#ffffff",border_width = 1,border_color = "lightgray")
+        f5.place(x = 8,y = 255)
+
+        img11 = ctk.CTkImage(dark_image = Image.open(r"pics\features.png"),size = (38,38))
+        labimg11 = ctk.CTkLabel(f5,image = img11,text = "")
+        labimg11.place(x = 15,y = 48)
+
+        label12 = ctk.CTkLabel(f5,text = "Add Event Features",text_color = "#000000",font = ctk.CTkFont(size = 17,weight = "bold"))
+        label12.place(x = 75,y = 20)
+
+        label13 = ctk.CTkLabel(f5,text = "Make sure you have all the\nfeatures you need for your event",text_color = "#000000",font = ctk.CTkFont(size = 12,weight = "normal"))
+        label13.place(x = 75,y = 55)
+
+        def funbut1():
+            pass
+
+        button1 = ctk.CTkButton(f5,text = "Add features",corner_radius = 5,border_width = 1,width = 6,hover_color = "lightgray",border_color = "#3fa6fb",fg_color = "#ffffff",border_spacing = 3,text_color = "#3fa6fb",command = funbut1)
+        button1.place(x = 75,y = 100)
+
+        def skip1():
+            pass
+
+        button2 = ctk.CTkButton(f5,text = "Skip",width = 6,fg_color = "#ffffff",text_color = "#3fa6fb",hover_color = "#ffffff",command = skip1)
+        button2.place(x = 185,y = 100)
+
+        f6 = ctk.CTkFrame(f01,height = 150,width = 270,fg_color = "#ffffff",border_width = 1,border_color = "lightgray")
+        f6.place(x = 290,y = 255)
+
+        img12 = ctk.CTkImage(dark_image = Image.open(r"pics\registration.png"),size = (42,38))
+        labimg12 = ctk.CTkLabel(f6,image = img12,text = "")
+        labimg12.place(x = 15,y = 48)
+
+        label14 = ctk.CTkLabel(f6,text = "Set up registration types",text_color = "#000000",font = ctk.CTkFont(size = 17,weight = "bold"))
+        label14.place(x = 45,y = 20)
+
+        label15 = ctk.CTkLabel(f6,text = "Add registration types to\ncustomize the registration...",text_color = "#000000",font = ctk.CTkFont(size = 12,weight = "normal"))
+        label15.place(x = 75,y = 55)
+
+        def funbut2():
+            pass
+
+        button3 = ctk.CTkButton(f6,text = "Get Started",corner_radius = 5,border_width = 1,width = 6,hover_color = "lightgray",border_color = "#3fa6fb",fg_color = "#ffffff",border_spacing = 3,text_color = "#3fa6fb",command = funbut2)
+        button3.place(x = 75,y = 100)
+
+        def skip2():
+            pass
+
+        button4 = ctk.CTkButton(f6,text = "Skip",width = 6,fg_color = "#ffffff",text_color = "#3fa6fb",hover_color = "#ffffff",command = skip2)
+        button4.place(x = 185,y = 100)
+
+        label16 = ctk.CTkLabel(f01,text = "Event Overview",text_color = "black",font = ctk.CTkFont(size = 18,weight = "bold"))
+        label16.place(x = 8,y = 420)
+
+        f7 = ctk.CTkFrame(f01,height = 150,width = 270,fg_color = "#ffffff",border_width = 1,border_color = "lightgray")
+        f7.place(x = 8,y = 460)
+
+        label17 = ctk.CTkLabel(f7,text = "Registration",fg_color = "#ffffff",text_color = "#000000",font = ctk.CTkFont(size = 17,weight = "bold"))
+        label17.place(x = 20,y = 20)
+
+        label18 = ctk.CTkLabel(f7,text = "Invitee Conversion Rate",text_color = "#000000",font = ctk.CTkFont(size = 12,weight = "normal"))
+        label18.place(x = 20,y = 50)
+
+        label19 =  ctk.CTkLabel(f7,text = "0.0%",fg_color = "#ffffff",text_color = "#000000",font = ctk.CTkFont(size = 17,weight = "bold"))
+        label19.place(x = 20,y = 75)
+
+        img13 = ctk.CTkImage(dark_image = Image.open(r"pics\light-bulb.png"),size = (30,30))
+        labimg13 = ctk.CTkLabel(f7,image = img13,text = "")
+        labimg13.place(x = 15,y = 105)
+
+        label20 = ctk.CTkLabel(f7,text = "Set your event's deadline\nand capacity",text_color = "#3fa6fb",font = ctk.CTkFont(size = 12,weight = "normal"))
+        label20.place(x = 60,y = 105)
+
+        def butimg14():
+            pass 
+
+        img14 = ctk.CTkImage(dark_image = Image.open(r"pics\ellipsis.png"),size = (30,20))
+        butimg14 = ctk.CTkButton(f7,image = img14,text = "",command = butimg14,width = 20,fg_color = "#ffffff",hover_color = "#ffffff")
+        butimg14.place(x = 220,y = 20)
+
+        f8 = ctk.CTkFrame(f01,height = 150,width = 270,fg_color = "#ffffff",border_width = 1,border_color = "lightgray")
+        f8.place(x = 290,y = 460)
+
+        label21 = ctk.CTkLabel(f8,text = "Emails",fg_color = "#ffffff",text_color = "#000000",font = ctk.CTkFont(size = 17,weight = "bold"))
+        label21.place(x = 20,y = 20)
+
+        label22 = ctk.CTkLabel(f8,text = "Email sent",text_color = "#000000",font = ctk.CTkFont(size = 12,weight = "normal"))
+        label22.place(x = 20,y = 50)
+
+        label23 =  ctk.CTkLabel(f8,text = "0",fg_color = "#ffffff",text_color = "#000000",font = ctk.CTkFont(size = 17,weight = "bold"))
+        label23.place(x = 20,y = 75)
+
+        labimg15 = ctk.CTkLabel(f8,image = img13,text = "")
+        labimg15.place(x = 15,y = 105)
+
+        label24 = ctk.CTkLabel(f8,text = "Add any custom data tags you\nneed for your event",text_color = "#3fa6fb",font = ctk.CTkFont(size = 12,weight = "normal"))
+        label24.place(x = 60,y = 105)
+        
+        def butimg15():
+            pass
+
+        img15 = ctk.CTkImage(dark_image = Image.open(r"pics\ellipsis.png"),size = (30,20))
+        butimg15 = ctk.CTkButton(f8,image = img15,text = "",command = butimg15,width = 20,fg_color = "#ffffff",hover_color = "#ffffff")
+        butimg15.place(x = 220,y = 20)
+        
+        f02 = ctk.CTkFrame(self.f0,height = 730,width = 290,fg_color = "gainsboro",corner_radius=12)
+        f02.grid(row=0,column=1, padx=(12,0), sticky="n")
+
+        def butimg16():
+            pass 
+
+        img16 = ctk.CTkImage(dark_image = Image.open(r"pics\right-arrow.png"),size = (30,30))
+        butimg16 = ctk.CTkButton(f02,image = img16,text = "",command = butimg16,fg_color = "#C8C6F3",hover_color = "#ffffff",width = 20)
+        butimg16.place(x = 400,y = 0)
+
+        label25 = ctk.CTkLabel(f02,text = "Feature Status",text_color = "black",font = ctk.CTkFont(size = 17,weight = "bold"), corner_radius = 9, fg_color="#F0F0F0")
+        label25.place(x = 15,y = 30)
+
+        img17 = ctk.CTkImage(dark_image = Image.open(r"pics\pending.png"),size = (20,20))
+        labimg17 = ctk.CTkLabel(f02,image = img17,text = "")
+        labimg17.place(x = 165,y = 30)
+
+        label26 = ctk.CTkLabel(f02,text = "Registration",text_color = "black", font = ctk.CTkFont(size = 19,weight = "normal"))
+        label26.place(x = 19,y = 60)
+
+        label27 = ctk.CTkLabel(f02,text = "Pending",text_color = "black",corner_radius = 19,height = 10,width = 10,padx = 2,pady = 2,font = ctk.CTkFont(size = 19))
+        label27.place(x = 350,y = 80)
+
+        label28 = ctk.CTkLabel(f02,text = "Search for attendees",text_color = "black",fg_color = "#F0F0F0",font = ctk.CTkFont(size = 17,weight = "bold"), corner_radius = 9, width=262)
+        label28.place(x = 15,y = 110)
+
+        x10 = tk.StringVar()
+        e2 = ctk.CTkEntry(f02,height = 30,width = 257,corner_radius = 15,fg_color = "#ffffff",text_color = "black",placeholder_text = "Enter a name or email",placeholder_text_color = "black",textvariable = x10)
+        e2.place(x = 18,y = 150)
+
+        canvas3 =  tk.Canvas(f02,height = 3,width = 262,bg = "gray",relief = tk.RAISED)
+        canvas3.place(x = 15,y = 215)
+
+        def butimg18():
+            pass 
+
+        img18 = ctk.CTkImage(dark_image = Image.open(r"pics\loupe.png"),size = (10,10))
+        butimg18 = ctk.CTkButton(e2,image = img7,text = "",fg_color = "white",hover_color = "#ffffff",corner_radius = 3,height = 10,width = 10,command = butimg18)
+        butimg18.place(x = 218,y = 3)
+
+        label29 = ctk.CTkLabel(f02,text = "Event Information",text_color = "black",fg_color = "#F0F0F0",font = ctk.CTkFont(size = 17,weight = "bold"), corner_radius = 9, width=262)
+        label29.place(x = 15,y = 260)
+
+        label30 = ctk.CTkLabel(f02,text = "Event Code",fg_color = "#F0F0F0",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "normal"), corner_radius = 9)
+        label30.place(x = 15,y = 310)
+
+        x11 = tk.StringVar()
+        x11.set("BAMMCYD")
+        label31 = ctk.CTkLabel(f02,text_color = "#000000",textvariable = x11,font = ctk.CTkFont(size = 12,weight = "bold"))
+        label31.place(x = 22,y = 340)
+
+        label32 = ctk.CTkLabel(f02,text = "Event Format",fg_color = "#F0F0F0",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "normal"), corner_radius = 9)
+        label32.place(x = 15,y = 380)
+
+        x12 = tk.StringVar()
+        x12.set("Hybrid")
+        label33 = ctk.CTkLabel(f02,text_color = "#000000",textvariable = x12,font = ctk.CTkFont(size = 12,weight = "bold"))
+        label33.place(x = 22,y = 410)
+
+        label34 = ctk.CTkLabel(f02,text = "Registration Capacity",fg_color = "#F0F0F0",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "normal"), corner_radius = 9)
+        label34.place(x = 15,y = 450)
+
+        x13 = tk.StringVar()
+        x13.set("In Person:Unlimited | Virtual:Unlimited")
+        label35 = ctk.CTkLabel(f02,text_color = "#000000",textvariable = x13,font = ctk.CTkFont(size = 12,weight = "bold"))
+        label35.place(x = 22,y = 480)
+
+        label36 = ctk.CTkLabel(f02,text = "Registration Deadline",fg_color = "#F0F0F0",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "normal"), corner_radius = 9)
+        label36.place(x = 15,y = 520)
+
+        x14 = tk.StringVar()
+        x14.set("30/7/2024 9:59 pm IST")
+        label37 = ctk.CTkLabel(f02,text_color = "#000000",textvariable = x14,font = ctk.CTkFont(size = 12,weight = "bold"))
+        label37.place(x = 22,y = 550)
+
+        label38 = ctk.CTkLabel(f02,text = "Planner",fg_color = "#F0F0F0",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "normal"), corner_radius = 9)
+        label38.place(x = 15,y = 590)
+
+        x15 = tk.StringVar()
+        x15.set("Lucky Tungariya")
+        label39 = ctk.CTkLabel(f02,text_color = "#000000",textvariable = x15,font = ctk.CTkFont(size = 12,weight = "bold"))
+        label39.place(x = 22,y = 620)
+
+        label40 = ctk.CTkLabel(f02,text = "Planner's Email",fg_color = "#F0F0F0",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "normal"), corner_radius = 9)
+        label40.place(x = 15,y = 660)
+
+        x16 = tk.StringVar()
+        x16.set("send@gmail.com")
+        label41 = ctk.CTkLabel(f02,text_color = "#000000",textvariable = x16,font = ctk.CTkFont(size = 12,weight = "bold"))
+        label41.place(x = 22,y = 690)
+
+
+    def dashboard_widgets(self):
+        pass
+    def reporttab_widgets(self):
+        pass
+    def tickettab_widgets(self):
+        pass
+    def surveytab_widgets(self):
+        pass
+
+if __name__ == "__main__" : 
+    app = DemoApplication()
     app.mainloop()

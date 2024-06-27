@@ -33,6 +33,8 @@ class DemoApplication(ctk.CTk):
         self.connection = self.connect_to_database()
         self.screen_stack = []
         self.current_screen = None
+        self.f3 = None
+        self.click_count = 0
         self.initial_screen()
 
     def connect_to_database(self):
@@ -806,24 +808,24 @@ class DemoApplication(ctk.CTk):
         button_frame.bind("<Button-1>", lambda event: self.toggle_subitems(self.frame, label, subitems))
 
         # Create hidden frame for subitems
-        subframe = ctk.CTkFrame(self.frame, corner_radius=20, fg_color="#093838")
-        subframe.pack(fill="x")
-        subframe.pack_forget()  # Initially hidden
+        self.subframe = ctk.CTkFrame(self.frame, corner_radius=20, fg_color="#093838")
+        self.subframe.pack(fill="x")
+        self.subframe.pack_forget()  # Initially hidden
 
     # Create buttons for subitems
         for item in subitems:
-            sub_button = ctk.CTkButton(subframe, text=f"  • {item}", anchor="w", fg_color="transparent", hover_color=("gray70", "gray30"), text_color="white")
+            sub_button = ctk.CTkButton(self.subframe, text=f"  • {item}", anchor="w", fg_color="transparent", hover_color=("gray70", "gray30"), text_color="white")
             sub_button.pack(fill="x")
 
     def toggle_subitems(self, parent_frame, label, subitems):
-        subframe = parent_frame.winfo_children()[1]  # The subframe
+        self.subframe = parent_frame.winfo_children()[1]  # The subframe
         self.arrow_label = parent_frame.winfo_children()[0].winfo_children()[1]  # The arrow label
         
-        if subframe.winfo_viewable():
-            subframe.pack_forget()
+        if self.subframe.winfo_viewable():
+            self.subframe.pack_forget()
             self.arrow_label.configure(text="▼")
         else:
-            subframe.pack(fill="x")
+            self.subframe.pack(fill="x")
             self.arrow_label.configure(text="▲")
 
     def events_home(self):
@@ -901,16 +903,12 @@ class DemoApplication(ctk.CTk):
         self.f2 = ctk.CTkFrame(self.event_tab,height = 44,width = 1300,fg_color = self.secondary_color)
         self.f2.place(x = 0,y = 41)
 
-        self.f3 = ctk.CTkScrollableFrame(self.event_tab,fg_color = "red",height = 600,width = 240,border_width = 1,border_color = "lightgray") 
-
-        self.click_count = 0
         def menu_animation(): # MENU ANIMATION COMMAND ...
             self.click_count += 1
-            self.f3.destroy()
 
             if self.click_count % 2 != 0 :
                 self.after(1, animate(250,82, 0.808))
-
+                self.f3 = ctk.CTkScrollableFrame(self.event_tab,bg_color = "red",height = 600,width = 240,border_width = 1,border_color = "lightgray") 
                 self.f3.place(x = 0,y = 81)
 
                 self.create_sidebar_item("General", ["Option 1", "Option 2"])
@@ -922,7 +920,9 @@ class DemoApplication(ctk.CTk):
                 self.create_sidebar_item("Reports", ["Generate", "View"])
                 self.create_sidebar_item("Integrations", ["Connect", "Manage"])
             else:
-                self.f3.destroy()
+                if self.f3 is not None:
+                    self.f3.destroy()
+                    self.f3 = None
                 self.f0.place(x=0, y=82,relwidth=1.0)
 
         def animate(x,y,relwidth=None):
