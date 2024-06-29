@@ -3,28 +3,7 @@ from PIL import Image
 import pymysql as pq
 import tkinter as tk
 from tkinter.messagebox import showinfo, showwarning, showerror
-import webbrowser
-import http.server
-import socketserver
-from urllib.parse import urlparse, parse_qs
-import threading
-from google.oauth2.credentials import Credentials
-from google_auth_oauthlib.flow import InstalledAppFlow
-
-
-CLIENT_ID = '907112475964-hrf09450qh8p7bjh4j9ppfvd5th0e01q.apps.googleusercontent.com'
-CLIENT_SECRET = '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'
-REDIRECT_URI = 'http://localhost:8000/callback'
-SCOPE = ['https://www.googleapis.com/auth/userinfo.email', 'openid']
-
-def handle_google_sign_in():
-            flow = InstalledAppFlow.from_client_secrets_file("client_secret.json", scopes=SCOPE, redirect_uri=REDIRECT_URI
-    )
-            authorization_url, state = flow.authorization_url(
-        access_type="offline", prompt="consent"
-    )
-            webbrowser.open(authorization_url)
-        # Function to start the HTTP server in a separate thread
+from auth import GoogleSignInApp
 
 #COLORS :  #093838 -> Primary Color.    } In the Theme,
            #8bceba -> Secondary Color.  }  both the Primary & Secondary colors are used interchangeably.
@@ -33,82 +12,11 @@ def handle_google_sign_in():
            #20807f -> Hover Bg Color.
            #white -> Hover Text Color. 
 
-def handle_google_sign_in():
-    flow = InstalledAppFlow.from_client_secrets_file(
-        "client_secret.json", scopes=SCOPE, redirect_uri=REDIRECT_URI
-    )
-    authorization_url, state = flow.authorization_url(
-        access_type="offline", prompt="consent"
-    )
-    webbrowser.open(authorization_url)
-
-# Function to handle the OAuth 2.0 callback
-def handle_callback(request_path):
-            query = urlparse(request_path).query
-            query_components = parse_qs(query)
-            if "code" in query_components:
-                code = query_components["code"][0]
-                flow = InstalledAppFlow.from_client_secrets_file(
-            "client_secret.json", scopes=SCOPE, redirect_uri=REDIRECT_URI
-        )
-            try:
-                flow.fetch_token(code=code)
-                credentials = flow.credentials
-                # Store or use credentials as needed
-                print("Access token:", credentials.token)
-                print("Refresh token:", credentials.refresh_token)
-                print("Expires at:", credentials.expiry)
-                # Close the Tkinter window after successful authentication
-            except Exception as e:
-                print(f"Error: {e}")
-
-# Define the callback handler
-def callback_handler(*args):
-            SimpleHTTPRequestHandlerWithCallback(*args, handle_callback=handle_callback)
-
-class SimpleHTTPRequestHandlerWithCallback(http.server.BaseHTTPRequestHandler):
-            def __init__(self, *args, handle_callback=None, **kwargs):
-                self.handle_callback = handle_callback
-                super().__init__(*args, **kwargs)
-
-            def do_GET(self):
-                self.handle_callback(self.path)
-                self.send_response(200)
-                self.send_header('Content-type', 'text/html')
-                self.end_headers()
-                self.wfile.write(b"""
-                <html>
-                <body>        
-                <h1>You can close this window now.</h1>
-                <script>
-                    setTimeout(function() {
-                        window.close();
-                    }, 3000);
-                </script>
-                </body>
-                </html>
-                """)
-
-# Function to start the HTTP server in a separate thread
-def start_server():
-            server_address = ("", 8000)
-            httpd = socketserver.TCPServer(server_address, callback_handler)
-            print("Starting local web server...")
-            httpd.serve_forever()
-
-# Create the Google Sign-In button
-       
-
-        # Start the HTTP server thread
-server_thread = threading.Thread(target=start_server)
-server_thread.daemon = True
-server_thread.start()
 class DemoApplication(ctk.CTk):
-    # Function to handle Google Sign-In button click
-
-
-
-
+    def google_sign_in_handler(self):
+        app = GoogleSignInApp()
+        app.handle_google_sign_in()
+        self.create_widgets()
     def __init__(self):
         super().__init__()
         self.geometry("700x500")
@@ -273,20 +181,15 @@ class DemoApplication(ctk.CTk):
             fg_color="#8bceba", 
             text_color="#092928"
         )
-                # Bind hover events for the buttons
-        self.add_hover_effect(login_button)
-        self.add_hover_effect(register_button)
+        google_sign_in_button = tk.Button(self.buttons_frame, text="Sign in with Google", command=self.google_sign_in_handler)
+        google_sign_in_button.pack(pady=20)
+
         login_button.pack(pady=(100, 10), side="top")
         register_button.pack(side="top")
-        google_sign_in_button = tk.Button(self.buttons_frame, text="Sign in with Google", command=handle_google_sign_in)
-        google_sign_in_button.pack()
 
-
-       
-
-
-
-
+        # Bind hover events for the buttons
+        self.add_hover_effect(login_button)
+        self.add_hover_effect(register_button)
 
     def register(self, connection):
         self.switch_screen(lambda: self._register_screen(connection))
@@ -349,21 +252,20 @@ class DemoApplication(ctk.CTk):
                 if password.get() != retype_password.get():
                     showwarning("Try Again!", "Passwords do not match. Registration failed.")
                 else:
-                    cur=connection.cursor()
-                    cur.execute('create table if not exists register(email_id varchar(30),password varchar(40));')
-                    sql = "SELECT * FROM register WHERE email_id = %s"
-                    cur.execute(sql, (email.get(),))
-                    result = cur.fetchone()
+                    with connection.cursor() as cursor:
+                        sql = "SELECT * FROM user WHERE user_name = %s"
+                        cursor.execute(sql, (email.get(),))
+                        result = cursor.fetchone()
 
                     if result:
                         showinfo("Registration failed.", "email already exists.")
                     else:
-                       cur=connection.cursor()
-                       
-                       cur.execute("insert into register values(%s,%s);",(email.get(),password.get()))
-                       connection.commit()
-                       showinfo("Done!", "Registration successful!\nNow you can Login.")
-                       self.login(self.connection)
+                        with connection.cursor() as cursor:
+                            sql = "INSERT INTO user (user_name, password) VALUES (%s, %s)"
+                            cursor.execute(sql, (email.get(), password.get()))
+                            connection.commit()
+                            showinfo("Done!", "Registration successful!\nNow you can Login.")
+                            self.login(self.connection)
 
         check_button = ctk.CTkButton(
             self.buttons_frame, 
@@ -435,7 +337,7 @@ class DemoApplication(ctk.CTk):
                 showerror("Value Error!", "Please input Characters.")
             else:
                 cursor = connection.cursor()
-                sql = "SELECT * FROM register WHERE email_id = %s AND password = %s"
+                sql = "SELECT * FROM user WHERE user_name = %s AND password = %s"
                 cursor.execute(sql, (email.get(), password.get()))
                 result = cursor.fetchone()
 
@@ -961,8 +863,7 @@ class DemoApplication(ctk.CTk):
 
     def surveytab_widgets(self):
         ctk.CTkLabel(self.survey_tab, text="Create surveys and view responses", font=ctk.CTkFont(size=20, weight="bold")).pack(pady=20)
-        # Function to handle Google Sign-In button click
-
+        
 if __name__ == "__main__":
     app = DemoApplication()
     app.mainloop()
