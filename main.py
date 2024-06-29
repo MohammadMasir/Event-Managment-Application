@@ -3,7 +3,6 @@ from PIL import Image
 import pymysql as pq
 import tkinter as tk
 from tkinter.messagebox import showinfo, showwarning, showerror
-from registeration import RegisterationPage  
 
 
 #COLORS :  #093838 -> Primary Color.    } In the Theme,
