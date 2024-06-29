@@ -61,7 +61,7 @@ class DemoApplication(ctk.CTk):
         # Event Management Tab
         self.event_tab = notebook.add("Event Management")
 
-        self.full_frame1 = ctk.CTkFrame(self.event_tab, fg_color="white")
+        self.full_frame1 = ctk.CTkFrame(self.event_tab, fg_color="#F0F0F0")
         self.full_frame1.place(relx=0.0, rely=0.0, relwidth=1, relheight=1)
 
         self.full_frame2 = ctk.CTkFrame(self.event_tab, fg_color=self.secondary_color, height=44)
@@ -90,10 +90,10 @@ class DemoApplication(ctk.CTk):
 
         # Create a sub-frame for the button content
         button_frame = ctk.CTkFrame(frame, corner_radius=0, fg_color="#20807f")
-        button_frame.pack(fill="x")
+        button_frame.pack(fill="x",ipady=5)
 
         # Label on the left
-        label_widget = ctk.CTkButton(button_frame, text=label, anchor="w", command=lambda: self.toggle_subitems(frame, subitems), fg_color="#20807f", text_color="white")
+        label_widget = ctk.CTkButton(button_frame, text=label, anchor="w", font=ctk.CTkFont(family="Segoe UI",size=15, weight="bold"), command=lambda: self.toggle_subitems(frame, subitems), fg_color="#20807f", text_color="white")
         label_widget.pack(side="left")
 
         # Arrow on the right
@@ -110,7 +110,7 @@ class DemoApplication(ctk.CTk):
 
         # Create buttons for subitems
         for item in subitems:
-            sub_button = ctk.CTkButton(subframe, text=f"  • {item}", anchor="w", fg_color="transparent", hover_color=("gray70", "gray30"), text_color="white")
+            sub_button = ctk.CTkButton(subframe, text=f"  • {item}", anchor="w", fg_color="transparent", hover_color=("gray70", "gray30"), text_color="white", font=ctk.CTkFont(size=13, weight="bold"))
             sub_button.pack(fill="x")
 
     def toggle_subitems(self, frame, subitems):
@@ -129,8 +129,8 @@ class DemoApplication(ctk.CTk):
 
         # Conditionally create sidebar on first click
         if self.click_count % 2 != 0 and self.f3 is None:
-            self.f3 = ctk.CTkScrollableFrame(self.full_frame3, width=240, border_width=1, border_color="lightgray")
-            self.f3.place(relheight=1, relx=0.1, y=0)
+            self.f3 = ctk.CTkScrollableFrame(self.full_frame3, height = 400, width=240, fg_color="transparent")
+            self.f3.place(relx=0.1, y=0)
 
             # Add the sidebar content here (create_sidebar_item calls)
             self.create_sidebar_item("General", ["Option 1", "Option 2"])
@@ -145,7 +145,7 @@ class DemoApplication(ctk.CTk):
             self.f0.place_configure(relx=0.2, y=0, relwidth=0.75)
         # Show/hide sidebar based on click count
         if self.click_count % 2 != 0:
-            self.f3.place(relheight=1, relx=0.1, y=0)
+            self.f3.place(relx=0.1, y=0)
             self.f0.place_configure(relx=0.2, y=0, relwidth=0.75)
         else:
             if self.f3 is not None:
@@ -153,7 +153,7 @@ class DemoApplication(ctk.CTk):
                 self.f0.place_configure(relx=0, y=0, relwidth=1.0)
 
     def events_home(self):
-        f1 = ctk.CTkFrame(self.full_frame1, height=41, fg_color="white")
+        f1 = ctk.CTkFrame(self.full_frame1, height=41, fg_color="#F0F0F0")
         f1.place(relwidth=1, relx=0.1, y=0)
 
         label1 = ctk.CTkLabel(f1, text="cvent", text_color="black", justify="right", font=ctk.CTkFont(size=20, weight="bold"))
