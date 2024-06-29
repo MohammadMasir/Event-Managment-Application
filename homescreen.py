@@ -36,37 +36,22 @@ opt2.place(x = 670,y = 5)
 def butimg1():
     pass
 
-<<<<<<< HEAD
-img1 = customtkinter.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\loupe.png"),size = (20,20))
-butimg1 = customtkinter.CTkButton(f1,image = img1,fg_color = "white",width = 20,text = "",hover_color = "#3fa6fb",command = butimg1)
-=======
 img1 = ctk.CTkImage(dark_image = Image.open(r"pics\loupe.png"),size = (20,20))
 butimg1 = ctk.CTkButton(f1,image = img1,fg_color = "white",width = 20,text = "",hover_color = "#3fa6fb",command = butimg1)
->>>>>>> cc2959e59b3374847c5716b8ec6918d2e9f99e50
 butimg1.place(x = 1040,y = 5)
 
 def butimg2():
     pass 
 
-<<<<<<< HEAD
-img2 = customtkinter.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\file.png"),size = (20,20))
-butimg2 = customtkinter.CTkButton(f1,image = img2,text = "",fg_color = "white",width = 20,hover_color = "#3fa6fb",command = butimg2)
-=======
 img2 = ctk.CTkImage(dark_image = Image.open(r"pics\file.png"),size = (20,20))
 butimg2 = ctk.CTkButton(f1,image = img2,text = "",fg_color = "white",width = 20,hover_color = "#3fa6fb",command = butimg2)
->>>>>>> cc2959e59b3374847c5716b8ec6918d2e9f99e50
 butimg2.place(x = 1090,y = 5)
 
 def butimg3():
     pass
 
-<<<<<<< HEAD
-img3 = customtkinter.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\question.png"),size = (20,20))
-butimg3 = customtkinter.CTkButton(f1,image = img3,text = "",fg_color = "white",width = 20,hover_color = "#3fa6fb",command = butimg3)
-=======
 img3 = ctk.CTkImage(dark_image = Image.open(r"pics\question.png"),size = (20,20))
 butimg3 = ctk.CTkButton(f1,image = img3,text = "",fg_color = "white",width = 20,hover_color = "#3fa6fb",command = butimg3)
->>>>>>> cc2959e59b3374847c5716b8ec6918d2e9f99e50
 butimg3.place(x = 1140,y = 5)
 
 def butimg4():
