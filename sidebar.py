@@ -1,200 +1,3 @@
-# import customtkinter as ctk
-
-# class SidebarApp(ctk.CTk):
-#     def __init__(self):
-#         super().__init__()
-
-#         self.title("Sidebar Example")
-#         self.geometry("800x600")
-
-#         # Create sidebar frame
-#         self.sidebar = ctk.CTkFrame(self, width=200, corner_radius=0)
-#         self.sidebar.pack(side="left", fill="y", expand=False)
-
-#         # Create main content area
-#         self.main_content = ctk.CTkFrame(self)
-#         self.main_content.pack(side="right", fill="both", expand=True)
-
-#         # Create sidebar menu items
-#         self.create_sidebar_item("General", ["Option 1", "Option 2"])
-#         self.create_sidebar_item("Registration", ["Register", "Unregister"])
-#         self.create_sidebar_item("Marketing", ["Campaigns", "Analytics"])
-#         self.create_sidebar_item("Email", ["Compose", "Inbox", "Sent"])
-#         self.create_sidebar_item("Attendees", ["List", "Groups"])
-#         self.create_sidebar_item("Surveys", ["Feedback Surveys", "Responses"])
-#         self.create_sidebar_item("Reports", ["Generate", "View"])
-#         self.create_sidebar_item("Integrations", ["Connect", "Manage"])
-
-#     def create_sidebar_item(self, label, subitems):
-#         frame = ctk.CTkFrame(self.sidebar, corner_radius=0)
-#         frame.pack(fill="x", pady=(0, 1))
-
-#         button = ctk.CTkButton(frame, text=f"{label} ▼", anchor="w", command=lambda: self.toggle_subitems(frame, label,subitems))
-#         button.pack(fill="x")
-
-#         # Create hidden frame for subitems
-#         subframe = ctk.CTkFrame(frame, corner_radius=0)
-#         subframe.pack(fill="x")
-#         subframe.pack_forget()  # Initially hidden
-
-#         # Create buttons for subitems
-#         for item in subitems:
-#             sub_button = ctk.CTkButton(subframe, text=f"  • {item}", anchor="w", fg_color="transparent", hover_color=("gray70", "gray30"),text_color="red")
-#             sub_button.pack(fill="x", pady=(0, 1))
-
-#     def toggle_subitems(self, parent_frame, label, subitems):
-#         button = parent_frame.winfo_children()[0]  # The main button
-#         subframe = parent_frame.winfo_children()[1]  # The subframe
-        
-#         if subframe.winfo_viewable():
-#             subframe.pack_forget()
-#             button.configure(text=f"{label} ▼") #
-#         else:
-#             subframe.pack(fill="x", pady=(0, 5))
-#             button.configure(text=f"{label} ▲") #button.cget('text').split()[0]
-
-# # ... (rest of the code remains the same)
-# if __name__ == "__main__":
-    # app = SidebarApp()
-    # app.mainloop()
-
-# import customtkinter as ctk
-
-# class SidebarApp(ctk.CTk):
-#     def __init__(self):
-#         super().__init__()
-
-#         self.title("Sidebar Example")
-#         self.geometry("800x600")
-
-#         # Create sidebar frame
-#         self.sidebar = ctk.CTkScrollableFrame(self, width=250, corner_radius=0)
-#         self.sidebar.pack(side="left", fill="y", expand=False)
-
-#         # Create main content area
-#         self.main_content = ctk.CTkFrame(self)
-#         self.main_content.pack(side="right", fill="both", expand=True)
-
-#         # Create sidebar menu items
-#         self.create_sidebar_item("General", ["Option 1", "Option 2"])
-#         self.create_sidebar_item("Registration", ["Register", "Unregister"])
-#         self.create_sidebar_item("Marketing", ["Campaigns", "Analytics"])
-#         self.create_sidebar_item("Email", ["Compose", "Inbox", "Sent"])
-#         self.create_sidebar_item("Attendees", ["List", "Groups"])
-#         self.create_sidebar_item("Surveys", ["Feedback Surveys", "Responses"])
-#         self.create_sidebar_item("Reports", ["Generate", "View"])
-#         self.create_sidebar_item("Integrations", ["Connect", "Manage"])
-
-#     def create_sidebar_item(self, label, subitems):
-#         frame = ctk.CTkFrame(self.sidebar, corner_radius=0)
-#         frame.pack(fill="x", pady=(0, 1))
-
-#         # Create a sub-frame for the button content
-#         button_frame = ctk.CTkFrame(frame, corner_radius=0, fg_color="#20807f")
-#         button_frame.pack(fill="x")
-
-#         # Label on the left
-#         label_widget = ctk.CTkButton(button_frame, text=label, anchor="w", command= lambda : self.toggle_subitems(frame, label, subitems), fg_color="#20807f", text_color="white")
-#         label_widget.pack(side="left")
-
-#         # Arrow on the right
-#         self.arrow_label = ctk.CTkLabel(button_frame, text="▼", anchor="e")
-#         self.arrow_label.pack(side="right",padx=(0,5))
-
-#         # Make the whole frame clickable
-#         button_frame.bind("<Button-1>", lambda event: self.toggle_subitems(frame, label, subitems))
-
-#         # Create hidden frame for subitems
-#         subframe = ctk.CTkFrame(frame, corner_radius=20, fg_color="#093838")
-#         subframe.pack(fill="x")
-#         subframe.pack_forget()  # Initially hidden
-
-#     # Create buttons for subitems
-#         for item in subitems:
-#             sub_button = ctk.CTkButton(subframe, text=f"  • {item}", anchor="w", fg_color="transparent", hover_color=("gray70", "gray30"), text_color="white")
-#             sub_button.pack(fill="x")
-
-#     def toggle_subitems(self, parent_frame, label, subitems):
-#         subframe = parent_frame.winfo_children()[1]  # The subframe
-#         self.arrow_label = parent_frame.winfo_children()[0].winfo_children()[1]  # The arrow label
-        
-#         if subframe.winfo_viewable():
-#             subframe.pack_forget()
-#             self.arrow_label.configure(text="▼")
-#         else:
-#             subframe.pack(fill="x")
-#             self.arrow_label.configure(text="▲")
-# # ... (rest of the code remains the same)
-# if __name__ == "__main__":
-    # app = SidebarApp()
-    # app.mainloop()
-
-# import customtkinter as ctk
-# from PIL import Image, ImageTk
-
-# class RegistrationFormBuilder:
-#     def __init__(self, master):
-#         self.master = master
-#         self.master.title("Registration Form Builder")
-#         self.master.geometry("1200x800")
-
-#         self.setup_layout()
-
-#     def setup_layout(self):
-#         # Main container
-#         self.main_container = ctk.CTkFrame(self.master)
-#         self.main_container.pack(fill="both", expand=True, padx=10, pady=10)
-
-#         # Form preview pane
-#         self.preview_pane = ctk.CTkFrame(self.main_container)
-#         self.preview_pane.pack(side="left", fill="both", expand=True, padx=5, pady=5)
-
-#         # Customization pane
-#         self.custom_pane = ctk.CTkFrame(self.main_container)
-#         self.custom_pane.pack(side="right", fill="y", padx=5, pady=5)
-
-#         self.setup_preview_pane()
-#         self.setup_custom_pane()
-
-#     def setup_preview_pane(self):
-#         # Add form elements here
-#         ctk.CTkLabel(self.preview_pane, text="DemEven", font=("Arial", 24, "bold")).pack(pady=10)
-#         ctk.CTkLabel(self.preview_pane, text="July 30, 2024").pack()
-#         ctk.CTkLabel(self.preview_pane, text="6:00 PM-10:00 PM").pack()
-#         ctk.CTkLabel(self.preview_pane, text="Chicago, Chicago, IL").pack(pady=(0, 20))
-
-#         ctk.CTkLabel(self.preview_pane, text="Personal Information", font=("Arial", 18)).pack(pady=10)
-        
-#         fields = ["First Name", "Last Name", "Email Address", "Mobile", "Company"]
-#         for field in fields:
-#             frame = ctk.CTkFrame(self.preview_pane)
-#             frame.pack(fill="x", padx=20, pady=5)
-#             ctk.CTkLabel(frame, text=f"* {field}" if field in ["First Name", "Last Name", "Email Address"] else field).pack(side="left")
-#             ctk.CTkEntry(frame).pack(side="right", expand=True, fill="x", padx=(10, 0))
-
-#     def setup_custom_pane(self):
-#         ctk.CTkLabel(self.custom_pane, text="Theme").pack(pady=10)
-        
-#         # Add logo upload button
-#         ctk.CTkButton(self.custom_pane, text="Add Logo").pack(pady=5)
-        
-#         # Add background image selection
-#         ctk.CTkButton(self.custom_pane, text="Edit Background Image").pack(pady=5)
-        
-#         # Add color selection
-#         ctk.CTkLabel(self.custom_pane, text="Colors").pack(pady=5)
-#         ctk.CTkOptionMenu(self.custom_pane, values=["Default", "Custom"]).pack(pady=5)
-
-#         # Add save and publish buttons
-#         ctk.CTkButton(self.custom_pane, text="Save").pack(side="bottom", pady=5)
-#         ctk.CTkButton(self.custom_pane, text="Publish").pack(side="bottom", pady=5)
-
-# if __name__ == "__main__":
-    # ctk.set_appearance_mode("light")
-    # root = ctk.CTk()
-    # app = RegistrationFormBuilder(root)
-    # root.mainloop()
-
 import customtkinter as ctk
 from PIL import Image
 import tkinter as tk
@@ -233,8 +36,8 @@ class DemoApplication(ctk.CTk):
         self.attributes('-fullscreen', False)
         self.resizable(width=True, height=True)
         self.geometry(f'{width - 200}x{height-100}')
-        self.maxsize(width,height)
-        # self.minsize(width,height)
+        self.maxsize(width, height)
+        # self.minsize(width, height)
 
     def create_widgets(self):
         self.toggle_fullscreen()
@@ -244,10 +47,10 @@ class DemoApplication(ctk.CTk):
         frame2.pack(fill="x")
 
         labe = ctk.CTkLabel(frame2, text="Event Manager", font=("Segoe UI", 40, "bold"), text_color="white", fg_color=self.secondary_color, corner_radius=12)
-        labe.pack(pady=10, ipady=5,expand=True)
+        labe.pack(pady=10, ipady=5, expand=True)
 
         # Create a notebook (tabbed interface)
-        notebook = ctk.CTkTabview(self, width=700, height=500, bg_color = "gainsboro", corner_radius=12) #3fa572 #333333
+        notebook = ctk.CTkTabview(self, width=700, height=500, bg_color="gainsboro", corner_radius=12)  # 3fa572 #333333
         notebook.pack(padx=20, pady=20, fill="both", expand=True)
         # notebook.set(self.event_tab)
 
@@ -259,13 +62,13 @@ class DemoApplication(ctk.CTk):
         self.event_tab = notebook.add("Event Management")
 
         self.full_frame1 = ctk.CTkFrame(self.event_tab, fg_color="white")
-        self.full_frame1.place(relx = 0.0, rely=0.0, relwidth =1, relheight = 1)
+        self.full_frame1.place(relx=0.0, rely=0.0, relwidth=1, relheight=1)
 
         self.full_frame2 = ctk.CTkFrame(self.event_tab, fg_color=self.secondary_color, height=44)
-        self.full_frame2.place(relx = 0.0, y=41, relwidth =1)
+        self.full_frame2.place(relx=0.0, y=41, relwidth=1)
 
         self.full_frame3 = ctk.CTkFrame(self.event_tab, fg_color="#F0F0F0")
-        self.full_frame3.place(relx = 0.0,y = 82, relwidth =1, relheight = 1)
+        self.full_frame3.place(relx=0.0, y=82, relwidth=1, relheight=1)
 
         self.events_home()
 
@@ -320,49 +123,38 @@ class DemoApplication(ctk.CTk):
         else:
             subframe.pack(fill="x")
             arrow_label.configure(text="▲")
-        
 
     def menu_animation(self):
         self.click_count += 1
 
-        self.temp_fr = ctk.CTkFrame(self.full_frame3, fg_color = "yellow", width=246, border_width=1, border_color="lightgray")
-        self.temp_fr.place(relheight=1, relx=0.1, y=0)
+        # Conditionally create sidebar on first click
+        if self.click_count % 2 != 0 and self.f3 is None:
+            self.f3 = ctk.CTkScrollableFrame(self.full_frame3, width=240, border_width=1, border_color="lightgray")
+            self.f3.place(relheight=1, relx=0.1, y=0)
 
+            # Add the sidebar content here (create_sidebar_item calls)
+            self.create_sidebar_item("General", ["Option 1", "Option 2"])
+            self.create_sidebar_item("Registration", ["Register", "Unregister"])
+            self.create_sidebar_item("Marketing", ["Campaigns", "Analytics"])
+            self.create_sidebar_item("Email", ["Compose", "Inbox", "Sent"])
+            self.create_sidebar_item("Attendees", ["List", "Groups"])
+            self.create_sidebar_item("Surveys", ["Feedback Surveys", "Responses"])
+            self.create_sidebar_item("Reports", ["Generate", "View"])
+            self.create_sidebar_item("Integrations", ["Connect", "Manage"])
+            # ... add more sidebar items
+            self.f0.place_configure(relx=0.2, y=0, relwidth=0.75)
+        # Show/hide sidebar based on click count
         if self.click_count % 2 != 0:
-            # Open sidebar
-            if self.f3 is None or not self.f3.winfo_exists():
-                self.f3 = ctk.CTkScrollableFrame(self.temp_fr, width=240, border_width=1, border_color="lightgray")
-                self.f3.place(relheight=1, relx=0, y=0)
-
-                self.create_sidebar_item("General", ["Option 1", "Option 2"])
-                self.create_sidebar_item("Registration", ["Register", "Unregister"])
-                self.create_sidebar_item("Marketing", ["Campaigns", "Analytics"])
-                self.create_sidebar_item("Email", ["Compose", "Inbox", "Sent"])
-                self.create_sidebar_item("Attendees", ["List", "Groups"])
-                self.create_sidebar_item("Surveys", ["Feedback Surveys", "Responses"])
-                self.create_sidebar_item("Reports", ["Generate", "View"])
-                self.create_sidebar_item("Integrations", ["Connect", "Manage"])
-                print("self.f3 Created")
-            # Adjust main content
+            self.f3.place(relheight=1, relx=0.1, y=0)
             self.f0.place_configure(relx=0.2, y=0, relwidth=0.75)
         else:
-            # Close sidebar
-            self.f3.place_forget()
-            print("self.f3 Destroyed", )
+            if self.f3 is not None:
+                self.f3.place_forget()
+                self.f0.place_configure(relx=0, y=0, relwidth=1.0)
 
-            self.temp_fr.destroy()
-            print("self.temp_fr Destroyed")
-            # Reset main content
-            
-            self.f0.place_configure(relx=0.1, y=0, relwidth=1.0)
-            self.f3 = None
-        
-        # No need for separate animate method
-        # self.after(1, lambda: self.animate(250, 82, 0.808))
     def events_home(self):
-
         f1 = ctk.CTkFrame(self.full_frame1, height=41, fg_color="white")
-        f1.place(relwidth = 1,relx=0.1, y=0)
+        f1.place(relwidth=1, relx=0.1, y=0)
 
         label1 = ctk.CTkLabel(f1, text="cvent", text_color="black", justify="right", font=ctk.CTkFont(size=20, weight="bold"))
         label1.place(x=15, y=5)
