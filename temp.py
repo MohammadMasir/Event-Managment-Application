@@ -9,7 +9,7 @@ class DemoApplication(ctk.CTk):
         self.resizable(width=True, height=True)
         self.title("DemoApplication")
         self.configure(fg_color="#093838")
-
+    
         ctk.set_appearance_mode("dark")
         ctk.set_default_color_theme("my_custom_theme")
 
@@ -46,8 +46,8 @@ class DemoApplication(ctk.CTk):
         frame2 = ctk.CTkFrame(self, height=30, fg_color=self.bg)
         frame2.pack(fill="x")
 
-        labe = ctk.CTkLabel(frame2, text="Event Manager", font=("Segoe UI", 40, "bold"), text_color="white", fg_color=self.secondary_color, corner_radius=12)
-        labe.pack(pady=10, ipady=5, expand=True)
+        labe = ctk.CTkLabel(frame2, text="Event Manager", font=("Segoe UI", 30, "bold"), text_color="white", fg_color=self.secondary_color, corner_radius=12)
+        labe.pack(pady=10, ipady=7)
 
         # Create a notebook (tabbed interface)
         notebook = ctk.CTkTabview(self, width=700, height=500, bg_color="gainsboro", corner_radius=12)  # 3fa572 #333333
@@ -57,14 +57,8 @@ class DemoApplication(ctk.CTk):
         # Event Management Tab
         self.event_tab = notebook.add("Event Management")
 
-        self.full_frame1 = ctk.CTkFrame(self.event_tab, fg_color="white")
-        self.full_frame1.place(relx=0.0, rely=0.0, relwidth=1, relheight=1)
-
-        self.full_frame2 = ctk.CTkFrame(self.event_tab, fg_color=self.secondary_color, height=44)
-        self.full_frame2.place(relx=0.0, y=41, relwidth=1)
-
-        content_frame = ctk.CTkFrame(self.event_tab, fg_color="#F0F0F0")
-        content_frame.place(relx=0.0, y=82, relwidth=1, relheight=1)
+        self.content_frame = ctk.CTkFrame(self.event_tab, fg_color="#F0F0F0")
+        self.content_frame.place(relx=0.0, y=82, relwidth=1, relheight=1)
 
         self.events_home()
 
@@ -125,8 +119,8 @@ class DemoApplication(ctk.CTk):
 
         # Conditionally create sidebar on first click
         if self.click_count % 2 != 0 and self.f3 is None:
-            self.f3 = ctk.CTkScrollableFrame(content_frame, height = 400, width=240, fg_color="transparent")
-            self.f3.place(relx=0.1, y=0)
+            self.f3 = ctk.CTkScrollableFrame(self.content_frame, height = 400, width=240, fg_color="#F0F0F0")
+            self.f3.place(relheight=1,relx=0, y=0)
 
             # Add the sidebar content here (create_sidebar_item calls)
             self.create_sidebar_item("General", ["Option 1", "Option 2"])
@@ -138,15 +132,15 @@ class DemoApplication(ctk.CTk):
             self.create_sidebar_item("Reports", ["Generate", "View"])
             self.create_sidebar_item("Integrations", ["Connect", "Manage"])
             # ... add more sidebar items
-            self.f0.place_configure(relx=0.2, y=0, relwidth=0.75)
+            self.f0.place_configure(relheight=1,relx=0.21, y=0, relwidth=1)
         # Show/hide sidebar based on click count
         if self.click_count % 2 != 0:
-            self.f3.place(relx=0.1, y=0)
-            self.f0.place_configure(relx=0.2, y=0, relwidth=0.75)
+            self.f3.place(relheight=1,relx=0, y=0)
+            self.f0.place_configure(relheight=1,relx=0.21, y=0, relwidth=1)
         else:
             if self.f3 is not None:
                 self.f3.place_forget()
-                self.f0.place_configure(relx=0, y=0, relwidth=1.0)
+                self.f0.place_configure(relheight=1,relx=0, y=0, relwidth=1.0)
 
     def events_home(self):
         # Main frame
@@ -210,7 +204,7 @@ class DemoApplication(ctk.CTk):
 #-----------------------
 
         top_frame2 = ctk.CTkFrame(main_frame, fg_color=self.secondary_color, corner_radius=0)
-        top_frame2.pack(side="top",fill="x", expand=True, ipady=5, anchor="n")
+        top_frame2.pack(side="top",fill="x", ipady=5, anchor="n")
                     
         img6 = ctk.CTkImage(dark_image=Image.open(r"pics\lines.png"), size=(20, 20))
         butimg6 = ctk.CTkButton(top_frame2, image=img6, text="", fg_color="white", width=20, hover_color="white", command=self.menu_animation)
@@ -231,15 +225,15 @@ class DemoApplication(ctk.CTk):
         butimg7.pack(side="right", padx=10)
 
         # Content frame
-        content_frame = ctk.CTkFrame(main_frame)
-        content_frame.pack(side="top", anchor="n",fill="both", expand=True, padx=10)
+        self.content_frame = ctk.CTkFrame(main_frame)
+        self.content_frame.pack(side="top",fill="both", expand=True)
 
         # Add your content widgets here, using grid or pack as appropriate
 
 #-----------------------
 
-        self.f0 = ctk.CTkScrollableFrame(content_frame,width=1300,fg_color = "#F0F0F0")
-        self.f0.place(relheight = 1,relx = 0.1,y = 0)
+        self.f0 = ctk.CTkScrollableFrame(self.content_frame,fg_color = "#F0F0F0")
+        self.f0.place(relheight = 1, relwidth=1,relx = 0.0,y = 0)
 
         f01 = ctk.CTkFrame(self.f0,height = 1050,width = 970,fg_color = "#F0F0F0")
         f01.grid(row = 0,column = 0)
