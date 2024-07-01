@@ -10,7 +10,7 @@ from auth import GoogleSignInApp
            #gainsboro -> Background Color.
            #092928 -> Text Color.
            #20807f -> Hover Bg Color.
-           #white -> Hover Text Color. 
+           #white -> Hover Text Color. git add <resolved_file>
 
 class DemoApplication(ctk.CTk):
     def google_sign_in_handler(self):
