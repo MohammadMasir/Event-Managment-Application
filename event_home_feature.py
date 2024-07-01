@@ -115,7 +115,7 @@ class DemoApplication(ctk.CTk):
 
         # Conditionally create sidebar on first click
         if self.click_count % 2 != 0 and self.f3 is None:
-            self.f3 = ctk.CTkScrollableFrame(self.content_frame, height = 400, width=240, fg_color="#F0F0F0")
+            self.f3 = ctk.CTkScrollableFrame(self.content_frame, width=240, fg_color="#F0F0F0")
             self.f3.place(relheight=1,relx=0, y=0)
 
             # Add the sidebar content here (create_sidebar_item calls)
@@ -128,25 +128,17 @@ class DemoApplication(ctk.CTk):
             self.create_sidebar_item("Reports", ["Generate", "View"])
             self.create_sidebar_item("Integrations", ["Connect", "Manage"])
             # ... add more sidebar items
-            self.f0.place_configure(relheight=1,relx=0.21, y=0, relwidth=1)
+            self.f0.place(relheight=1,relx=0.21, y=0, relwidth=1)
         # Show/hide sidebar based on click count
         if self.click_count % 2 != 0:
             self.f3.place(relheight=1,relx=0, y=0)
-            self.f0.place_configure(relheight=1,relx=0.21, y=0, relwidth=1)
+            self.f0.place(relheight=1,relx=0.21, y=0, relwidth=1)
         else:
             if self.f3 is not None:
                 self.f3.place_forget()
-                self.f0.place_configure(relheight=1,relx=0, y=0, relwidth=1.0)
+                self.f0.place(relheight=1,relx=0, y=0, relwidth=1.0)
 
     def events_home(self):
-        self.cvent_frame.destroy()
-        self.cvent_l1.destroy()
-        self.cvent_l2.destroy()
-        self.cvent_labimg.destroy()
-        self.cvent_labimg3.destroy()
-        self.cvent_labimg5.destroy()
-        self.cvent_scrollable_frame.destroy()
-
         # Main frame
         main_frame = ctk.CTkFrame(self.event_tab, fg_color="#F0F0F0")
         main_frame.pack(fill="both", expand=True)
