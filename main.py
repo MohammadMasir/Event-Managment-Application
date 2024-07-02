@@ -411,97 +411,116 @@ class DemoApplication(ctk.CTk):
         ctk.CTkLabel(self.dashboard_tab, text="Welcome to Your Dashboard!", font=ctk.CTkFont(size=20, weight="bold")).pack(pady=20)
 
     def eventtab_widgets(self):
+
         self.previewmain_frame = ctk.CTkFrame(self.event_tab, fg_color = "#F0F0F0")
         self.previewmain_frame.pack(side="top", fill="both", expand= True)
 
-        self.event_dashboard = DashboardPage(self.previewmain_frame)
+        self.event_dashboard = DashboardPage(self.previewmain_frame, self)
         self.event_dashboard.topbar()
-
+        
         self.canvas1 = tk.Canvas(self.previewmain_frame,height = 3,width = 1920,bg = "#0061ff",relief = tk.RAISED)
-        self.canvas1.place(x = 0,y = 56)
+        self.canvas1.pack(side="top")
 
-        self.label15 = ctk.CTkLabel(self.previewmain_frame,text = "Events",text_color = "#000000",font = ctk.CTkFont(size = 20,weight = "bold"))
-        self.label15.place(x = 15,y = 65)
+        top_bar2 = ctk.CTkFrame(self.previewmain_frame, fg_color="white")
+        top_bar2.pack(side="top", fill="x", ipady=30)
 
-        self.event_form = CreateEvent(self.previewmain_frame)
+        self.label15 = ctk.CTkLabel(top_bar2,text = "Events",text_color = "#000000",font = ctk.CTkFont(size = 20,weight = "bold"))
+        self.label15.pack(side="left", padx=(20,0))
 
-        self.create_event_button = ctk.CTkButton(self.previewmain_frame,text = "Create Event",height = 30,width = 40,fg_color = "#2380D2",text_color = "#ffffff",corner_radius = 7,command = lambda : self.event_form.create_event())
-        self.create_event_button.place(x = 1140,y = 65)
+        self.event_form = CreateEvent(self.event_tab, self)
+
+        self.create_event_button = ctk.CTkButton(top_bar2,text = "Create Event",height = 30,width = 40,fg_color = "#2380D2",text_color = "#ffffff",corner_radius = 7,command = lambda : self.event_form.create_event())
+        self.create_event_button.pack(side="right", padx=(0,40))
+
+        child_frame = ctk.CTkFrame(self.previewmain_frame,fg_color="white")
+        child_frame.pack(side="top", fill="both", expand=True)
+
+        inside_child = ctk.CTkFrame(child_frame, fg_color = "#E6E6E6")
+        inside_child.pack(fill="x", anchor="center", ipady=40)
+
+        middle = ctk.CTkFrame(inside_child,fg_color = "#E6E6E6")
+        middle.pack(side="top", anchor="center", ipady=40)
+
+        child_top = ctk.CTkFrame(middle, fg_color="transparent")
+        child_top.pack(side="top", fill="x")
 
         x3 = tk.StringVar()
         x3.set("Current Events")
-        current_events_opt = ctk.CTkComboBox(self.previewmain_frame,variable = x3,height = 35,width = 140,fg_color = "#E6E6E6",text_color = "black",button_color = "#E6E6E6",border_color = "#E6E6E6",button_hover_color = "#E6E6E6",font = ctk.CTkFont(size = 13,weight = "normal"),values = ["","","","",""])
-        current_events_opt.place(x = 30,y = 30)
+        current_events_opt = ctk.CTkComboBox(child_top,variable = x3,height = 35,width = 140,fg_color = "#E6E6E6",text_color = "black",button_color = "#E6E6E6",border_color = "#E6E6E6",button_hover_color = "#E6E6E6",font = ctk.CTkFont(size = 13,weight = "normal"),values = ["","","","",""])
+        current_events_opt.pack(side="left")
 
         def create_view():
             pass
 
-        create_view_button = ctk.CTkButton(self.previewmain_frame,text = "Create View",text_color = "#000000",hover_color = "#A4A4A4",width = 100,fg_color = "#E6E6E6",command = create_view)
-        create_view_button.place(x = 180,y = 35)
+        create_view_button = ctk.CTkButton(child_top,text = "Create View",text_color = "#000000",hover_color = "#A4A4A4",width = 100,fg_color = "#E6E6E6",command = create_view)
+        create_view_button.pack(side="left")
 
-        advanced_search_label = ctk.CTkLabel(self.previewmain_frame,text = "Advanced Search",text_color = "#000000")
-        advanced_search_label.place(x = 1140,y = 35)
+        advanced_search_label = ctk.CTkLabel(child_top,text = "Advanced Search",text_color = "#000000")
+        advanced_search_label.pack(side="right")
 
-        child_frame = ctk.CTkFrame(self.previewmain_frame,fg_color = "#ffffff",height = 250,width = 1235)
-        child_frame.place(x = 20,y = 130)
+        table_frame = ctk.CTkFrame(middle, fg_color="white")
+        table_frame.pack(fill="x", padx=20)
 
-        inner_frame1 = ctk.CTkFrame(child_frame,height = 130,width = 1175,fg_color = "#ffffff",border_width = 0.8,border_color = "#919191")
-        inner_frame1.place(x = 30,y = 20)
+        inner_frame1 = ctk.CTkFrame(table_frame,fg_color = "#ffffff",border_width = 0.8,border_color = "#919191")
+        inner_frame1.pack(fill="x", padx=20)
 
-        title_label = ctk.CTkLabel(inner_frame1,text = "Title",text_color = "#000000",font = ctk.CTkFont(size = 14,weight = "normal"))
-        title_label.place(x = 20,y = 10)
+        headline = ctk.CTkFrame(inner_frame1, fg_color="transparent")
+        headline.pack(side="top", fill="x", ipady=5)
+
+        title_label = ctk.CTkLabel(headline,text = "Title",text_color = "#000000",font = ctk.CTkFont(size = 14,weight = "normal"))
+        title_label.pack(side="left")
 
         x4 = tk.StringVar()
         x4.set("Code")
-        code_dropdown = ctk.CTkComboBox(inner_frame1,variable = x4,height = 35,width = 100,fg_color = "#ffffff",text_color = "#000000",button_color = "#ffffff",border_color = "#ffffff",button_hover_color = "#ffffff",font = ctk.CTkFont(size = 13,weight = "normal"),values = ["","","","",""])
-        code_dropdown.place(x = 450,y = 10)
+        code_dropdown = ctk.CTkComboBox(headline,variable = x4,height = 35,width = 100,fg_color = "#ffffff",text_color = "#000000",button_color = "#ffffff",border_color = "#ffffff",button_hover_color = "#ffffff",font = ctk.CTkFont(size = 13,weight = "normal"),values = ["","","","",""])
+        code_dropdown.pack(side="right")
 
         x5 = tk.StringVar()
         x5.set("Event Status")
-        event_status_dropdown = ctk.CTkComboBox(inner_frame1,variable = x5,height = 35,width = 140,fg_color = "#ffffff",text_color = "#000000",button_color = "#ffffff",border_color = "#ffffff",button_hover_color = "#ffffff",font = ctk.CTkFont(size = 13,weight = "normal"),values = ["","","","",""])
-        event_status_dropdown.place(x = 590,y = 10)
+        event_status_dropdown = ctk.CTkComboBox(headline,variable = x5,height = 35,width = 140,fg_color = "#ffffff",text_color = "#000000",button_color = "#ffffff",border_color = "#ffffff",button_hover_color = "#ffffff",font = ctk.CTkFont(size = 13,weight = "normal"),values = ["","","","",""])
+        event_status_dropdown.pack(side="right")
 
         x6 = tk.StringVar()
         x6.set("Start Date")
-        start_date_dropdown = ctk.CTkComboBox(inner_frame1,variable = x6,height = 35,width = 140,fg_color = "#ffffff",text_color = "#000000",button_color = "#ffffff",border_color = "#ffffff",button_hover_color = "#ffffff",font = ctk.CTkFont(size = 13,weight = "normal"),values = ["","","","",""])
-        start_date_dropdown.place(x = 750,y = 10)
+        start_date_dropdown = ctk.CTkComboBox(headline,variable = x6,height = 35,width = 140,fg_color = "#ffffff",text_color = "#000000",button_color = "#ffffff",border_color = "#ffffff",button_hover_color = "#ffffff",font = ctk.CTkFont(size = 13,weight = "normal"),values = ["","","","",""])
+        start_date_dropdown.pack(side="right")
 
         x7 = tk.StringVar()
         x7.set("Yes")
-        yes_dropdown = ctk.CTkComboBox(inner_frame1,variable = x7,height = 35,width = 90,fg_color = "#ffffff",text_color = "#000000",button_color = "#ffffff",border_color = "#ffffff",button_hover_color = "#ffffff",font = ctk.CTkFont(size = 13,weight = "normal"),values = ["","","","",""])
-        yes_dropdown.place(x = 920,y = 10)
+        yes_dropdown = ctk.CTkComboBox(headline,variable = x7,height = 35,width = 90,fg_color = "#ffffff",text_color = "#000000",button_color = "#ffffff",border_color = "#ffffff",button_hover_color = "#ffffff",font = ctk.CTkFont(size = 13,weight = "normal"),values = ["","","","",""])
+        yes_dropdown.pack(side="right")
 
         img6 = ctk.CTkImage(dark_image = Image.open(r"pics\question.png"),size = (20,20))
-        labimg6 = ctk.CTkLabel(inner_frame1,image = img6,text = "")
-        labimg6.place(x = 1050,y = 10)
+        labimg6 = ctk.CTkLabel(headline,image = img6,text = "")
+        labimg6.pack(side="right")
 
-        no_label = ctk.CTkLabel(inner_frame1,text = "No",text_color = "#000000",font = ctk.CTkFont(size = 12,weight = "normal"))
-        no_label.place(x = 1090,y = 10)
+        no_label = ctk.CTkLabel(headline,text = "No",text_color = "#000000",font = ctk.CTkFont(size = 12,weight = "normal"))
+        no_label.pack(side="right")
 
         canvas2 = tk.Canvas(inner_frame1,height = 3,width = 1900,bg = "#858585",relief = tk.SUNKEN)
-        canvas2.place(x =  -2,y = 70)
+        canvas2.pack()
 
-        inner_frame2 = ctk.CTkFrame(inner_frame1,height = 78,width = 1172,fg_color = "#E6E6E6")
-        inner_frame2.place(x = 1,y = 50)
+        inner_frame2 = ctk.CTkFrame(inner_frame1,height = 78,width = 1172,fg_color = "red") #E6E6E6
+        inner_frame2.pack(fill="x", padx=20)
 
         x8 = tk.StringVar()
         text = "There are no events in this view."
         x8.set(text)
         data_label = ctk.CTkLabel(inner_frame2,text_color = "#000000",textvariable = x8,font = ctk.CTkFont(size = 15,weight = "bold"))
-        data_label.place(x = 500,y = 10)
+        data_label.pack(side="top")
 
-        result_per_page_label = ctk.CTkLabel(child_frame,text = "Results per page",fg_color = "#ffffff",text_color = "#000000",font = ctk.CTkFont(size = 13,weight = "normal"))
-        result_per_page_label.place(x = 30,y = 170)
+        result_per_page_label = ctk.CTkLabel(table_frame,text = "Results per page",fg_color = "#ffffff",text_color = "#000000",font = ctk.CTkFont(size = 13,weight = "normal"))
+        result_per_page_label.pack(side="left")
 
         x9 = tk.IntVar()
-        result_per_page_dropdown = ctk.CTkComboBox(child_frame,variable = x9,height = 35,width = 60,fg_color = "#ffffff",text_color = "#000000",border_width = 0.6,button_color = "#ffffff",corner_radius = 5,border_color = "#ffffff",button_hover_color = "#ffffff",font = ctk.CTkFont(size = 13,weight = "normal"),values = ["25","30","35","40"])
-        result_per_page_dropdown.place(x = 180,y = 170)
+        result_per_page_dropdown = ctk.CTkComboBox(table_frame,variable = x9,height = 35,width = 60,fg_color = "#ffffff",text_color = "#000000",border_width = 0.6,button_color = "#ffffff",corner_radius = 5,border_color = "#ffffff",button_hover_color = "#ffffff",font = ctk.CTkFont(size = 13,weight = "normal"),values = ["25","30","35","40"])
+        result_per_page_dropdown.pack(side="left")
 
         x10 = tk.StringVar()
         text = "Displaying result 0 of 0"
         x10.set(text)
-        displaying_result_label = ctk.CTkLabel(child_frame,textvariable = x10,text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "normal"))
-        displaying_result_label.place(x = 600,y = 170)
+        displaying_result_label = ctk.CTkLabel(table_frame,textvariable = x10,text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "normal"))
+        displaying_result_label.pack(side="left", padx=(40,0))
 
         down_line = tk.Canvas(self.previewmain_frame,height = 9,width = 1920,bg = "#858585",relief = tk.SUNKEN)
         down_line.place(x = -2,y = 768)

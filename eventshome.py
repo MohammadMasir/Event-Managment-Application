@@ -3,10 +3,10 @@ import tkinter as tk
 from PIL import Image
 
 class DashboardPage():
-    def __init__(self, parent):
+    def __init__(self, parent, main_app):
         super().__init__()
-
         self.parent = parent
+        self.main_app = main_app
 
         self.primary_color = "#093838"
         self.secondary_color = "#8bceba"
@@ -129,7 +129,6 @@ class DashboardPage():
 
 
     def events_home(self):
-
         # Main frame
         main_frame = ctk.CTkFrame(self.parent, fg_color="#F0F0F0")
         main_frame.pack(fill="both", expand=True)

@@ -2,23 +2,18 @@ import customtkinter as ctk
 from tkinter.messagebox import showinfo, showwarning, showerror
 from PIL import Image
 from eventshome import DashboardPage
-from main import DemoApplication
-
-
 
 class CreateEvent():
-    def __init__(self, parent):
+    def __init__(self, parent, main_app):
         super().__init__()
         self.parent = parent
-
-        self.main_app = DemoApplication()
+        self.main_app = main_app
 
     def create_event(self):
-        self.main_app.switch_screen(self._create_event)
+        self.main_app.previewmain_frame.destroy()
 
-    def _create_event(self):
         my_img = ctk.CTkImage(dark_image = Image.open(r"pics\back.png"),size = (20,20))
-        self.cvent_labimg = ctk.CTkButton(self.parent,image = my_img,text = "",fg_color = "#F0F0F0",hover_color = "white",width = 15,border_width = 1,border_color = "#F0F0F0", command=self.back)
+        self.cvent_labimg = ctk.CTkButton(self.parent,image = my_img,text = "",fg_color = "#F0F0F0",hover_color = "white",width = 15,border_width = 1,border_color = "#F0F0F0")
         self.cvent_labimg.place(x = 8,y = 5)
 
         self.cvent_l1 = ctk.CTkLabel(self.parent,text = "New event",font = ("bold",26)) #,text_color = "black",fg_color = "#F0F0F0",
@@ -62,7 +57,7 @@ class CreateEvent():
             if x14.get() == "":
                 showerror(title = "Error",message = "Please choose the state")
 
-            self.homepage = DashboardPage(self.parent)
+            self.homepage = DashboardPage(self.parent, self.main_app)
             self.homepage.events_home()
 
         x1 =ctk.StringVar()
