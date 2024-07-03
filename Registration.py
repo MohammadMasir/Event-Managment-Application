@@ -45,24 +45,30 @@ class RegistrationPage(ctk.CTk):
         self.top_frame = ctk.CTkFrame(self,height = 55,fg_color = "#ffffff",border_width = 1,border_color = "lightgray")
         self.top_frame.pack(pady = (0,0),fill = "x")
 
+        self.three_lines_and_demeven_frame = ctk.CTkFrame(self.top_frame,fg_color = "#ffffff",width = 100)
+        self.three_lines_and_demeven_frame.pack(side = "left",padx = 20,pady = 20)
+
         self.three_lines_image = ctk.CTkImage(dark_image = Image.open(r"pics\lines.png"),size = (25,25))
-        self.three_lines_image_label = ctk.CTkButton(self.top_frame,image = self.three_lines_image,text = "",hover_color = "lightgray",fg_color = "#ffffff",width = 5,command = self.three_lines)
+        self.three_lines_image_label = ctk.CTkButton(self.three_lines_and_demeven_frame,image = self.three_lines_image,text = "",hover_color = "lightgray",fg_color = "#ffffff",width = 5,command = self.three_lines)
         self.three_lines_image_label.grid(row = 0,column = 0,padx = (5,7),pady = 5)
         
         demeven_bind = tk.StringVar()
         text = "DemEven"
         demeven_bind.set(text)
-        self.demeven_label = ctk.CTkLabel(self.top_frame,text_color = "#000000",textvariable = demeven_bind,font = ctk.CTkFont(size = 20,weight = "bold"))
+        self.demeven_label = ctk.CTkLabel(self.three_lines_and_demeven_frame,text_color = "#000000",textvariable = demeven_bind,font = ctk.CTkFont(size = 20,weight = "bold"))
         self.demeven_label.grid(row = 0,column = 1,padx = (0,650),pady = 5)
 
-        self.search_widget = ctk.CTkEntry(self.top_frame,height = 35,width = 250,fg_color = "#ffffff",corner_radius = 20,text_color = "#000000",placeholder_text = "Search this event",placeholder_text_color = "#000000")
-        self.search_widget.grid(row = 0,column = 2,padx = (0,35),pady = 5)
+        self.search_widget_and_preview_frame = ctk.CTkFrame(self.top_frame,fg_color = "#ffffff",width = 500)
+        self.search_widget_and_preview_frame.pack(side = "right",padx = (0,30))
+        
+        self.search_widget = ctk.CTkEntry(self.search_widget_and_preview_frame,fg_color = "#ffffff",height = 35,width = 250,corner_radius = 20,placeholder_text = "Search this event",placeholder_text_color = "#000000")
+        self.search_widget.grid(row = 0,column = 0)
 
         self.search_widget_image = ctk.CTkImage(dark_image = Image.open(r"pics\loupe.png"),size = (20,20))
         self.search_widget_image_button = ctk.CTkButton(self.search_widget,image = self.search_widget_image,corner_radius = 70,text = "",height = 15,width = 20,hover_color = "lightgray",fg_color = "#ffffff",command = self.search_widget_command)
         self.search_widget_image_button.place(x = 200,y = 3)
 
-        self.preview_button = ctk.CTkButton(self.top_frame,text = "Preview",height = 35,width = 100,hover_color = "#ffffff",text_color = "#0B77E3",corner_radius = 5,fg_color = "#ffffff",border_width = 1,border_color = "#0B77E3",command = self.preview_button_command)
+        self.preview_button = ctk.CTkButton(self.search_widget_and_preview_frame,text = "Preview",height = 35,width = 100,hover_color = "#ffffff",text_color = "#0B77E3",corner_radius = 5,fg_color = "#ffffff",border_width = 1,border_color = "#0B77E3",command = self.preview_button_command)
         self.preview_button.grid(row = 0,column = 3,padx = (25,0),pady = (6),ipadx = 25)
 
         self.preview_button_image = ctk.CTkImage(dark_image = Image.open(r"pics\view.png"),size = (25,25))
