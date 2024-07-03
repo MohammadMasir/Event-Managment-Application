@@ -5,6 +5,7 @@ import tkinter as tk
 from tkinter.messagebox import showinfo, showwarning, showerror
 from eventshome import DashboardPage
 from eventcreate import CreateEvent
+from registration import RegistrationPage
 
             # INSPECTION BRANCH #
             
@@ -394,8 +395,8 @@ class DemoApplication(ctk.CTk):
         self.eventtab_widgets()
 
         # Registration and Ticketing Tab
-        self.ticket_tab = notebook.add("Registration and Ticketing")
-        self.tickettab_widgets()
+        self.register_tab = notebook.add("Registration and Ticketing")
+        self.registertab_widgets()
 
         # Reporting and Analytics Tab
         self.report_tab = notebook.add("Reporting and Analytics")
@@ -529,8 +530,10 @@ class DemoApplication(ctk.CTk):
         down_line.place(x = -2,y = 768)
 
 
-    def tickettab_widgets(self):
-        ctk.CTkLabel(self.ticket_tab, text="Handle registrations and tickets", font=ctk.CTkFont(size=20, weight="bold")).pack(pady=20)
+    def registertab_widgets(self):
+        # ctk.CTkLabel(self.ticket_tab, text="Handle registrations and tickets", font=ctk.CTkFont(size=20, weight="bold")).pack(pady=20)
+        self.register_page = RegistrationPage(self.register_tab, self)
+        self.register_page.register_initial()
 
     def reporttab_widgets(self):
         ctk.CTkLabel(self.report_tab, text="View analytics and reports", font=ctk.CTkFont(size=20, weight="bold")).pack(pady=20)
