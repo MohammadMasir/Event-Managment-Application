@@ -8,6 +8,9 @@ class DashboardPage():
         self.parent = parent
         self.main_app = main_app
 
+        self.click_count = 0
+        self.f3 = None
+
         self.primary_color = "#093838"
         self.secondary_color = "#8bceba"
         self.bg = "gainsboro"

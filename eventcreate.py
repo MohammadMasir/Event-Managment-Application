@@ -9,22 +9,29 @@ class CreateEvent():
         self.parent = parent
         self.main_app = main_app
 
+    def back_preview(self):
+        self.form_main.destroy()
+        self.main_app.eventtab_widgets()
+
     def create_event(self):
         self.main_app.previewmain_frame.destroy()
 
+        self.form_main = ctk.CTkFrame(self.parent)
+        self.form_main.pack(fill="both", expand=True)
+
         my_img = ctk.CTkImage(dark_image = Image.open(r"pics\back.png"),size = (20,20))
-        self.cvent_labimg = ctk.CTkButton(self.parent,image = my_img,text = "",fg_color = "#F0F0F0",hover_color = "white",width = 15,border_width = 1,border_color = "#F0F0F0")
+        self.cvent_labimg = ctk.CTkButton(self.form_main,image = my_img,text = "",fg_color = "#F0F0F0",hover_color = "white",width = 15,border_width = 1,border_color = "#F0F0F0", command=self.back_preview)
         self.cvent_labimg.place(x = 8,y = 5)
 
-        self.cvent_l1 = ctk.CTkLabel(self.parent,text = "New event",font = ("bold",26)) #,text_color = "black",fg_color = "#F0F0F0",
-        self.cvent_l2 = ctk.CTkLabel(self.parent,text = "Great! Tell us a little about your event.",font = ("thin",19)) #,text_color = "black",fg_color = "#F0F0F0"
+        self.cvent_l1 = ctk.CTkLabel(self.form_main,text = "New event",font = ("bold",26)) #,text_color = "black",fg_color = "#F0F0F0",
+        self.cvent_l2 = ctk.CTkLabel(self.form_main,text = "Great! Tell us a little about your event.",font = ("thin",19)) #,text_color = "black",fg_color = "#F0F0F0"
         self.cvent_l1.place(x = 70,y = 30)
         self.cvent_l2.place(x = 70,y = 57)
 
-        self.cvent_scrollable_frame = ctk.CTkScrollableFrame(self.parent,height = 470,width = 800,orientation = "vertical",fg_color = "white",border_width = 0.8,border_color = "black",scrollbar_button_color = "white",scrollbar_fg_color = "black")
+        self.cvent_scrollable_frame = ctk.CTkScrollableFrame(self.form_main,height = 470,width = 800,orientation = "vertical",fg_color = "white",border_width = 0.8,border_color = "black",scrollbar_button_color = "white",scrollbar_fg_color = "black")
         self.cvent_frame = ctk.CTkFrame(self.cvent_scrollable_frame,fg_color = "white",height = 950,width = 800)
-        self.cvent_scrollable_frame.place(x = 70,y = 105)
-        self.cvent_frame.pack(expand=True)
+        self.cvent_scrollable_frame.place(relwidth=0.8,relheight=0.8,x = 70,y = 105)
+        self.cvent_frame.pack(fill="both",expand=True)
 
         img1 = ctk.CTkImage(dark_image = Image.open(r"pics\info.png"),size = (30,30))
         labimg1 = ctk.CTkLabel(self.cvent_frame,image = img1,text = "")
@@ -57,7 +64,7 @@ class CreateEvent():
             if x14.get() == "":
                 showerror(title = "Error",message = "Please choose the state")
 
-            self.homepage = DashboardPage(self.parent, self.main_app)
+            self.homepage = DashboardPage(self.form_main, self.main_app)
             self.homepage.events_home()
 
         x1 =ctk.StringVar()
@@ -102,12 +109,12 @@ class CreateEvent():
         e4.place(x = 520,y = 250)
 
         img5 = ctk.CTkImage(dark_image = Image.open(r"pics\management.png"),size = (340,280))
-        self.cvent_labimg5 = ctk.CTkLabel(self.parent,image = img5,text = "")
+        self.cvent_labimg5 = ctk.CTkLabel(self.form_main,image = img5,text = "",bg_color="white")
         self.cvent_labimg5.place(x = 940,y = 130)
 
-        self.label2 = ctk.CTkLabel(self.parent,text = "This is just the start..!!",text_color = "black",fg_color = "#F0F0F0",font = ("semibold",21))
+        self.label2 = ctk.CTkLabel(self.form_main,text = "This is just the start..!!",text_color = "black",fg_color = "#F0F0F0",font = ("semibold",21))
         self.label2.place(x = 940,y = 420)
-        self.label3 = ctk.CTkLabel(self.parent,text = "We can't wait to see what kind of event you put on!",text_color = "black",fg_color = "#F0F0F0",font = ("thin",16))
+        self.label3 = ctk.CTkLabel(self.form_main,text = "We can't wait to see what kind of event you put on!",text_color = "black",fg_color = "#F0F0F0",font = ("thin",16))
         self.label3.place(x = 940,y = 450)
 
         img2 = ctk.CTkImage(dark_image = Image.open(r"pics\location.png"),size = (30,30))
@@ -139,7 +146,7 @@ class CreateEvent():
         e8.place(x = 30,y = 478)
 
         img3 = ctk.CTkImage(dark_image = Image.open(r"pics\close.png"),size = (20,20))
-        self.cvent_labimg3 = ctk.CTkButton(self.parent,image = img3,text = "",fg_color = "#F0F0F0",hover_color = "white",width = 15,border_width = 1,border_color = "#F0F0F0")
+        self.cvent_labimg3 = ctk.CTkButton(self.form_main,image = img3,text = "",fg_color = "#F0F0F0",hover_color = "white",width = 15,border_width = 1,border_color = "#F0F0F0")
         self.cvent_labimg3.place(x = 1225,y = 5)
 
         img4 = ctk.CTkImage(dark_image = Image.open(r"pics\mall.png"),size = (20,20))
