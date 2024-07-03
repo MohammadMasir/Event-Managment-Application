@@ -9,10 +9,6 @@ class CreateEvent():
         self.parent = parent
         self.main_app = main_app
 
-    def back_preview(self):
-        self.form_main.destroy()
-        self.main_app.eventtab_widgets()
-
     def create_event(self):
         self.main_app.previewmain_frame.destroy()
 
@@ -20,7 +16,7 @@ class CreateEvent():
         self.form_main.pack(fill="both", expand=True)
 
         my_img = ctk.CTkImage(dark_image = Image.open(r"pics\back.png"),size = (20,20))
-        self.cvent_labimg = ctk.CTkButton(self.form_main,image = my_img,text = "",fg_color = "#F0F0F0",hover_color = "white",width = 15,border_width = 1,border_color = "#F0F0F0", command=self.back_preview)
+        self.cvent_labimg = ctk.CTkButton(self.form_main,image = my_img,text = "",fg_color = "#F0F0F0",hover_color = "white",width = 15,border_width = 1,border_color = "#F0F0F0", command=lambda : self.main_app.back_preview(self.form_main))
         self.cvent_labimg.place(x = 8,y = 5)
 
         self.cvent_l1 = ctk.CTkLabel(self.form_main,text = "New event",font = ("bold",26)) #,text_color = "black",fg_color = "#F0F0F0",

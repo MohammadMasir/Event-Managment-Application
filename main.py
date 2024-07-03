@@ -67,6 +67,10 @@ class DemoApplication(ctk.CTk):
         widget.bind("<Enter>", on_enter)
         widget.bind("<Leave>", on_leave)
 
+    def back_preview(self, frame_name):
+        frame_name.destroy()
+        self.eventtab_widgets()
+
     def switch_screen(self, new_screen):
         # Save the current screen to the stack
         if self.current_screen:
@@ -439,8 +443,8 @@ class DemoApplication(ctk.CTk):
         child_frame = ctk.CTkFrame(self.previewmain_frame,fg_color="white")
         child_frame.pack(side="top", fill="both", expand=True)
 
-        inside_child = ctk.CTkFrame(child_frame, fg_color = "#E6E6E6")
-        inside_child.pack(fill="x", anchor="center", ipady=40)
+        inside_child = ctk.CTkFrame(child_frame, fg_color = "#E6E6E6", corner_radius=12)
+        inside_child.pack(fill="x", anchor="center", ipady=40, padx=20)
 
         middle = ctk.CTkFrame(inside_child,fg_color = "#E6E6E6")
         middle.pack(side="top", anchor="center", ipady=40,fill="x")

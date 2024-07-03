@@ -8,6 +8,9 @@ class DashboardPage():
         self.parent = parent
         self.main_app = main_app
 
+        self.home_main_frame = ctk.CTkFrame(self.parent)
+        self.home_main_frame.pack(fill="both", expand="true")
+
         self.click_count = 0
         self.f3 = None
 
@@ -18,8 +21,11 @@ class DashboardPage():
         self.hovercolor_bg = "#20807f"
         self.hovercolor_txt = "white"
 
+    def back(self,event=None):
+         self.main_app.back_preview(self.home_main_frame)
+
     def topbar(self):
-        self.top_frame = ctk.CTkFrame(self.parent, fg_color="white")
+        self.top_frame = ctk.CTkFrame(self.home_main_frame, fg_color="white")
         self.top_frame.pack(side="top",fill="x", ipady=5)
 #-----------------------
         # Logo and title
@@ -44,6 +50,8 @@ class DashboardPage():
 
         label4 = ctk.CTkLabel(another_frame, text="All Events", text_color="black", font=ctk.CTkFont(size=17, weight="normal"))
         label4.pack(side="left", padx=10)
+
+        label4.bind("<Button-1>", lambda event : self.back)
 
         x1 = ctk.StringVar(value="Calendar")
         opt1 = ctk.CTkComboBox(another_frame, variable=x1, width=100, values=["2020", "2021", "2022", "2023"], fg_color="white", button_color=self.secondary_color, bg_color="white")
@@ -133,7 +141,7 @@ class DashboardPage():
 
     def events_home(self):
         # Main frame
-        main_frame = ctk.CTkFrame(self.parent, fg_color="#F0F0F0")
+        main_frame = ctk.CTkFrame(self.home_main_frame, fg_color="#F0F0F0")
         main_frame.pack(fill="both", expand=True)
 #-----------------------
 #-----------------------
