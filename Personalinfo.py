@@ -27,7 +27,7 @@ class Personal_information(ctk.CTk):
     def __init__(self):
         super().__init__()
         self.Personal_info()
-        self.Theme_design()
+        self.Theme_design(self.right_scrollable_frame)
 
     def common_entry(self):
        common_entry = ctk.CTkEntry(self.main_scrollable_frame,height = 35,width = 800,corner_radius = 5)
@@ -133,7 +133,7 @@ class Personal_information(ctk.CTk):
         self.next = ctk.CTkButton(self.main_scrollable_frame,text = "Next",height = 30,width = 100,corner_radius = 5,border_width = 1,border_color = "#11A2E3",text_color = "#11A2E3",fg_color = "#ffffff",hover_color = "blue",command = self.next_command)
         self.next.grid(row = 19,column = 0,sticky = "e",padx = (0,345),pady = 20)
 
-    def Theme_design(self):
+    def Theme_design(self,parent_frame):
 
         self.theme = ctk.CTkLabel(self.right_scrollable_frame,text = "Theme",text_color = "#000000",font = ctk.CTkFont(size = 25,weight = "bold"))
         self.theme.grid(row = 0,column = 0,padx = 100,pady = 10)

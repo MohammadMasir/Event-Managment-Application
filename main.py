@@ -40,7 +40,7 @@ class DemoApplication(ctk.CTk):
             user="root",
             password="root",
             database="projects",
-            port=3306,
+            port=3307,
             charset="utf8"
         )
         return connection

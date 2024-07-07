@@ -25,6 +25,7 @@ class Registration_summary(ctk.CTk):
     def __init__(self):
         super().__init__()
         self.registration_summary()
+        self.method_calling()
 
 
     def registration_summary(self):
@@ -133,6 +134,9 @@ class Registration_summary(ctk.CTk):
 
         self.submit = ctk.CTkButton(self.main_scrollable_frame,text = "Submit",height = 30,width = 100,corner_radius = 5,border_width = 1,border_color = "#11A2E3",text_color = "#11A2E3",fg_color = "#ffffff",hover_color = "blue",command = self.submit_command)
         self.submit.grid(row = 20,column = 0,sticky = "w",padx = (460,0),pady = (50,0))
+
+    def method_calling(self):
+        pass
 
 if __name__ == "__main__":
     registration_summary_object = Registration_summary()
