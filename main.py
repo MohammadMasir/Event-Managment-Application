@@ -20,7 +20,7 @@ class DemoApplication(ctk.CTk):
     def __init__(self):
         super().__init__()
         self.geometry("700x500")
-        self.resizable(width=True, height=True)
+        self.resizable(width=False, height=False)
         self.title("DemoApplication")
         self.configure(fg_color="#093838")
 
@@ -68,8 +68,12 @@ class DemoApplication(ctk.CTk):
         widget.bind("<Leave>", on_leave)
 
     def back_preview(self, frame_name):
-        frame_name.destroy()
-        self.eventtab_widgets()
+        if frame_name == self.previewmain_frame:
+            return None
+        else:
+            for widgets in self.event_tab.winfo_children():
+                widgets.pack_forget()
+            self.eventtab_widgets()
 
     def switch_screen(self, new_screen):
         # Save the current screen to the stack
@@ -136,7 +140,52 @@ class DemoApplication(ctk.CTk):
         self.resizable(width=True, height=True)
         self.geometry(f'{width - 200}x{height-100}')
         self.maxsize(width,height)
-        # self.minsize(width,height)
+
+    def topbar(self, frame_name):
+        self.top_frame = ctk.CTkFrame(frame_name, fg_color="white")
+        self.top_frame.pack(side="top",fill="x", ipady=5)
+#-----------------------
+        # Logo and title
+        logo_frame = ctk.CTkFrame(self.top_frame, fg_color="white")
+        logo_frame.pack(side="left", padx=10)
+
+        label1 = ctk.CTkLabel(logo_frame, text="cvent", text_color="black", font=ctk.CTkFont(size=20, weight="bold"), bg_color="white")
+        label1.pack(side="left")
+
+        label2 = ctk.CTkLabel(logo_frame, text="|", font=ctk.CTkFont(size=19, weight="bold"),text_color="black", bg_color="white")
+        label2.pack(side="left", padx=10)
+
+        label3 = ctk.CTkLabel(logo_frame, text="EVENTS", text_color="#3fa6fb", font=ctk.CTkFont(size=17, weight="bold"), bg_color="white")
+        label3.pack(side="left")
+#-----------------------
+        # Options
+        options_frame = ctk.CTkFrame(self.top_frame, fg_color="transparent")
+        options_frame.pack(side="left", expand=True, fill="x")
+
+        another_frame = ctk.CTkFrame(options_frame, fg_color="white", bg_color="white")
+        another_frame.pack(anchor="center")
+
+        label4 = ctk.CTkButton(another_frame, text="All Events", text_color="black", font=ctk.CTkFont(size=17, weight="normal"), command = lambda : self.back_preview(frame_name), fg_color="white", hover_color="white")
+        label4.pack(side="left", padx=10)
+
+        # label4.bind("<Button-1>", lambda : self.main_app.back_preview(self.home_main_frame))
+
+        x1 = ctk.StringVar(value="Calendar")
+        opt1 = ctk.CTkComboBox(another_frame, variable=x1, width=100, values=["2020", "2021", "2022", "2023"], fg_color="white", button_color=self.secondary_color, bg_color="white")
+        opt1.pack(side="left")
+
+        x2 = ctk.StringVar(value="More")
+        opt2 = ctk.CTkComboBox(another_frame, variable=x2, width=90, values=["", "", "", ""], fg_color="white", button_color=self.secondary_color, bg_color="white")
+        opt2.pack(side="left", padx=10)
+#-----------------------
+        # Icons
+        icons_frame = ctk.CTkFrame(self.top_frame, fg_color="white")
+        icons_frame.pack(side="right", padx=10)
+
+        for icon_path in ["loupe.png", "file.png", "question.png", "user (1).png", "menu.png"]:
+            img = ctk.CTkImage(dark_image=Image.open(f"pics/{icon_path}"), size=(20, 20))
+            button = ctk.CTkButton(icons_frame, image=img, text="", width=20, fg_color="white", bg_color="white", hover_color="#3fa6fb")
+            button.pack(side="left", padx=2)
 
     def initial_screen(self):
         self.switch_screen(self._initial_screen)
@@ -378,6 +427,7 @@ class DemoApplication(ctk.CTk):
 
     def _create_widgets(self):
         self.toggle_fullscreen()
+        self.resizable(width=True, height=True)
         self.bind("<F11>", self.toggle_fullscreen)
 
         frame2 = ctk.CTkFrame(self, height=30, fg_color=self.bg)
@@ -423,8 +473,7 @@ class DemoApplication(ctk.CTk):
         self.previewmain_frame = ctk.CTkFrame(self.event_tab, fg_color = "#F0F0F0")
         self.previewmain_frame.pack(side="top", fill="both", expand= True)
 
-        self.event_dashboard = DashboardPage(self.previewmain_frame, self)
-        self.event_dashboard.topbar()
+        self.topbar(self.previewmain_frame)
         
         self.canvas1 = tk.Canvas(self.previewmain_frame,height = 3,width = 1920,bg = "#0061ff",relief = tk.RAISED)
         self.canvas1.pack(side="top")
@@ -536,7 +585,7 @@ class DemoApplication(ctk.CTk):
 
     def registertab_widgets(self):
         # ctk.CTkLabel(self.ticket_tab, text="Handle registrations and tickets", font=ctk.CTkFont(size=20, weight="bold")).pack(pady=20)
-        self.register_page = RegistrationPage(self.register_tab, self)
+        self.register_page = RegistrationPage(self)
         self.register_page.register_initial()
 
     def reporttab_widgets(self):

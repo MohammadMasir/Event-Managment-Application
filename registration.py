@@ -4,24 +4,89 @@ from tkinter import messagebox
 from PIL import Image
 
 class RegistrationPage():
-    def __init__(self, parent, main_app):
+    def __init__(self, main_app):
         super().__init__()
-
-        self.parent = parent
         self.main_app = main_app
-        self.page_frame = ctk.CTkFrame(self.parent)
-        self.page_frame.pack(fill="both", expand=True), 
+        self.page_frame = ctk.CTkFrame(self.main_app.register_tab)
+        self.page_frame.pack(fill="both", expand=True)
+
+        self.click_count = 0
+        self.sidebar = None
+
+    def create_sidebar_item(self, label, subitems):
+        frame = ctk.CTkFrame(self.sidebar, corner_radius=0)
+        frame.pack(fill="x", pady=(0, 1))
+
+        # Create a sub-frame for the button content
+        button_frame = ctk.CTkFrame(frame, corner_radius=0, fg_color="#20807f")
+        button_frame.pack(fill="x",ipady=5)
+
+        # Label on the left
+        label_widget = ctk.CTkButton(button_frame, text=label, anchor="w", font=ctk.CTkFont(family="Segoe UI",size=15, weight="bold"), command=lambda: self.toggle_subitems(frame, subitems), fg_color="#20807f", text_color="white")
+        label_widget.pack(side="left")
+
+        # Arrow on the right
+        arrow_label = ctk.CTkLabel(button_frame, text="▼", anchor="e")
+        arrow_label.pack(side="right", padx=(0, 5))
+
+        # Make the whole frame clickable
+        button_frame.bind("<Button-1>", lambda event: self.toggle_subitems(frame, subitems))
+
+        # Create hidden frame for subitems
+        subframe = ctk.CTkFrame(frame, corner_radius=20, fg_color="#093838")
+        subframe.pack(fill="x")
+        subframe.pack_forget()  # Initially hidden
+
+        # Create buttons for subitems
+        for item in subitems:
+            sub_button = ctk.CTkButton(subframe, text=f"  • {item}", anchor="w", fg_color="transparent", hover_color=("gray70", "gray30"), text_color="white", font=ctk.CTkFont(size=13, weight="bold"))
+            sub_button.pack(fill="x")
+
+    def toggle_subitems(self, frame, subitems):
+        subframe = frame.winfo_children()[1]  # The subframe
+        arrow_label = frame.winfo_children()[0].winfo_children()[1]  # The arrow label
+
+        if subframe.winfo_viewable():
+            subframe.pack_forget()
+            arrow_label.configure(text="▼")
+        else:
+            subframe.pack(fill="x")
+            arrow_label.configure(text="▲")
+
+    def menu_animation(self):
+        self.click_count += 1
+
+        # Conditionally create sidebar on first click
+        if self.click_count % 2 != 0 and self.sidebar is None:
+            self.sidebar = ctk.CTkScrollableFrame(self.page_frame, width=240, fg_color="#F0F0F0")
+            self.sidebar.pack(side="left", fill="y")
+
+            # Add the sidebar content here (create_sidebar_item calls)
+            self.create_sidebar_item("General", ["Option 1", "Option 2"])
+            self.create_sidebar_item("Registration", ["Register", "Unregister"])
+            self.create_sidebar_item("Marketing", ["Campaigns", "Analytics"])
+            self.create_sidebar_item("Email", ["Compose", "Inbox", "Sent"])
+            self.create_sidebar_item("Attendees", ["List", "Groups"])
+            self.create_sidebar_item("Surveys", ["Feedback Surveys", "Responses"])
+            self.create_sidebar_item("Reports", ["Generate", "View"])
+            self.create_sidebar_item("Integrations", ["Connect", "Manage"])
+            # ... add more sidebar items
+            self.scrollable_frame.pack(side="right",fill="both")
+        # Show/hide sidebar based on click count
+        if self.click_count % 2 != 0:
+            self.sidebar.pack(side="left", anchor="ne",fill="y")
+            self.scrollable_frame.pack(side="right",fill="both")
+        else:
+            if self.sidebar is not None:
+                self.sidebar.pack_forget()
+                self.scrollable_frame.pack(fill = "both")
 
     def register_initial(self):
-
-        self.top_canvas = tk.Canvas(self.page_frame,height = 3,width = 1920,bg = "#0061ff",relief = tk.RAISED)
-        self.top_canvas.pack(pady = (50,0),fill = "x")
-
         self.top_frame = ctk.CTkFrame(self.page_frame,height = 55,fg_color = "#ffffff",border_width = 1,border_color = "lightgray")
-        self.top_frame.pack(pady = (0,0),fill = "x")
+        self.top_frame.pack(fill = "x")
 
         self.three_lines_image = ctk.CTkImage(dark_image = Image.open(r"pics\lines.png"),size = (25,25))
-        self.three_lines_image_label = ctk.CTkButton(self.top_frame,image = self.three_lines_image,text = "",hover_color = "lightgray",fg_color = "#ffffff",width = 5,command = self.three_lines)
+        self.three_lines_image_label = ctk.CTkButton(self.top_frame,image = self.three_lines_image,text = "",hover_color = "lightgray",fg_color = "#ffffff",width = 5,command = self.menu_animation)
         self.three_lines_image_label.grid(row = 0,column = 0,padx = (5,7),pady = 5)
         
         demeven_bind = tk.StringVar()
@@ -44,52 +109,11 @@ class RegistrationPage():
         self.preview_button_image_label = ctk.CTkLabel(self.preview_button,image = self.preview_button_image,height = 5,text = "",fg_color = "#ffffff")
         self.preview_button_image_label.place(x = 9,y = 5)
 
-        self.left_frame = ctk.CTkFrame(self.page_frame,width = 250,fg_color = "#ffffff",border_width = 1,border_color = "lightgray")
-        self.left_frame.pack(padx = 0,pady = 0,side = "left",fill = "y")
-
-        self.home_label = ctk.CTkLabel(self.left_frame,text = "HOME",width = 10,text_color = "#000000",font = (ctk.CTkFont(size = 20,weight = "normal")))
-        self.home_label.place(x = 15,y = 5)
-
-        general_bind = tk.StringVar()
-        general_bind.set("General")
-        self.general_dropdown = ctk.CTkOptionMenu(self.left_frame,variable = general_bind,button_color = "white",button_hover_color = "white",height = 35,width = 230,fg_color = "white",text_color = "black",dropdown_hover_color = "lightblue",font = ctk.CTkFont(size = 13,weight = "normal"),values = ["","","",""])
-        self.general_dropdown.grid(row = 1,column = 0,padx = 10,pady = (40,0))
-        
-        registration_bind = tk.StringVar()
-        registration_bind.set("Registration")
-        self.registration_dropdown = ctk.CTkOptionMenu(self.left_frame,variable = registration_bind,button_color = "white",button_hover_color = "white",height = 35,width = 230,fg_color = "white",text_color = "black",dropdown_hover_color = "lightblue",font = ctk.CTkFont(size = 13,weight = "normal"),values = ["","","",""])
-        self.registration_dropdown.grid(row = 2,column = 0,padx = 10,pady = (10,0))
-        
-        marketing_bind = tk.StringVar()
-        marketing_bind.set("Marketing")
-        self.marketing_dropdown = ctk.CTkOptionMenu(self.left_frame,variable = marketing_bind,button_color = "white",button_hover_color = "white",height = 35,width = 230,fg_color = "white",text_color = "black",dropdown_hover_color = "lightblue",font = ctk.CTkFont(size = 13,weight = "normal"),values = ["","","",""])
-        self.marketing_dropdown.grid(row = 3,column = 0,padx = 10,pady = (10,0))
-        
-        email_bind = tk.StringVar()
-        email_bind.set("Email")
-        self.email_dropdown = ctk.CTkOptionMenu(self.left_frame,variable = email_bind,button_color = "white",button_hover_color = "white",height = 35,width = 230,fg_color = "white",text_color = "black",dropdown_hover_color = "lightblue",font = ctk.CTkFont(size = 13,weight = "normal"),values = ["","","",""])
-        self.email_dropdown.grid(row = 3,column = 0,padx = 10,pady = (10,0))
-        
-        attendees_bind = tk.StringVar()
-        attendees_bind.set("Attendees")
-        self.attendees_dropdown = ctk.CTkOptionMenu(self.left_frame,variable = attendees_bind,button_color = "white",button_hover_color = "white",height = 35,width = 230,fg_color = "white",text_color = "black",dropdown_hover_color = "lightblue",font = ctk.CTkFont(size = 13,weight = "normal"),values = ["","","",""])
-        self.attendees_dropdown.grid(row = 4,column = 0,padx = 10,pady = (10,0))
-        
-        survey_bind = tk.StringVar()
-        survey_bind.set("Surveys")
-        self.survey_dropdown = ctk.CTkOptionMenu(self.left_frame,variable = survey_bind,button_color = "white",button_hover_color = "white",height = 35,width = 230,fg_color = "white",text_color = "black",dropdown_hover_color = "lightblue",font = ctk.CTkFont(size = 13,weight = "normal"),values = ["","","",""])
-        self.survey_dropdown.grid(row = 5,column = 0,padx = 10,pady = (10,0))
-        
-        reports_bind = tk.StringVar()
-        reports_bind.set("Reports")
-        self.reports_dropdown = ctk.CTkOptionMenu(self.left_frame,variable = reports_bind,button_color = "white",button_hover_color = "white",height = 35,width = 230,fg_color = "white",text_color = "black",dropdown_hover_color = "lightblue",font = ctk.CTkFont(size = 13,weight = "normal"),values = ["","","",""])
-        self.reports_dropdown.grid(row = 6,column = 0,padx = 10,pady = (10,0))
-
-        self.scrollable_frame = ctk.CTkScrollableFrame(self.page_frame,height = 1000,fg_color = "#F0F0F0")
-        self.scrollable_frame.pack(anchor = "nw",fill = "x")
+        self.scrollable_frame = ctk.CTkScrollableFrame(self.page_frame,fg_color = "#F0F0F0")
+        self.scrollable_frame.pack(fill = "both",expand=True)
 
         self.registration_process_frame = ctk.CTkFrame(self.scrollable_frame,height = 100,fg_color = "#ffffff",border_width = 1,border_color = "lightgray")
-        self.registration_process_frame.pack(anchor = "nw",fill = "x",padx = 0,pady = 0)
+        self.registration_process_frame.pack(anchor = "ne",fill = "both",expand=True,padx = 0,pady = 0)
 
         self.registration_process_label = ctk.CTkLabel(self.registration_process_frame,height = 70,text = "Registration Process",fg_color = "#ffffff",text_color = "#000000",font = ctk.CTkFont(size = 25,weight = "normal"))
         self.registration_process_label.pack(side = "left",padx = 30,pady = 10)
