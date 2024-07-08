@@ -3,8 +3,8 @@ from PIL import Image
 import pymysql as pq
 import tkinter as tk
 from tkinter.messagebox import showinfo, showwarning, showerror
-from eventshome import DashboardPage
-from eventcreate import CreateEvent
+from cthemehome import DashboardPage
+from cthemecreate import CreateEvent
 from registration import RegistrationPage
 
             # INSPECTION BRANCH #
@@ -22,10 +22,9 @@ class DemoApplication(ctk.CTk):
         self.geometry("700x500")
         self.resizable(width=True, height=True)
         self.title("DemoApplication")
-        self.configure(fg_color="#093838")
 
         ctk.set_appearance_mode("dark")
-        ctk.set_default_color_theme("my_custom_theme")
+        ctk.set_default_color_theme("GhostTrain")
 
         self.primary_color = "#093838"
         self.secondary_color = "#8bceba"
@@ -53,19 +52,19 @@ class DemoApplication(ctk.CTk):
         )
         return connection
     
-    def add_hover_effect(self, widget):
-        original_txtcolor = "#092928"
-        original_bgcolor = widget.cget("fg_color")
-        hovercolor_txt = "white"
-        hovercolor_bg = "#20807f"
-        def on_enter(e):
-            widget.configure(fg_color=hovercolor_bg, text_color=hovercolor_txt)
+    # def add_hover_effect(self, widget):
+    #     original_txtcolor = "#092928"
+    #     original_bgcolor = widget.cget("fg_color")
+    #     hovercolor_txt = "white"
+    #     hovercolor_bg = "#20807f"
+    #     def on_enter(e):
+    #         widget.configure(fg_color=hovercolor_bg, text_color=hovercolor_txt)
 
-        def on_leave(e):
-            widget.configure(fg_color=original_bgcolor, text_color=original_txtcolor)
+    #     def on_leave(e):
+    #         widget.configure(fg_color=original_bgcolor, text_color=original_txtcolor)
 
-        widget.bind("<Enter>", on_enter)
-        widget.bind("<Leave>", on_leave)
+    #     widget.bind("<Enter>", on_enter)
+    #     widget.bind("<Leave>", on_leave)
 
     def back_preview(self, frame_name):
         frame_name.destroy()
@@ -112,16 +111,16 @@ class DemoApplication(ctk.CTk):
             command=self.back,
             width=70, height=25,
             corner_radius=100,
-            fg_color="#8bceba",
+            # fg_color="#8bceba",
             image=back_img,
-            text_color="#092928"
+            # 
         )
         
         if row is None:
             back_button.pack(side=side, padx=padx, pady=pady, anchor=anchor)
         else:
             back_button.grid(row=row, column=column, padx=padx, pady=pady, columnspan=columnspan, rowspan=rowspan)
-        self.add_hover_effect(back_button)
+        # self.add_hover_effect(back_button)
 
     def toggle_fullscreen(self, event=None):
         # Set the application to fullscreen mode
@@ -145,7 +144,7 @@ class DemoApplication(ctk.CTk):
         self.image_frame = ctk.CTkFrame(self)
         self.image_frame.grid(row=0, column=0)
 
-        self.buttons_frame = ctk.CTkFrame(self, corner_radius=20, fg_color="gainsboro")
+        self.buttons_frame = ctk.CTkFrame(self, corner_radius=20)
         self.buttons_frame.grid(row=0, column=1, padx=20, pady=(5, 10), ipady=70, ipadx=58)
 
         self.bg_image = ctk.CTkImage(dark_image=Image.open("pics\loginscreen_image.png"), size=(350, 510))
@@ -156,10 +155,10 @@ class DemoApplication(ctk.CTk):
             self.buttons_frame, 
             text="Welcome \nTo \nEvent Manager",
             font=('Segoe UI', 25, "bold"),
-            fg_color="#8bceba",
+            # fg_color="#8bceba",
             compound="center",
             # height=20,
-            text_color="white",
+            # text_color="white",
             corner_radius=9,
         ) 
         
@@ -175,8 +174,8 @@ class DemoApplication(ctk.CTk):
             command=lambda: self.login(self.connection), 
             width=110, height=35, 
             corner_radius=100, 
-            fg_color="#8bceba", 
-            text_color="#092928",
+            # fg_color="#8bceba", 
+            # ,
         )
         
         register_button = ctk.CTkButton(
@@ -186,16 +185,16 @@ class DemoApplication(ctk.CTk):
             command=lambda: self.register(self.connection), 
             width=85, height=35, 
             corner_radius=100, 
-            fg_color="#8bceba", 
-            text_color="#092928"
+            # fg_color="#8bceba", 
+            # 
         )
 
         login_button.pack(pady=(100, 10), side="top")
         register_button.pack(side="top")
 
         # Bind hover events for the buttons
-        self.add_hover_effect(login_button)
-        self.add_hover_effect(register_button)
+        # self.add_hover_effect(login_button)
+        # self.add_hover_effect(register_button)
 
     def register(self, connection):
         self.switch_screen(lambda: self._register_screen(connection))
@@ -204,7 +203,7 @@ class DemoApplication(ctk.CTk):
         self.image_frame = ctk.CTkFrame(self)
         self.image_frame.grid(row=0, column=0)
 
-        self.buttons_frame = ctk.CTkFrame(self, corner_radius=20, fg_color="gainsboro")
+        self.buttons_frame = ctk.CTkFrame(self, corner_radius=20)
         self.buttons_frame.grid(row=0, column=1, padx=20, pady=(0, 10))
 
         self.bg_image = ctk.CTkImage(dark_image=Image.open("pics\loginscreen_image.png"), size=(350, 510))
@@ -215,9 +214,9 @@ class DemoApplication(ctk.CTk):
             self.buttons_frame, 
             text="Register",
             font=('Segoe UI.', 25, "bold"),
-            fg_color="#8bceba",
+            # fg_color="#8bceba",
             compound="center",
-            text_color="white",
+            # text_color="white",
             corner_radius=9,
         ) 
         
@@ -229,9 +228,9 @@ class DemoApplication(ctk.CTk):
             ipadx=10
         )
 
-        email_label = ctk.CTkLabel(self.buttons_frame, text="Enter email ", font=ctk.CTkFont(size=15, weight="bold"), text_color="#092928")
-        password_label = ctk.CTkLabel(self.buttons_frame, text="Enter password ", font=ctk.CTkFont(size=15, weight="bold"), text_color="#092928")
-        retype_password_label = ctk.CTkLabel(self.buttons_frame, text="Retype password ", font=ctk.CTkFont(size=15, weight="bold"), text_color="#092928")
+        email_label = ctk.CTkLabel(self.buttons_frame, text="Enter email ", font=ctk.CTkFont(size=15, weight="bold"), )
+        password_label = ctk.CTkLabel(self.buttons_frame, text="Enter password ", font=ctk.CTkFont(size=15, weight="bold"), )
+        retype_password_label = ctk.CTkLabel(self.buttons_frame, text="Retype password ", font=ctk.CTkFont(size=15, weight="bold"), )
 
         email_label.grid(row=1, column=0, sticky="w", pady=(50, 10), padx=(20, 10))
         password_label.grid(row=2, column=0, sticky="w", padx=(20, 10))
@@ -280,13 +279,13 @@ class DemoApplication(ctk.CTk):
             font=("helvetica", 20),
             width=85, height=35,
             corner_radius=100,
-            fg_color="#8bceba",
-            text_color="#092928",
+            # fg_color="#8bceba",
+
         )
         check_button.grid(row=4, column=0, columnspan=2, padx=(40, 20), pady=(17, 0))
         check_button.bind("<Enter>", check)
 
-        self.add_hover_effect(check_button)
+        # self.add_hover_effect(check_button)
 
         self.back_but(self.buttons_frame, row=5, column=0, columnspan=2, padx=(0, 200), pady=(90, 10))
 
@@ -297,7 +296,7 @@ class DemoApplication(ctk.CTk):
         self.image_frame = ctk.CTkFrame(self)
         self.image_frame.grid(row=0,column=0)
 
-        self.buttons_frame = ctk.CTkFrame(self, corner_radius=20, fg_color="gainsboro")
+        self.buttons_frame = ctk.CTkFrame(self, corner_radius=20)
         self.buttons_frame.grid(row=0,column=1, padx=20, pady=(0,10),ipadx=3)
 
         self.bg_image = ctk.CTkImage(dark_image=Image.open("pics\loginscreen_image.png"), size=(350,510))
@@ -308,9 +307,9 @@ class DemoApplication(ctk.CTk):
             self.buttons_frame, 
             text="Login",
             font=('Segoe UI.', 25, "bold"),
-            fg_color="#8bceba",
+            # fg_color="#8bceba",
             compound="center",
-            text_color="white",
+            # text_color="white",
             corner_radius=9,
         ) 
         
@@ -322,8 +321,8 @@ class DemoApplication(ctk.CTk):
             ipadx=8
         )
 
-        email_label = ctk.CTkLabel(self.buttons_frame, text="Enter email ", font=ctk.CTkFont(size=15, weight="bold"), text_color="#092928")
-        password_label = ctk.CTkLabel(self.buttons_frame, text="Enter password ", font=ctk.CTkFont(size=15, weight="bold"), text_color="#092928")
+        email_label = ctk.CTkLabel(self.buttons_frame, text="Enter email ", font=ctk.CTkFont(size=15, weight="bold"), )
+        password_label = ctk.CTkLabel(self.buttons_frame, text="Enter password ", font=ctk.CTkFont(size=15, weight="bold"), )
 
         email_label.grid(row=1, column=0, sticky="w", pady=(50,10), padx=(20,10))
         password_label.grid(row=2, column=0, sticky="nsew", padx=(20,10))
@@ -365,12 +364,11 @@ class DemoApplication(ctk.CTk):
             font=("helvetica", 20),
             width=25, height=35,
             corner_radius=100,
-            fg_color="#8bceba",
-            text_color="#092928",
+            # fg_color="#8bceba"
             )
         check_button.grid(row=3, column=0, columnspan=2, padx=(40,20), pady=(17,0))
 
-        self.add_hover_effect(check_button)
+        # self.add_hover_effect(check_button)
         self.back_but(self.buttons_frame,row=4, column=0, columnspan=2, padx=(0, 200), pady=(70,10))
         
     def create_widgets(self):
@@ -380,14 +378,14 @@ class DemoApplication(ctk.CTk):
         self.toggle_fullscreen()
         self.bind("<F11>", self.toggle_fullscreen)
 
-        frame2 = ctk.CTkFrame(self, height=30, fg_color=self.bg)
+        frame2 = ctk.CTkFrame(self, height=30)
         frame2.pack(fill="x")
 
-        labe = ctk.CTkLabel(frame2, text="Event Manager", font=("Segoe UI", 40, "bold"), text_color="white", fg_color=self.secondary_color, corner_radius=12)
+        labe = ctk.CTkLabel(frame2, text="Event Manager", font=("Segoe UI", 40, "bold"), corner_radius=12)
         labe.pack(pady=10, ipady=5,expand=True)
 
         # Create a notebook (tabbed interface)
-        notebook = ctk.CTkTabview(self, width=700, height=500, bg_color = "gainsboro", corner_radius=12) #3fa572 #333333
+        notebook = ctk.CTkTabview(self, width=700, height=500, corner_radius=12) #3fa572 #333333
         notebook.pack(padx=20, pady=20, fill="both", expand=True)
 
         # Dashboard Tab
@@ -420,65 +418,65 @@ class DemoApplication(ctk.CTk):
 
     def eventtab_widgets(self):
 
-        self.previewmain_frame = ctk.CTkFrame(self.event_tab, fg_color = "#F0F0F0")
+        self.previewmain_frame = ctk.CTkFrame(self.event_tab,)
         self.previewmain_frame.pack(side="top", fill="both", expand= True)
 
-        self.event_dashboard = DashboardPage(self.previewmain_frame, self)
-        self.event_dashboard.topbar()
+        self.event_dashboard = DashboardPage(self)
+        self.event_dashboard.topbar(self.previewmain_frame)
         
         self.canvas1 = tk.Canvas(self.previewmain_frame,height = 3,width = 1920,bg = "#0061ff",relief = tk.RAISED)
         self.canvas1.pack(side="top")
 
-        top_bar2 = ctk.CTkFrame(self.previewmain_frame, fg_color="white")
+        top_bar2 = ctk.CTkFrame(self.previewmain_frame)
         top_bar2.pack(side="top", fill="x", ipady=30)
 
-        self.label15 = ctk.CTkLabel(top_bar2,text = "Events",text_color = "#000000",font = ctk.CTkFont(size = 20,weight = "bold"))
+        self.label15 = ctk.CTkLabel(top_bar2,text = "Events",font = ctk.CTkFont(size = 20,weight = "bold"))
         self.label15.pack(side="left", padx=(20,0))
 
-        self.event_form = CreateEvent(self.event_tab, self)
+        self.event_form = CreateEvent(self)
 
-        self.create_event_button = ctk.CTkButton(top_bar2,text = "Create Event",height = 30,width = 40,fg_color = "#2380D2",text_color = "#ffffff",corner_radius = 7,command = lambda : self.event_form.create_event())
+        self.create_event_button = ctk.CTkButton(top_bar2,text = "Create Event",height = 30,width = 40,corner_radius = 7,command = lambda : self.event_form.create_event())
         self.create_event_button.pack(side="right", padx=(0,40))
 
-        child_frame = ctk.CTkFrame(self.previewmain_frame,fg_color="white")
+        child_frame = ctk.CTkFrame(self.previewmain_frame)
         child_frame.pack(side="top", fill="both", expand=True)
 
-        inside_child = ctk.CTkFrame(child_frame, fg_color = "#E6E6E6", corner_radius=12)
+        inside_child = ctk.CTkFrame(child_frame, corner_radius=12)
         inside_child.pack(fill="x", anchor="center", ipady=40, padx=20)
 
-        middle = ctk.CTkFrame(inside_child,fg_color = "#E6E6E6")
+        middle = ctk.CTkFrame(inside_child)
         middle.pack(side="top", anchor="center", ipady=40,fill="x")
 
-        child_top = ctk.CTkFrame(middle, fg_color="transparent")
+        child_top = ctk.CTkFrame(middle)
         child_top.pack(side="top", fill="x")
 
         x3 = tk.StringVar()
         x3.set("Current Events")
-        current_events_opt = ctk.CTkComboBox(child_top,variable = x3,height = 35,width = 140,fg_color = "#E6E6E6",text_color = "black",button_color = "#E6E6E6",border_color = "#E6E6E6",button_hover_color = "#E6E6E6",font = ctk.CTkFont(size = 13,weight = "normal"),values = ["","","","",""])
+        current_events_opt = ctk.CTkComboBox(child_top,variable = x3,height = 35,width = 140,button_color = "#E6E6E6",border_color = "#E6E6E6",button_hover_color = "#E6E6E6",font = ctk.CTkFont(size = 13,weight = "normal"),values = ["","","","",""])
         current_events_opt.pack(side="left")
 
         def create_view():
             pass
 
-        create_view_button = ctk.CTkButton(child_top,text = "Create View",text_color = "#000000",hover_color = "#A4A4A4",width = 100,fg_color = "#E6E6E6",command = create_view)
+        create_view_button = ctk.CTkButton(child_top,text = "Create View",hover_color = "#A4A4A4",width = 100,command = create_view)
         create_view_button.pack(side="left")
 
-        advanced_search_label = ctk.CTkLabel(child_top,text = "Advanced Search",text_color = "#000000")
+        advanced_search_label = ctk.CTkLabel(child_top,text = "Advanced Search")
         advanced_search_label.pack(side="right",padx=(0,10))
 
-        table_frame = ctk.CTkFrame(middle, fg_color="white")
+        table_frame = ctk.CTkFrame(middle)
         table_frame.pack(fill="x", padx=20,ipady=20)
 
-        inner_frame1 = ctk.CTkFrame(table_frame,fg_color = "#ffffff",border_width = 0.8,border_color = "#919191")
+        inner_frame1 = ctk.CTkFrame(table_frame,border_width = 0.8,border_color = "#919191")
         inner_frame1.pack(fill="x", padx=20,pady=(40,0))
 
-        headline = ctk.CTkFrame(inner_frame1, fg_color="transparent",border_width = 0.8,border_color = "#919191")
+        headline = ctk.CTkFrame(inner_frame1,border_width = 0.8,border_color = "#919191")
         headline.pack(side="top", fill="x", ipady=5)
 
-        title_label = ctk.CTkLabel(headline,text = "Title",text_color = "#000000",font = ctk.CTkFont(size = 14,weight = "normal"))
+        title_label = ctk.CTkLabel(headline,text = "Title",font = ctk.CTkFont(size = 14,weight = "normal"))
         title_label.pack(side="left", padx=10)
 
-        no_label = ctk.CTkLabel(headline,text = "No",text_color = "#000000",font = ctk.CTkFont(size = 12,weight = "normal"))
+        no_label = ctk.CTkLabel(headline,text = "No",font = ctk.CTkFont(size = 12,weight = "normal"))
         no_label.pack(side="right", padx=10)
 
         img6 = ctk.CTkImage(dark_image = Image.open(r"pics\question.png"),size = (20,20))
@@ -487,47 +485,47 @@ class DemoApplication(ctk.CTk):
 
         x7 = tk.StringVar()
         x7.set("Yes")
-        yes_dropdown = ctk.CTkComboBox(headline,variable = x7,height = 35,width = 90,fg_color = "#ffffff",text_color = "#000000",button_color = "#ffffff",border_color = "#ffffff",button_hover_color = "#ffffff",font = ctk.CTkFont(size = 13,weight = "normal"),values = ["","","","",""])
+        yes_dropdown = ctk.CTkComboBox(headline,variable = x7,height = 35,width = 90,button_color = "#ffffff",border_color = "#ffffff",button_hover_color = "#ffffff",font = ctk.CTkFont(size = 13,weight = "normal"),values = ["","","","",""])
         yes_dropdown.pack(side="right")
 
         x6 = tk.StringVar()
         x6.set("Start Date")
-        start_date_dropdown = ctk.CTkComboBox(headline,variable = x6,height = 35,width = 140,fg_color = "#ffffff",text_color = "#000000",button_color = "#ffffff",border_color = "#ffffff",button_hover_color = "#ffffff",font = ctk.CTkFont(size = 13,weight = "normal"),values = ["","","","",""])
+        start_date_dropdown = ctk.CTkComboBox(headline,variable = x6,height = 35,width = 140,button_color = "#ffffff",border_color = "#ffffff",button_hover_color = "#ffffff",font = ctk.CTkFont(size = 13,weight = "normal"),values = ["","","","",""])
         start_date_dropdown.pack(side="right")
 
         x5 = tk.StringVar()
         x5.set("Event Status")
-        event_status_dropdown = ctk.CTkComboBox(headline,variable = x5,height = 35,width = 140,fg_color = "#ffffff",text_color = "#000000",button_color = "#ffffff",border_color = "#ffffff",button_hover_color = "#ffffff",font = ctk.CTkFont(size = 13,weight = "normal"),values = ["","","","",""])
+        event_status_dropdown = ctk.CTkComboBox(headline,variable = x5,height = 35,width = 140,button_color = "#ffffff",border_color = "#ffffff",button_hover_color = "#ffffff",font = ctk.CTkFont(size = 13,weight = "normal"),values = ["","","","",""])
         event_status_dropdown.pack(side="right")
 
         x4 = tk.StringVar()
         x4.set("Code")
-        code_dropdown = ctk.CTkComboBox(headline,variable = x4,height = 35,width = 100,fg_color = "#ffffff",text_color = "#000000",button_color = "#ffffff",border_color = "#ffffff",button_hover_color = "#ffffff",font = ctk.CTkFont(size = 13,weight = "normal"),values = ["","","","",""])
+        code_dropdown = ctk.CTkComboBox(headline,variable = x4,height = 35,width = 100,button_color = "#ffffff",border_color = "#ffffff",button_hover_color = "#ffffff",font = ctk.CTkFont(size = 13,weight = "normal"),values = ["","","","",""])
         code_dropdown.pack(side="right",padx=(0,20))
 
         # canvas2 = tk.Canvas(inner_frame1,height = 3,width = 1900,bg = "#858585",relief = tk.SUNKEN)
         # canvas2.pack()
 
-        inner_frame2 = ctk.CTkFrame(inner_frame1,height = 68,width = 1172,fg_color = "#E6E6E6",corner_radius=0) #E6E6E6
+        inner_frame2 = ctk.CTkFrame(inner_frame1,height = 68,width = 1172,corner_radius=0) #E6E6E6
         inner_frame2.pack(fill="both", padx=1, pady=(0,1))
 
         x8 = tk.StringVar()
         text = "There are no events in this view."
         x8.set(text)
-        data_label = ctk.CTkLabel(inner_frame2,text_color = "#000000",textvariable = x8,font = ctk.CTkFont(size = 15,weight = "bold"))
+        data_label = ctk.CTkLabel(inner_frame2,textvariable = x8,font = ctk.CTkFont(size = 15,weight = "bold"))
         data_label.pack(side="top")
 
-        result_per_page_label = ctk.CTkLabel(table_frame,text = "Results per page",fg_color = "#ffffff",text_color = "#000000",font = ctk.CTkFont(size = 13,weight = "normal"))
+        result_per_page_label = ctk.CTkLabel(table_frame,text = "Results per page",font = ctk.CTkFont(size = 13,weight = "normal"))
         result_per_page_label.pack(side="left", padx=(30,0))
 
         x9 = tk.IntVar()
-        result_per_page_dropdown = ctk.CTkComboBox(table_frame,variable = x9,height = 35,width = 60,fg_color = "#ffffff",text_color = "#000000",border_width = 0.6,button_color = "#ffffff",corner_radius = 5,border_color = "#ffffff",button_hover_color = "#ffffff",font = ctk.CTkFont(size = 13,weight = "normal"),values = ["25","30","35","40"])
+        result_per_page_dropdown = ctk.CTkComboBox(table_frame,variable = x9,height = 35,width = 60,border_width = 0.6,button_color = "#ffffff",corner_radius = 5,border_color = "#ffffff",button_hover_color = "#ffffff",font = ctk.CTkFont(size = 13,weight = "normal"),values = ["25","30","35","40"])
         result_per_page_dropdown.pack(side="left")
 
         x10 = tk.StringVar()
         text = "Displaying result 0 of 0"
         x10.set(text)
-        displaying_result_label = ctk.CTkLabel(table_frame,textvariable = x10,text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "normal"))
+        displaying_result_label = ctk.CTkLabel(table_frame,textvariable = x10,font = ctk.CTkFont(size = 15,weight = "normal"))
         displaying_result_label.pack(side="left", padx=(40,0))
 
         down_line = tk.Canvas(self.previewmain_frame,height = 9,width = 1920,bg = "#858585",relief = tk.SUNKEN)
