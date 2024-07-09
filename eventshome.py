@@ -97,14 +97,14 @@ class DashboardPage():
 #-----------------------
         self.main_app.topbar(main_frame)
 #-----------------------
-        top_frame2 = ctk.CTkFrame(main_frame, fg_color=self.secondary_color, corner_radius=0)
+        top_frame2 = ctk.CTkFrame(main_frame, fg_color=self.secondary_color, corner_radius=0,border_color="white",border_width=1)
         top_frame2.pack(side="top",fill="x", ipady=5, anchor="n")
                     
         img6 = ctk.CTkImage(dark_image=Image.open(r"pics\lines.png"), size=(20, 20))
         butimg6 = ctk.CTkButton(top_frame2, image=img6, text="", fg_color="white", width=20, hover_color="white", command=self.menu_animation)
         butimg6.pack(side="left", padx=10)
 
-        label5 = ctk.CTkLabel(top_frame2, text="DemEven", text_color="black", font=ctk.CTkFont(size=15, weight="normal"))
+        label5 = ctk.CTkLabel(top_frame2, text="DemEven", text_color="white", font=ctk.CTkFont(family="Segoe UI", size=17, weight="bold"))
         label5.pack(side="left")
 
         x3 =ctk.StringVar()
@@ -119,14 +119,14 @@ class DashboardPage():
         butimg7.pack(side="right", padx=10)
 
         # Content frame
-        self.content_frame = ctk.CTkFrame(main_frame)
+        self.content_frame = ctk.CTkFrame(main_frame, corner_radius=0)
         self.content_frame.pack(side="top",fill="both", expand=True)
 
         # Add your content widgets here, using grid or pack as appropriate
 
 #-----------------------
 
-        self.f0 = ctk.CTkScrollableFrame(self.content_frame,fg_color = "#F0F0F0")
+        self.f0 = ctk.CTkScrollableFrame(self.content_frame,fg_color = "#F0F0F0", corner_radius=0)
         self.f0.place(relheight = 1, relwidth=1,relx = 0.0,y = 0)
 
         f01 = ctk.CTkFrame(self.f0,height = 1050,width = 970,fg_color = "#F0F0F0")

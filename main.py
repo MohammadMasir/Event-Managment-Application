@@ -322,6 +322,8 @@ class DemoApplication(ctk.CTk):
                             showinfo("Done!", "Registration successful!\nNow you can Login.")
                             self.login(self.connection)
 
+        password_field.bind("<Return>", check)
+
         check_button = ctk.CTkButton(
             self.buttons_frame, 
             text="Submit", 
@@ -333,7 +335,7 @@ class DemoApplication(ctk.CTk):
             text_color="#092928",
         )
         check_button.grid(row=4, column=0, columnspan=2, padx=(40, 20), pady=(17, 0))
-        check_button.bind("<Enter>", check)
+        check_button.bind("<Return>", check)
 
         self.add_hover_effect(check_button)
 
@@ -430,14 +432,17 @@ class DemoApplication(ctk.CTk):
         self.resizable(width=True, height=True)
         self.bind("<F11>", self.toggle_fullscreen)
 
-        frame2 = ctk.CTkFrame(self, height=30, fg_color=self.bg)
+        frame2 = ctk.CTkFrame(self, height=30, fg_color="#4bceba")
         frame2.pack(fill="x")
 
-        labe = ctk.CTkLabel(frame2, text="Event Manager", font=("Segoe UI", 40, "bold"), text_color="white", fg_color=self.secondary_color, corner_radius=12)
-        labe.pack(pady=10, ipady=5,expand=True)
+        inside_frame2 = ctk.CTkFrame(frame2, height=45,fg_color=self.hovercolor_bg,corner_radius=0)
+        inside_frame2.place(x=0,y=-3,relwidth=1)
+
+        labe = ctk.CTkLabel(frame2, text="Event Manager", font=("Segoe UI", 40, "bold"), text_color="white",fg_color=self.secondary_color, corner_radius=0)
+        labe.pack(pady=10, ipadx=10,expand=True)
 
         # Create a notebook (tabbed interface)
-        notebook = ctk.CTkTabview(self, width=700, height=500, bg_color = "gainsboro", corner_radius=12) #3fa572 #333333
+        notebook = ctk.CTkTabview(self, width=700, height=500, bg_color = self.hovercolor_bg, corner_radius=12) #3fa572 #333333
         notebook.pack(padx=20, pady=20, fill="both", expand=True)
 
         # Dashboard Tab
