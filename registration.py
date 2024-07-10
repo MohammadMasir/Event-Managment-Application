@@ -206,6 +206,7 @@ class RegistrationPage():
     def personal_info(self):
         info_form = info.Personal_information(self.main_app,self.page_frame)
         info_form.Personal_info()
+        info_form.Theme_design()
         pass
 
     def registration_summary(self):
