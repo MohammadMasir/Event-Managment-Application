@@ -10,7 +10,7 @@
     "CTkFrame": {
       "corner_radius": 6,
       "border_width": 0,
-      "fg_color": ["gainsboro", "gainsboro"],
+      "fg_color": ["#4bceba", "#4bceba"],
       "top_fg_color": ["#8bceba", "#093838"],
       "border_color": ["#8bceba", "#093838"]
     },
