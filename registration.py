@@ -155,8 +155,8 @@ class RegistrationPage():
         #self.canvas_line1 = tk.Canvas(self.registration_process_pages_frame,height = 2,width = 1000,bg = "lightgray",relief = tk.SUNKEN)
         #self.canvas_line1.place(x = 60,y = 150)
 
-        self.registration_summary = ctk.CTkLabel(self.registration_process_pages_frame,text = "Registration Summary",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "normal"))
-        self.registration_summary.grid(row = 3,column = 0,padx = 10,pady = 20)
+        self.summary = ctk.CTkLabel(self.registration_process_pages_frame,text = "Registration Summary",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "normal"))
+        self.summary.grid(row = 3,column = 0,padx = 10,pady = 20)
 
         self.registration_summary_button = ctk.CTkButton(self.registration_process_pages_frame,text = "Customize",fg_color = "#ffffff",hover_color = "lightgray",width = 40,text_color = "#0B77E3",command = self.registration_summary)
         self.registration_summary_button.grid(row = 3,column = 2,sticky = "ne",padx = (290,40),pady = (20,0))
@@ -170,8 +170,8 @@ class RegistrationPage():
         self.confirmation = ctk.CTkLabel(self.registration_process_pages_frame,text = "Confirmation",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "normal"))
         self.confirmation.grid(row = 5,column = 0,sticky = "nw",padx = 40,pady = 20)
 
-        self.confirmation_button = ctk.CTkButton(self.registration_process_pages_frame,text = "Customize",fg_color = "#ffffff",hover_color = "lightgray",width = 40,text_color = "#0B77E3",command = self.confirmation_button)
-        self.confirmation_button.grid(row = 5,column = 2,sticky = "ne",padx = (290,40),pady = (20,0))
+        self.confirmation_butt = ctk.CTkButton(self.registration_process_pages_frame,text = "Customize",fg_color = "#ffffff",hover_color = "lightgray",width = 40,text_color = "#0B77E3",command = self.confirmation_button)
+        self.confirmation_butt.grid(row = 5,column = 2,sticky = "ne",padx = (290,40),pady = (20,0))
 
         self.other = ctk.CTkLabel(self.registration_process_pages_frame,text = "Others",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "bold"))
         self.other.grid(row = 6,column = 0,sticky = "nw",padx = 10,pady = (20,0))
@@ -179,8 +179,8 @@ class RegistrationPage():
         self.cancellation = ctk.CTkLabel(self.registration_process_pages_frame,text = "Cancellation Form",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "normal"))
         self.cancellation.grid(row = 7,column = 0,sticky = "nw",padx = 40,pady = 20)
 
-        self.cancellation_button = ctk.CTkButton(self.registration_process_pages_frame,text = "Customize",fg_color = "#ffffff",hover_color = "lightgray",width = 40,text_color = "#0B77E3",command = self.cancellation_button)
-        self.cancellation_button.grid(row = 7,column = 2,sticky = "ne",padx = (290,40),pady = (20,0))
+        self.cancellation_butt = ctk.CTkButton(self.registration_process_pages_frame,text = "Customize",fg_color = "#ffffff",hover_color = "lightgray",width = 40,text_color = "#0B77E3",command = self.cancellation_button)
+        self.cancellation_butt.grid(row = 7,column = 2,sticky = "ne",padx = (290,40),pady = (20,0))
 
         self.decline = ctk.CTkLabel(self.registration_process_pages_frame,text = "Decline Form",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "normal"))
         self.decline.grid(row = 8,column = 0,sticky = "nw",padx = 40,pady = 20)
@@ -191,8 +191,8 @@ class RegistrationPage():
         self.guest = ctk.CTkLabel(self.registration_process_pages_frame,text = "Guest Information",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "normal"))
         self.guest.grid(row = 9,column = 0,sticky = "nw",padx = 40,pady = 20)
 
-        self.guest_button = ctk.CTkButton(self.registration_process_pages_frame,text = "Customize",fg_color = "#ffffff",hover_color = "lightgray",width = 40,text_color = "#0B77E3",command = self.guest_button)
-        self.guest_button.grid(row = 9,column = 2,sticky = "ne",padx = (290,40),pady = (20,0))
+        self.guest_butt = ctk.CTkButton(self.registration_process_pages_frame,text = "Customize",fg_color = "#ffffff",hover_color = "lightgray",width = 40,text_color = "#0B77E3",command = self.guest_button)
+        self.guest_butt.grid(row = 9,column = 2,sticky = "ne",padx = (290,40),pady = (20,0))
 
     def search_widget_command(self):
         pass
@@ -206,7 +206,6 @@ class RegistrationPage():
     def personal_info(self):
         info_form = info.Personal_information(self.main_app,self.page_frame)
         info_form.Personal_info()
-        info_form.Theme_design()
         pass
 
     def registration_summary(self):
