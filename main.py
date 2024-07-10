@@ -435,11 +435,13 @@ class DemoApplication(ctk.CTk):
         frame2 = ctk.CTkFrame(self, height=30, fg_color="#4bceba")
         frame2.pack(fill="x")
 
-        inside_frame2 = ctk.CTkFrame(frame2, height=45,fg_color=self.hovercolor_bg,corner_radius=0)
-        inside_frame2.place(x=0,y=-3,relwidth=1)
+        primary_color_frame = ctk.CTkFrame(frame2, height=45,fg_color=self.hovercolor_bg,corner_radius=0)
+        primary_color_frame.place(x=0,y=-3,relwidth=1)
 
-        labe = ctk.CTkLabel(frame2, text="Event Manager", font=("Segoe UI", 40, "bold"), text_color="white",fg_color=self.secondary_color, corner_radius=0)
-        labe.pack(pady=10, ipadx=10,expand=True)
+        corner_colors = ("#20807f", "#20807f", "#4bceba", "#4bceba")
+    
+        labe = ctk.CTkButton(frame2, text="Event Manager", font=("Segoe UI", 40, "bold"), text_color="white",fg_color=self.secondary_color, width=100, height=35,corner_radius=100,background_corner_colors=corner_colors,hover=False)
+        labe.pack(pady=10, expand=True)
 
         # Create a notebook (tabbed interface)
         notebook = ctk.CTkTabview(self, width=700, height=500, bg_color = self.hovercolor_bg, corner_radius=12) #3fa572 #333333
