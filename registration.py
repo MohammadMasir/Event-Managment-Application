@@ -2,6 +2,12 @@ import tkinter as tk
 import customtkinter as ctk
 from tkinter import messagebox
 from PIL import Image
+import forms.cancellationform as cancel
+import forms.confirmationscreen as confirm
+import forms.declineform as decline
+import forms.guestinfo as guest
+import forms.Personalinfo as info
+import forms.Registrationsummary as summary
 
 class RegistrationPage():
     def __init__(self, main_app):
@@ -188,10 +194,6 @@ class RegistrationPage():
         self.guest_button = ctk.CTkButton(self.registration_process_pages_frame,text = "Customize",fg_color = "#ffffff",hover_color = "lightgray",width = 40,text_color = "#0B77E3",command = self.guest_button)
         self.guest_button.grid(row = 9,column = 2,sticky = "ne",padx = (290,40),pady = (20,0))
 
-
-    def three_lines(self):
-        pass
-
     def search_widget_command(self):
         pass
 
@@ -202,6 +204,9 @@ class RegistrationPage():
         pass
 
     def personal_info(self):
+        info_form = info.Personal_information(self.main_app,self.page_frame)
+        info_form.Personal_info()
+        info_form.Theme_design()
         pass
 
     def registration_summary(self):
