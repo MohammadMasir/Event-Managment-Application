@@ -19,7 +19,7 @@ class DemoApplication(ctk.CTk):
         self.create_widgets()
     def __init__(self):
         super().__init__()
-        self.geometry("700x500")
+        self.geometry("700x600")
         self.resizable(width=False, height=False)
         self.title("DemoApplication")
         self.configure(fg_color="#093838")
