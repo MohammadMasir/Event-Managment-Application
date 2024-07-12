@@ -3,14 +3,19 @@ import customtkinter as ctk
 from tkinter import messagebox
 from PIL import Image
 
-class Page1():
-    def __init__(self, main_app, title):
+class Page():
+    def __init__(self, main_app, parent, title, heading, heading2=None, heading3=None):
         super().__init__()
         self.main_app = main_app
-        self.page_frame = ctk.CTkFrame(self.main_app.register_tab)
+        self.page_frame = ctk.CTkFrame(parent)
         self.page_frame.pack(fill="both", expand=True)
 
         self.title = title
+        self.heading_1 = ctk.CTkLabel(self.upper_frame,height = 70,text = heading, fg_color = "#ffffff",text_color = "#000000",font = ctk.CTkFont(size = 25,weight = "normal")) #"Registration Process Pages"
+        self.heading_1.pack(side = "left",padx = 30,pady = 10)
+
+        self.heading_2 = heading2 # font = ctk.CTkFont(size = 17,weight = "bold")
+        self.heading_3 = heading3 # font = ctk.CTkFont(size = 15,weight = "normal")
 
         self.click_count = 0
         self.sidebar = None
@@ -83,7 +88,7 @@ class Page1():
                 self.sidebar.pack_forget()
                 self.scrollable_frame.pack(fill = "both")
 
-    def register_initial(self):
+    def title_frame(self):
         self.top_frame = ctk.CTkFrame(self.page_frame,height = 55,fg_color = "#ffffff",border_width = 1,border_color = "lightgray")
         self.top_frame.pack(fill = "x")
 
@@ -92,7 +97,7 @@ class Page1():
         self.three_lines_image_label.grid(row = 0,column = 0,padx = (5,7),pady = 5)
         
         demeven_bind = tk.StringVar()
-        text = "DemEven"
+        text = self.title
         demeven_bind.set(text)
         self.demeven_label = ctk.CTkLabel(self.top_frame,text_color = "#000000",textvariable = demeven_bind,font = ctk.CTkFont(size = 20,weight = "bold"))
         self.demeven_label.grid(row = 0,column = 1,padx = (0,650),pady = 5)
@@ -111,14 +116,12 @@ class Page1():
         self.preview_button_image_label = ctk.CTkLabel(self.preview_button,image = self.preview_button_image,height = 5,text = "",fg_color = "#ffffff")
         self.preview_button_image_label.place(x = 9,y = 5)
 
+    def content_frame(self):
         self.scrollable_frame = ctk.CTkScrollableFrame(self.page_frame,fg_color = "#F0F0F0")
         self.scrollable_frame.pack(fill = "both",expand=True)
 
-        self.registration_process_frame = ctk.CTkFrame(self.scrollable_frame,height = 100,fg_color = "#ffffff",border_width = 1,border_color = "lightgray")
-        self.registration_process_frame.pack(anchor = "ne",fill = "both",expand=True,padx = 0,pady = 0)
-
-        self.registration_process_label = ctk.CTkLabel(self.registration_process_frame,height = 70,text = self.title,fg_color = "#ffffff",text_color = "#000000",font = ctk.CTkFont(size = 25,weight = "normal"))
-        self.registration_process_label.pack(side = "left",padx = 30,pady = 10)
+        self.upper_frame = ctk.CTkFrame(self.scrollable_frame,height = 100,fg_color = "#ffffff",border_width = 1,border_color = "lightgray")
+        self.upper_frame.pack(anchor = "ne",fill = "both",expand=True,padx = 0,pady = 0)
 
         self.build_and_image_frame = ctk.CTkFrame(self.scrollable_frame,height = 50,fg_color = "#F0F0F0")
         self.build_and_image_frame.pack(anchor = "nw",fill = "x")
@@ -139,7 +142,7 @@ class Page1():
         self.registration_process_pages_frame = ctk.CTkFrame(self.scrollable_frame,fg_color = "#ffffff",width = 800,height = 1000)
         self.registration_process_pages_frame.pack(anchor = "nw",padx = 10)
 
-        self.registration_process_pages_label = ctk.CTkLabel(self.registration_process_pages_frame,text = "Registration Process Pages",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "bold"))
+        self.registration_process_pages_label = ctk.CTkLabel(self.registration_process_pages_frame,text = self.heading_1,text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "bold"))
         self.registration_process_pages_label.grid(row = 0,column = 0,padx = 10,pady = (20,0))
 
         self.personal_info_label = ctk.CTkLabel(self.registration_process_pages_frame,text = "Personal Information",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "normal"))
