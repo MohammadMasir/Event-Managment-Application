@@ -4,6 +4,7 @@ import pymysql as pq
 import tkinter as tk
 from tkinter.messagebox import showinfo, showwarning, showerror
 from auth import GoogleSignInApp
+from database_structure import Db
 
 #COLORS :  #093838 -> Primary Color.    } In the Theme,
            #8bceba -> Secondary Color.  }  both the Primary & Secondary colors are used interchangeably.
@@ -15,8 +16,12 @@ from auth import GoogleSignInApp
 class DemoApplication(ctk.CTk):
     def google_sign_in_handler(self):
         app = GoogleSignInApp()
-        app.handle_google_sign_in()
-        self.create_widgets()
+        if app.handle_google_sign_in():
+            self.create_widgets()
+        else:
+            self.initial_screen()
+    
+        
     def __init__(self):
         super().__init__()
         self.geometry("700x600")
@@ -36,15 +41,18 @@ class DemoApplication(ctk.CTk):
         self.connection = self.connect_to_database()
         self.screen_stack = []
         self.current_screen = None
+
+        self.database =Db
+
         self.initial_screen()
 
     def connect_to_database(self):
         connection = pq.connect(
             host="localhost",
             user="root",
-            password="sankalp",
-            database="projects",
-            port=3306,
+            password="root",
+            database="demo",
+            #port=3306,
             charset="utf8"
         )
         return connection
@@ -231,11 +239,11 @@ class DemoApplication(ctk.CTk):
         password_label.grid(row=2, column=0, sticky="w", padx=(20, 10))
         retype_password_label.grid(row=3, column=0, sticky="w", pady=10, padx=(20, 10))
 
-        email = ctk.StringVar()
+        self.email = ctk.StringVar()
         password = ctk.StringVar()
         retype_password = ctk.StringVar()
 
-        email_field = ctk.CTkEntry(self.buttons_frame, textvariable=email)
+        email_field = ctk.CTkEntry(self.buttons_frame, textvariable=self.email)
         password_field = ctk.CTkEntry(self.buttons_frame, textvariable=password, show='*')
         retype_pass_field = ctk.CTkEntry(self.buttons_frame, textvariable=retype_password, show='*')
 
@@ -244,25 +252,25 @@ class DemoApplication(ctk.CTk):
         retype_pass_field.grid(row=3, column=1, sticky="nsew", pady=10, padx=(0, 8))
 
         def check():
-            if email.get().isdigit() or password.get().isdigit():
+            if self.email.get().isdigit() or password.get().isdigit():
                 showerror("Value Error!", "Please input Characters.")
-            elif email.get() == "" or password.get() == "":
+            elif self.email.get() == "" or password.get() == "":
                 showerror("Value Error!", "Please input Characters.")
             else:
                 if password.get() != retype_password.get():
                     showwarning("Try Again!", "Passwords do not match. Registration failed.")
                 else:
                     with connection.cursor() as cursor:
-                        sql = "SELECT * FROM user WHERE user_name = %s"
-                        cursor.execute(sql, (email.get(),))
+                        sql = "SELECT * FROM user WHERE email= %s"
+                        cursor.execute(sql, (self.email.get(),))
                         result = cursor.fetchone()
 
                     if result:
                         showinfo("Registration failed.", "email already exists.")
                     else:
                         with connection.cursor() as cursor:
-                            sql = "INSERT INTO user (user_name, password) VALUES (%s, %s)"
-                            cursor.execute(sql, (email.get(), password.get()))
+                            sql = "INSERT INTO user (email, password) VALUES (%s, %s)"
+                            cursor.execute(sql, (self.email.get(), password.get()))
                             connection.commit()
                             showinfo("Done!", "Registration successful!\nNow you can Login.")
                             self.login(self.connection)
@@ -324,21 +332,21 @@ class DemoApplication(ctk.CTk):
         email = ctk.StringVar()
         password = ctk.StringVar()
 
-        email_field = ctk.CTkEntry(self.buttons_frame, textvariable=email)
+        email_field = ctk.CTkEntry(self.buttons_frame, textvariable=self.email)
         password_field = ctk.CTkEntry(self.buttons_frame, textvariable=password, show='*')
 
         email_field.grid(row=1, column=1, pady=(50,10), padx=(0,10))
         password_field.grid(row=2, column=1, padx=(0,10))
 
         def check():
-            if email.get().isdigit() or password.get().isdigit():
+            if self.email.get().isdigit() or password.get().isdigit():
                 showerror("Value Error!", "Please input Characters.")
-            elif email.get() == "" or password.get() == "":
+            elif self.email.get() == "" or password.get() == "":
                 showerror("Value Error!", "Please input Characters.")
             else:
                 cursor = connection.cursor()
-                sql = "SELECT * FROM user WHERE user_name = %s AND password = %s"
-                cursor.execute(sql, (email.get(), password.get()))
+                sql = "SELECT * FROM user WHERE email = %s AND password = %s"
+                cursor.execute(sql, (self.email.get(), password.get()))
                 result = cursor.fetchone()
 
                 if result:

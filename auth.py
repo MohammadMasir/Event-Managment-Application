@@ -20,8 +20,8 @@ def get_db_connection():
     return pmql.connect(
         host="localhost",
         user="root",
-        password="sankalp",
-        database="projects",
+        password="root",
+        database="demo",
         port=3306,
         charset="utf8"
     )
@@ -38,7 +38,8 @@ class GoogleSignInApp:
         authorization_url, state = flow.authorization_url(
             access_type="offline", prompt="consent"
         )
-        webbrowser.open(authorization_url)
+        return webbrowser.open(authorization_url)
+        
 
     class CallbackHandler(http.server.BaseHTTPRequestHandler):
         parent_app = None
@@ -62,7 +63,7 @@ class GoogleSignInApp:
 
                     # Store user info in the database
                     with self.parent_app.conn.cursor() as c:
-                        c.execute("INSERT INTO user (user_name) VALUES (%s)", (email))
+                        c.execute("INSERT INTO user (email) VALUES (%s)", (email))
                         self.parent_app.conn.commit()
 
                     # Store or use credentials as needed
