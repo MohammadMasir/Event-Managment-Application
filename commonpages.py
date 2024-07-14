@@ -1,24 +1,25 @@
 import tkinter as tk
 import customtkinter as ctk
-from tkinter import messagebox
+from tkinter.messagebox import showinfo
 from PIL import Image
 
 class Page():
     def __init__(self, main_app, parent, title, heading, heading2=None, heading3=None):
         super().__init__()
-        self.main_app = main_app
+        self.main = main_app
         self.page_frame = ctk.CTkFrame(parent)
         self.page_frame.pack(fill="both", expand=True)
 
         self.title = title
-        self.heading_1 = ctk.CTkLabel(self.upper_frame,height = 70,text = heading, fg_color = "#ffffff",text_color = "#000000",font = ctk.CTkFont(size = 25,weight = "normal")) #"Registration Process Pages"
-        self.heading_1.pack(side = "left",padx = 30,pady = 10)
-
+        self.heading_1 = heading
         self.heading_2 = heading2 # font = ctk.CTkFont(size = 17,weight = "bold")
         self.heading_3 = heading3 # font = ctk.CTkFont(size = 15,weight = "normal")
 
         self.click_count = 0
         self.sidebar = None
+
+    def switch_tab(self, tab_name):
+        self.main.notebook.set(tab_name)
 
     def create_sidebar_item(self, label, subitems):
         frame = ctk.CTkFrame(self.sidebar, corner_radius=0)
@@ -45,11 +46,12 @@ class Page():
         subframe.pack_forget()  # Initially hidden
 
         # Create buttons for subitems
-        for item in subitems:
-            sub_button = ctk.CTkButton(subframe, text=f"  • {item}", anchor="w", fg_color="transparent", hover_color=("gray70", "gray30"), text_color="white", font=ctk.CTkFont(size=13, weight="bold"))
+        for item, command in subitems.items():
+            sub_button = ctk.CTkButton(subframe, text=f"  • {item}", anchor="w", fg_color="transparent", hover_color=("gray70", "gray30"), text_color="white", font=ctk.CTkFont(size=13, weight="bold"), command=command)
             sub_button.pack(fill="x")
 
-    def toggle_subitems(self, frame, subitems):
+
+    def toggle_subitems(self, frame, subitems,event=None):
         subframe = frame.winfo_children()[1]  # The subframe
         arrow_label = frame.winfo_children()[0].winfo_children()[1]  # The arrow label
 
@@ -60,23 +62,45 @@ class Page():
             subframe.pack(fill="x")
             arrow_label.configure(text="▲")
 
+    def fun(self):
+        pass
+
     def menu_animation(self):
         self.click_count += 1
-
+     
         # Conditionally create sidebar on first click
         if self.click_count % 2 != 0 and self.sidebar is None:
             self.sidebar = ctk.CTkScrollableFrame(self.page_frame, width=240, fg_color="#F0F0F0")
             self.sidebar.pack(side="left", fill="y")
 
             # Add the sidebar content here (create_sidebar_item calls)
-            self.create_sidebar_item("General", ["Option 1", "Option 2"])
-            self.create_sidebar_item("Registration", ["Register", "Unregister"])
-            self.create_sidebar_item("Marketing", ["Campaigns", "Analytics"])
-            self.create_sidebar_item("Email", ["Compose", "Inbox", "Sent"])
-            self.create_sidebar_item("Attendees", ["List", "Groups"])
-            self.create_sidebar_item("Surveys", ["Feedback Surveys", "Responses"])
-            self.create_sidebar_item("Reports", ["Generate", "View"])
-            self.create_sidebar_item("Integrations", ["Connect", "Manage"])
+            self.create_sidebar_item("General", {
+                "Event Information" : self.fun,
+                "Event Features" : self.fun, 
+                "Registration Types" : self.fun, 
+                "Event Settings" : self.fun
+                })
+            self.create_sidebar_item("Registration", {
+                "Registration Settings" : self.fun, 
+                "Registration Proccess" : lambda : self.switch_tab("Registration and Ticketing")
+                })
+            self.create_sidebar_item("Email", {
+                "Invitation List" : self.fun, 
+                "Event Emails" : self.fun, 
+                "Planner Alerts" : self.fun
+                })
+            self.create_sidebar_item("Attendees", {
+                "Attendee List" : self.fun, 
+                "Certificates" : self.fun
+                })
+            self.create_sidebar_item("Surveys", {
+                "Feedback Surveys" : self.fun, 
+                "Responses" : self.fun
+                })
+            self.create_sidebar_item("Reports", {
+                "Reports" : self.fun, 
+                "Invitee Summary" : self.fun
+                })
             # ... add more sidebar items
             self.scrollable_frame.pack(side="right",fill="both")
         # Show/hide sidebar based on click count
@@ -87,6 +111,11 @@ class Page():
             if self.sidebar is not None:
                 self.sidebar.pack_forget()
                 self.scrollable_frame.pack(fill = "both")
+
+    def search_widget_command(self):
+        pass
+    def preview_button_command(self):
+        pass    
 
     def title_frame(self):
         self.top_frame = ctk.CTkFrame(self.page_frame,height = 55,fg_color = "#ffffff",border_width = 1,border_color = "lightgray")
@@ -122,101 +151,11 @@ class Page():
 
         self.upper_frame = ctk.CTkFrame(self.scrollable_frame,height = 100,fg_color = "#ffffff",border_width = 1,border_color = "lightgray")
         self.upper_frame.pack(anchor = "ne",fill = "both",expand=True,padx = 0,pady = 0)
+        self.upper_frame_heading = ctk.CTkLabel(self.upper_frame,height = 70,text = self.heading_1, fg_color = "#ffffff",text_color = "#000000",font = ctk.CTkFont(size = 25,weight = "normal")) #"Registration Process Pages"
+        self.upper_frame_heading.pack(side = "left",padx = 30,pady = 10)
 
-        self.build_and_image_frame = ctk.CTkFrame(self.scrollable_frame,height = 50,fg_color = "#F0F0F0")
-        self.build_and_image_frame.pack(anchor = "nw",fill = "x")
+        self.widget_frame = ctk.CTkFrame(self.scrollable_frame,fg_color = "#ffffff",width = 800,height = 1000)
+        self.widget_frame.pack(anchor = "nw",padx = 10)
 
-        self.build_label = ctk.CTkLabel(self.build_and_image_frame,text = "Design & Build Your Registration Process",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "bold"))
-        self.build_label.grid(row = 0,column = 0,padx = (10,0))
-
-        self.build_image = ctk.CTkImage(dark_image = Image.open(r"pics\pending.png"),size = (15,15))
-        self.build_image_label = ctk.CTkLabel(self.build_and_image_frame,image = self.build_image,text = "",height = 5,width = 2)
-        self.build_image_label.grid(row = 0,column = 1,padx = (10,0))
-
-        self.get_started_label = ctk.CTkLabel(self.scrollable_frame,text = "To get started, lauch our new Site Designer, or start customizing one of the pages below.",text_color = "#000000",font = ctk.CTkFont(size = 12,weight = "normal"))
-        self.get_started_label.pack(anchor = "nw",padx = 10,pady = 10)
-
-        self.open_site_designer_button = ctk.CTkButton(self.scrollable_frame,text = "Open Site Designer",text_color = "#ffffff",fg_color = "#0B77E3",height = 25,width = 50,hover_color = "blue",corner_radius = 10,command = self.site_designer)
-        self.open_site_designer_button.pack(anchor = "nw",padx = 10,pady = 10)
-
-        self.registration_process_pages_frame = ctk.CTkFrame(self.scrollable_frame,fg_color = "#ffffff",width = 800,height = 1000)
-        self.registration_process_pages_frame.pack(anchor = "nw",padx = 10)
-
-        self.registration_process_pages_label = ctk.CTkLabel(self.registration_process_pages_frame,text = self.heading_1,text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "bold"))
-        self.registration_process_pages_label.grid(row = 0,column = 0,padx = 10,pady = (20,0))
-
-        self.personal_info_label = ctk.CTkLabel(self.registration_process_pages_frame,text = "Personal Information",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "normal"))
-        self.personal_info_label.grid(row = 1,column = 0,padx = 10,pady = 20)
-
-        self.personal_info_button = ctk.CTkButton(self.registration_process_pages_frame,text = "Customize",fg_color = "#ffffff",hover_color = "lightgray",width = 40,text_color = "#0B77E3",command = self.personal_info)
-        self.personal_info_button.grid(row = 1,column = 2,sticky = "ne",padx = (290,40),pady = (20,0))
-
-        #self.canvas_line1 = tk.Canvas(self.registration_process_pages_frame,height = 2,width = 1000,bg = "lightgray",relief = tk.SUNKEN)
-        #self.canvas_line1.place(x = 60,y = 150)
-
-        self.registration_summary = ctk.CTkLabel(self.registration_process_pages_frame,text = "Registration Summary",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "normal"))
-        self.registration_summary.grid(row = 3,column = 0,padx = 10,pady = 20)
-
-        self.registration_summary_button = ctk.CTkButton(self.registration_process_pages_frame,text = "Customize",fg_color = "#ffffff",hover_color = "lightgray",width = 40,text_color = "#0B77E3",command = self.registration_summary)
-        self.registration_summary_button.grid(row = 3,column = 2,sticky = "ne",padx = (290,40),pady = (20,0))
-
-        #self.canvas_line2 = tk.Canvas(self.registration_process_pages_frame,height = 2,width = 1000,bg = "lightgray",relief = tk.SUNKEN)
-        #self.canvas_line2.place(x = 60,y = 250)
-
-        self.post_registration = ctk.CTkLabel(self.registration_process_pages_frame,text = "Post Registration",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "bold"))
-        self.post_registration.grid(row = 4,column = 0,sticky = "nw",padx = 10,pady = (20,0))
-
-        self.confirmation = ctk.CTkLabel(self.registration_process_pages_frame,text = "Confirmation",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "normal"))
-        self.confirmation.grid(row = 5,column = 0,sticky = "nw",padx = 40,pady = 20)
-
-        self.confirmation_button = ctk.CTkButton(self.registration_process_pages_frame,text = "Customize",fg_color = "#ffffff",hover_color = "lightgray",width = 40,text_color = "#0B77E3",command = self.confirmation_button)
-        self.confirmation_button.grid(row = 5,column = 2,sticky = "ne",padx = (290,40),pady = (20,0))
-
-        self.other = ctk.CTkLabel(self.registration_process_pages_frame,text = "Others",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "bold"))
-        self.other.grid(row = 6,column = 0,sticky = "nw",padx = 10,pady = (20,0))
-
-        self.cancellation = ctk.CTkLabel(self.registration_process_pages_frame,text = "Cancellation Form",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "normal"))
-        self.cancellation.grid(row = 7,column = 0,sticky = "nw",padx = 40,pady = 20)
-
-        self.cancellation_button = ctk.CTkButton(self.registration_process_pages_frame,text = "Customize",fg_color = "#ffffff",hover_color = "lightgray",width = 40,text_color = "#0B77E3",command = self.cancellation_button)
-        self.cancellation_button.grid(row = 7,column = 2,sticky = "ne",padx = (290,40),pady = (20,0))
-
-        self.decline = ctk.CTkLabel(self.registration_process_pages_frame,text = "Decline Form",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "normal"))
-        self.decline.grid(row = 8,column = 0,sticky = "nw",padx = 40,pady = 20)
-
-        self.decline_button = ctk.CTkButton(self.registration_process_pages_frame,text = "Customize",fg_color = "#ffffff",hover_color = "lightgray",width = 40,text_color = "#0B77E3",command = self.cancellation_button)
-        self.decline_button.grid(row = 8,column = 2,sticky = "ne",padx = (290,40),pady = (20,0))
-
-        self.guest = ctk.CTkLabel(self.registration_process_pages_frame,text = "Guest Information",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "normal"))
-        self.guest.grid(row = 9,column = 0,sticky = "nw",padx = 40,pady = 20)
-
-        self.guest_button = ctk.CTkButton(self.registration_process_pages_frame,text = "Customize",fg_color = "#ffffff",hover_color = "lightgray",width = 40,text_color = "#0B77E3",command = self.guest_button)
-        self.guest_button.grid(row = 9,column = 2,sticky = "ne",padx = (290,40),pady = (20,0))
-
-
-    def three_lines(self):
-        pass
-
-    def search_widget_command(self):
-        pass
-
-    def preview_button_command(self):
-        pass
-
-    def site_designer(self):
-        pass
-
-    def personal_info(self):
-        pass
-
-    def registration_summary(self):
-        pass
-
-    def confirmation_button(self):
-        pass
-
-    def cancellation_button(self):
-        pass
-    
-    def guest_button(self):
-        pass
+        self.widget_label = ctk.CTkLabel(self.widget_frame,text = self.heading_2,text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "bold"))
+        self.widget_label.pack()

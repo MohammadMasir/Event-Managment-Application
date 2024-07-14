@@ -3,9 +3,11 @@ from PIL import Image
 import pymysql as pq
 import tkinter as tk
 from tkinter.messagebox import showinfo, showwarning, showerror
-from eventshome import DashboardPage
+# from eventshome import DashboardPage
 from eventcreate import CreateEvent
 from registration import RegistrationPage
+# from commonpages import Page
+# from hometemp import Test
 
             # INSPECTION BRANCH #
             
@@ -37,8 +39,7 @@ class DemoApplication(ctk.CTk):
         self.screen_stack = []
         self.current_screen = None
 
-        self.click_count = 0
-        self.f3 = None
+        self.states = False
 
         self.initial_screen()
 
@@ -186,6 +187,160 @@ class DemoApplication(ctk.CTk):
             img = ctk.CTkImage(dark_image=Image.open(f"pics/{icon_path}"), size=(20, 20))
             button = ctk.CTkButton(icons_frame, image=img, text="", width=20, fg_color="white", bg_color="white", hover_color="#3fa6fb")
             button.pack(side="left", padx=2)
+
+    def switch_tab(self, tab_name):
+        self.notebook.set(tab_name)
+
+    def create_sidebar_item(self, label, subitems):
+        frame = ctk.CTkFrame(self.sidebar, corner_radius=0)
+        frame.pack(fill="x", pady=(0, 1))
+
+        # Create a sub-frame for the button content
+        button_frame = ctk.CTkFrame(frame, corner_radius=0, fg_color="#20807f")
+        button_frame.pack(fill="x",ipady=5)
+
+        # Label on the left
+        label_widget = ctk.CTkButton(button_frame, text=label, anchor="w", font=ctk.CTkFont(family="Segoe UI",size=15, weight="bold"), command=lambda: self.toggle_subitems(frame, subitems), fg_color="#20807f", text_color="white")
+        label_widget.pack(side="left")
+
+        # Arrow on the right
+        arrow_label = ctk.CTkLabel(button_frame, text="▼", anchor="e")
+        arrow_label.pack(side="right", padx=(0, 5))
+
+        # Make the whole frame clickable
+        button_frame.bind("<Button-1>", lambda event: self.toggle_subitems(frame, subitems))
+
+        # Create hidden frame for subitems
+        subframe = ctk.CTkFrame(frame, corner_radius=20, fg_color="#093838")
+        subframe.pack(fill="x")
+        subframe.pack_forget()  # Initially hidden
+
+        # Create buttons for subitems
+        for item, command in subitems.items():
+            sub_button = ctk.CTkButton(subframe, text=f"  • {item}", anchor="w", fg_color="transparent", hover_color=("gray70", "gray30"), text_color="white", font=ctk.CTkFont(size=13, weight="bold"), command=command)
+            sub_button.pack(fill="x")
+
+
+    def toggle_subitems(self, frame, subitems,event=None):
+        subframe = frame.winfo_children()[1]  # The subframe
+        arrow_label = frame.winfo_children()[0].winfo_children()[1]  # The arrow label
+
+        if subframe.winfo_viewable():
+            subframe.pack_forget()
+            arrow_label.configure(text="▼")
+        else:
+            subframe.pack(fill="x")
+            arrow_label.configure(text="▲")
+
+    def fun(self):
+        pass
+
+    def menu_animation(self):
+        tem = not self.states
+
+        # Conditionally create sidebar on first click
+        if tem:
+            self.sidebar = ctk.CTkScrollableFrame(self.page_frame, width=240, fg_color="#F0F0F0")
+            self.sidebar.pack(side="left", fill="y")
+
+            # Add the sidebar content here (create_sidebar_item calls)
+            self.create_sidebar_item("General", {
+                "Event Information" : self.fun,
+                "Event Features" : self.fun, 
+                "Registration Types" : self.fun, 
+                "Event Settings" : self.fun
+                })
+            self.create_sidebar_item("Registration", {
+                "Registration Settings" : self.fun, 
+                "Registration Proccess" : self.fun #lambda : self.switch_tab("Registration and Ticketing")
+                })
+            self.create_sidebar_item("Email", {
+                "Invitation List" : self.fun, 
+                "Event Emails" : self.fun, 
+                "Planner Alerts" : self.fun
+                })
+            self.create_sidebar_item("Attendees", {
+                "Attendee List" : self.fun, 
+                "Certificates" : self.fun
+                })
+            self.create_sidebar_item("Surveys", {
+                "Feedback Surveys" : self.fun, 
+                "Responses" : self.fun
+                })
+            self.create_sidebar_item("Reports", {
+                "Reports" : self.fun, 
+                "Invitee Summary" : self.fun
+                })
+            # ... add more sidebar items
+            self.scrollable_frame.pack(side="right",fill="both")
+            self.states = True
+
+        else:
+            self.sidebar.pack_forget()
+            self.scrollable_frame.pack(fill = "both")
+            self.states = False
+
+    def search_widget_command(self):
+        pass
+    def preview_button_command(self):
+        pass    
+
+    def title_frame(self, parent, title,preview_status):
+        weight = "bold"
+        if not preview_status:
+            weight = "normal"
+        else:
+            weight = "bold"
+        self.page_frame = parent
+        self.title = title
+        self.top_frame = ctk.CTkFrame(self.page_frame,height = 55,fg_color = "#ffffff",border_width = 1,border_color = "lightgray", corner_radius=0)
+        self.top_frame.pack(fill = "x",ipady=5)
+
+        self.three_lines_image = ctk.CTkImage(dark_image = Image.open(r"pics\lines.png"),size = (25,25))
+        self.three_lines_image_label = ctk.CTkButton(self.top_frame,image = self.three_lines_image,text = "",hover_color = "lightgray",fg_color = "#ffffff",width = 5,command = self.menu_animation)
+        self.three_lines_image_label.pack(side="left")
+        
+        demeven_bind = tk.StringVar()
+
+        text = self.title
+        demeven_bind.set(text)
+        self.demeven_label = ctk.CTkLabel(self.top_frame,text_color = "#000000",textvariable = demeven_bind,font = ctk.CTkFont(size = 20,weight = weight))
+        self.demeven_label.pack(side="left")
+
+        if preview_status:
+            self.preview_button = ctk.CTkButton(self.top_frame,text = "Preview",height = 35,width = 150,hover_color = "#ffffff",text_color = "#0B77E3",corner_radius = 5,fg_color = "#ffffff",border_width = 1,border_color = "#0B77E3",command = self.preview_button_command)
+            self.preview_button.pack(side="right", padx=(0,10))
+
+            self.preview_button_image = ctk.CTkImage(dark_image = Image.open(r"pics\view.png"),size = (25,25))
+            self.preview_button_image_label = ctk.CTkLabel(self.preview_button,image = self.preview_button_image,height = 5,text = "",fg_color = "#ffffff")
+            self.preview_button_image_label.place(x = 9,y = 5)
+
+        self.search_widget = ctk.CTkEntry(self.top_frame,height = 35,width = 250,fg_color = "#ffffff",corner_radius = 20,text_color = "#000000",placeholder_text = "Search this event",placeholder_text_color = "#000000")
+        self.search_widget.pack(side="right", padx=(0,10))
+
+        self.search_widget_image = ctk.CTkImage(dark_image = Image.open(r"pics\loupe.png"),size = (20,20))
+        self.search_widget_image_button = ctk.CTkButton(self.search_widget,image = self.search_widget_image,corner_radius = 70,text = "",height = 15,width = 20,hover_color = "lightgray",fg_color = "#ffffff",command = self.search_widget_command)
+        self.search_widget_image_button.place(x = 200,y = 3)
+
+    def content_frame(self, parent, heading, heading2=None , heading3=None):
+        self.page_frame = parent
+        self.heading_1 = heading
+        self.heading_2 = heading2
+        self.heading_3 = heading3
+
+        self.scrollable_frame = ctk.CTkScrollableFrame(self.page_frame,fg_color = "#F0F0F0")
+        self.scrollable_frame.pack(fill = "both",expand=True)
+
+        self.upper_frame = ctk.CTkFrame(self.scrollable_frame,height = 100,fg_color = "#ffffff",border_width = 1,border_color = "lightgray")
+        self.upper_frame.pack(anchor = "ne",fill = "both",expand=True,padx = 0,pady = 0)
+        self.upper_frame_heading = ctk.CTkLabel(self.upper_frame,height = 70,text = self.heading_1,text_color = "#000000",font = ctk.CTkFont(size = 25,weight = "normal")) #"Registration Process Pages"
+        self.upper_frame_heading.pack(side = "top",padx = 30,pady = 10,anchor="nw")
+
+        self.widget_frame = ctk.CTkFrame(self.scrollable_frame,fg_color = "#ffffff",width = 800,height = 1000)
+        self.widget_frame.pack(anchor = "nw",padx = 10)
+
+        self.widget_label = ctk.CTkLabel(self.widget_frame,text = self.heading_2,text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "bold"))
+        self.widget_label.pack()
 
     def initial_screen(self):
         self.switch_screen(self._initial_screen)
@@ -443,34 +598,31 @@ class DemoApplication(ctk.CTk):
         labe = ctk.CTkButton(frame2, text="Event Manager", font=("Segoe UI", 40, "bold"), text_color="white",fg_color=self.secondary_color, width=100, height=35,corner_radius=100,background_corner_colors=corner_colors,hover=False)
         labe.pack(pady=10, expand=True)
 
-        # Create a notebook (tabbed interface)
-        notebook = ctk.CTkTabview(self, width=700, height=500, bg_color = self.hovercolor_bg, corner_radius=12) #3fa572 #333333
-        notebook.pack(padx=20, pady=20, fill="both", expand=True)
+        # Create a self.notebook (tabbed interface)
+        self.notebook = ctk.CTkTabview(self, width=700, height=500, bg_color = self.hovercolor_bg, corner_radius=12) #3fa572 #333333
+        self.notebook.pack(padx=20, pady=20, fill="both", expand=True)
 
         # Dashboard Tab
-        self.dashboard_tab = notebook.add("Dashboard")
+        self.dashboard_tab = self.notebook.add("Dashboard")
         self.dashboard_widgets()
 
         # Event Management Tab
-        self.event_tab = notebook.add("Event Management")
+        self.event_tab = self.notebook.add("Event Management")
         self.eventtab_widgets()
 
         # Registration and Ticketing Tab
-        self.register_tab = notebook.add("Registration and Ticketing")
+        self.register_tab = self.notebook.add("Registration and Ticketing")
         self.registertab_widgets()
 
         # Reporting and Analytics Tab
-        self.report_tab = notebook.add("Reporting and Analytics")
-        self.reporttab_widgets()
+        self.attendee_tab = self.notebook.add("Attendee / Invitee")
+        self.attendeetab_widgets()
 
         # Survey and Feedback Tab
-        self.survey_tab = notebook.add("Survey and Feedback")
+        self.survey_tab = self.notebook.add("Survey and Feedback")
         self.surveytab_widgets()
 
-        self.xomethin = notebook.add("Something")
-        ctk.CTkLabel(self.xomethin,text="Something")
-
-        notebook.set("Event Management")
+        self.notebook.set("Event Management")
 
     def dashboard_widgets(self):
         ctk.CTkLabel(self.dashboard_tab, text="Welcome to Your Dashboard!", font=ctk.CTkFont(size=20, weight="bold")).pack(pady=20)
@@ -593,10 +745,10 @@ class DemoApplication(ctk.CTk):
     def registertab_widgets(self):
         # ctk.CTkLabel(self.ticket_tab, text="Handle registrations and tickets", font=ctk.CTkFont(size=20, weight="bold")).pack(pady=20)
         self.register_page = RegistrationPage(self)
-        self.register_page.register_initial()
+        self.register_page.registration_proccess()
 
-    def reporttab_widgets(self):
-        ctk.CTkLabel(self.report_tab, text="View analytics and reports", font=ctk.CTkFont(size=20, weight="bold")).pack(pady=20)
+    def attendeetab_widgets(self):
+        ctk.CTkLabel(self.attendee_tab, text="View analytics and reports", font=ctk.CTkFont(size=20, weight="bold")).pack(pady=20)
 
     def surveytab_widgets(self):
         ctk.CTkLabel(self.survey_tab, text="Create surveys and view responses", font=ctk.CTkFont(size=20, weight="bold")).pack(pady=20)

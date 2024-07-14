@@ -2,16 +2,14 @@ import customtkinter as ctk
 import tkinter as tk
 from PIL import Image
 
-class DashboardPage():
+class Test():
     def __init__(self, main_app, frame_name=None):
         super().__init__()
         self.main = main_app
         self.frame_destroy = frame_name
-        self.frame_destroy.pack_forget()
-        self.home_main_frame = ctk.CTkFrame(self.main.event_tab, corner_radius=0, fg_color = "#F0F0F0")
+        # self.frame_destroy.pack_forget()
+        self.home_main_frame = ctk.CTkFrame(self.main.attendee_tab, corner_radius=0, fg_color = "#F0F0F0")
         self.home_main_frame.pack(fill="both", expand="true")
-
-        self.main.click_count = 0
 
         self.primary_color = "#093838"
         self.secondary_color = "#8bceba"
@@ -20,7 +18,7 @@ class DashboardPage():
         self.hovercolor_bg = "#20807f"
         self.hovercolor_txt = "white"
 
-    def events_home(self):
+    def test_page(self):
         self.main.topbar(self.home_main_frame)
 
         self.main.title_frame(self.home_main_frame, "DemEven", False)
@@ -250,4 +248,6 @@ class DashboardPage():
         x16.set("send@gmail.com")
         label41 = ctk.CTkLabel(f02,text_color = "#000000",textvariable = x16,font = ctk.CTkFont(size = 12,weight = "bold"))
         label41.place(x = 22,y = 690)
+
+
 
