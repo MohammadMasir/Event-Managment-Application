@@ -1,17 +1,15 @@
 import customtkinter as ctk
 import tkinter as tk
 from PIL import Image
+from commonpages import Page
 
 class DashboardPage():
     def __init__(self, main_app, frame_name=None):
         super().__init__()
         self.main = main_app
         self.frame_destroy = frame_name
-        self.frame_destroy.pack_forget()
-        self.home_main_frame = ctk.CTkFrame(self.main.event_tab, corner_radius=0, fg_color = "#F0F0F0")
-        self.home_main_frame.pack(fill="both", expand="true")
-
-        self.main.click_count = 0
+        if self.frame_destroy != None:
+            self.frame_destroy.pack_forget()
 
         self.primary_color = "#093838"
         self.secondary_color = "#8bceba"
@@ -21,42 +19,43 @@ class DashboardPage():
         self.hovercolor_txt = "white"
 
     def events_home(self):
+        self.home_main_frame = ctk.CTkFrame(self.main.event_tab, corner_radius=0, fg_color = "#F0F0F0")
+        self.home_main_frame.pack(fill="both", expand="true")
         self.main.topbar(self.home_main_frame)
+        self.page = Page(self.main, self.home_main_frame, "DemEven", "DemEven")
+        self.page.title_frame(False)
+        self.page.content_frame()
 
-        self.main.title_frame(self.home_main_frame, "DemEven", False)
-
-        self.main.content_frame(self.home_main_frame, self.main.title)
-
-        label8 = ctk.CTkLabel(self.main.upper_frame,text = "Upcoming",fg_color = "#FEEEAB",text_color = "#EB9E29",corner_radius = 3,height = 10,width = 10,padx = 2,pady = 2)
+        label8 = ctk.CTkLabel(self.page.upper_frame,text = "Upcoming",fg_color = "#FEEEAB",text_color = "#EB9E29",corner_radius = 3,height = 10,width = 10,padx = 2,pady = 2)
         label8.pack(side="left", padx=30)
 
         img8 = ctk.CTkImage(dark_image = Image.open(r"pics\calendar.png"),size = (20,20))
-        labimg8 = ctk.CTkLabel(self.main.upper_frame,image = img8,text = "")
+        labimg8 = ctk.CTkLabel(self.page.upper_frame,image = img8,text = "")
         labimg8.pack(side="left")
 
-        label9 = ctk.CTkLabel(self.main.upper_frame,text = "30/7/2024  6:00 pm - 10:00 pm  IST (61 days away)",text_color = "black",font = ctk.CTkFont(size = 13,weight = "normal"))
+        label9 = ctk.CTkLabel(self.page.upper_frame,text = "30/7/2024  6:00 pm - 10:00 pm  IST (61 days away)",text_color = "black",font = ctk.CTkFont(size = 13,weight = "normal"))
         label9.pack(side="left")
 
         img9 = ctk.CTkImage(dark_image = Image.open(r"pics\location.png"),size = (20,20))
-        labimg9 = ctk.CTkLabel(self.main.upper_frame,image = img9,text = "")
+        labimg9 = ctk.CTkLabel(self.page.upper_frame,image = img9,text = "")
         labimg9.pack(side="left", padx=(30,0))
 
-        label10 = ctk.CTkLabel(self.main.upper_frame,text = "Chicago",text_color = "black",font = ctk.CTkFont(size = 13,weight = "normal"))
+        label10 = ctk.CTkLabel(self.page.upper_frame,text = "Chicago",text_color = "black",font = ctk.CTkFont(size = 13,weight = "normal"))
         label10.pack(side="left")
 
         x9 =ctk.StringVar()
         x9.set("Actions")
-        opt8 = ctk.CTkComboBox(self.main.upper_frame,height = 35,width = 150,variable = x9,fg_color = "white",button_hover_color = "#4B9EFC",border_width = 1,border_color = "lightgray",corner_radius = 7,dropdown_hover_color = "#4B9EFC",button_color = "lightgray",text_color = "#0966F1",values = ["","","",""])
+        opt8 = ctk.CTkComboBox(self.page.upper_frame,height = 35,width = 150,variable = x9,fg_color = "white",button_hover_color = "#4B9EFC",border_width = 1,border_color = "lightgray",corner_radius = 7,dropdown_hover_color = "#4B9EFC",button_color = "lightgray",text_color = "#0966F1",values = ["","","",""])
         opt8.pack(side="right", padx=(0,30),pady=(0,50))
 
         img10 = ctk.CTkImage(dark_image = Image.open(r"pics\light-bulb.png"),size = (50,50))
-        labimg10 = ctk.CTkLabel(self.main.scrollable_frame,image = img10,text = "")
+        labimg10 = ctk.CTkLabel(self.page.scrollable_frame,image = img10,text = "")
         labimg10.place(x = 8,y = 205)
 
-        label11 = ctk.CTkLabel(self.main.scrollable_frame,text = "Up next for your event",text_color = "black",font = ctk.CTkFont(size = 18,weight = "bold"))
+        label11 = ctk.CTkLabel(self.page.scrollable_frame,text = "Up next for your event",text_color = "black",font = ctk.CTkFont(size = 18,weight = "bold"))
         label11.place(x = 50,y = 215)
 
-        f5 = ctk.CTkFrame(self.main.scrollable_frame,height = 150,width = 265,fg_color = "#ffffff",border_width = 1,border_color = "lightgray")
+        f5 = ctk.CTkFrame(self.page.scrollable_frame,height = 150,width = 265,fg_color = "#ffffff",border_width = 1,border_color = "lightgray")
         f5.place(x = 8,y = 255)
 
         img11 = ctk.CTkImage(dark_image = Image.open(r"pics\features.png"),size = (38,38))
@@ -81,7 +80,7 @@ class DashboardPage():
         button2 = ctk.CTkButton(f5,text = "Skip",width = 6,fg_color = "#ffffff",text_color = "#3fa6fb",hover_color = "#ffffff",command = skip1)
         button2.place(x = 185,y = 100)
 
-        f6 = ctk.CTkFrame(self.main.scrollable_frame,height = 150,width = 270,fg_color = "#ffffff",border_width = 1,border_color = "lightgray")
+        f6 = ctk.CTkFrame(self.page.scrollable_frame,height = 150,width = 270,fg_color = "#ffffff",border_width = 1,border_color = "lightgray")
         f6.place(x = 290,y = 255)
 
         img12 = ctk.CTkImage(dark_image = Image.open(r"pics\registration.png"),size = (42,38))
@@ -106,10 +105,10 @@ class DashboardPage():
         button4 = ctk.CTkButton(f6,text = "Skip",width = 6,fg_color = "#ffffff",text_color = "#3fa6fb",hover_color = "#ffffff",command = skip2)
         button4.place(x = 185,y = 100)
 
-        label16 = ctk.CTkLabel(self.main.scrollable_frame,text = "Event Overview",text_color = "black",font = ctk.CTkFont(size = 18,weight = "bold"))
+        label16 = ctk.CTkLabel(self.page.scrollable_frame,text = "Event Overview",text_color = "black",font = ctk.CTkFont(size = 18,weight = "bold"))
         label16.place(x = 8,y = 420)
 
-        f7 = ctk.CTkFrame(self.main.scrollable_frame,height = 150,width = 270,fg_color = "#ffffff",border_width = 1,border_color = "lightgray")
+        f7 = ctk.CTkFrame(self.page.scrollable_frame,height = 150,width = 270,fg_color = "#ffffff",border_width = 1,border_color = "lightgray")
         f7.place(x = 8,y = 460)
 
         label17 = ctk.CTkLabel(f7,text = "Registration",fg_color = "#ffffff",text_color = "#000000",font = ctk.CTkFont(size = 17,weight = "bold"))
@@ -135,7 +134,7 @@ class DashboardPage():
         butimg14 = ctk.CTkButton(f7,image = img14,text = "",command = butimg14,width = 20,fg_color = "#ffffff",hover_color = "#ffffff")
         butimg14.place(x = 220,y = 20)
 
-        f8 = ctk.CTkFrame(self.main.scrollable_frame,height = 150,width = 270,fg_color = "#ffffff",border_width = 1,border_color = "lightgray")
+        f8 = ctk.CTkFrame(self.page.scrollable_frame,height = 150,width = 270,fg_color = "#ffffff",border_width = 1,border_color = "lightgray")
         f8.place(x = 290,y = 460)
 
         label21 = ctk.CTkLabel(f8,text = "Emails",fg_color = "#ffffff",text_color = "#000000",font = ctk.CTkFont(size = 17,weight = "bold"))
@@ -160,7 +159,7 @@ class DashboardPage():
         butimg15 = ctk.CTkButton(f8,image = img15,text = "",command = butimg15,width = 20,fg_color = "#ffffff",hover_color = "#ffffff")
         butimg15.place(x = 220,y = 20)
         
-        f02 = ctk.CTkFrame(self.main.scrollable_frame,height = 730,width = 290,fg_color = "gainsboro",corner_radius=12)
+        f02 = ctk.CTkFrame(self.page.scrollable_frame,height = 730,width = 290,fg_color = "gainsboro",corner_radius=12)
         f02.pack(side="right")
 
         def butimg16():

@@ -4,11 +4,10 @@ from tkinter.messagebox import showinfo
 from PIL import Image
 
 class Page():
-    def __init__(self, main_app, parent, title, heading, heading2=None, heading3=None):
+    def __init__(self, main_app, parent=None, title=None, heading=None, heading2=None, heading3=None):
         super().__init__()
         self.main = main_app
-        self.page_frame = ctk.CTkFrame(parent)
-        self.page_frame.pack(fill="both", expand=True)
+        self.parent = parent
 
         self.title = title
         self.heading_1 = heading
@@ -81,7 +80,7 @@ class Page():
                 "Event Settings" : self.fun
                 })
             self.create_sidebar_item("Registration", {
-                "Registration Settings" : self.fun, 
+                "Registration Settings" : self.main.register_page.registration_settings, 
                 "Registration Proccess" : lambda : self.switch_tab("Registration and Ticketing")
                 })
             self.create_sidebar_item("Email", {
@@ -117,33 +116,43 @@ class Page():
     def preview_button_command(self):
         pass    
 
-    def title_frame(self):
-        self.top_frame = ctk.CTkFrame(self.page_frame,height = 55,fg_color = "#ffffff",border_width = 1,border_color = "lightgray")
-        self.top_frame.pack(fill = "x")
+    def title_frame(self, preview_status):
+        self.page_frame = ctk.CTkFrame(self.parent, fg_color="#F0F0F0")
+        self.page_frame.pack(fill="both", expand=True)
+
+        weight = "bold"
+        if not preview_status:
+            weight = "normal"
+        else:
+            weight = "bold"
+        self.top_frame = ctk.CTkFrame(self.page_frame,height = 55,fg_color = "#ffffff",border_width = 1,border_color = "lightgray", corner_radius=0)
+        self.top_frame.pack(fill = "x",ipady=5)
 
         self.three_lines_image = ctk.CTkImage(dark_image = Image.open(r"pics\lines.png"),size = (25,25))
         self.three_lines_image_label = ctk.CTkButton(self.top_frame,image = self.three_lines_image,text = "",hover_color = "lightgray",fg_color = "#ffffff",width = 5,command = self.menu_animation)
-        self.three_lines_image_label.grid(row = 0,column = 0,padx = (5,7),pady = 5)
+        self.three_lines_image_label.pack(side="left")
         
         demeven_bind = tk.StringVar()
+
         text = self.title
         demeven_bind.set(text)
-        self.demeven_label = ctk.CTkLabel(self.top_frame,text_color = "#000000",textvariable = demeven_bind,font = ctk.CTkFont(size = 20,weight = "bold"))
-        self.demeven_label.grid(row = 0,column = 1,padx = (0,650),pady = 5)
+        self.demeven_label = ctk.CTkLabel(self.top_frame,text_color = "#000000",textvariable = demeven_bind,font = ctk.CTkFont(size = 20,weight = weight))
+        self.demeven_label.pack(side="left")
+
+        if preview_status:
+            self.preview_button = ctk.CTkButton(self.top_frame,text = "Preview",height = 35,width = 150,hover_color = "#ffffff",text_color = "#0B77E3",corner_radius = 5,fg_color = "#ffffff",border_width = 1,border_color = "#0B77E3",command = self.preview_button_command)
+            self.preview_button.pack(side="right", padx=(0,10))
+
+            self.preview_button_image = ctk.CTkImage(dark_image = Image.open(r"pics\view.png"),size = (25,25))
+            self.preview_button_image_label = ctk.CTkLabel(self.preview_button,image = self.preview_button_image,height = 5,text = "",fg_color = "#ffffff")
+            self.preview_button_image_label.place(x = 9,y = 5)
 
         self.search_widget = ctk.CTkEntry(self.top_frame,height = 35,width = 250,fg_color = "#ffffff",corner_radius = 20,text_color = "#000000",placeholder_text = "Search this event",placeholder_text_color = "#000000")
-        self.search_widget.grid(row = 0,column = 2,padx = (0,35),pady = 5)
+        self.search_widget.pack(side="right", padx=(0,10))
 
         self.search_widget_image = ctk.CTkImage(dark_image = Image.open(r"pics\loupe.png"),size = (20,20))
         self.search_widget_image_button = ctk.CTkButton(self.search_widget,image = self.search_widget_image,corner_radius = 70,text = "",height = 15,width = 20,hover_color = "lightgray",fg_color = "#ffffff",command = self.search_widget_command)
         self.search_widget_image_button.place(x = 200,y = 3)
-
-        self.preview_button = ctk.CTkButton(self.top_frame,text = "Preview",height = 35,width = 100,hover_color = "#ffffff",text_color = "#0B77E3",corner_radius = 5,fg_color = "#ffffff",border_width = 1,border_color = "#0B77E3",command = self.preview_button_command)
-        self.preview_button.grid(row = 0,column = 3,padx = (25,0),pady = (6),ipadx = 25)
-
-        self.preview_button_image = ctk.CTkImage(dark_image = Image.open(r"pics\view.png"),size = (25,25))
-        self.preview_button_image_label = ctk.CTkLabel(self.preview_button,image = self.preview_button_image,height = 5,text = "",fg_color = "#ffffff")
-        self.preview_button_image_label.place(x = 9,y = 5)
 
     def content_frame(self):
         self.scrollable_frame = ctk.CTkScrollableFrame(self.page_frame,fg_color = "#F0F0F0")
@@ -152,7 +161,7 @@ class Page():
         self.upper_frame = ctk.CTkFrame(self.scrollable_frame,height = 100,fg_color = "#ffffff",border_width = 1,border_color = "lightgray")
         self.upper_frame.pack(anchor = "ne",fill = "both",expand=True,padx = 0,pady = 0)
         self.upper_frame_heading = ctk.CTkLabel(self.upper_frame,height = 70,text = self.heading_1, fg_color = "#ffffff",text_color = "#000000",font = ctk.CTkFont(size = 25,weight = "normal")) #"Registration Process Pages"
-        self.upper_frame_heading.pack(side = "left",padx = 30,pady = 10)
+        self.upper_frame_heading.pack(side = "top",padx = 30,pady = 10, anchor="nw")
 
         self.widget_frame = ctk.CTkFrame(self.scrollable_frame,fg_color = "#ffffff",width = 800,height = 1000)
         self.widget_frame.pack(anchor = "nw",padx = 10)

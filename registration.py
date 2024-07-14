@@ -8,22 +8,22 @@ import forms.declineform as decline
 import forms.guestinfo as guest
 import forms.Personalinfo as info
 import forms.Registrationsummary as summary
+from commonpages import Page
 
 class RegistrationPage():
     def __init__(self, main_app):
         super().__init__()
         self.main = main_app
-        self.registration_frame = ctk.CTkFrame(self.main.register_tab)
-        self.registration_frame.pack(fill="both", expand=True)
-
-        self.main.click_count = 0
 
     def registration_proccess(self):
-        self.main.title_frame(self.registration_frame, "DemEven", True)
+        self.registration_frame = ctk.CTkFrame(self.main.register_tab, fg_color="#F0F0F0")
+        self.registration_frame.pack(fill="both", expand=True)
 
-        self.main.content_frame(self.registration_frame, "Registration Proccess")
+        self.process_page = Page(self.main, self.registration_frame, "DemEven", "Registration Process")
+        self.process_page.title_frame(True)
+        self.process_page.content_frame()
 
-        self.build_and_image_frame = ctk.CTkFrame(self.main.scrollable_frame,height = 50,fg_color = "#F0F0F0")
+        self.build_and_image_frame = ctk.CTkFrame(self.process_page.scrollable_frame,height = 50,fg_color = "#F0F0F0")
         self.build_and_image_frame.pack(anchor = "nw",fill = "x")
 
         self.build_label = ctk.CTkLabel(self.build_and_image_frame,text = "Design & Build Your Registration Process",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "bold"))
@@ -33,13 +33,13 @@ class RegistrationPage():
         self.build_image_label = ctk.CTkLabel(self.build_and_image_frame,image = self.build_image,text = "",height = 5,width = 2)
         self.build_image_label.grid(row = 0,column = 1,padx = (10,0))
 
-        self.get_started_label = ctk.CTkLabel(self.main.scrollable_frame,text = "To get started, lauch our new Site Designer, or start customizing one of the pages below.",text_color = "#000000",font = ctk.CTkFont(size = 12,weight = "normal"))
+        self.get_started_label = ctk.CTkLabel(self.process_page.scrollable_frame,text = "To get started, lauch our new Site Designer, or start customizing one of the pages below.",text_color = "#000000",font = ctk.CTkFont(size = 12,weight = "normal"))
         self.get_started_label.pack(anchor = "nw",padx = 10,pady = 10)
 
-        self.open_site_designer_button = ctk.CTkButton(self.main.scrollable_frame,text = "Open Site Designer",text_color = "#ffffff",fg_color = "#0B77E3",height = 25,width = 50,hover_color = "blue",corner_radius = 10,command = self.site_designer)
+        self.open_site_designer_button = ctk.CTkButton(self.process_page.scrollable_frame,text = "Open Site Designer",text_color = "#ffffff",fg_color = "#0B77E3",height = 25,width = 50,hover_color = "blue",corner_radius = 10,command = self.site_designer)
         self.open_site_designer_button.pack(anchor = "nw",padx = 10,pady = 10)
 
-        self.registration_process_pages_frame = ctk.CTkFrame(self.main.scrollable_frame,fg_color = "#ffffff",width = 800,height = 1000)
+        self.registration_process_pages_frame = ctk.CTkFrame(self.process_page.scrollable_frame,fg_color = "#ffffff",width = 800,height = 1000)
         self.registration_process_pages_frame.pack(anchor = "nw",padx = 10)
 
         self.registration_process_pages_label = ctk.CTkLabel(self.registration_process_pages_frame,text = "Registration Process Pages",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "bold"))
@@ -92,6 +92,11 @@ class RegistrationPage():
 
         self.guest_butt = ctk.CTkButton(self.registration_process_pages_frame,text = "Customize",fg_color = "#ffffff",hover_color = "lightgray",width = 40,text_color = "#0B77E3",command = self.guest_button)
         self.guest_butt.grid(row = 9,column = 2,sticky = "ne",padx = (290,40),pady = (20,0))
+
+    def registration_settings(self):
+        self.settings_page = Page(self.main, self.registration_frame, "DemEven", "Registration Settings")
+        self.settings_page.title_frame(False)
+        self.settings_page.content_frame()
 
     def search_widget_command(self):
         pass
