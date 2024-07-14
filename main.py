@@ -1,6 +1,6 @@
 import customtkinter as ctk
 from PIL import Image
-import pymysql as pq
+import pymysql as pmql
 import tkinter as tk
 from tkinter.messagebox import showinfo, showwarning, showerror
 from auth import GoogleSignInApp
@@ -31,7 +31,7 @@ class DemoApplication(ctk.CTk):
 
         ctk.set_appearance_mode("dark")
         ctk.set_default_color_theme("my_custom_theme.json")
-
+    
         self.primary_color = "#093838"
         self.secondary_color = "#8bceba"
         self.bg = "gainsboro"
@@ -41,21 +41,23 @@ class DemoApplication(ctk.CTk):
         self.connection = self.connect_to_database()
         self.screen_stack = []
         self.current_screen = None
-
+        
+        self.data=Db.connect_to_database(self)
         self.database =Db
-
         self.initial_screen()
 
     def connect_to_database(self):
-        connection = pq.connect(
-            host="localhost",
-            user="root",
-            password="root",
-            database="demo",
-            #port=3306,
-            charset="utf8"
-        )
-        return connection
+        
+            self.connection = pmql.connect(
+                host="localhost",
+                user="root",
+                password="sankalp",
+                charset="utf8",
+                database="demo",
+                connect_timeout=10
+            )
+            self.cur = self.connection.cursor()
+            
     
     def add_hover_effect(self, widget):
         original_txtcolor = "#092928"
@@ -172,7 +174,7 @@ class DemoApplication(ctk.CTk):
             self.buttons_frame, 
             text="Login", 
             font=("helvetica", 20), 
-            command=lambda: self.login(self.connection), 
+            command=lambda: self.login(), 
             width=110, height=35, 
             corner_radius=100, 
             fg_color="#8bceba", 
@@ -183,7 +185,7 @@ class DemoApplication(ctk.CTk):
             self.buttons_frame, 
             text="Register", 
             font=("helvetica", 20), 
-            command=lambda: self.register(self.connection), 
+            command=lambda: self.register(), 
             width=85, height=35, 
             corner_radius=100, 
             fg_color="#8bceba", 
@@ -199,10 +201,10 @@ class DemoApplication(ctk.CTk):
         self.add_hover_effect(login_button)
         self.add_hover_effect(register_button)
 
-    def register(self, connection):
-        self.switch_screen(lambda: self._register_screen(connection))
+    def register(self):
+        self.switch_screen(lambda: self._register_screen())
 
-    def _register_screen(self, connection):
+    def _register_screen(self):
         self.image_frame = ctk.CTkFrame(self)
         self.image_frame.grid(row=0, column=0)
 
@@ -239,11 +241,11 @@ class DemoApplication(ctk.CTk):
         password_label.grid(row=2, column=0, sticky="w", padx=(20, 10))
         retype_password_label.grid(row=3, column=0, sticky="w", pady=10, padx=(20, 10))
 
-        self.email = ctk.StringVar()
+        email = ctk.StringVar()
         password = ctk.StringVar()
         retype_password = ctk.StringVar()
 
-        email_field = ctk.CTkEntry(self.buttons_frame, textvariable=self.email)
+        email_field = ctk.CTkEntry(self.buttons_frame, textvariable=email)
         password_field = ctk.CTkEntry(self.buttons_frame, textvariable=password, show='*')
         retype_pass_field = ctk.CTkEntry(self.buttons_frame, textvariable=retype_password, show='*')
 
@@ -252,28 +254,36 @@ class DemoApplication(ctk.CTk):
         retype_pass_field.grid(row=3, column=1, sticky="nsew", pady=10, padx=(0, 8))
 
         def check():
-            if self.email.get().isdigit() or password.get().isdigit():
+            self.connect_to_database()
+            if email.get().isdigit() or password.get().isdigit():
                 showerror("Value Error!", "Please input Characters.")
-            elif self.email.get() == "" or password.get() == "":
+            elif email.get() == "" or password.get() == "":
                 showerror("Value Error!", "Please input Characters.")
             else:
                 if password.get() != retype_password.get():
                     showwarning("Try Again!", "Passwords do not match. Registration failed.")
                 else:
-                    with connection.cursor() as cursor:
+                    try:
                         sql = "SELECT * FROM user WHERE email= %s"
-                        cursor.execute(sql, (self.email.get(),))
-                        result = cursor.fetchone()
+                        self.cur.execute(sql, (email.get(),))
+                        result = self.cur.fetchone()
+                        
+                    except pmql.err.InterfaceError as e:
+                        self.connect_to_database()
+                        
 
+                    
+                    
                     if result:
                         showinfo("Registration failed.", "email already exists.")
                     else:
-                        with connection.cursor() as cursor:
-                            sql = "INSERT INTO user (email, password) VALUES (%s, %s)"
-                            cursor.execute(sql, (self.email.get(), password.get()))
-                            connection.commit()
-                            showinfo("Done!", "Registration successful!\nNow you can Login.")
-                            self.login(self.connection)
+                        
+                        sql = "INSERT INTO user (email, password) VALUES (%s, %s)"
+                        self.cur.execute(sql, (email.get(), password.get()))
+                        self.connection.commit()
+                        self.connection.close()
+                        showinfo("Done!", "Registration successful!\nNow you can Login.")
+                        self.login(self.connection)
 
         check_button = ctk.CTkButton(
             self.buttons_frame, 
@@ -291,10 +301,10 @@ class DemoApplication(ctk.CTk):
 
         self.back_but(self.buttons_frame, row=5, column=0, columnspan=2, padx=(0, 200), pady=(90, 10))
 
-    def login(self, connection):
-        self.switch_screen(lambda: self._login(connection))
+    def login(self):
+        self.switch_screen(lambda: self._login())
 
-    def _login(self, connection):
+    def _login(self):
         self.image_frame = ctk.CTkFrame(self)
         self.image_frame.grid(row=0,column=0)
 
@@ -332,30 +342,40 @@ class DemoApplication(ctk.CTk):
         email = ctk.StringVar()
         password = ctk.StringVar()
 
-        email_field = ctk.CTkEntry(self.buttons_frame, textvariable=self.email)
+        email_field = ctk.CTkEntry(self.buttons_frame, textvariable=email)
         password_field = ctk.CTkEntry(self.buttons_frame, textvariable=password, show='*')
 
         email_field.grid(row=1, column=1, pady=(50,10), padx=(0,10))
         password_field.grid(row=2, column=1, padx=(0,10))
 
         def check():
-            if self.email.get().isdigit() or password.get().isdigit():
+            
+            if email.get().isdigit() or password.get().isdigit():
                 showerror("Value Error!", "Please input Characters.")
-            elif self.email.get() == "" or password.get() == "":
+            elif email.get() == "" or password.get() == "":
                 showerror("Value Error!", "Please input Characters.")
             else:
-                cursor = connection.cursor()
-                sql = "SELECT * FROM user WHERE email = %s AND password = %s"
-                cursor.execute(sql, (self.email.get(), password.get()))
-                result = cursor.fetchone()
-
+                try:
+                    self.connect_to_database()
+                    cursor = self.connection.cursor()
+                    sql = "SELECT * FROM user WHERE email = %s AND password = %s"
+                    cursor.execute(sql, (email.get(), password.get()))
+                    result = cursor.fetchone()
+                    print(result)
+                    self.connection.close()
+                except pmql.err.InterfaceError as e:
+                    
+                    self.connect_to_database()
+                    check()
                 if result:
                     showinfo("", "Login successful")
+                    data=Db(email.get())
+                    print(f"name of the events {data.get_userid()}")
                     self.create_widgets()
                 else:
                     msg = showwarning("User Not found", "You have to Sign-Up..")
                     if msg == 'ok':
-                        self.register(connection)
+                        self.register()
 
         check_button = ctk.CTkButton(
             self.buttons_frame, 
