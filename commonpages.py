@@ -17,8 +17,16 @@ class Page():
         self.click_count = 0
         self.sidebar = None
 
-    def switch_tab(self, tab_name):
+    def switch_tab(self, tab_name, method):
         self.main.notebook.set(tab_name)
+        return method
+
+    def navigate(self, destination):
+        if callable(destination):
+            destination()
+            print("Navigation is called....")
+        else:
+            print(f"Navigation destination '{destination}' is not callable")
 
     def create_sidebar_item(self, label, subitems):
         frame = ctk.CTkFrame(self.sidebar, corner_radius=0)
@@ -46,7 +54,7 @@ class Page():
 
         # Create buttons for subitems
         for item, command in subitems.items():
-            sub_button = ctk.CTkButton(subframe, text=f"  • {item}", anchor="w", fg_color="transparent", hover_color=("gray70", "gray30"), text_color="white", font=ctk.CTkFont(size=13, weight="bold"), command=command)
+            sub_button = ctk.CTkButton(subframe, text=f"  • {item}", anchor="w", fg_color="transparent", hover_color=("gray70", "gray30"), text_color="white", font=ctk.CTkFont(size=13, weight="bold"), command=lambda c=command: self.navigate(c))
             sub_button.pack(fill="x")
 
 
@@ -81,7 +89,7 @@ class Page():
                 })
             self.create_sidebar_item("Registration", {
                 "Registration Settings" : self.main.register_page.registration_settings, 
-                "Registration Proccess" : lambda : self.switch_tab("Registration and Ticketing")
+                "Registration Proccess" : lambda : self.switch_tab("Registration and Ticketing", self.main.registertab_widgets())
                 })
             self.create_sidebar_item("Email", {
                 "Invitation List" : self.fun, 

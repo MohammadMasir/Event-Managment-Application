@@ -595,6 +595,8 @@ class DemoApplication(ctk.CTk):
         # ctk.CTkLabel(self.ticket_tab, text="Handle registrations and tickets", font=ctk.CTkFont(size=20, weight="bold")).pack(pady=20)
         self.register_page = RegistrationPage(self)
         self.register_page.registration_proccess()
+    # def register_settings_tab(self):
+    #     self.register_page.registration_settings
 
     def attendeetab_widgets(self):
         ctk.CTkLabel(self.attendee_tab, text="View analytics and reports", font=ctk.CTkFont(size=20, weight="bold")).pack(pady=20)

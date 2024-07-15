@@ -14,12 +14,16 @@ class RegistrationPage():
     def __init__(self, main_app):
         super().__init__()
         self.main = main_app
+        self.parent = self.main.register_tab
+        # self.registration_proccess()
 
     def registration_proccess(self):
-        self.registration_frame = ctk.CTkFrame(self.main.register_tab, fg_color="#F0F0F0")
-        self.registration_frame.pack(fill="both", expand=True)
+        for widget in self.parent.winfo_children():
+            widget.pack_forget()
+        self.process_frame = ctk.CTkFrame(self.parent, fg_color="#F0F0F0")
+        self.process_frame.pack(fill="both", expand=True)
 
-        self.process_page = Page(self.main, self.registration_frame, "DemEven", "Registration Process")
+        self.process_page = Page(self.main, self.process_frame, "DemEven", "Registration Process")
         self.process_page.title_frame(True)
         self.process_page.content_frame()
 
@@ -94,7 +98,12 @@ class RegistrationPage():
         self.guest_butt.grid(row = 9,column = 2,sticky = "ne",padx = (290,40),pady = (20,0))
 
     def registration_settings(self):
-        self.settings_page = Page(self.main, self.registration_frame, "DemEven", "Registration Settings")
+        self.main.notebook.set("Registration and Ticketing")
+        for widget in self.parent.winfo_children():
+            widget.pack_forget()
+        self.settings_frame = ctk.CTkFrame(self.parent)
+        self.settings_frame.pack(fill="both", expand=True)
+        self.settings_page = Page(self.main, self.settings_frame, "DemEven", "Registration Settings")
         self.settings_page.title_frame(False)
         self.settings_page.content_frame()
 
@@ -108,7 +117,7 @@ class RegistrationPage():
         pass
 
     def personal_info(self):
-        info_form = info.Personal_information(self.main_app,self.registration_frame)
+        info_form = info.Personal_information(self.main_app,self.process_frame)
         info_form.Personal_info()
         info_form.Theme_design()
         pass
