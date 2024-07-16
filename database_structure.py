@@ -1,37 +1,28 @@
 import pymysql as pmql
-
+from eventcreate import CreateEvent
 class Db():
-      def __init__(self,email):
-        self.email=email
+      def __init__(self) :
+          self.connection= pmql.connect(
+            host="localhost",
+            user="root",
+            password="sankalp"
+        )
+          self.cur=self.connection.cursor()
+      def create_database(self):
         self.connection= pmql.connect(
             host="localhost",
             user="root",
-            password="sankalp",
-            #port=3307,
-            charset="utf8",
-            database="demo",
-            connect_timeout=5
+            password="sankalp"
         )
-        self.cur=self.connection.cursor()
-        print(self.email)
-      def connect_to_database(self):
-        self.connection= pmql.connect(
-            host="localhost",
-            user="root",
-            password="sankalp",
-            #port=3307,
-            charset="utf8",
-            database="demo",
-            connect_timeout=5
-        )
+        print("this is runninng")
         self.cur=self.connection.cursor()
         self.cur.execute("create database if not exists demo;")
-        self.cur.execute("use demo")
+        self.data=self.cur.execute("use demo")
 
         self.cur.execute("create table if not exists user (user_id int primary key,email varchar(100) not null,password varchar(30) not null, first_name varchar(50),last_name varchar(70));")
         self.cur.execute("ALTER TABLE user MODIFY user_id INT AUTO_INCREMENT;")
         self.cur.execute("ALTER TABLE user AUTO_INCREMENT = 10;")
-        self.cur.execute('''CREATE TABLE if not exists event (event_id INT AUTO_INCREMENT PRIMARY KEY,event_name VARCHAR(100),event_category ENUM('Meeting', 'Seminar', 'Training Session', 'Political Events', 'Fundraisers','Celebration','Sports Event','Webinar'),start_date DATE,end_date DATE,end_time TIME,start_time TIME,user_id INT,FOREIGN KEY (user_id) REFERENCES user(user_id));''')
+        self.cur.execute('''CREATE TABLE if not exists event (event_id INT AUTO_INCREMENT PRIMARY KEY,event_name VARCHAR(100),event_category ENUM('Meeting', 'Seminar', 'Training Session', 'Political Events', 'Fundraisers','Celebration','Sports Event','Webinar'),address varchar(100),start_date DATE,end_date DATE,end_time TIME,start_time TIME,user_id INT,FOREIGN KEY (user_id) REFERENCES user(user_id));''')
         self.cur.execute("ALTER TABLE event MODIFY event_id INT AUTO_INCREMENT;")
         self.cur.execute("ALTER TABLE event AUTO_INCREMENT = 101;")
         self.cur.execute('''CREATE TABLE  if not exists sponsor (
@@ -103,18 +94,24 @@ class Db():
         self.connection.close()
         return self.connection,self.cur
       
-      def get_userid(self):
-
+      def get_userid(self,email):
+        self.email=email
+        self.cur.execute("use demo")
         self.cur.execute("select * from user where email=%s",self.email)
         out=self.cur.fetchone()[0]
+        add_event=CreateEvent(None,None)
+        add_event.get_userid(out)
         self.cur.execute("select * from event where user_id=%s",out)
         event=self.cur.fetchall()
         return event
-      def event_name(self):
-          
+      def event_name(self,email):
+          self.email=email
           self.cur=self.connection.cursor()
           self.cur.execute("use demo")
           self.cur.execute("select user_id from user where email=%s")
+          out=self.cur.fetchone()
+          
+
       def insert_dummy_data(self):
     
         
@@ -125,9 +122,9 @@ class Db():
           self.cur.execute("INSERT INTO user (email, password, first_name, last_name) VALUES ('james.smith@example.com', 'password456', 'James', 'Smith');")
     
 #Insert dummy data into event table // event_categoryv datatype enum karna haii-- done
-          self.cur.execute("INSERT INTO event (event_name, event_category, start_date, end_date, start_time, end_time, user_id) VALUES ('Tech Summit', 'Training Session', '2024-08-15', '2024-08-17', '10:00:00', '18:00:00', 12);")
-          self.cur.execute("INSERT INTO event (event_name, event_category, start_date, end_date, start_time, end_time, user_id) VALUES ('Health Expo', 'Seminar', '2024-09-05', '2024-09-07', '09:00:00', '17:00:00', 10);")
-          self.cur.execute("INSERT INTO event (event_name, event_category, start_date, end_date, start_time, end_time, user_id) VALUES ('Education Fair', 'Webinar', '2024-10-10', '2024-10-12', '10:00:00', '18:00:00', 12);")
+          self.cur.execute("INSERT INTO event (event_name, event_category,address ,start_date, end_date, start_time, end_time, user_id) VALUES ('Tech Summit', 'Training Session',' we dont know' ,'2024-08-15', '2024-08-17', '10:00:00', '18:00:00', 12);")
+          self.cur.execute("INSERT INTO event (event_name, event_category,address , start_date, end_date, start_time, end_time, user_id) VALUES ('Health Expo', 'Seminar', ' we dont know'',2024-09-05', '2024-09-07', '09:00:00', '17:00:00', 10);")
+          self.cur.execute("INSERT INTO event (event_name, event_category, address ,start_date, end_date, start_time, end_time, user_id) VALUES ('Education Fair', 'Webinar',' we dont know' ,'2024-10-10', '2024-10-12', '10:00:00', '18:00:00', 12);")
     
     # # Insert dummy data into sponsor table 
           self.cur.execute("create database if not exists demo;")
