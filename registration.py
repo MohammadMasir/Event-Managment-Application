@@ -17,6 +17,11 @@ class RegistrationPage():
         self.parent = self.main.register_tab
         # self.registration_proccess()
 
+    def set_screen(self):
+        self.main.notebook.set("Registration and Ticketing")
+        for widget in self.parent.winfo_children():
+            widget.pack_forget()
+
     def registration_proccess(self):
         for widget in self.parent.winfo_children():
             widget.pack_forget()
@@ -98,14 +103,20 @@ class RegistrationPage():
         self.guest_butt.grid(row = 9,column = 2,sticky = "ne",padx = (290,40),pady = (20,0))
 
     def registration_settings(self):
-        self.main.notebook.set("Registration and Ticketing")
-        for widget in self.parent.winfo_children():
-            widget.pack_forget()
+        self.set_screen()
         self.settings_frame = ctk.CTkFrame(self.parent)
         self.settings_frame.pack(fill="both", expand=True)
         self.settings_page = Page(self.main, self.settings_frame, "DemEven", "Registration Settings")
         self.settings_page.title_frame(False)
         self.settings_page.content_frame()
+
+    def registration_types(self):
+        self.set_screen()
+        self.types_frame = ctk.CTkFrame(self.parent)
+        self.types_frame.pack(fill="both", expand=True)
+        self.types_page = Page(self.main, self.types_frame, "DemEven", "Registration Settings")
+        self.types_page.title_frame(False)
+        self.types_page.content_frame()
 
     def search_widget_command(self):
         pass

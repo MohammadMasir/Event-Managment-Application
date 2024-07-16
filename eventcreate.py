@@ -10,7 +10,9 @@ class CreateEvent():
         self.main_app = main_app
 
     def create_event(self):
-        self.main_app.previewmain_frame.destroy()
+        # self.main_app.previewmain_frame.destroy()
+        for widget in self.parent.winfo_children():
+            widget.pack_forget()
 
         # Main container frame
         self.form_main = ctk.CTkFrame(self.parent)
@@ -96,7 +98,7 @@ class CreateEvent():
             if x14.get() == "":
                 showerror(title = "Error",message = "Please choose the state")
 
-            self.homepage = DashboardPage(self.main_app, self.form_main)
+            self.homepage = DashboardPage(self.main_app)
             self.homepage.events_home()
 
         x1 =ctk.StringVar()

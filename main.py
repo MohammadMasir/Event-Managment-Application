@@ -6,6 +6,8 @@ from tkinter.messagebox import showinfo, showwarning, showerror
 from eventshome import DashboardPage
 from eventcreate import CreateEvent
 from registration import RegistrationPage
+from invitation import InviteeAttendeePage
+from surveyresponse import SurveyResponsePage
 # from commonpages import Page
 # from hometemp import Test
 
@@ -447,8 +449,8 @@ class DemoApplication(ctk.CTk):
         labe.pack(pady=10, expand=True)
 
         # Create a self.notebook (tabbed interface)
-        self.notebook = ctk.CTkTabview(self, width=700, height=500, bg_color = self.hovercolor_bg, corner_radius=12) #3fa572 #333333
-        self.notebook.pack(padx=20, pady=20, fill="both", expand=True)
+        self.notebook = ctk.CTkTabview(self, bg_color = self.hovercolor_bg, corner_radius=12) #3fa572 #333333
+        self.notebook.pack(pady=(10,0), fill="both", expand=True)
 
         # Dashboard Tab
         self.dashboard_tab = self.notebook.add("Dashboard")
@@ -464,8 +466,8 @@ class DemoApplication(ctk.CTk):
         self.registertab_widgets()
 
         # Reporting and Analytics Tab
-        self.attendee_tab = self.notebook.add("Attendee / Invitee")
-        self.attendeetab_widgets()
+        self.invitee_tab = self.notebook.add("Invitee & Attendee")
+        self.inviteetab_widgets()
 
         # Survey and Feedback Tab
         self.survey_tab = self.notebook.add("Survey and Feedback")
@@ -477,6 +479,7 @@ class DemoApplication(ctk.CTk):
         ctk.CTkLabel(self.dashboard_tab, text="Welcome to Your Dashboard!", font=ctk.CTkFont(size=20, weight="bold")).pack(pady=20)
 
     def eventtab_widgets(self):
+        # self.events = DashboardPage(self, self.event_tab)
 
         self.previewmain_frame = ctk.CTkFrame(self.event_tab, fg_color = "#F0F0F0")
         self.previewmain_frame.pack(side="top", fill="both", expand= True)
@@ -590,20 +593,17 @@ class DemoApplication(ctk.CTk):
         down_line = tk.Canvas(self.previewmain_frame,height = 9,width = 1920,bg = "#858585",relief = tk.SUNKEN)
         down_line.place(x = -2,y = 768)
 
-
     def registertab_widgets(self):
-        # ctk.CTkLabel(self.ticket_tab, text="Handle registrations and tickets", font=ctk.CTkFont(size=20, weight="bold")).pack(pady=20)
         self.register_page = RegistrationPage(self)
         self.register_page.registration_proccess()
-    # def register_settings_tab(self):
-    #     self.register_page.registration_settings
 
-    def attendeetab_widgets(self):
-        ctk.CTkLabel(self.attendee_tab, text="View analytics and reports", font=ctk.CTkFont(size=20, weight="bold")).pack(pady=20)
+    def inviteetab_widgets(self):
+        self.invitation_attendee = InviteeAttendeePage(self)
+        self.invitation_attendee.invitation_list_screen()
 
     def surveytab_widgets(self):
-        ctk.CTkLabel(self.survey_tab, text="Create surveys and view responses", font=ctk.CTkFont(size=20, weight="bold")).pack(pady=20)
-    
+        self.survey_response = SurveyResponsePage(self)
+        self.survey_response.feedback_surveys_screen()
 
 if __name__ == "__main__":
     app = DemoApplication()

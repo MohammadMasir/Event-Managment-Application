@@ -2,6 +2,7 @@ import tkinter as tk
 import customtkinter as ctk
 from tkinter.messagebox import showinfo
 from PIL import Image
+# from eventcreate import CreateEvent
 
 class Page():
     def __init__(self, main_app, parent=None, title=None, heading=None, heading2=None, heading3=None):
@@ -17,7 +18,7 @@ class Page():
         self.click_count = 0
         self.sidebar = None
 
-    def switch_tab(self, tab_name, method):
+    def switch_tab(self, tab_name, method=None):
         self.main.notebook.set(tab_name)
         return method
 
@@ -54,7 +55,7 @@ class Page():
 
         # Create buttons for subitems
         for item, command in subitems.items():
-            sub_button = ctk.CTkButton(subframe, text=f"  • {item}", anchor="w", fg_color="transparent", hover_color=("gray70", "gray30"), text_color="white", font=ctk.CTkFont(size=13, weight="bold"), command=lambda c=command: self.navigate(c))
+            sub_button = ctk.CTkButton(subframe, text=f"  • {item}", anchor="w", fg_color="transparent", hover_color="#20605f", text_color="white", font=ctk.CTkFont(size=13, weight="bold"), command=lambda c=command: self.navigate(c))
             sub_button.pack(fill="x")
 
 
@@ -80,33 +81,36 @@ class Page():
             self.sidebar = ctk.CTkScrollableFrame(self.page_frame, width=240, fg_color="#F0F0F0")
             self.sidebar.pack(side="left", fill="y")
 
+            corner_colors = ("white", "white", "#6bceba", "#6bceba")
             # Add the sidebar content here (create_sidebar_item calls)
+            self.home_button = ctk.CTkButton(self.sidebar, text="Home", fg_color="#6bceba", text_color="white", background_corner_colors=corner_colors, font=ctk.CTkFont(family="Segoe UI",size=15, weight="bold"), hover_color="#8bceba",command=self.main.events.events_home)
+            self.home_button.pack(fill="x", anchor="center")
             self.create_sidebar_item("General", {
-                "Event Information" : self.fun,
-                "Event Features" : self.fun, 
-                "Registration Types" : self.fun, 
-                "Event Settings" : self.fun
+                "Event Information" : self.main.events.event_information,
+                "Event Features" : self.main.events.event_features, 
+                "Registration Types" : self.main.register_page.registration_types, 
+                "Event Settings" : self.main.events.event_settings
                 })
             self.create_sidebar_item("Registration", {
                 "Registration Settings" : self.main.register_page.registration_settings, 
                 "Registration Proccess" : lambda : self.switch_tab("Registration and Ticketing", self.main.registertab_widgets())
                 })
             self.create_sidebar_item("Email", {
-                "Invitation List" : self.fun, 
-                "Event Emails" : self.fun, 
-                "Planner Alerts" : self.fun
+                "Invitation List" : lambda : self.switch_tab("Invitee & Attendee", self.main.invitation_attendee.invitation_list_screen),
+                "Event Emails" : self.main.invitation_attendee.event_emails, 
+                "Planner Alerts" : self.main.invitation_attendee.planner_alerts
                 })
             self.create_sidebar_item("Attendees", {
-                "Attendee List" : self.fun, 
-                "Certificates" : self.fun
+                "Attendee List" : self.main.invitation_attendee.attendee_list_screen, 
+                "Certificates" : self.main.invitation_attendee.certificates_screen
                 })
             self.create_sidebar_item("Surveys", {
-                "Feedback Surveys" : self.fun, 
-                "Responses" : self.fun
+                "Feedback Surveys" : lambda : self.switch_tab("Survey and Feedback", self.survey_response.feedback_surveys_screen), 
+                "Responses" : self.main.survey_response.responses_screen
                 })
             self.create_sidebar_item("Reports", {
-                "Reports" : self.fun, 
-                "Invitee Summary" : self.fun
+                "Reports" : lambda : self.main.notebook.set("Dashboard"), 
+                "Invitee Summary" : lambda : self.main.notebook.set("Dashboard")
                 })
             # ... add more sidebar items
             self.scrollable_frame.pack(side="right",fill="both")
