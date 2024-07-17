@@ -12,7 +12,8 @@ class CreateEvent():
         self.connection= pmql.connect(
             host="localhost",
             user="root",
-            password="sankalp"
+            password="root",
+            charset="utf8"
         )
         self.cur=self.connection.cursor()
     def get_userid(self,userid):
@@ -24,7 +25,8 @@ class CreateEvent():
         self.connection=pmql.connect(
             host="localhost",
             user="root",
-            password="sankalp"
+            password="root",
+            charset="utf8"
         )
         self.cur.execute("use demo")
         self.cur.execute("select user_id from user where email=%s",self.planner_email.get())
@@ -32,10 +34,11 @@ class CreateEvent():
         print(out)
         sql="INSERT INTO event (event_name, event_category,address ,start_date, end_date, start_time, end_time, user_id) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)"
         values=self.event_name.get(),self.event_category.get(),self.address_main.get(),self.start_date.get(),self.end_date.get(),self.start_time.get(),self.end_time.get(),out
+        sql_query = (sql, (self.event_name.get(),))
         self.cur.execute(sql,values)
         self.connection.commit()
         self.cur.execute("select * from event;")
-        outcome=self.cur.fetchall()[0]
+        outcome=self.cur.fetchall()#[0]
         print(outcome)
         self.connection.close()
         

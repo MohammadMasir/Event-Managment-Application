@@ -1,98 +1,114 @@
 import pymysql as pmql
 from eventcreate import CreateEvent
 class Db():
-      def __init__(self) :
+      def __init__(self, main_app) :
+          self.main = main_app
           self.connection= pmql.connect(
             host="localhost",
             user="root",
-            password="sankalp"
+            password="root",
+            # database="demo",
+            charset="utf8"
         )
           self.cur=self.connection.cursor()
       def create_database(self):
-        self.connection= pmql.connect(
-            host="localhost",
-            user="root",
-            password="sankalp"
-        )
-        print("this is runninng")
-        self.cur=self.connection.cursor()
-        self.cur.execute("create database if not exists demo;")
-        self.data=self.cur.execute("use demo")
+      #   self.connection= pmql.connect(
+      #       host="localhost",
+      #       user="root",
+      #       password="root",
+      #       charset="utf8"
+      #   )
+      #   print("this is runninng")
+      #   self.cur=self.connection.cursor()
+        self.db_name = "demo"
+        query = f"create database if not exists {self.db_name};"
+        created = self.cur.execute(query)
+      #   created = self.cur.fetchone()
+        if created:
+            self.data=self.cur.execute("use demo")
 
-        self.cur.execute("create table if not exists user (user_id int primary key,email varchar(100) not null,password varchar(30) not null, first_name varchar(50),last_name varchar(70));")
-        self.cur.execute("ALTER TABLE user MODIFY user_id INT AUTO_INCREMENT;")
-        self.cur.execute("ALTER TABLE user AUTO_INCREMENT = 10;")
-        self.cur.execute('''CREATE TABLE if not exists event (event_id INT AUTO_INCREMENT PRIMARY KEY,event_name VARCHAR(100),event_category ENUM('Meeting', 'Seminar', 'Training Session', 'Political Events', 'Fundraisers','Celebration','Sports Event','Webinar'),address varchar(100),start_date DATE,end_date DATE,end_time TIME,start_time TIME,user_id INT,FOREIGN KEY (user_id) REFERENCES user(user_id));''')
-        self.cur.execute("ALTER TABLE event MODIFY event_id INT AUTO_INCREMENT;")
-        self.cur.execute("ALTER TABLE event AUTO_INCREMENT = 101;")
-        self.cur.execute('''CREATE TABLE  if not exists sponsor (
-                    sponsor_id INT AUTO_INCREMENT PRIMARY KEY,
-                    sponsor_name VARCHAR(100),
-                    email VARCHAR(100),
-                    event_id INT,
-                    amount varchar(20),
-                    user_id INT,
-                    FOREIGN KEY (user_id) REFERENCES user(user_id),
-                    FOREIGN KEY (event_id) REFERENCES event(event_id));''')
-        self.cur.execute("ALTER TABLE sponsor MODIFY sponsor_id INT AUTO_INCREMENT;")
-        self.cur.execute("ALTER TABLE sponsor AUTO_INCREMENT = 1001;")
-        self.cur.execute('''CREATE TABLE if not exists registration (
-                   registration_id INT AUTO_INCREMENT PRIMARY KEY,
-                   event_id INT,
-                   organisation_name varchar(50),
-                   email varchar(100), 
-                   first_name varchar(50),
-                   last_name varchar(50),
-                   registration_date DATE,
-                   contact_no varchar(12), 
-                   status VARCHAR(50),
-                   FOREIGN KEY (event_id) REFERENCES event(event_id));''')
-        self.cur.execute("ALTER TABLE registration MODIFY registration_id INT AUTO_INCREMENT;")
-        self.cur.execute("ALTER TABLE registration AUTO_INCREMENT = 1;")
-        self.cur.execute('''CREATE TABLE if not exists attendees (
-                   attendee_id INT AUTO_INCREMENT PRIMARY KEY,
-                   name VARCHAR(100),
-                   email VARCHAR(100),
-                   event_id INT,
-                   FOREIGN KEY (event_id) REFERENCES event(event_id));''')
-        self.cur.execute("ALTER TABLE attendees MODIFY attendee_id INT AUTO_INCREMENT;")
-        self.cur.execute("ALTER TABLE attendees AUTO_INCREMENT = 100;")
-        self.cur.execute('''CREATE TABLE if not exists survey (
-                   survey_id INT AUTO_INCREMENT PRIMARY KEY,
-                   survey_name VARCHAR(100),
-                   event_id INT,
-                   FOREIGN KEY (event_id) REFERENCES event(event_id));''')
-        self.cur.execute('''CREATE TABLE if not exists surveyResponse (
-                   response_id INT AUTO_INCREMENT PRIMARY KEY, 
-                   survey_id int,
-                   response VARCHAR(100), 
-                   FOREIGN KEY (survey_id) REFERENCES survey(survey_id));''')
+            self.cur.execute("create table if not exists user (user_id int primary key,email varchar(100) not null,password varchar(30) not null, first_name varchar(50),last_name varchar(70));")
+            self.cur.execute("ALTER TABLE user MODIFY user_id INT AUTO_INCREMENT;")
+            self.cur.execute("ALTER TABLE user AUTO_INCREMENT = 10;")
+            self.cur.execute('''CREATE TABLE if not exists event (event_id INT AUTO_INCREMENT PRIMARY KEY,event_name VARCHAR(100),event_category ENUM('Meeting', 'Seminar', 'Training Session', 'Political Events', 'Fundraisers','Celebration','Sports Event','Webinar'),address varchar(100),start_date DATE,end_date DATE,end_time TIME,start_time TIME,user_id INT,FOREIGN KEY (user_id) REFERENCES user(user_id));''')
+            self.cur.execute("ALTER TABLE event MODIFY event_id INT AUTO_INCREMENT;")
+            self.cur.execute("ALTER TABLE event AUTO_INCREMENT = 101;")
+            self.cur.execute('''CREATE TABLE  if not exists sponsor (
+                        sponsor_id INT AUTO_INCREMENT PRIMARY KEY,
+                        sponsor_name VARCHAR(100),
+                        email VARCHAR(100),
+                        event_id INT,
+                        amount varchar(20),
+                        user_id INT,
+                        FOREIGN KEY (user_id) REFERENCES user(user_id),
+                        FOREIGN KEY (event_id) REFERENCES event(event_id));''')
+            self.cur.execute("ALTER TABLE sponsor MODIFY sponsor_id INT AUTO_INCREMENT;")
+            self.cur.execute("ALTER TABLE sponsor AUTO_INCREMENT = 1001;")
+            self.cur.execute('''CREATE TABLE if not exists registration (
+                        registration_id INT AUTO_INCREMENT PRIMARY KEY,
+                        event_id INT,
+                        organisation_name varchar(50),
+                        email varchar(100), 
+                        first_name varchar(50),
+                        last_name varchar(50),
+                        registration_date DATE,
+                        contact_no varchar(12), 
+                        status VARCHAR(50),
+                        FOREIGN KEY (event_id) REFERENCES event(event_id));''')
+            self.cur.execute("ALTER TABLE registration MODIFY registration_id INT AUTO_INCREMENT;")
+            self.cur.execute("ALTER TABLE registration AUTO_INCREMENT = 1;")
+            self.cur.execute('''CREATE TABLE if not exists attendees (
+                        attendee_id INT AUTO_INCREMENT PRIMARY KEY,
+                        name VARCHAR(100),
+                        email VARCHAR(100),
+                        event_id INT,
+                        FOREIGN KEY (event_id) REFERENCES event(event_id));''')
+            self.cur.execute("ALTER TABLE attendees MODIFY attendee_id INT AUTO_INCREMENT;")
+            self.cur.execute("ALTER TABLE attendees AUTO_INCREMENT = 100;")
+            self.cur.execute('''CREATE TABLE if not exists survey (
+                        survey_id INT AUTO_INCREMENT PRIMARY KEY,
+                        survey_name VARCHAR(100),
+                        event_id INT,
+                        FOREIGN KEY (event_id) REFERENCES event(event_id));''')
+            self.cur.execute('''CREATE TABLE if not exists surveyResponse (
+                        response_id INT AUTO_INCREMENT PRIMARY KEY, 
+                        survey_id int,
+                        response VARCHAR(100), 
+                        FOREIGN KEY (survey_id) REFERENCES survey(survey_id));''')
 
-        self.cur.execute('''CREATE TABLE if not exists feedback (
-                   feedback_id INT AUTO_INCREMENT PRIMARY KEY,
-                   feedback_text TEXT,
-                   event_id INT,
-                   email VARCHAR(100), 
-                   FOREIGN KEY (event_id) REFERENCES event(event_id));''')
-        self.cur.execute("ALTER TABLE feedback MODIFY feedback_id INT AUTO_INCREMENT;")
-        self.cur.execute("ALTER TABLE feedback AUTO_INCREMENT = 11;")
-        self.cur.execute('''CREATE TABLE if not exists invitation (
-                   invitation_id INT AUTO_INCREMENT PRIMARY KEY,
-                   email VARCHAR(100),
-                   invitation_type ENUM('Speaker', 'VIP', 'Normal'),
-                   invitation_status VARCHAR(50),
-                   event_id INT,
-                   FOREIGN KEY (event_id) REFERENCES event(event_id));''')
+            self.cur.execute('''CREATE TABLE if not exists feedback (
+                        feedback_id INT AUTO_INCREMENT PRIMARY KEY,
+                        feedback_text TEXT,
+                        event_id INT,
+                        email VARCHAR(100), 
+                        FOREIGN KEY (event_id) REFERENCES event(event_id));''')
+            self.cur.execute("ALTER TABLE feedback MODIFY feedback_id INT AUTO_INCREMENT;")
+            self.cur.execute("ALTER TABLE feedback AUTO_INCREMENT = 11;")
+            self.cur.execute('''CREATE TABLE if not exists invitation (
+                        invitation_id INT AUTO_INCREMENT PRIMARY KEY,
+                        email VARCHAR(100),
+                        invitation_type ENUM('Speaker', 'VIP', 'Normal'),
+                        invitation_status VARCHAR(50),
+                        event_id INT,
+                        FOREIGN KEY (event_id) REFERENCES event(event_id));''')
 
-        self.cur.execute("ALTER TABLE invitation MODIFY invitation_id INT AUTO_INCREMENT;")
-        self.cur.execute("ALTER TABLE invitation AUTO_INCREMENT = 1000;")
-        self.cur.execute("desc user;")
-        out=self.cur.fetchall()[0]
-        print(out)
-        self.connection.rollback()
-        self.connection.commit()
-        self.connection.close()
-        return self.connection,self.cur
+            self.cur.execute("ALTER TABLE invitation MODIFY invitation_id INT AUTO_INCREMENT;")
+            self.cur.execute("ALTER TABLE invitation AUTO_INCREMENT = 1000;")
+            self.cur.execute("desc user;")
+            out=self.cur.fetchall()[0]
+            print(out)
+            self.connection.rollback()
+            self.connection.commit()
+            self.connection.close()
+            return self.connection,self.cur
+        else: 
+            print("Database Exists")
+            self.cur.close()
+            try:
+                  self.main.connect_to_database
+                  print("Connected to Demo database successfully")
+            except:
+                  print("Can't connect to database..")
       
       def get_userid(self,email):
         self.email=email
