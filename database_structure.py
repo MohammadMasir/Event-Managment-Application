@@ -1,29 +1,21 @@
 import pymysql as pmql
-from eventcreate import CreateEvent
+
 class Db():
       def __init__(self, main_app) :
-          self.main = main_app
-          self.connection= pmql.connect(
-            host="localhost",
-            user="root",
-            password="root",
-            # database="demo",
-            charset="utf8"
+            self.main = main_app
+            self.connection= pmql.connect(
+                  host="localhost",
+                  user="root",
+                  password="root",
+                  charset="utf8"
         )
-          self.cur=self.connection.cursor()
+            self.cur=self.connection.cursor()
+            
+
       def create_database(self):
-      #   self.connection= pmql.connect(
-      #       host="localhost",
-      #       user="root",
-      #       password="root",
-      #       charset="utf8"
-      #   )
-      #   print("this is runninng")
-      #   self.cur=self.connection.cursor()
         self.db_name = "demo"
         query = f"create database if not exists {self.db_name};"
         created = self.cur.execute(query)
-      #   created = self.cur.fetchone()
         if created:
             self.data=self.cur.execute("use demo")
 
@@ -95,8 +87,8 @@ class Db():
             self.cur.execute("ALTER TABLE invitation MODIFY invitation_id INT AUTO_INCREMENT;")
             self.cur.execute("ALTER TABLE invitation AUTO_INCREMENT = 1000;")
             self.cur.execute("desc user;")
-            out=self.cur.fetchall()[0]
-            print(out)
+            # out=self.cur.fetchall()[0]
+            # print(out)
             self.connection.rollback()
             self.connection.commit()
             self.connection.close()
@@ -109,29 +101,8 @@ class Db():
                   print("Connected to Demo database successfully")
             except:
                   print("Can't connect to database..")
-      
-      def get_userid(self,email):
-        self.email=email
-        self.cur.execute("use demo")
-        self.cur.execute("select * from user where email=%s",self.email)
-        out=self.cur.fetchone()[0]
-        add_event=CreateEvent(None,None)
-        add_event.get_userid(out)
-        self.cur.execute("select * from event where user_id=%s",out)
-        event=self.cur.fetchall()
-        return event
-      def event_name(self,email):
-          self.email=email
-          self.cur=self.connection.cursor()
-          self.cur.execute("use demo")
-          self.cur.execute("select user_id from user where email=%s")
-          out=self.cur.fetchone()
-          
 
       def insert_dummy_data(self):
-    
-        
-    
           self.cur.execute("use demo")
         # Insert dummy data into user table
           self.cur.execute("INSERT INTO user (email, password, first_name, last_name) VALUES ('jane.smith@example.com', 'password456', 'Jane', 'Smith');")

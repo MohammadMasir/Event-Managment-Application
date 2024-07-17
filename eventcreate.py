@@ -8,44 +8,39 @@ class CreateEvent():
     def __init__(self, parent, main_app):
         super().__init__()
         self.parent = parent
-        self.main_app = main_app
-        self.connection= pmql.connect(
-            host="localhost",
-            user="root",
-            password="root",
-            charset="utf8"
-        )
-        self.cur=self.connection.cursor()
-    def get_userid(self,userid):
-        
-        self.userid=userid
-        print(self.userid)
-        #print(f"this is the create event{self.email}")
+        self.main = main_app
+
     def data_insert(self):
-        self.connection=pmql.connect(
-            host="localhost",
-            user="root",
-            password="root",
-            charset="utf8"
-        )
-        self.cur.execute("use demo")
-        self.cur.execute("select user_id from user where email=%s",self.planner_email.get())
-        out=self.cur.fetchone()
+        # Getting the Data...
+        self.name = self.event_name.get()
+        event_category = self.event_category.get()
+        address = self.address_main.get()
+        start_date = self.start_date.get()
+        end_date = self.end_date.get()
+        start_time = self.start_time.get()
+        end_time = self.end_time.get()
+
+        # Inserting them into Database..
+        self.main.connect_to_database
+        self.main.cur.execute("use demo")
+        self.main.cur.execute("select user_id from user where email=%s",self.planner_email.get())
+        out=self.main.cur.fetchone()
         print(out)
-        sql="INSERT INTO event (event_name, event_category,address ,start_date, end_date, start_time, end_time, user_id) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)"
-        values=self.event_name.get(),self.event_category.get(),self.address_main.get(),self.start_date.get(),self.end_date.get(),self.start_time.get(),self.end_time.get(),out
-        sql_query = (sql, (self.event_name.get(),))
-        self.cur.execute(sql,values)
-        self.connection.commit()
-        self.cur.execute("select * from event;")
-        outcome=self.cur.fetchall()#[0]
+        sql="INSERT INTO event (event_name, event_category,address ,start_date, end_date, start_time, end_time) VALUES (%s,%s,%s,%s,%s,%s,%s)"
+        values=self.event_name.get(),self.event_category.get(),self.address_main.get(),self.start_date.get(),self.end_date.get(),self.start_time.get(),self.end_time.get()
+        self.main.cur.execute(sql,(self.name, event_category, address, start_date, end_date, start_time, end_time))
+        self.main.connection.commit()
+        self.main.cur.execute("select * from event;")
+        outcome=self.main.cur.fetchall()#[0]
         print(outcome)
-        self.connection.close()
+        self.main.connection.close()
         
-        self.homepage = DashboardPage(self.main_app)
+        self.status = "Inserted"
+        self.main.create_tabs()
+        self.homepage = DashboardPage(self.main, self.name, event_category, address, start_date, end_date, start_time, end_time)
         self.homepage.events_home()
+
     def create_event(self):
-        # self.main_app.previewmain_frame.destroy()
         for widget in self.parent.winfo_children():
             widget.pack_forget()
 
@@ -59,7 +54,7 @@ class CreateEvent():
 
         # Back button
         my_img = ctk.CTkImage(dark_image=Image.open(r"pics\back.png"), size=(20, 20))
-        self.cvent_labimg = ctk.CTkButton(top_frame, image=my_img, text="", fg_color="#F0F0F0", hover_color="white", width=15, border_width=1, border_color="#F0F0F0", command=lambda: self.main_app.back_preview(self.form_main))
+        self.cvent_labimg = ctk.CTkButton(top_frame, image=my_img, text="", fg_color="#F0F0F0", hover_color="white", width=15, border_width=1, border_color="#F0F0F0", command=lambda: self.main.back_preview(self.form_main))
         self.cvent_labimg.pack(side="left", anchor="nw",padx=10, pady=10)
 
         # Labels

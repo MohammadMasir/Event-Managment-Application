@@ -105,7 +105,7 @@ class Page():
                 "Certificates" : self.main.invitation_attendee.certificates_screen
                 })
             self.create_sidebar_item("Surveys", {
-                "Feedback Surveys" : lambda : self.switch_tab("Survey and Feedback", self.survey_response.feedback_surveys_screen), 
+                "Feedback Surveys" : lambda : self.switch_tab("Survey and Feedback", self.main.survey_response.feedback_surveys_screen), 
                 "Responses" : self.main.survey_response.responses_screen
                 })
             self.create_sidebar_item("Reports", {

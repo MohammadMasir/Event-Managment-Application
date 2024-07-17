@@ -49,7 +49,6 @@ class DemoApplication(ctk.CTk):
                 password="root",
                 charset="utf8",
                 database= self.datab_name,
-                # connect_timeout=10 # ISKI WAJAH SE HO RHA THA WOH MASLA..
             )
             self.cur = self.connection.cursor()
 
@@ -316,25 +315,19 @@ class DemoApplication(ctk.CTk):
                 if password.get() != retype_password.get():
                     showwarning("Try Again!", "Passwords do not match. Registration failed.")
                 else:
-                        # self.connect_to_database() ..............
                     sql = "SELECT * FROM user WHERE email= %s"
                     self.cur.execute(sql, (email.get(),))
                     result = self.cur.fetchone()
-                        # self.connection.close() ..................
-                    # except pmql.err.InterfaceError as e:
-                        # self.connect_to_database() ...................
                     if result:
                         showinfo("Registration failed.", "email already exists.")
                     else:
-                        # self.connect_to_database() .........................
                         sql = "INSERT INTO user (email, password) VALUES (%s, %s)"
                         self.cur.execute(sql, (email.get(), password.get()))
                         self.connection.commit()
-                        # self.connection.close() ..................
                         showinfo("Done!", "Registration successful!\nNow you can Login.")
                         self.login()
 
-        retype_pass_field.bind("<Return>", lambda event : check)
+        retype_pass_field.bind("<Return>", check)
 
         check_button = ctk.CTkButton(
             self.buttons_frame, 
@@ -400,36 +393,25 @@ class DemoApplication(ctk.CTk):
         email_field.grid(row=1, column=1, pady=(50,10), padx=(0,10))
         password_field.grid(row=2, column=1, padx=(0,10))
 
-        def check(event):
+        def check(event=None):
             if email.get().isdigit() or password.get().isdigit():
                 showerror("Value Error!", "Please input Characters.")
             elif email.get() == "" or password.get() == "":
                 showerror("Value Error!", "Please input Characters.")
             else:
-                # try:
-                # self.connect_to_database()
-                    # cursor = self.connection.cursor() ..............
                 sql = "SELECT * FROM user WHERE email = %s AND password = %s"
                 self.cur.execute(sql, (email.get(), password.get()))
                 result = self.cur.fetchone()
                 print(result)
-                    # self.connection.close() ................
-                # except pmql.err.InterfaceError as e:
-                    
-                    # self.connect_to_database() ...............
-                    # check()
                 if result:
                     showinfo("", "Login successful")
-                    # data=Db(self)
-                    
-                    # print(f"name of the events {data.get_userid(email.get())}")
                     self.create_widgets()
                 else:
                     msg = showwarning("User Not found", "You have to Sign-Up..")
                     if msg == 'ok':
                         self.register()
 
-        password_field.bind("<Return>", lambda event : check)
+        password_field.bind("<Return>", check)
 
         check_button = ctk.CTkButton(
             self.buttons_frame, 
@@ -478,6 +460,9 @@ class DemoApplication(ctk.CTk):
         self.eventtab_widgets()
         self.events = DashboardPage(self)
 
+        self.notebook.set("Event Management")
+
+    def create_tabs(self):
         # Registration and Ticketing Tab
         self.register_tab = self.notebook.add("Registration and Ticketing")
         self.registertab_widgets()
@@ -490,7 +475,6 @@ class DemoApplication(ctk.CTk):
         self.survey_tab = self.notebook.add("Survey and Feedback")
         self.surveytab_widgets()
 
-        self.notebook.set("Event Management")
 
     def dashboard_widgets(self):
         ctk.CTkLabel(self.dashboard_tab, text="Welcome to Your Dashboard!", font=ctk.CTkFont(size=20, weight="bold")).pack(pady=20)
@@ -611,15 +595,15 @@ class DemoApplication(ctk.CTk):
         down_line.place(x = -2,y = 768)
 
     def registertab_widgets(self):
-        self.register_page = RegistrationPage(self)
+        self.register_page = RegistrationPage(self, self.event_form.name)
         self.register_page.registration_proccess()
 
     def inviteetab_widgets(self):
-        self.invitation_attendee = InviteeAttendeePage(self)
+        self.invitation_attendee = InviteeAttendeePage(self, self.event_form.name)
         self.invitation_attendee.invitation_list_screen()
 
     def surveytab_widgets(self):
-        self.survey_response = SurveyResponsePage(self)
+        self.survey_response = SurveyResponsePage(self, self.event_form.name)
         self.survey_response.feedback_surveys_screen()
 
 if __name__ == "__main__":

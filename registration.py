@@ -11,11 +11,11 @@ import forms.Registrationsummary as summary
 from commonpages import Page
 
 class RegistrationPage():
-    def __init__(self, main_app):
+    def __init__(self, main_app, event_name=None):
         super().__init__()
         self.main = main_app
         self.parent = self.main.register_tab
-        # self.registration_proccess()
+        self.event_name = event_name
 
     def set_screen(self):
         self.main.notebook.set("Registration and Ticketing")
@@ -28,7 +28,7 @@ class RegistrationPage():
         self.process_frame = ctk.CTkFrame(self.parent, fg_color="#F0F0F0")
         self.process_frame.pack(fill="both", expand=True)
 
-        self.process_page = Page(self.main, self.process_frame, "DemEven", "Registration Process")
+        self.process_page = Page(self.main, self.process_frame, self.event_name, "Registration Process")
         self.process_page.title_frame(True)
         self.process_page.content_frame()
 
@@ -106,7 +106,7 @@ class RegistrationPage():
         self.set_screen()
         self.settings_frame = ctk.CTkFrame(self.parent)
         self.settings_frame.pack(fill="both", expand=True)
-        self.settings_page = Page(self.main, self.settings_frame, "DemEven", "Registration Settings")
+        self.settings_page = Page(self.main, self.settings_frame, self.event_name, "Registration Settings")
         self.settings_page.title_frame(False)
         self.settings_page.content_frame()
 
@@ -114,7 +114,7 @@ class RegistrationPage():
         self.set_screen()
         self.types_frame = ctk.CTkFrame(self.parent)
         self.types_frame.pack(fill="both", expand=True)
-        self.types_page = Page(self.main, self.types_frame, "DemEven", "Registration Settings")
+        self.types_page = Page(self.main, self.types_frame, self.event_name, "Registration Settings")
         self.types_page.title_frame(False)
         self.types_page.content_frame()
 
