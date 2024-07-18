@@ -28,7 +28,7 @@ class RegistrationPage():
         self.process_frame = ctk.CTkFrame(self.parent, fg_color="#F0F0F0")
         self.process_frame.pack(fill="both", expand=True)
 
-        self.process_page = Page(self.main, self.process_frame, self.event_name, "Registration Process")
+        self.process_page = Page(main_app=self.main, parent=self.process_frame, heading="Registration Process")
         self.process_page.title_frame(True)
         self.process_page.content_frame()
 
@@ -106,7 +106,7 @@ class RegistrationPage():
         self.set_screen()
         self.settings_frame = ctk.CTkFrame(self.parent)
         self.settings_frame.pack(fill="both", expand=True)
-        self.settings_page = Page(self.main, self.settings_frame, self.event_name, "Registration Settings")
+        self.settings_page = Page(main_app=self.main, parent=self.settings_frame, heading="Registration Settings")
         self.settings_page.title_frame(False)
         self.settings_page.content_frame()
 
@@ -114,7 +114,7 @@ class RegistrationPage():
         self.set_screen()
         self.types_frame = ctk.CTkFrame(self.parent)
         self.types_frame.pack(fill="both", expand=True)
-        self.types_page = Page(self.main, self.types_frame, self.event_name, "Registration Settings")
+        self.types_page = Page(main_app=self.main, parent=self.types_frame, heading="Registration Settings")
         self.types_page.title_frame(False)
         self.types_page.content_frame()
 

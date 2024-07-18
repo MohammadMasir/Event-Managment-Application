@@ -3,6 +3,8 @@ from tkinter.messagebox import showinfo, showwarning, showerror
 from PIL import Image
 from eventshome import DashboardPage
 import pymysql as pmql
+from commonpages import Page
+from backend import DataClass
 
 class CreateEvent():
     def __init__(self, parent, main_app):
@@ -19,25 +21,15 @@ class CreateEvent():
         end_date = self.end_date.get()
         start_time = self.start_time.get()
         end_time = self.end_time.get()
+        planner_email = self.planner_email.get()
 
-        # Inserting them into Database..
-        self.main.connect_to_database
-        self.main.cur.execute("use demo")
-        self.main.cur.execute("select user_id from user where email=%s",self.planner_email.get())
-        out=self.main.cur.fetchone()
-        print(out)
-        sql="INSERT INTO event (event_name, event_category,address ,start_date, end_date, start_time, end_time) VALUES (%s,%s,%s,%s,%s,%s,%s)"
-        values=self.event_name.get(),self.event_category.get(),self.address_main.get(),self.start_date.get(),self.end_date.get(),self.start_time.get(),self.end_time.get()
-        self.main.cur.execute(sql,(self.name, event_category, address, start_date, end_date, start_time, end_time))
-        self.main.connection.commit()
-        self.main.cur.execute("select * from event;")
-        outcome=self.main.cur.fetchall()#[0]
-        print(outcome)
-        self.main.connection.close()
-        
-        self.status = "Inserted"
+        insert = DataClass(self.main)
+        insert.insert_data(self.name, event_category, address, start_date, end_date, start_time, end_time, planner_email)
+
         self.main.create_tabs()
-        self.homepage = DashboardPage(self.main, self.name, event_category, address, start_date, end_date, start_time, end_time)
+        self.main.update_table(event_name=self.name)
+        self.commonpage_obj = Page(main_app = self.main, event_name=self.name)
+        self.homepage = DashboardPage(self.main)
         self.homepage.events_home()
 
     def create_event(self):

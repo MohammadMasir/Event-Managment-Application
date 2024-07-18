@@ -20,7 +20,7 @@ class InviteeAttendeePage():
             widget.pack_forget()
         self.inv_list_frame = ctk.CTkFrame(self.parent)
         self.inv_list_frame.pack(fill="both", expand=True)
-        self.invitationpage = Page(self.main, self.inv_list_frame, self.event_name, "Invitation List")
+        self.invitationpage = Page(main_app=self.main, parent=self.inv_list_frame, heading="Invitation List")
         self.invitationpage.title_frame(False)
         self.invitationpage.content_frame()
 
@@ -28,7 +28,7 @@ class InviteeAttendeePage():
         self.set_screen()
         self.emails_list_frame = ctk.CTkFrame(self.parent)
         self.emails_list_frame.pack(fill="both", expand=True)
-        self.emailspage = Page(self.main, self.emails_list_frame, self.event_name, "Event Emails")
+        self.emailspage = Page(main_app=self.main, parent=self.emails_list_frame, heading="Event Emails")
         self.emailspage.title_frame(False)
         self.emailspage.content_frame()
     
@@ -36,7 +36,7 @@ class InviteeAttendeePage():
         self.set_screen()
         self.plannerframe = ctk.CTkFrame(self.parent)
         self.plannerframe.pack(fill="both", expand=True)
-        self.plannerpage = Page(self.main, self.plannerframe, self.event_name, "Planner Alerts")
+        self.plannerpage = Page(main_app=self.main, parent=self.plannerframe, heading="Planner Alerts")
         self.plannerpage.title_frame(False)
         self.plannerpage.content_frame() 
 
@@ -44,7 +44,7 @@ class InviteeAttendeePage():
         self.set_screen()
         self.attendee_list_frame = ctk.CTkFrame(self.parent)
         self.attendee_list_frame.pack(fill="both", expand=True)
-        self.attendeepage = Page(self.main, self.attendee_list_frame, self.event_name, "Attendee List")
+        self.attendeepage = Page(main_app=self.main, parent=self.attendee_list_frame, heading="Attendee List")
         self.attendeepage.title_frame(False)
         self.attendeepage.content_frame() 
 
@@ -52,6 +52,6 @@ class InviteeAttendeePage():
         self.set_screen()
         self.certificates_frame = ctk.CTkFrame(self.parent)
         self.certificates_frame.pack(fill="both", expand=True)
-        self.certificatespage = Page(self.main, self.certificates_frame, self.event_name, "Certificates")
+        self.certificatespage = Page(main_app=self.main, parent=self.certificates_frame, heading="Certificates")
         self.certificatespage.title_frame(False)
         self.certificatespage.content_frame() 

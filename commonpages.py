@@ -5,12 +5,12 @@ from PIL import Image
 # from eventcreate import CreateEvent
 
 class Page():
-    def __init__(self, main_app, parent=None, title=None, heading=None, heading2=None, heading3=None):
+    def __init__(self, main_app, parent=None, event_name=None, heading=None, heading2=None, heading3=None):
         super().__init__()
         self.main = main_app
         self.parent = parent
 
-        self.title = title
+        self.title = event_name
         self.heading_1 = heading
         self.heading_2 = heading2 # font = ctk.CTkFont(size = 17,weight = "bold")
         self.heading_3 = heading3 # font = ctk.CTkFont(size = 15,weight = "normal")

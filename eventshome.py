@@ -4,18 +4,10 @@ from PIL import Image
 from commonpages import Page
 
 class DashboardPage():
-    def __init__(self, main_app, event_name=None, event_category=None, address=None, start_date=None, end_date=None, start_time=None, end_time=None):
+    def __init__(self, main_app):
         super().__init__()
         self.main = main_app
         self.parent = self.main.event_tab
-
-        self.event_name = event_name
-        self.event_category = event_category
-        self.event_address = address
-        self.start_date = start_date
-        self.end_date = end_date
-        self.start_time = start_time
-        self.end_time = end_time
 
         self.primary_color = "#093838"
         self.secondary_color = "#8bceba"
@@ -29,12 +21,20 @@ class DashboardPage():
         for widget in self.parent.winfo_children():
             widget.pack_forget()
 
-    def events_home(self):
+    def events_home(self, event_name=None, event_category=None, address=None, start_date=None, end_date=None, start_time=None, end_time=None):
+        self.event_name = event_name
+        self.event_category = event_category
+        self.event_address = address
+        self.start_date = start_date
+        self.end_date = end_date
+        self.start_time = start_time
+        self.end_time = end_time
+
         self.set_screen()
         self.home_main_frame = ctk.CTkFrame(self.main.event_tab, corner_radius=0, fg_color = "#F0F0F0")
         self.home_main_frame.pack(fill="both", expand="true")
         self.main.topbar(self.home_main_frame)
-        self.homepage = Page(self.main, self.home_main_frame, self.event_name, self.event_name)
+        self.homepage = Page(main_app=self.main, parent=self.home_main_frame, heading=self.event_name)
         self.homepage.title_frame(False)
         self.homepage.content_frame()
 
@@ -45,7 +45,7 @@ class DashboardPage():
         labimg8 = ctk.CTkLabel(self.homepage.upper_frame,image = img8,text = "")
         labimg8.pack(side="left")
 
-        label9 = ctk.CTkLabel(self.homepage.upper_frame,text = f"{self.start_date} {self.start_time} pm - {self.end_time} pm  IST (61 days away)",text_color = "black",font = ctk.CTkFont(size = 13,weight = "normal"))
+        label9 = ctk.CTkLabel(self.homepage.upper_frame,text = f" {self.start_date} {self.start_time} pm - {self.end_time} pm  IST (61 days away)",text_color = "black",font = ctk.CTkFont(size = 13,weight = "normal"))
         label9.pack(side="left")
 
         img9 = ctk.CTkImage(dark_image = Image.open(r"pics\location.png"),size = (20,20))
@@ -266,7 +266,7 @@ class DashboardPage():
         self.set_screen()
         self.info_frame = ctk.CTkFrame(self.parent)
         self.info_frame.pack(fill="both", expand=True)
-        self.infopage = Page(self.main, self.info_frame, self.event_name, "Event Information")
+        self.infopage = Page(main_app=self.main, parent=self.info_frame, heading="Event Information")
         self.infopage.title_frame(False)
         self.infopage.content_frame()
 
@@ -274,7 +274,7 @@ class DashboardPage():
         self.set_screen()
         self.feature_frame = ctk.CTkFrame(self.parent)
         self.feature_frame.pack(fill="both", expand=True)
-        self.featurepage = Page(self.main, self.feature_frame, self.event_name, "Event Features")
+        self.featurepage = Page(main_app=self.main, parent=self.feature_frame, heading="Event Features")
         self.featurepage.title_frame(False)
         self.featurepage.content_frame()
 
@@ -282,6 +282,6 @@ class DashboardPage():
         self.set_screen()
         self.settings_frame = ctk.CTkFrame(self.parent)
         self.settings_frame.pack(fill="both", expand=True)
-        self.settingpage = Page(self.main, self.settings_frame, self.event_name, "Event Settings")
+        self.settingpage = Page(main_app=self.main, parent=self.settings_frame, heading="Event Settings")
         self.settingpage.title_frame(False)
         self.settingpage.content_frame()

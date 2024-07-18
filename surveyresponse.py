@@ -21,7 +21,7 @@ class SurveyResponsePage():
             widget.pack_forget()
         self.survey_frame = ctk.CTkFrame(self.parent)
         self.survey_frame.pack(fill="both", expand=True)
-        self.surveypage = Page(self.main, self.survey_frame, self.event_name, "Feedback Surveys")
+        self.surveypage = Page(main_app=self.main, parent=self.survey_frame, heading="Feedback Surveys")
         self.surveypage.title_frame(False)
         self.surveypage.content_frame()
 
@@ -29,6 +29,6 @@ class SurveyResponsePage():
         self.set_screen()
         self.responses_frame = ctk.CTkFrame(self.parent)
         self.responses_frame.pack(fill="both", expand=True)
-        self.responsespage = Page(self.main, self.responses_frame, self.event_name, "Responses")
+        self.responsespage = Page(main_app=self.main, parent=self.responses_frame, heading="Responses")
         self.responsespage.title_frame(False)
         self.responsespage.content_frame()
