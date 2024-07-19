@@ -1,7 +1,7 @@
 import customtkinter as ctk 
 from PIL import Image
 import tkinter as tk
-from commonpages import Page
+from view.commonpages import Page
 
 class SurveyResponsePage():
     def __init__(self, main_app, event_name=None):
@@ -9,7 +9,7 @@ class SurveyResponsePage():
         self.main = main_app
         self.parent = self.main.survey_tab
 
-        self.event_name = event_name
+        self.event_name = ""
 
     def set_screen(self):
         self.main.notebook.set("Survey and Feedback")

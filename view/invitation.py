@@ -1,14 +1,14 @@
 import customtkinter as ctk 
 from PIL import Image
 import tkinter as tk
-from commonpages import Page
+from view.commonpages import Page
 
 class InviteeAttendeePage():
     def __init__(self, main_app, event_name=None):
         super().__init__()
         self.main = main_app
         self.parent = self.main.invitee_tab
-        self.event_name = event_name
+        self.event_name = ""
 
     def set_screen(self):
         self.main.notebook.set("Invitee & Attendee")

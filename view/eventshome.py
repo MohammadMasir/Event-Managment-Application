@@ -1,13 +1,14 @@
 import customtkinter as ctk
 import tkinter as tk
 from PIL import Image
-from commonpages import Page
+from view.commonpages import Page
 
 class DashboardPage():
     def __init__(self, main_app):
         super().__init__()
         self.main = main_app
         self.parent = self.main.event_tab
+        self.event_name = ""
 
         self.primary_color = "#093838"
         self.secondary_color = "#8bceba"
@@ -21,8 +22,8 @@ class DashboardPage():
         for widget in self.parent.winfo_children():
             widget.pack_forget()
 
-    def events_home(self, event_name=None, event_category=None, address=None, start_date=None, end_date=None, start_time=None, end_time=None):
-        self.event_name = event_name
+    def events_home(self, event_category=None, address=None, start_date=None, end_date=None, start_time=None, end_time=None):
+
         self.event_category = event_category
         self.event_address = address
         self.start_date = start_date

@@ -8,14 +8,14 @@ import forms.declineform as decline
 import forms.guestinfo as guest
 import forms.Personalinfo as info
 import forms.Registrationsummary as summary
-from commonpages import Page
+from view.commonpages import Page
 
 class RegistrationPage():
     def __init__(self, main_app, event_name=None):
         super().__init__()
         self.main = main_app
         self.parent = self.main.register_tab
-        self.event_name = event_name
+        self.event_name = ""
 
     def set_screen(self):
         self.main.notebook.set("Registration and Ticketing")

@@ -2,11 +2,18 @@ import customtkinter as ctk
 from PIL import Image
 import tkinter as tk
 from tkinter.messagebox import showinfo, showwarning, showerror
-from eventcreate import CreateEvent
+from .eventcreate import CreateEvent
 
 class EventView():
     def __init__(self, main):
         self.main = main
+
+        self.primary_color = "#093838"
+        self.secondary_color = "#8bceba"
+        self.bg = "gainsboro"
+        self.text_color = "#092928"
+        self.hovercolor_bg = "#20807f"
+        self.hovercolor_txt = "white"
 
     def create_widgets(self):
         self.main.switch_screen(self._create_widgets)
@@ -14,7 +21,7 @@ class EventView():
     def _create_widgets(self):
         self.main.toggle_fullscreen()
         self.main.resizable(width=True, height=True)
-        self.main.bind("<F11>", self.toggle_fullscreen)
+        self.main.bind("<F11>", self.main.toggle_fullscreen)
 
         frame2 = ctk.CTkFrame(self.main, height=30, fg_color="#4bceba")
         frame2.pack(fill="x")
@@ -31,20 +38,21 @@ class EventView():
         self.notebook = ctk.CTkTabview(self.main, bg_color = self.hovercolor_bg, corner_radius=12) #3fa572 #333333
         self.notebook.pack(pady=(10,0), fill="both", expand=True)
 
-        # Dashboard Tab
-        self.dashboard_tab = self.notebook.add("Dashboard")
-        self.dashboard_widgets()
+        # # Dashboard Tab
+        # self.dashboard_tab = self.notebook.add("Dashboard")
+        # self.dashboard_widgets()
 
         # Event Management Tab
         self.event_tab = self.notebook.add("Event Management")
         self.notebook.set("Event Management")
+        self.eventtab_widgets()
 
     def eventtab_widgets(self,event_name=None):
         # self.events = DashboardPage(self, self.event_tab)
         self.previewmain_frame = ctk.CTkFrame(self.event_tab, fg_color = "#F0F0F0")
         self.previewmain_frame.pack(side="top", fill="both", expand= True)
 
-        self.topbar(self.previewmain_frame)
+        self.main.topbar(self.previewmain_frame)
         
         self.canvas1 = tk.Canvas(self.previewmain_frame,height = 3,width = 1920,bg = "#0061ff",relief = tk.RAISED)
         self.canvas1.pack(side="top")
@@ -55,7 +63,7 @@ class EventView():
         self.label15 = ctk.CTkLabel(top_bar2,text = "Events",text_color = "#000000",font = ctk.CTkFont(size = 20,weight = "bold"))
         self.label15.pack(side="left", padx=(20,0))
 
-        self.event_form = CreateEvent(self.event_tab, self)
+        self.event_form = CreateEvent(self.event_tab, self.main)
 
         self.create_event_button = ctk.CTkButton(top_bar2,text = "Create Event",height = 30,width = 40,fg_color = "#2380D2",text_color = "#ffffff",corner_radius = 7,command = lambda : self.event_form.create_event())
         self.create_event_button.pack(side="right", padx=(0,40))

@@ -351,6 +351,7 @@ class DemoApplication(ctk.CTk):
         self.switch_screen(lambda: self._login())
 
     def _login(self):
+        
         self.image_frame = ctk.CTkFrame(self)
         self.image_frame.grid(row=0,column=0)
 
@@ -406,7 +407,7 @@ class DemoApplication(ctk.CTk):
                 print(result)
                 if result:
                     showinfo("", "Login successful")
-                    self.create_widgets()
+                    self.event_flow()
                 else:
                     msg = showwarning("User Not found", "You have to Sign-Up..")
                     if msg == 'ok':
@@ -429,12 +430,32 @@ class DemoApplication(ctk.CTk):
         self.add_hover_effect(check_button)
         self.back_but(self.buttons_frame,row=4, column=0, columnspan=2, padx=(0, 200), pady=(70,10))
 
-        self.event_preview = EventView(self.main)
+    def event_flow(self):
+        self.event_preview = EventView(self)
         self.event_preview.create_widgets()
 
-    def update_screens(self, event_name=None, event_category=None, address=None, start_date=None, end_date=None, start_time=None, end_time=None, planner_email=None):
-        self.event_preview.inner_frame2.configure(fg_color="white")
+
+    def create_tabs(self):
+        self.register_tab = self.event_preview.notebook.add("Registration & Ticketing")
+        self.registertab_widgets()
+
+        self.invitee_tab = self.events_preview.notebook.add("Invitation & Attendees")
+
+
+    def update_screens(self, event_name=None, command=None,event_category=None, address=None, start_date=None, end_date=None, start_time=None, end_time=None, planner_email=None):
+        home_page = DashboardPage(self)
+        home_page.event_name = event_name[-1]
+        home_page.events_home()
+
+        self.register_page.event_name = event_name[-1]
+        self.invitation_attendee.event_name = event_name[-1]
+        self.survey_response.event_name = event_name[-1]
         
+        self.event_preview.inner_frame2.configure(fg_color="white")
+        for name in event_name: # TODO WORKING ON HOW TO GIVE COMMANDS TO THESE BUTTONS..
+            button = ctk.CTkButton(self.event_preview.inner_frame2, text=name, text_color="#3fa6fb")
+            button.pack()
+            self.text_hover(button)
 
     def dashboard_widgets(self):
         ctk.CTkLabel(self.dashboard_tab, text="Welcome to Your Dashboard!", font=ctk.CTkFont(size=20, weight="bold")).pack(pady=20)
