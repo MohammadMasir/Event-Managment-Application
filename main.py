@@ -3,14 +3,14 @@ from PIL import Image
 import pymysql as pmql
 import tkinter as tk
 from tkinter.messagebox import showinfo, showwarning, showerror
-from auth import GoogleSignInApp
-from database_structure import Db
-from eventshome import DashboardPage
-from eventcreate import CreateEvent
-from registration import RegistrationPage
-from invitation import InviteeAttendeePage
-from surveyresponse import SurveyResponsePage
-from eventview import EventView
+from model.auth import GoogleSignInApp
+from model.database_structure import Db
+from view.eventshome import DashboardPage
+from view.eventcreate import CreateEvent
+from view.registration import RegistrationPage
+from view.invitation import InviteeAttendeePage
+from view.surveyresponse import SurveyResponsePage
+from view.eventview import EventView
 #COLORS :  #093838 -> Primary Color.    } In the Theme,
            #8bceba -> Secondary Color.  }  both the Primary & Secondary colors are used interchangeably.
            #gainsboro -> Background Color.

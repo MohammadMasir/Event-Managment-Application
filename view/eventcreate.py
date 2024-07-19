@@ -4,7 +4,7 @@ from PIL import Image
 from eventshome import DashboardPage
 import pymysql as pmql
 from commonpages import Page
-from backend import DataClass
+from model.backend import DataClass
 
 class CreateEvent():
     def __init__(self, parent, main_app):
