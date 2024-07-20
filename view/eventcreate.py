@@ -1,7 +1,6 @@
 import customtkinter as ctk
 from tkinter.messagebox import showinfo, showwarning, showerror
 from PIL import Image
-from view.eventshome import DashboardPage
 import pymysql as pmql
 from view.commonpages import Page
 from model.backend import DataClass
@@ -27,9 +26,9 @@ class CreateEvent():
         insert.insert_data(self.name, event_category, address, start_date, end_date, start_time, end_time, planner_email)
 
 
-        self.commonpage_obj = Page(main_app = self.main, event_name=self.name)
-        self.homepage = DashboardPage(self.main)
-        self.homepage.events_home()
+        # self.commonpage_obj = Page(main_app = self.main, event_name=self.name)
+        # self.homepage = DashboardPage(self.main)
+        # self.homepage.events_home()
 
     def create_event(self):
         for widget in self.parent.winfo_children():

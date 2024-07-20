@@ -11,24 +11,26 @@ import forms.Registrationsummary as summary
 from view.commonpages import Page
 
 class RegistrationPage():
-    def __init__(self, main_app, event_name=None):
+    def __init__(self, main_app, parent,event_name=None):
         super().__init__()
         self.main = main_app
-        self.parent = self.main.register_tab
-        self.event_name = ""
+        self.parent = parent
+        self.event_name = event_name
+        self.count = 0
 
     def set_screen(self):
-        self.main.notebook.set("Registration and Ticketing")
+        self.main.notebook.set("Registration & Ticketing")
         for widget in self.parent.winfo_children():
             widget.pack_forget()
 
     def registration_proccess(self):
-        for widget in self.parent.winfo_children():
-            widget.pack_forget()
+        self.count += 1
+        if self.count > 1:
+            self.set_screen()
         self.process_frame = ctk.CTkFrame(self.parent, fg_color="#F0F0F0")
         self.process_frame.pack(fill="both", expand=True)
 
-        self.process_page = Page(main_app=self.main, parent=self.process_frame, heading="Registration Process")
+        self.process_page = Page(main_app=self.main, parent=self.process_frame, event_name=self.event_name, heading="Registration Process")
         self.process_page.title_frame(True)
         self.process_page.content_frame()
 
@@ -106,7 +108,7 @@ class RegistrationPage():
         self.set_screen()
         self.settings_frame = ctk.CTkFrame(self.parent)
         self.settings_frame.pack(fill="both", expand=True)
-        self.settings_page = Page(main_app=self.main, parent=self.settings_frame, heading="Registration Settings")
+        self.settings_page = Page(main_app=self.main, parent=self.settings_frame, event_name=self.event_name, heading="Registration Settings")
         self.settings_page.title_frame(False)
         self.settings_page.content_frame()
 
@@ -114,7 +116,7 @@ class RegistrationPage():
         self.set_screen()
         self.types_frame = ctk.CTkFrame(self.parent)
         self.types_frame.pack(fill="both", expand=True)
-        self.types_page = Page(main_app=self.main, parent=self.types_frame, heading="Registration Settings")
+        self.types_page = Page(main_app=self.main, parent=self.types_frame, event_name=self.event_name, heading="Registration Settings")
         self.types_page.title_frame(False)
         self.types_page.content_frame()
 

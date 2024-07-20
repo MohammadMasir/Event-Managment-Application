@@ -45,7 +45,7 @@ class DataClass():
             event_id = event[0]  # Assuming event_id is the first column
             self.event_details[event_id] = event # dict(zip(column_names, event))...   TRY THIS
         print(f"Event details : {self.event_details}\n")
-        print(f"event_details : {self.event_details[101]}")
+        # print(f"event_details : {self.event_details[101]}")
 
         self.main.connection.close()
 
@@ -53,8 +53,24 @@ class DataClass():
         self.update_views()
 
     def update_views(self):
-        for event_id, event_data in self.event_details.items():
-                self.event_details[event_id] = event_data[1]
-                print(f"event_id = {event_id}\nevent_name : {event_data[1]}")
-                self.main.update_screen([event_data[1]]) # TODO WORKING ON HOW TO GIVE COMMANDS TO THESE BUTTONS..
+        event_names = [event[1] for event in self.event_details.values()]
+        latest_event_id = max(self.event_details.keys())
+        latest_event = self.event_details[latest_event_id]
+        self.main.update_screens(
+            event_id=latest_event_id,
+            event_name=event_names,
+            event_category=latest_event[2],
+            address=latest_event[3],
+            start_date=latest_event[4],
+            end_date=latest_event[5],
+            start_time=latest_event[6],
+            end_time=latest_event[7],
+            planner_email=self.planner_email
+        )
+        # event_names = []
+        # for event_id, event_name in self.event_details.items():
+        #     event_names.append(event_name[1])  
+        #     # print(f"event_id = {event_id}\nevent_name : {event_name[1]}")
+        # print(event_names[-1])
+        # self.main.update_screens(event_id, event_names) # TODO WORKING ON HOW TO GIVE COMMANDS TO THESE BUTTONS..
         # self.main.update_screens(self.event_name, self.event_category, self.address, self.start_date, self.end_date, self.start_time, self.end_time)

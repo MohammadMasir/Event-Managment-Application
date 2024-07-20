@@ -75,12 +75,12 @@ class DemoApplication(ctk.CTk):
         widget.bind("<Leave>", on_leave)
 
     def back_preview(self, frame_name):
-        if frame_name == self.previewmain_frame:
+        if frame_name == self.event_preview.previewmain_frame:
             return None
         else:
             for widgets in self.event_tab.winfo_children():
                 widgets.pack_forget()
-            self.eventtab_widgets()
+            self.event_preview.eventtab_widgets()
 
     def switch_screen(self, new_screen):
         # Save the current screen to the stack
@@ -407,7 +407,7 @@ class DemoApplication(ctk.CTk):
                 print(result)
                 if result:
                     showinfo("", "Login successful")
-                    self.event_flow()
+                    self.create_widgets()
                 else:
                     msg = showwarning("User Not found", "You have to Sign-Up..")
                     if msg == 'ok':
@@ -430,32 +430,79 @@ class DemoApplication(ctk.CTk):
         self.add_hover_effect(check_button)
         self.back_but(self.buttons_frame,row=4, column=0, columnspan=2, padx=(0, 200), pady=(70,10))
 
-    def event_flow(self):
+    def create_widgets(self):
+        self.switch_screen(self._create_widgets)
+
+    def _create_widgets(self):
+        self.toggle_fullscreen()
+        self.resizable(width=True, height=True)
+        self.bind("<F11>", self.toggle_fullscreen)
+
+        frame2 = ctk.CTkFrame(self, height=30, fg_color="#4bceba")
+        frame2.pack(fill="x")
+
+        primary_color_frame = ctk.CTkFrame(frame2, height=45,fg_color=self.hovercolor_bg,corner_radius=0)
+        primary_color_frame.place(x=0,y=-3,relwidth=1)
+
+        corner_colors = ("#20807f", "#20807f", "#4bceba", "#4bceba")
+    
+        labe = ctk.CTkButton(frame2, text="Event Manager", font=("Segoe UI", 40, "bold"), text_color="white",fg_color=self.secondary_color, width=100, height=35,corner_radius=100,background_corner_colors=corner_colors,hover=False)
+        labe.pack(pady=10, expand=True)
+
+        # Create a self.notebook (tabbed interface)
+        self.notebook = ctk.CTkTabview(self, bg_color = self.hovercolor_bg, corner_radius=12) #3fa572 #333333
+        self.notebook.pack(pady=(10,0), fill="both", expand=True)
+
+        # # Dashboard Tab
+        # self.dashboard_tab = self.notebook.add("Dashboard")
+        # self.dashboard_widgets()
+
+        # Event Management Tab
+        self.event_tab = self.notebook.add("Event Management")
+        self.notebook.set("Event Management")
         self.event_preview = EventView(self)
-        self.event_preview.create_widgets()
+        self.event_preview.eventtab_widgets()
+        self.count = 0
 
+    def tab_screens(self, event_name):
+        self.home_page = DashboardPage(self, self.event_tab, event_name)
+        self.home_page.events_home()
 
-    def create_tabs(self):
-        self.register_tab = self.event_preview.notebook.add("Registration & Ticketing")
-        self.registertab_widgets()
+        self.register_page = RegistrationPage(self, self.register_tab, event_name)
+        self.register_page.registration_proccess()
 
-        self.invitee_tab = self.events_preview.notebook.add("Invitation & Attendees")
+        self.invitation_attendee = InviteeAttendeePage(self, self.invitee_tab, event_name)
+        self.invitation_attendee.invitation_list_screen()
 
+        self.survey_response = SurveyResponsePage(self, self.survey_tab, event_name)
+        self.survey_response.feedback_surveys_screen()
 
-    def update_screens(self, event_name=None, command=None,event_category=None, address=None, start_date=None, end_date=None, start_time=None, end_time=None, planner_email=None):
-        home_page = DashboardPage(self)
-        home_page.event_name = event_name[-1]
-        home_page.events_home()
+    def create_tabs(self, event_name):
+        self.count += 1
+        if self.count <= 1:
+            self.notebook.delete("Event Management")
 
-        self.register_page.event_name = event_name[-1]
-        self.invitation_attendee.event_name = event_name[-1]
-        self.survey_response.event_name = event_name[-1]
-        
-        self.event_preview.inner_frame2.configure(fg_color="white")
-        for name in event_name: # TODO WORKING ON HOW TO GIVE COMMANDS TO THESE BUTTONS..
-            button = ctk.CTkButton(self.event_preview.inner_frame2, text=name, text_color="#3fa6fb")
-            button.pack()
-            self.text_hover(button)
+            self.dashboard_tab = self.notebook.add("Dashboard")
+            self.event_tab = self.notebook.add("Event Management")
+            self.register_tab = self.notebook.add("Registration & Ticketing")
+            self.invitee_tab = self.notebook.add("Invitation & Attendees")
+            self.survey_tab = self.notebook.add("Survey & Feedback")
+
+            self.tab_screens(event_name)
+        else:
+            self.tab_screens(event_name)
+
+    def update_screens(self, event_id,  event_name, command=None,event_category=None, address=None, start_date=None, end_date=None, start_time=None, end_time=None, planner_email=None):
+        self.create_tabs(event_name[-1])
+
+        # event = event_name[-1]
+        # self.create_tabs(event)
+
+        # self.event_preview.inner_frame2.configure(fg_color="white")
+        # for name in event_name: # TODO WORKING ON HOW TO GIVE COMMANDS TO THESE BUTTONS..
+        #     button = ctk.CTkButton(self.event_preview.inner_frame2, text=name, text_color="#3fa6fb", command=self.home_page.events_home())
+        #     button.pack()
+        #     self.text_hover(button)
 
     def dashboard_widgets(self):
         ctk.CTkLabel(self.dashboard_tab, text="Welcome to Your Dashboard!", font=ctk.CTkFont(size=20, weight="bold")).pack(pady=20)
@@ -467,19 +514,15 @@ class DemoApplication(ctk.CTk):
             widget.configure(text_color="white")
 
         widget.bind("<Enter>", on_enter)
-        widget.bind("<Enter>", on_leave)
+        widget.bind("<Leave>", on_leave)
 
     def registertab_widgets(self):
-        self.register_page = RegistrationPage(self)
-        self.register_page.registration_proccess()
-
+        pass
     def inviteetab_widgets(self):
-        self.invitation_attendee = InviteeAttendeePage(self)
-        self.invitation_attendee.invitation_list_screen()
+        pass
 
     def surveytab_widgets(self):
-        self.survey_response = SurveyResponsePage(self)
-        self.survey_response.feedback_surveys_screen()
+        pass
 
 if __name__ == "__main__":
     app = DemoApplication()

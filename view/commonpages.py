@@ -83,20 +83,20 @@ class Page():
 
             corner_colors = ("white", "white", "#6bceba", "#6bceba")
             # Add the sidebar content here (create_sidebar_item calls)
-            self.home_button = ctk.CTkButton(self.sidebar, text="Home", fg_color="#6bceba", text_color="white", background_corner_colors=corner_colors, font=ctk.CTkFont(family="Segoe UI",size=15, weight="bold"), hover_color="#8bceba",command=self.main.events.events_home)
+            self.home_button = ctk.CTkButton(self.sidebar, text="Home", fg_color="#6bceba", text_color="white", background_corner_colors=corner_colors, font=ctk.CTkFont(family="Segoe UI",size=15, weight="bold"), hover_color="#8bceba",command=self.main.home_page.events_home)
             self.home_button.pack(fill="x", anchor="center")
             self.create_sidebar_item("General", {
-                "Event Information" : self.main.events.event_information,
-                "Event Features" : self.main.events.event_features, 
+                "Event Information" : self.main.home_page.event_information,
+                "Event Features" : self.main.home_page.event_features, 
                 "Registration Types" : self.main.register_page.registration_types, 
-                "Event Settings" : self.main.events.event_settings
+                "Event Settings" : self.main.home_page.event_settings
                 })
             self.create_sidebar_item("Registration", {
                 "Registration Settings" : self.main.register_page.registration_settings, 
-                "Registration Proccess" : lambda : self.switch_tab("Registration and Ticketing", self.main.registertab_widgets())
+                "Registration Proccess" : self.main.register_page.registration_proccess
                 })
             self.create_sidebar_item("Email", {
-                "Invitation List" : lambda : self.switch_tab("Invitee & Attendee", self.main.invitation_attendee.invitation_list_screen),
+                "Invitation List" : self.main.invitation_attendee.invitation_list_screen,
                 "Event Emails" : self.main.invitation_attendee.event_emails, 
                 "Planner Alerts" : self.main.invitation_attendee.planner_alerts
                 })
@@ -105,7 +105,7 @@ class Page():
                 "Certificates" : self.main.invitation_attendee.certificates_screen
                 })
             self.create_sidebar_item("Surveys", {
-                "Feedback Surveys" : lambda : self.switch_tab("Survey and Feedback", self.main.survey_response.feedback_surveys_screen), 
+                "Feedback Surveys" : self.main.survey_response.feedback_surveys_screen, 
                 "Responses" : self.main.survey_response.responses_screen
                 })
             self.create_sidebar_item("Reports", {

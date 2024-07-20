@@ -4,6 +4,7 @@ import tkinter as tk
 from tkinter.messagebox import showinfo, showwarning, showerror
 from .eventcreate import CreateEvent
 
+
 class EventView():
     def __init__(self, main):
         self.main = main
@@ -14,42 +15,14 @@ class EventView():
         self.text_color = "#092928"
         self.hovercolor_bg = "#20807f"
         self.hovercolor_txt = "white"
-
-    def create_widgets(self):
-        self.main.switch_screen(self._create_widgets)
-
-    def _create_widgets(self):
-        self.main.toggle_fullscreen()
-        self.main.resizable(width=True, height=True)
-        self.main.bind("<F11>", self.main.toggle_fullscreen)
-
-        frame2 = ctk.CTkFrame(self.main, height=30, fg_color="#4bceba")
-        frame2.pack(fill="x")
-
-        primary_color_frame = ctk.CTkFrame(frame2, height=45,fg_color=self.hovercolor_bg,corner_radius=0)
-        primary_color_frame.place(x=0,y=-3,relwidth=1)
-
-        corner_colors = ("#20807f", "#20807f", "#4bceba", "#4bceba")
-    
-        labe = ctk.CTkButton(frame2, text="Event Manager", font=("Segoe UI", 40, "bold"), text_color="white",fg_color=self.secondary_color, width=100, height=35,corner_radius=100,background_corner_colors=corner_colors,hover=False)
-        labe.pack(pady=10, expand=True)
-
-        # Create a self.notebook (tabbed interface)
-        self.notebook = ctk.CTkTabview(self.main, bg_color = self.hovercolor_bg, corner_radius=12) #3fa572 #333333
-        self.notebook.pack(pady=(10,0), fill="both", expand=True)
-
-        # # Dashboard Tab
-        # self.dashboard_tab = self.notebook.add("Dashboard")
-        # self.dashboard_widgets()
-
-        # Event Management Tab
-        self.event_tab = self.notebook.add("Event Management")
-        self.notebook.set("Event Management")
-        self.eventtab_widgets()
+        self.count = 0
 
     def eventtab_widgets(self,event_name=None):
+        self.count +=1
+        print(self.count)
         # self.events = DashboardPage(self, self.event_tab)
-        self.previewmain_frame = ctk.CTkFrame(self.event_tab, fg_color = "#F0F0F0")
+
+        self.previewmain_frame = ctk.CTkFrame(self.main.event_tab, fg_color = "#F0F0F0")
         self.previewmain_frame.pack(side="top", fill="both", expand= True)
 
         self.main.topbar(self.previewmain_frame)
@@ -63,7 +36,7 @@ class EventView():
         self.label15 = ctk.CTkLabel(top_bar2,text = "Events",text_color = "#000000",font = ctk.CTkFont(size = 20,weight = "bold"))
         self.label15.pack(side="left", padx=(20,0))
 
-        self.event_form = CreateEvent(self.event_tab, self.main)
+        self.event_form = CreateEvent(self.main.event_tab, self.main)
 
         self.create_event_button = ctk.CTkButton(top_bar2,text = "Create Event",height = 30,width = 40,fg_color = "#2380D2",text_color = "#ffffff",corner_radius = 7,command = lambda : self.event_form.create_event())
         self.create_event_button.pack(side="right", padx=(0,40))
@@ -139,14 +112,24 @@ class EventView():
         self.inner_frame2 = ctk.CTkFrame(inner_frame1,height = 68,width = 1172,fg_color = "#E6E6E6",corner_radius=0) #E6E6E6
         self.inner_frame2.pack(fill="both", padx=1, pady=(0,1))
 
-        self.x8 = tk.StringVar()
-        text = "There are no events in this view."
-        if event_name==None:
+        if self.count > 1:
+            for widget in self.inner_frame2.winfo_children():
+                widget.destroy()    
+            for name in self.names:
+                button = ctk.CTkButton(
+                    self.inner_frame2, 
+                    text=name, 
+                    text_color="#3fa6fb", 
+                    command=lambda n=name: self.main.create_tabs(n)
+                )
+                button.pack(anchor="nw", fill="x")
+                self.main.text_hover(button)
+        elif self.count <= 1:
+            self.x8 = tk.StringVar()
+            text = "There are no events in this view."       
             self.x8.set(text)
-        else:
-            self.x8.set(event_name)
-        self.data_label = ctk.CTkLabel(self.inner_frame2,text_color = "#000000",textvariable = self.x8,font = ctk.CTkFont(size = 15,weight = "bold"))
-        self.data_label.pack(side="top")
+            self.data_label = ctk.CTkLabel(self.inner_frame2,text_color = "#000000",textvariable = self.x8,font = ctk.CTkFont(size = 15,weight = "bold"))
+            self.data_label.pack(side="top")
 
         result_per_page_label = ctk.CTkLabel(table_frame,text = "Results per page",fg_color = "#ffffff",text_color = "#000000",font = ctk.CTkFont(size = 13,weight = "normal"))
         result_per_page_label.pack(side="left", padx=(30,0))
@@ -163,13 +146,32 @@ class EventView():
 
         down_line = tk.Canvas(self.previewmain_frame,height = 9,width = 1920,bg = "#858585",relief = tk.SUNKEN)
         down_line.place(x = -2,y = 768)
+        # self.update_event_list([])
 
+    def temp(self):
+        self.previewmain_frame.configure(fg_color="red")
 
-    def update_table(self, event_name=None, code=None, event_status=None, start_date=None, yes_count=None, no_count=None, invited=None):
-        self.data_label.pack_forget()
-        # name = tk.StringVar()
-        # text = event_name
-        # name.set(text)
-        event_labelbutton = ctk.CTkButton(self.inner_frame2,textvariable = event_name,text_color = "white",font = ctk.CTkFont(size = 15,weight = "normal"), command= self.events.events_home)
-        event_labelbutton.pack(side="left")
-        self.text_hover(event_labelbutton)
+    def update_event_list(self, event_names):
+        self.names = event_names
+        print("This function is called")
+        self.inner_frame2.configure(fg_color="white")
+        for widget in self.inner_frame2.winfo_children():
+            widget.destroy()    
+        for name in event_names:
+            button = ctk.CTkButton(
+                self.inner_frame2, 
+                text=name, 
+                text_color="#3fa6fb", 
+                command=lambda n=name: self.main.home_page.events_home(n)
+            )
+            button.pack()
+            self.main.text_hover(button)
+        # self.inner_frame2.update()
+    # def update_table(self, event_name=None, code=None, event_status=None, start_date=None, yes_count=None, no_count=None, invited=None):
+    #     self.data_label.pack_forget()
+    #     # name = tk.StringVar()
+    #     # text = event_name
+    #     # name.set(text)
+    #     event_labelbutton = ctk.CTkButton(self.inner_frame2,textvariable = event_name,text_color = "white",font = ctk.CTkFont(size = 15,weight = "normal"), command= self.events.events_home)
+    #     event_labelbutton.pack(side="left")
+    #     self.text_hover(event_labelbutton)
