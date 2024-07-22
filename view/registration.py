@@ -24,9 +24,8 @@ class RegistrationPage():
             widget.pack_forget()
 
     def registration_proccess(self):
-        self.count += 1
-        if self.count > 1:
-            self.set_screen()
+        for widget in self.parent.winfo_children():
+            widget.pack_forget()
         self.process_frame = ctk.CTkFrame(self.parent, fg_color="#F0F0F0")
         self.process_frame.pack(fill="both", expand=True)
 

@@ -3,14 +3,15 @@ from PIL import Image
 import pymysql as pmql
 import tkinter as tk
 from tkinter.messagebox import showinfo, showwarning, showerror
-from model.auth import GoogleSignInApp
+from model.auth import GoogleSignInApp, Auth
 from model.database_structure import Db
 from view.eventshome import DashboardPage
-from view.eventcreate import CreateEvent
 from view.registration import RegistrationPage
 from view.invitation import InviteeAttendeePage
 from view.surveyresponse import SurveyResponsePage
 from view.eventview import EventView
+from model.backend import DataClass
+
 #COLORS :  #093838 -> Primary Color.    } In the Theme,
            #8bceba -> Secondary Color.  }  both the Primary & Secondary colors are used interchangeably.
            #gainsboro -> Background Color.
@@ -41,6 +42,11 @@ class DemoApplication(ctk.CTk):
         database.create_database()
         self.datab_name = database.db_name
         self.connections = self.connect_to_database()
+
+        self.auth = Auth()
+        self.user = None
+        self.count = 0
+        self.backend = DataClass(self)
         self.initial_screen()
 
     def connect_to_database(self):
@@ -401,13 +407,13 @@ class DemoApplication(ctk.CTk):
             elif email.get() == "" or password.get() == "":
                 showerror("Value Error!", "Please input Characters.")
             else:
-                sql = "SELECT * FROM user WHERE email = %s AND password = %s"
-                self.cur.execute(sql, (email.get(), password.get()))
-                result = self.cur.fetchone()
-                print(result)
-                if result:
+                self.user = self.auth.authenticate(email.get(), password.get())
+                if self.user:
                     showinfo("", "Login successful")
-                    self.create_widgets()
+                    if self.backend.is_first_time_user(self.user):
+                        self.create_widgets() 
+                    else:
+                        self.show_regular_app(self.user)
                 else:
                     msg = showwarning("User Not found", "You have to Sign-Up..")
                     if msg == 'ok':
@@ -429,6 +435,31 @@ class DemoApplication(ctk.CTk):
 
         self.add_hover_effect(check_button)
         self.back_but(self.buttons_frame,row=4, column=0, columnspan=2, padx=(0, 200), pady=(70,10))
+
+    def show_regular_app(self, user_id):
+        self.backend.check_existing_user_events(user_id)
+
+    def main_screen(self):
+        self.switch_screen(self._main_screen)
+
+    def _main_screen(self):
+        self.toggle_fullscreen()
+        self.resizable(width=True, height=True)
+        self.bind("<F11>", self.toggle_fullscreen)
+
+        frame2 = ctk.CTkFrame(self, height=30, fg_color="#4bceba")
+        frame2.pack(fill="x")
+
+        primary_color_frame = ctk.CTkFrame(frame2, height=45,fg_color=self.hovercolor_bg,corner_radius=0)
+        primary_color_frame.place(x=0,y=-3,relwidth=1)
+
+        corner_colors = ("#20807f", "#20807f", "#4bceba", "#4bceba")
+            
+        labe = ctk.CTkButton(frame2, text="Event Manager", font=("Segoe UI", 40, "bold"), text_color="white",fg_color=self.secondary_color, width=100, height=35,corner_radius=100,background_corner_colors=corner_colors,hover=False)
+        labe.pack(pady=10, expand=True)
+
+        self.notebook = ctk.CTkTabview(self, bg_color = self.hovercolor_bg, corner_radius=12) #3fa572 #333333
+        self.notebook.pack(pady=(10,0), fill="both", expand=True)
 
     def create_widgets(self):
         self.switch_screen(self._create_widgets)
@@ -462,7 +493,6 @@ class DemoApplication(ctk.CTk):
         self.notebook.set("Event Management")
         self.event_preview = EventView(self)
         self.event_preview.eventtab_widgets()
-        self.count = 0
 
     def tab_screens(self, event_name):
         self.home_page = DashboardPage(self, self.event_tab, event_name)
@@ -480,10 +510,17 @@ class DemoApplication(ctk.CTk):
     def create_tabs(self, event_name):
         self.count += 1
         if self.count <= 1:
-            self.notebook.delete("Event Management")
+            if self.backend.is_first_time_user(self.user):
+                print("self.user : ",self.user)
+                self.notebook.delete("Event Management")
+            else:
+                self.main_screen()
 
             self.dashboard_tab = self.notebook.add("Dashboard")
             self.event_tab = self.notebook.add("Event Management")
+            self.notebook.set("Event Management")
+            self.event_preview = EventView(self)
+            self.event_preview.eventtab_widgets()
             self.register_tab = self.notebook.add("Registration & Ticketing")
             self.invitee_tab = self.notebook.add("Invitation & Attendees")
             self.survey_tab = self.notebook.add("Survey & Feedback")
@@ -494,6 +531,7 @@ class DemoApplication(ctk.CTk):
 
     def update_screens(self, event_id,  event_name, command=None,event_category=None, address=None, start_date=None, end_date=None, start_time=None, end_time=None, planner_email=None):
         self.create_tabs(event_name[-1])
+        self.event_preview.update_event_list(event_name)
 
         # event = event_name[-1]
         # self.create_tabs(event)
@@ -515,14 +553,6 @@ class DemoApplication(ctk.CTk):
 
         widget.bind("<Enter>", on_enter)
         widget.bind("<Leave>", on_leave)
-
-    def registertab_widgets(self):
-        pass
-    def inviteetab_widgets(self):
-        pass
-
-    def surveytab_widgets(self):
-        pass
 
 if __name__ == "__main__":
     app = DemoApplication()

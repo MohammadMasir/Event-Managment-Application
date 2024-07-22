@@ -29,6 +29,7 @@ def get_db_connection():
 class GoogleSignInApp:
     def __init__(self):
         self.conn = get_db_connection()
+        self.cursor = self.conn.cursor()
         self.start_server()
 
     def handle_google_sign_in(self):
@@ -87,3 +88,22 @@ class GoogleSignInApp:
         server_thread = threading.Thread(target=httpd.serve_forever)
         server_thread.daemon = True
         server_thread.start()
+
+
+class Auth():
+    def __init__(self):
+        self.connection = get_db_connection()
+        self.cursor = self.connection.cursor()
+        
+    def authenticate(self, email, password):
+        query = "SELECT user_id FROM user where email=%s and password=%s"
+        self.cursor.execute(query, (email, password))
+        user_id_value = self.cursor.fetchone()
+        self.user_id = user_id_value[0]
+        if user_id_value:
+            print("user_id in authenticate :", self.user_id)
+            return self.user_id
+        else:
+            return False
+        
+        

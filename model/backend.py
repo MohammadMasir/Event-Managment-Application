@@ -3,74 +3,94 @@ from tkinter import *
 import pymysql as pq
 
 class DataClass():
-    def __init__(self, main):
-        super().__init__()
-
+    def __init__(self, main, user_id=None):
         self.main = main
-
-        self.main.connect_to_database
         self.cursor = self.main.cur
-    
-    def insert_data(self, event_name=None, event_category=None, address=None, start_date=None, end_date=None, start_time=None, end_time=None, planner_email=None):
-        self.event_name = event_name
-        self.event_category = event_category
-        self.address = address
-        self.start_date = start_date
-        self.end_date = end_date
-        self.start_time = start_time
-        self.end_time = end_time
+
+        self.user_id = user_id # Initialize user_id
+
+    def is_first_time_user(self, user):
+        print("The Code is checking first time user..")
+        self.set_user_id(user)
+        query = "SELECT event_id FROM event WHERE user_id = %s"
+        self.cursor.execute(query, (self.user_id,))
+        event_id_tuple = self.cursor.fetchone()
+        if event_id_tuple == None:
+            return True
+        else:
+            event_id = event_id_tuple[0]
+            print("event_id", event_id)
+            if event_id != None:
+                print("Not a First time user", user)
+                return False
+            else:
+                print("First time user", user)
+                return True
+
+    def set_user_id(self, user_id):
+        self.user_id = user_id
+        return self.user_id
+
+    def get_user_id(self):
+        return self.user_id
+
+    def check_existing_user_events(self, user_id):
+        print("Now, The code is checking for existing event created by user")
+        self.set_user_id(user_id)  # Ensure user_id is set
+        query = "SELECT * FROM event WHERE user_id = %s"
+        self.cursor.execute(query, (self.user_id,))
+        event_details = self.cursor.fetchall()
+        user_event_details = {event[0]: event for event in event_details}
+        
+        if user_event_details:
+            event_names = [event[1] for event in user_event_details.values()]
+            latest_event_id = max(user_event_details.keys())
+            latest_event = user_event_details[latest_event_id]
+            
+            self.main.update_screens(
+                event_id=latest_event_id,
+                event_name=event_names,
+                event_category=latest_event[2],
+                address=latest_event[3],
+                start_date=latest_event[4],
+                end_date=latest_event[5],
+                start_time=latest_event[6],
+                end_time=latest_event[7],
+                # planner_email=self.planner_email
+            )
+        return user_event_details
+
+    def insert_data(self, event_name, event_category, address, start_date, end_date, start_time, end_time, planner_email):
+        if self.user_id is None:
+            raise ValueError("user_id is not set. Call set_user_id() before inserting data.")
+
         self.planner_email = planner_email
 
-        self.cursor.execute("use demo")
-        self.cursor.execute("select user_id from user where email=%s",self.planner_email)
-        user_id=self.cursor.fetchone()
-        print(user_id)
-
-        sql="INSERT INTO event (event_name, event_category,address ,start_date, end_date, start_time, end_time) VALUES (%s,%s,%s,%s,%s,%s,%s)"
-        self.cursor.execute(sql,(self.event_name, self.event_category, self.address, self.start_date, self.end_date, self.start_time, self.end_time))
+        sql = "INSERT INTO event (event_name, event_category, address, start_date, end_date, start_time, end_time, user_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+        self.cursor.execute(sql, (event_name, event_category, address, start_date, end_date, start_time, end_time, self.user_id))
         self.main.connection.commit()
-        # Fetch all events
-        self.cursor.execute("SELECT * FROM event")
+
+        self.cursor.execute("SELECT * FROM event WHERE user_id = %s", (self.user_id,))
         events = self.cursor.fetchall()
-        # print(events)
-        # print(self.cursor.description)
-        # Get column names
         column_names = [desc[0] for desc in self.cursor.description]
-        print(column_names,"\n")
+        self.event_details = {event[0]: dict(zip(column_names, event)) for event in events}
 
-        # Store event details in a dictionary
-        self.event_details = {}
-        # print(f"Event details : {self.event_details}\n")
-        for event in events:
-            event_id = event[0]  # Assuming event_id is the first column
-            self.event_details[event_id] = event # dict(zip(column_names, event))...   TRY THIS
-        print(f"Event details : {self.event_details}\n")
-        # print(f"event_details : {self.event_details[101]}")
-
-        self.main.connection.close()
-
-        # Call the update_views method to refresh the GUI
         self.update_views()
 
     def update_views(self):
-        event_names = [event[1] for event in self.event_details.values()]
-        latest_event_id = max(self.event_details.keys())
-        latest_event = self.event_details[latest_event_id]
-        self.main.update_screens(
-            event_id=latest_event_id,
-            event_name=event_names,
-            event_category=latest_event[2],
-            address=latest_event[3],
-            start_date=latest_event[4],
-            end_date=latest_event[5],
-            start_time=latest_event[6],
-            end_time=latest_event[7],
-            planner_email=self.planner_email
-        )
-        # event_names = []
-        # for event_id, event_name in self.event_details.items():
-        #     event_names.append(event_name[1])  
-        #     # print(f"event_id = {event_id}\nevent_name : {event_name[1]}")
-        # print(event_names[-1])
-        # self.main.update_screens(event_id, event_names) # TODO WORKING ON HOW TO GIVE COMMANDS TO THESE BUTTONS..
-        # self.main.update_screens(self.event_name, self.event_category, self.address, self.start_date, self.end_date, self.start_time, self.end_time)
+        if self.event_details:
+            event_names = [event['event_name'] for event in self.event_details.values()]
+            latest_event_id = max(self.event_details.keys())
+            latest_event = self.event_details[latest_event_id]
+            
+            self.main.update_screens(
+                event_id=latest_event_id,
+                event_name=event_names,
+                event_category=latest_event['event_category'],
+                address=latest_event['address'],
+                start_date=latest_event['start_date'],
+                end_date=latest_event['end_date'],
+                start_time=latest_event['start_time'],
+                end_time=latest_event['end_time'],
+                planner_email=self.planner_email
+            )

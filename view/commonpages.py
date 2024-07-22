@@ -93,10 +93,10 @@ class Page():
                 })
             self.create_sidebar_item("Registration", {
                 "Registration Settings" : self.main.register_page.registration_settings, 
-                "Registration Proccess" : self.main.register_page.registration_proccess
+                "Registration Proccess" : lambda : self.switch_tab("Registration & Ticketing", self.main.register_page.registration_proccess)
                 })
             self.create_sidebar_item("Email", {
-                "Invitation List" : self.main.invitation_attendee.invitation_list_screen,
+                "Invitation List" : lambda : self.switch_tab("Invitation & Attendees", self.main.invitation_attendee.invitation_list_screen),
                 "Event Emails" : self.main.invitation_attendee.event_emails, 
                 "Planner Alerts" : self.main.invitation_attendee.planner_alerts
                 })
@@ -105,7 +105,7 @@ class Page():
                 "Certificates" : self.main.invitation_attendee.certificates_screen
                 })
             self.create_sidebar_item("Surveys", {
-                "Feedback Surveys" : self.main.survey_response.feedback_surveys_screen, 
+                "Feedback Surveys" : lambda : self.switch_tab("Survey & Feedback", self.main.survey_response.feedback_surveys_screen), 
                 "Responses" : self.main.survey_response.responses_screen
                 })
             self.create_sidebar_item("Reports", {

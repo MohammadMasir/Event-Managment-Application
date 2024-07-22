@@ -5,6 +5,7 @@ import pymysql as pmql
 from view.commonpages import Page
 from model.backend import DataClass
 
+
 class CreateEvent():
     def __init__(self, parent, main_app):
         super().__init__()
@@ -22,7 +23,7 @@ class CreateEvent():
         end_time = self.end_time.get()
         planner_email = self.planner_email.get()
 
-        insert = DataClass(self.main)
+        insert = DataClass(self.main, self.main.user)
         insert.insert_data(self.name, event_category, address, start_date, end_date, start_time, end_time, planner_email)
 
 
