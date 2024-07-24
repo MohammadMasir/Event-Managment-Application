@@ -2,12 +2,12 @@ import tkinter as tk
 import customtkinter as ctk
 from tkinter import messagebox
 from PIL import Image
-import forms.cancellationform as cancel
-import forms.confirmationscreen as confirm
-import forms.declineform as decline
-import forms.guestinfo as guest
-import forms.Personalinfo as info
-import forms.Registrationsummary as summary
+# from forms.cancellationform import Cancellation
+# from forms.confirmationscreen import Confirmation
+# from forms.declineform import Decline
+# from forms.guestinfo import Guest_info
+from forms.Personalinfo import Personal_information
+# from forms.Registrationsummary import 
 from view.commonpages import Page
 
 class RegistrationPage():
@@ -129,9 +129,8 @@ class RegistrationPage():
         pass
 
     def personal_info(self):
-        info_form = info.Personal_information(self.main_app,self.process_frame)
+        info_form = Personal_information(self.main,self.process_frame)
         info_form.Personal_info()
-        info_form.Theme_design()
         pass
 
     def registration_summary(self):
