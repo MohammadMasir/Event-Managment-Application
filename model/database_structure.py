@@ -7,7 +7,8 @@ class Db():
                   host="localhost",
                   user="root",
                   password="root",
-                  charset="utf8"
+                  charset="utf8",
+                  port = 3307
         )
             self.cur=self.connection.cursor()
             

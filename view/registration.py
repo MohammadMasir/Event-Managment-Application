@@ -2,12 +2,12 @@ import tkinter as tk
 import customtkinter as ctk
 from tkinter import messagebox
 from PIL import Image
-import forms.cancellationform as cancel
-import forms.confirmationscreen as confirm
-import forms.declineform as decline
-import forms.guestinfo as guest
+#import forms.cancellationform as cancel
+#import forms.confirmationscreen as confirm
+#import forms.declineform as decline
+#import forms.guestinfo as guest
 import forms.Personalinfo as info
-import forms.Registrationsummary as summary
+#import forms.Registrationsummary as summary
 from view.commonpages import Page
 
 class RegistrationPage():
@@ -111,7 +111,54 @@ class RegistrationPage():
         self.settings_page.title_frame(False)
         self.settings_page.content_frame()
 
+        self.registration_settings_content_frame = ctk.CTkFrame(self.settings_page.scrollable_frame,fg_color = "#ffffff")
+        self.registration_settings_content_frame.pack(fill = "both",expand = True)
+
+        self.general_label = ctk.CTkLabel(self.registration_settings_content_frame,text = "General",text_color = "#000000",font = ("Arial",21,"bold"))
+        self.general_label.pack(side = "left",padx = 5,pady = 5)
+        #self.general_label.grid(row = 0,column = 0,padx = 5,pady = 5,sticky = "w")
+
+        self.setup_label = ctk.CTkFrame(self.registration_settings_content_frame,text = "Set up a few basic registration settings and goals.",text_color = "#000000",font = ctk.CTkFont("Arial",20,"normal"))
+        self.setup_label.pack(side = "left",padx = 5,pady = 7)
+        #self.setup_label.grid(row = 1,column = 0,padx = 5,pady = 2,sticky = "w")
+
+        self.registration_deadline_label = ctk.CTkLabel(self.registration_settings_content_frame,text = "Registration Deadline",text_color = "#000000",font = ctk.CTkFont("Arial",15,"normal"))
+        self.registration_deadline_label.pack(side = "left",padx = 5,pady = 5)
+        #self.registration_deadline_label.grid(row = 2,column = 0,sticky = "w",padx = 5,pady = 5)
+        self.right_image = ctk.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\question.png"),size = (20,20))
+        self.right_image_label = ctk.CTkLabel(self.registration_settings_content_frame,image = self.right_image,text = "",fg_color = "#ffffff")
+        #self.right_image_label.grid(row = 2,column = 1,padx = 4,pady = 5)
         
+        date_time_variable = tk.StringVar()
+        date_time_variable.set("30 July 2024 at 9:59 pm")
+        self.date_time_value = ctk.CTkLabel(self.registration_settings_content_frame,textvariable = date_time_variable,text_color = "#000000",font = ctk.CTkFont("Arial",15,"bold"))
+        self.date_time_value.pack(side = "left",padx = 5,pady = 5)
+        #self.date_time_value_label.grid(row = 3,column = 0,sticky = "w",padx = 5,pady = 7)
+
+        self.In_person_capacity_label = ctk.CTkLabel(self.registration_settings_content_frame,text = "In-Person Capacity",text_color = "#000000",font = ctk.CTkFont("Arial",15,"normal"))
+        self.In_person_capacity_label.pack(side = "left",padx = 5,pady = 7)
+        #self.In_person_capacity_label.grid(row = 4,column = 0,sticky = "w",padx = 5,pady = 5)
+
+        In_person_capacity_variable = tk.StringVar()
+        In_person_capacity_variable.set("Unlimited")
+        self.In_person_capacity_value = ctk.CTkLabel(self.registration_settings_content_frame,textvariable = In_person_capacity_variable,text_color = "#000000",font = ctk.CTkFont("Arial",15,"bold"))
+        self.In_person_capacity_value.pack(side = "left",padx = 5,pady = 5)
+
+        self.virtual_capacity_label = ctk.CTkLabel(self.registration_settings_content_frame,text = "Virtual Capacity",text_color = "#000000",font = ctk.CTkFont("Arial",15,"normal"))
+        self.virtual_capacity_label.pack(side = "left",padx = 5,pady = 7)
+        
+        virtual_capacity_variable = tk.StringVar()
+        virtual_capacity_variable.set("Unlimited")
+        self.virtual_capacity_label_value = ctk.CTkLabel(self.registration_settings_content_frame,textvariable = virtual_capacity_variable,text_color = "#000000",font = ctk.CTkFont("Arial",15,"bold"))
+        self.virtual_capacity_label_value.pack(side = "left",padx = 5,pady = 5)
+
+        self.total_attendee_goal_label = ctk.CTkLabel(self.registration_settings_content_frame,text = "Total Attendee Goal",text_color = "#000000",font =  ctk.CTkFont("Arial",15,"normal"))
+        self.total_attendee_goal_label.pack(side = "left",padx = 5,pady = 7)
+        
+        total_attendee_goal_variable = tk.StringVar()
+        total_attendee_goal_variable.set("-")
+        self.total_attendee_goal_value = ctk.CTkLabel(self.registration_settings_content_frame,textvariable = total_attendee_goal_variable,text_color = "#000000",font =  ctk.CTkFont("Arial",15,"bold"))
+        self.total_attendee_goal_value.pack(side = "left",padx = 5,pady = 5)
 
     def registration_types(self):
         self.set_screen()

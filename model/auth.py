@@ -22,7 +22,7 @@ def get_db_connection():
         user="root",
         password="root",
         database="demo",
-        port=3306,
+        port=3307,
         charset="utf8"
     )
 
