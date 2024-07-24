@@ -21,19 +21,32 @@ Registration form Themes ;
 
 '''
 
+import tkinter as tk
 import customtkinter as ctk
+from matplotlib import font_manager
 
-# Initialize the application
-app = ctk.CTk()
+# Function to change the font
+def change_font(widget, font_name, font_size):
+    widget.configure(font=(font_name, font_size))
 
-# Create a CTkLabel with text wrapping
-label = ctk.CTkLabel(app, text="This is a long text that should wrap inside the label. It demonstrates how to wrap text in a CustomTkinter CTkLabel.", wraplength=200)
+# Get a list of available fonts
+available_fonts = sorted([f.name for f in font_manager.fontManager.ttflist])
 
-# Place the label using .grid() method
-label.grid(row=0, column=0, padx=10, pady=10)
+# Initialize the main window
+root = ctk.CTk()
+root.geometry("400x300")
 
-# Start the main loop
-app.mainloop()
+# Example label
+label = ctk.CTkLabel(root, text="Hello, Custom Font!")
+label.pack(pady=20)
+
+# Dropdown menu for font selection
+font_var = tk.StringVar(value=available_fonts[0])
+font_dropdown = tk.OptionMenu(root, font_var, *available_fonts, command=lambda _: change_font(label, font_var.get(), 20))
+font_dropdown.pack(pady=20)
+
+root.mainloop()
+
 
 
 

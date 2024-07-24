@@ -8,9 +8,29 @@ class ThemeDesigner():
         self.form = form
         self.parent = parent_frame
 
+    def theme_color_palette(self, theme_name, color_names, primary, secondary, bg_color, text_color, hover_color, font):
+        ctk.CTkLabel(self.parent, text=theme_name, font=(15, "Segoue UI")).pack(side="left", pady=(10,0))
+        theme_frame = tk.Frame(self.parent, relief="raised", borderwidth=1, bg="white")
+        theme_frame.pack(fill="x", padx=20, pady=(10,0))
+
+        color_frame = ctk.CTkFrame(theme_frame, fg_color=color_names[0])
+        color_frame.pack(fill="both")
+
+        options_frame = ctk.CTkFrame(theme_frame, fg_color="transparent")
+        options_frame.pack(fill="both")
+
+        for colors in color_names:
+            ctk.CTkButton(options_frame, text="", fg_color=colors, width=10, height=10).pack(side="left", padx=(5,0))
+
+        ctk.CTkLabel(options_frame, text="AaBbCc 123", font=(15, font)).pack(side="left", padx=5)
+
     def change_theme_command(self):
-        pass 
-    
+        for widget in self.parent.winfo_children():
+            widget.pack_forget()
+
+        ctk.CTkLabel(self.parent, text="Standard Themes", font=(17, "Segoue UI", "bold")).pack(side="left")
+
+
     def add_image_command(self):
         pass
 
@@ -25,7 +45,7 @@ class ThemeDesigner():
         return canvas
 
     def Theme_structure(self):
-        self.theme = ctk.CTkLabel(self.parent,text = "Theme",text_color = "#000000",font = ctk.CTkFont(size = 25,weight = "bold"))
+        self.theme = ctk.CTkLabel(self.parent,text = "Theme",text_color = "#000000",font = ctk.CTkFont(size = 25,weight = "bold"), compound="center")
         self.theme.grid(row = 0,column = 0,padx = 100,pady = 10)
 
         self.line1 = self.common_line()
@@ -34,14 +54,20 @@ class ThemeDesigner():
         self.quick_setup = ctk.CTkLabel(self.parent,text = "Quick Setup",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "bold"))
         self.quick_setup.grid(row = 2,column = 0,sticky = "nw",padx = (10,0))
 
-        self.visual_theme = ctk.CTkLabel(self.parent,text = "Create a visual theme for your website and registration pages.",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "normal"), wraplength=400)
-        self.visual_theme.grid(row = 3,column = 0,sticky = "nw",padx = (10,0))
+        label_frame = ctk.CTkFrame(self.parent, fg_color="transparent")
+        label_frame.grid(row = 3,column = 0, sticky="nsew")
 
-        self.change_theme = ctk.CTkLabel(self.parent,text = "Theme",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "bold"))
-        self.change_theme.grid(row = 4,column = 0,sticky = "nw",padx = (10,0),pady = 20)
+        self.visual_theme = ctk.CTkLabel(label_frame,text = "Create a visual theme for your website and\nregistration pages.",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "normal"))
+        self.visual_theme.pack(side="left", padx=10)
 
-        self.change_theme_button = ctk.CTkButton(self.parent,text = "Change Theme",height = 30,width = 150,corner_radius = 5,border_width = 1,border_color = "#11A2E3",text_color = "#11A2E3",fg_color = "#ffffff",hover_color = "blue",command = self.change_theme_command)
-        self.change_theme_button.grid(row = 4,column = 0,sticky = "ne",padx = (0,10),pady = 20)
+        self.theme_button_frame = ctk.CTkFrame(self.parent, fg_color="transparent")
+        self.theme_button_frame.grid(row=4, column=0, sticky="nsew",pady=10)
+
+        self.change_theme = ctk.CTkLabel(self.theme_button_frame,text = "Theme",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "bold"))
+        self.change_theme.pack(side="left", padx=(10,0))
+
+        self.change_theme_button = ctk.CTkButton(self.theme_button_frame,text = "Change Theme",height = 30,width = 110,corner_radius = 12,border_width = 1,border_color = "#11A2E3",text_color = "#11A2E3",fg_color = "#ffffff",hover_color = "blue",command = self.change_theme_command)
+        self.change_theme_button.pack(side="right", padx=(0,50))
 
         self.line2 = self.common_line()
         self.line2.grid(row = 5,column = 0,sticky = "ew",pady = 10)
