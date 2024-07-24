@@ -17,8 +17,13 @@ class SurveyResponsePage():
             widget.pack_forget()
 
     def feedback_surveys_screen(self):
-        for widget in self.parent.winfo_children():
-            widget.pack_forget()
+        self.count += 1
+        if self.count <= 1:
+            for widget in self.parent.winfo_children():
+                widget.pack_forget()
+        else:
+            self.set_screen()
+
         self.survey_frame = ctk.CTkFrame(self.parent)
         self.survey_frame.pack(fill="both", expand=True)
         self.surveypage = Page(main_app=self.main, parent=self.survey_frame, event_name=self.event_name, heading="Feedback Surveys")

@@ -93,10 +93,10 @@ class Page():
                 })
             self.create_sidebar_item("Registration", {
                 "Registration Settings" : self.main.register_page.registration_settings, 
-                "Registration Proccess" : lambda : self.switch_tab("Registration & Ticketing", self.main.register_page.registration_proccess)
+                "Registration Proccess" : self.main.register_page.registration_proccess
                 })
             self.create_sidebar_item("Email", {
-                "Invitation List" : lambda : self.switch_tab("Invitation & Attendees", self.main.invitation_attendee.invitation_list_screen),
+                "Invitation List" : self.main.invitation_attendee.invitation_list_screen,
                 "Event Emails" : self.main.invitation_attendee.event_emails, 
                 "Planner Alerts" : self.main.invitation_attendee.planner_alerts
                 })
@@ -105,7 +105,7 @@ class Page():
                 "Certificates" : self.main.invitation_attendee.certificates_screen
                 })
             self.create_sidebar_item("Surveys", {
-                "Feedback Surveys" : lambda : self.switch_tab("Survey & Feedback", self.main.survey_response.feedback_surveys_screen), 
+                "Feedback Surveys" : self.main.survey_response.feedback_surveys_screen, 
                 "Responses" : self.main.survey_response.responses_screen
                 })
             self.create_sidebar_item("Reports", {
@@ -175,8 +175,8 @@ class Page():
         self.upper_frame_heading = ctk.CTkLabel(self.upper_frame,height = 70,text = self.heading_1, fg_color = "#ffffff",text_color = "#000000",font = ctk.CTkFont(size = 25,weight = "normal")) #"Registration Process Pages"
         self.upper_frame_heading.pack(side = "top",padx = 30,pady = 10, anchor="nw")
 
-        self.widget_frame = ctk.CTkFrame(self.scrollable_frame,fg_color = "#ffffff",width = 800,height = 1000)
-        self.widget_frame.pack(anchor = "nw",padx = 10)
+        # self.widget_frame = ctk.CTkFrame(self.scrollable_frame,fg_color = "#ffffff",width = 800,height = 1000)
+        # self.widget_frame.pack(anchor = "nw",padx = 10)
 
-        self.widget_label = ctk.CTkLabel(self.widget_frame,text = self.heading_2,text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "bold"))
-        self.widget_label.pack()
+        # self.widget_label = ctk.CTkLabel(self.widget_frame,text = self.heading_2,text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "bold"))
+        # self.widget_label.pack()

@@ -17,8 +17,13 @@ class InviteeAttendeePage():
             widget.pack_forget()
 
     def invitation_list_screen(self):
-        for widget in self.parent.winfo_children():
-            widget.pack_forget()
+        self.count += 1
+        if self.count <= 1:
+            for widget in self.parent.winfo_children():
+                widget.pack_forget()
+        else:
+            self.set_screen()
+
         self.inv_list_frame = ctk.CTkFrame(self.parent)
         self.inv_list_frame.pack(fill="both", expand=True)
         self.invitationpage = Page(main_app=self.main, parent=self.inv_list_frame, event_name=self.event_name, heading="Invitation List")
