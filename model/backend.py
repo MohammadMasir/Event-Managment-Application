@@ -6,11 +6,9 @@ class DataClass():
     def __init__(self, main, user_id=None):
         self.main = main
         self.cursor = self.main.cur
-
         self.user_id = user_id # Initialize user_id
 
     def is_first_time_user(self, user):
-        print("The Code is checking first time user..")
         self.set_user_id(user)
         query = "SELECT event_id FROM event WHERE user_id = %s"
         self.cursor.execute(query, (self.user_id,))
@@ -19,12 +17,9 @@ class DataClass():
             return True
         else:
             event_id = event_id_tuple[0]
-            print("event_id", event_id)
             if event_id != None:
-                print("Not a First time user", user)
                 return False
             else:
-                print("First time user", user)
                 return True
 
     def set_user_id(self, user_id):
@@ -35,7 +30,6 @@ class DataClass():
         return self.user_id
 
     def check_existing_user_events(self, user_id):
-        print("Now, The code is checking for existing event created by user")
         self.set_user_id(user_id)  # Ensure user_id is set
         query = "SELECT * FROM event WHERE user_id = %s"
         self.cursor.execute(query, (self.user_id,))

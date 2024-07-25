@@ -8,6 +8,8 @@ from PIL import Image
 class Decline(ctk.CTk):
     def __init__(self):
         super().__init__()
+
+        self.entry = None
         self.decline_form()
         self.method_calling()
     
@@ -18,8 +20,8 @@ class Decline(ctk.CTk):
         pass
 
     def common_entry(self):
-       common_entry = ctk.CTkEntry(self.main_scrollable_frame,height = 35,width = 800,corner_radius = 5)
-       return common_entry
+       self.entry = ctk.CTkEntry(self.main_scrollable_frame,height = 35,width = 800,corner_radius = 5)
+       return self.entry
 
     def decline_form(self):
         self.title("Personal Information")

@@ -44,10 +44,10 @@ class DemoApplication(ctk.CTk):
         self.connections = self.connect_to_database()
 
         self.auth = Auth()
+        self.initial_screen()
+        self.backend = DataClass(self)
         self.user = None
         self.count = 0
-        self.backend = DataClass(self)
-        self.initial_screen()
 
     def connect_to_database(self):
             self.connection = pmql.connect(

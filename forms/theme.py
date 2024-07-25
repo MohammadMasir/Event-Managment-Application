@@ -7,15 +7,49 @@ class ThemeDesigner():
         super().__init__()
         self.form = form
         self.parent = parent_frame
+        self.apply = None
 
     def back(self):
         for widget in self.parent.winfo_children():
             widget.pack_forget()
         self.Theme_structure()
 
-    def theme_color_palette(self, theme_name, color_names, font):
-        ctk.CTkLabel(self.parent, text=theme_name, font=ctk.CTkFont(size=15, family="Segoue UI")).pack(anchor="nw", pady=(10,0),padx=(15,0))
-        theme_frame = tk.Frame(self.parent, relief="raised", borderwidth=1, bg="white")
+    def theme_change(self, colors):
+        primary_text_color = colors[-2]
+        secondary_text_color = colors[-1]
+        bg = colors[0]
+        entry_bg = colors[1]
+
+        upper_text = primary_text_color
+        frame_color = primary_text_color
+        border_color = primary_text_color
+        lower_text = secondary_text_color
+        background = bg
+        entries_fg = entry_bg
+
+        self.form.main_scrollable_frame.configure(fg_color=entries_fg)
+        self.form.blue_frame.configure(fg_color=frame_color)
+        self.form.upper_frame.configure(fg_color=background)
+        self.form.lower_frame.configure(fg_color=background)
+        self.form.demeven.configure(text_color=upper_text)
+        self.form.date.configure(text_color=upper_text)
+        self.form.venue.configure(text_color=upper_text)
+        self.form.time.configure(text_color=lower_text)
+        self.form.location.configure(text_color=lower_text)
+        self.form.personal.configure(text_color=lower_text)
+        self.form.mandatory.configure(text_color=lower_text)
+        self.form.first_name_entry.configure(fg_color=entries_fg, border_color=border_color)
+        self.form.last_name_entry.configure(fg_color=entries_fg, border_color=border_color)
+        self.form.email_entry.configure(fg_color=entries_fg, border_color=border_color)
+        self.form.mobile_entry.configure(fg_color=entries_fg, border_color=border_color)
+        self.form.company_entry.configure(fg_color=entries_fg, border_color=border_color)
+        self.form.title_entry.configure(fg_color=entries_fg, border_color=border_color)
+        self.form.cancel.configure(fg_color=background, border_color=lower_text, text_color=lower_text)
+        self.form.next.configure(fg_color=lower_text, border_color=lower_text, text_color=entries_fg)
+
+    def theme_color_palette(self, theme_name, color_names, font):        
+        ctk.CTkLabel(self.parent, text=theme_name, font=ctk.CTkFont(size=15, family="Segoue UI", weight="bold")).pack(anchor="nw", pady=(10,0),padx=(15,0))
+        theme_frame = tk.Frame(self.parent, borderwidth=3, relief="raised", bg="#FDFDFD")
         theme_frame.pack(fill="x", padx=20, pady=10)
 
         color_frame = ctk.CTkFrame(theme_frame, fg_color=color_names[0], height=40)
@@ -24,21 +58,24 @@ class ThemeDesigner():
         options_frame = ctk.CTkFrame(theme_frame, fg_color="transparent")
         options_frame.pack(fill="both")
 
+        apply = ctk.CTkButton(theme_frame, text="Apply", fg_color="khaki", border_color="wheat", text_color="black", 
+                            command=lambda c=color_names: self.theme_change(c), hover_color="palegoldenrod")
+        apply.pack(anchor="center", pady=5)
+
         for colors in color_names:
-            ctk.CTkButton(options_frame, text="", fg_color=colors, width=20, height=20).pack(side="left", padx=(5,0))
+            ctk.CTkButton(options_frame, text="", fg_color=colors, border_width=2, border_color="#D9DCDE", width=20, height=20).pack(side="left", padx=(5,0))
 
         ctk.CTkLabel(options_frame, text="AaBbCc 123", font=ctk.CTkFont(size=15, family=font)).pack(side="right", padx=5)
 
     def change_theme_command(self):
         for widget in self.parent.winfo_children():
             widget.pack_forget()
-            # print("Now it's forgetting previous widgets...")
         top_frame = ctk.CTkFrame(self.parent, fg_color="transparent")
         top_frame.pack(fill="x", expand=True)
         ctk.CTkLabel(top_frame, text="Standard Themes", font=ctk.CTkFont(size=17, family="Segoue UI", weight="bold")).pack(side="left",anchor="nw", pady=(10,0))
 
         imag = ctk.CTkImage(dark_image= Image.open(r"pics\close.png"), size=(20,20))
-        back_butt = ctk.CTkButton(top_frame, text="", image=imag, command=self.back)
+        back_butt = ctk.CTkButton(top_frame, text="", image=imag, fg_color="#F0F0F0", command=self.back, width=60,height=30)
         back_butt.pack(side="right",anchor="ne")
 
         line = self.common_line()
