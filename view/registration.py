@@ -108,7 +108,7 @@ class RegistrationPage():
 
         self.guest_butt = ctk.CTkButton(self.registration_process_pages_frame,text = "Customize",fg_color = "#ffffff",hover_color = "lightgray",width = 40,text_color = "#0B77E3",command = self.guest_button)
         self.guest_butt.grid(row = 9,column = 2,sticky = "ne",padx = (290,40),pady = (20,0))
-
+#---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     def registration_settings(self):
         self.set_screen()
         self.settings_frame = ctk.CTkFrame(self.parent)
@@ -174,6 +174,7 @@ class RegistrationPage():
         self.total_attendee_goal_value = ctk.CTkLabel(inside_frame,textvariable = total_attendee_goal_variable,text_color = "#000000",font =  ctk.CTkFont(size=15,weight="bold"))
         self.total_attendee_goal_value.pack(anchor="nw", padx = 5,pady = 5)
 
+#---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     def registration_types(self):
         self.set_screen()
         self.types_frame = ctk.CTkFrame(self.parent)
@@ -182,6 +183,20 @@ class RegistrationPage():
         self.types_page.title_frame(False)
         self.types_page.content_frame()
 
+        self.registration_label = ctk.CTkLabel(self.types_page.scrollable_frame,text = "Registration types let you customize the registration experience for different types of attendees.",text_color = "#000000",font =  ("Segoe UI",18,"bold"))
+        self.registration_label.pack(anchor = "nw",padx = 15,pady = 10)
+
+        self.types_content_frame = ctk.CTkFrame(self.types_page.scrollable_frame,fg_color = "#ffffff")
+        self.types_content_frame.pack(fill = "both",expand = True, padx=(10,90), pady=20)
+
+        self.filter = ctk.CTkEntry(self.types_content_frame,height = 35,width = 400,corner_radius = 7,fg_color = "#ffffff",text_color = "#000000",placeholder_text = "Filter",placeholder_text_color = "#000000",font = ("Arial",17,"normal"))
+        self.filter.pack(anchor = "ne",padx = 15,pady = 10)
+
+        self.filter_image = ctk.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\loupe.png"),size = (25,25))
+        self.filter_image_button = ctk.CTkButton(self.filter,image = self.filter_image,text = "",width = 35,fg_color = "#ffffff",hover_color = "lightgray",command = self.filter_command)
+        self.filter_image_button.grid(row = 0,column = 0,sticky = "ne",padx = 10,pady = 5)
+   
+#---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     def search_widget_command(self):
         pass
 
@@ -211,3 +226,7 @@ class RegistrationPage():
 
     def edit_button_clicked(self):
         pass
+
+    def filter_command(self):
+        pass 
+

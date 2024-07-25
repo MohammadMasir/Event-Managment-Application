@@ -274,11 +274,41 @@ class DashboardPage():
         self.basic_info_frame = ctk.CTkFrame(self.infopage.scrollable_frame,fg_color = "#ffffff")
         self.basic_info_frame.pack(fill = "both",expand = True, padx=(10,90), pady=30)
 
-        self.basic_info_and_edit_frame = ctk.CTkFrame(self.basic_info_frame,fg_color = "#ffffff",height = 20)
-        self.basic_info_and_edit_frame.pack(anchor = "nw",padx = 15,pady = 5)
+        self.basic_info_label = ctk.CTkLabel(self.basic_info_frame,text = "Basic Information",text_color = "#000000",font = ctk.CTkFont("Segoe UI",21,"bold"))
+        self.basic_info_label.pack(anchor = "nw",padx = 15,pady = 5)
 
-        self.basic_info_label = ctk.CTkLabel(self.basic_info_and_edit_frame,text = "Basic Information",text_color = "#000000",font = ctk.CTkFont("Segoe UI",21,"bold"))
-        self.basic_info_label.pack(side = "left",padx = 0,pady = 0)
+        self.title_label = ctk.CTkLabel(self.basic_info_frame,text = "Title:",text_color = "#000000",font = ctk.CTkFont(size=20,weight="normal"))
+        self.title_label.pack(anchor = "nw",padx = 15,pady = 10)
+        
+        title_variable = tk.StringVar()
+        title_variable.set("lucky")
+        self.title_value = ctk.CTkLabel(self.basic_info_frame,textvariable = title_variable,text_color = "#000000",font = ctk.CTkFont(size=15,weight="bold"))
+        self.title_value.pack(anchor = "nw",padx = 15,pady = 7)
+
+        title_line = tk.Canvas(self.basic_info_frame,height = 1,width = 600,bg = "lightgray")
+        title_line.pack(anchor = "nw",padx = 15,pady = 0)
+
+        self.code_label = ctk.CTkLabel(self.basic_info_frame,text = "Code:",text_color = "#000000",font = ctk.CTkFont(size=20,weight="normal"))
+        self.code_label.pack(anchor = "nw",padx = 15,pady = 10)
+        
+        code_variable = tk.StringVar()
+        code_variable.set("NYNMK82YDWQ")
+        self.code_value = ctk.CTkLabel(self.basic_info_frame,textvariable = code_variable,text_color = "#000000",font = ctk.CTkFont(size=15,weight="bold"))
+        self.code_value.pack(anchor = "nw",padx = 15,pady = 7)
+
+        code_line = tk.Canvas(self.basic_info_frame,height = 1,width = 600,bg = "lightgray")
+        code_line.pack(anchor = "nw",padx = 15,pady = 0)
+
+        self.category_label =  ctk.CTkLabel(self.basic_info_frame,text = "Category:",text_color = "#000000",font = ctk.CTkFont(size=20,weight="normal"))
+        self.category_label.pack(anchor = "nw",padx = 15,pady = 10)
+        
+        category_variable = tk.StringVar()
+        category_variable.set("Seminar")
+        self.category_value = ctk.CTkLabel(self.basic_info_frame,textvariable = category_variable,text_color = "#000000",font = ctk.CTkFont(size=15,weight="bold"))
+        self.category_value.pack(anchor = "nw",padx = 15,pady = 7)
+
+        category_line = tk.Canvas(self.basic_info_frame,height = 1,width = 600,bg = "lightgray")
+        category_line.pack(anchor = "nw",padx = 15,pady = 0)
         
         self.created_label = ctk.CTkLabel(self.basic_info_frame,text = "Created:",text_color = "#000000",font = ctk.CTkFont(size=20,weight="normal"))
         self.created_label.pack(anchor = "nw",padx = 15,pady = 10)
@@ -433,7 +463,180 @@ class DashboardPage():
         question_line = tk.Canvas(self.event_format_frame,height = 1,width = 600,bg = "lightgray")
         question_line.pack(anchor = "nw",padx = 15,pady = (0,9))
       
-#------------------------------------------------------------------------------------------------------------------      
+#------------------------------------------------------------------------------------------------------------------
+        self.location_frame = ctk.CTkFrame(self.infopage.scrollable_frame,fg_color = "#ffffff")
+        self.location_frame.pack(fill = "both",expand = True, padx=(10,90), pady=20)
+
+        self.location_label = ctk.CTkLabel(self.location_frame,text = "Location",text_color = "#000000",font = ctk.CTkFont("Segoe UI",21,"bold"))
+        self.location_label.pack(anchor = "nw",padx = 15,pady = 5)
+
+        self.venue_label = ctk.CTkLabel(self.location_frame,text = "Venue:",text_color = "#000000",font = ctk.CTkFont(size=20,weight="normal"))
+        self.venue_label.pack(anchor = "nw",padx = 15,pady = 10)
+        
+        venue_variable = tk.StringVar()
+        venue_variable.set("Custom Location")
+        self.venue_value = ctk.CTkLabel(self.location_frame,textvariable = venue_variable,text_color = "#000000",font =  ctk.CTkFont(size=15,weight="bold"))
+        self.venue_value.pack(anchor = "nw",padx = 15,pady = 7)
+
+        venue_line = tk.Canvas(self.location_frame,height = 1,width = 600,bg = "lightgray")
+        venue_line.pack(anchor = "nw",padx = 15,pady = (0,9))
+
+#------------------------------------------------------------------------------------------------------------------
+        self.where_frame = ctk.CTkFrame(self.infopage.scrollable_frame,fg_color = "#ffffff")
+        self.where_frame.pack(fill = "both",expand = True, padx=(10,90), pady=20)
+
+        self.where_label = ctk.CTkLabel(self.where_frame,text = "Where",text_color = "#000000",font = ctk.CTkFont("Segoe UI",21,"bold"))
+        self.where_label.pack(anchor = "nw",padx = 15,pady = 5)
+
+        self.venue_label = ctk.CTkLabel(self.where_frame,text = "Venue:",text_color = "#000000",font = ctk.CTkFont(size=20,weight="normal"))
+        self.venue_label.pack(anchor = "nw",padx = 15,pady = 10)
+        
+        where_variable = tk.StringVar()
+        where_variable.set("Taj Hotel")
+        self.where_value =  ctk.CTkLabel(self.where_frame,textvariable = where_variable,text_color = "#000000",font =  ctk.CTkFont(size=15,weight="bold"))
+        self.where_value.pack(anchor = "nw",padx = 15,pady = 7)
+
+        where_line = tk.Canvas(self.where_frame,height = 1,width = 600,bg = "lightgray")
+        where_line.pack(anchor = "nw",padx = 15,pady = (0,9))
+
+        self.phone_label = ctk.CTkLabel(self.where_frame,text = "Phone:",text_color = "#000000",font = ctk.CTkFont(size=20,weight="normal"))
+        self.phone_label.pack(anchor = "nw",padx = 15,pady = 5)
+        
+        phone_variable = tk.StringVar()
+        phone_variable.set("9820568660")
+        self.phone_value = ctk.CTkLabel(self.where_frame,textvariable = phone_variable,text_color = "#000000",font =  ctk.CTkFont(size=15,weight="bold"))
+        self.phone_value.pack(anchor = "nw",padx = 15,pady = 7)
+
+        phone_line =  tk.Canvas(self.where_frame,height = 1,width = 600,bg = "lightgray")
+        phone_line.pack(anchor = "nw",padx = 15,pady = (0,9))
+
+        self.address_label = ctk.CTkLabel(self.where_frame,text = "Address:",text_color = "#000000",font = ctk.CTkFont("Segoe UI",21,"bold"))
+        self.address_label.pack(anchor = "nw",padx = 15,pady = 10)
+
+        self.city_frame = ctk.CTkFrame(self.where_frame,fg_color = "#ffffff",height = 200,width = 250)
+        self.city_frame.pack(side = "left",padx = 15,pady = 20)
+
+        self.state_frame = ctk.CTkFrame(self.where_frame,fg_color = "#ffffff",height = 200,width = 250)
+        self.state_frame.pack(side = "right",padx = (0,400),pady = 20)
+
+        self.city_label = ctk.CTkLabel(self.city_frame,text = "City:",text_color = "#000000",font = ctk.CTkFont(size=20,weight="normal"))
+        self.city_label.pack(anchor = "nw",padx = 0,pady = 0)
+        
+        city_variable = tk.StringVar()
+        city_variable.set("Mumbai")
+        self.city_value = ctk.CTkLabel(self.city_frame,textvariable = city_variable,text_color = "#000000",font =  ctk.CTkFont(size=15,weight="bold"))
+        self.city_value.pack(anchor = "nw",padx = 0,pady = 5)
+
+        city_line = tk.Canvas(self.city_frame,height = 1,width = 300,bg = "lightgray")
+        city_line.pack(anchor = "nw",padx = 0)
+
+        self.postal_code_label = ctk.CTkLabel(self.city_frame,text = "ZIP/Postal Code:",text_color = "#000000",font = ctk.CTkFont(size=20,weight="normal"))
+        self.postal_code_label.pack(anchor = "nw",padx = 0,pady = 5)
+        
+        postal_variable = tk.StringVar()
+        postal_variable.set("400071")
+        self.postal_code_value = ctk.CTkLabel(self.city_frame,textvariable = postal_variable,text_color = "#000000",font =  ctk.CTkFont(size=15,weight="bold"))
+        self.postal_code_value.pack(anchor = "nw",padx = 0,pady = 5)
+
+        postal_line = tk.Canvas(self.city_frame,height = 1,width = 300,bg = "lightgray")
+        postal_line.pack(anchor = "nw",padx = 0)
+
+        self.state_label = ctk.CTkLabel(self.state_frame,text = "State/Provine:",text_color = "#000000",font = ctk.CTkFont(size=20,weight="normal"))
+        self.state_label.pack(anchor = "nw",padx = 0,pady = 0)
+        
+        state_variable = tk.StringVar()
+        state_variable.set("Maharashtra")
+        self.state_value = ctk.CTkLabel(self.state_frame,textvariable = state_variable,text_color = "#000000",font =  ctk.CTkFont(size=15,weight="bold"))
+        self.state_value.pack(anchor = "nw",padx = 0,pady = 5)
+
+        state_line = tk.Canvas(self.state_frame,height = 1,width = 300,bg = "lightgray")
+        state_line.pack(anchor = "nw",padx = 0,pady = 0)
+
+        self.country_label = ctk.CTkLabel(self.state_frame,text = "State/Provine:",text_color = "#000000",font = ctk.CTkFont(size=20,weight="normal"))
+        self.country_label.pack(anchor = "nw",padx = 0,pady = 5)
+        
+        country_variable = tk.StringVar()
+        country_variable.set("India")
+        self.country_value = ctk.CTkLabel(self.state_frame,textvariable = country_variable,text_color = "#000000",font =  ctk.CTkFont(size=15,weight="bold"))
+        self.country_value.pack(anchor = "nw",padx = 0,pady = 5)
+
+        country_line = tk.Canvas(self.state_frame,height = 1,width = 300,bg = "lightgray")
+        country_line.pack(anchor = "nw",padx = 0,pady = 0)    
+#------------------------------------------------------------------------------------------------------------------
+        self.event_planner_frame = ctk.CTkFrame(self.infopage.scrollable_frame,fg_color = "#ffffff")
+        self.event_planner_frame.pack(fill = "both",expand = True, padx=(10,90), pady=20)
+
+        self.event_planner_label = ctk.CTkLabel(self.event_planner_frame,text = "Event Planner",text_color = "#000000",font = ctk.CTkFont("Segoe UI",21,"bold"))
+        self.event_planner_label.pack(anchor = "nw",padx = 15,pady = 5)
+
+        self.name_label = ctk.CTkLabel(self.event_planner_frame,text = "Name:",text_color = "#000000",font = ctk.CTkFont(size=19,weight="bold"))
+        self.name_label.pack(anchor = "nw",padx = 15,pady = 10)
+
+        self.first_last_name_frame = ctk.CTkFrame(self.event_planner_frame,fg_color = "#ffffff",height = 5)
+        self.first_last_name_frame.pack(anchor = "nw",fill = "x",padx = 15,pady = 5)
+
+        self.first_name_label = ctk.CTkLabel(self.first_last_name_frame,text = "First",text_color = "#000000",font = ctk.CTkFont(size=20,weight="normal"))
+        self.first_name_label.pack(side = "left",padx = 0,pady = 0)
+
+        self.last_name_label = ctk.CTkLabel(self.first_last_name_frame,text = "Last",text_color = "#000000",font = ctk.CTkFont(size=20,weight="normal"))
+        self.last_name_label.pack(side = "right",padx = 350,pady = 0)
+        
+        self.first_last_name_value_frame = ctk.CTkFrame(self.event_planner_frame,fg_color = "#ffffff",height = 5)
+        self.first_last_name_value_frame.pack(anchor = "nw",fill = "x",padx = 15,pady = 5)
+
+        first_name_variable = tk.StringVar()
+        first_name_variable.set("Lucky")
+        self.first_name_value = ctk.CTkLabel(self.first_last_name_value_frame,textvariable = first_name_variable,text_color = "#000000",font = ctk.CTkFont(size=15,weight="bold"))
+        self.first_name_value.pack(side = "left",padx = 0,pady = 0)
+
+        last_name_variable = tk.StringVar()
+        last_name_variable.set("Tungariya")
+        self.last_name_value = ctk.CTkLabel(self.first_last_name_value_frame,textvariable = last_name_variable,text_color = "#000000",font = ctk.CTkFont(size=15,weight="bold"))
+        self.last_name_value.pack(side = "right",padx = 320,pady = 0)
+
+        self.separate_line_frame = ctk.CTkFrame(self.event_planner_frame,fg_color = "#ffffff",height = 3)
+        self.separate_line_frame.pack(anchor = "nw",fill = "x",padx = 15,pady = 5)
+
+        first_name_line = tk.Canvas(self.separate_line_frame,height = 1,width = 300,bg = "lightgray")
+        first_name_line.pack(side = "left",padx = 0,pady = (0,9))
+
+        last_name_line = tk.Canvas(self.separate_line_frame,height = 1,width = 300,bg = "lightgray")
+        last_name_line.pack(side = "right",padx = 300,pady = (0,9))
+
+        self.company_label = ctk.CTkLabel(self.event_planner_frame,text = "Company:",text_color = "#000000",font = ctk.CTkFont(size=20,weight="normal"))
+        self.company_label.pack(anchor = "nw",padx = 15,pady = 10)
+        
+        company_variable = tk.StringVar()
+        company_variable.set("--")
+        self.company_value = ctk.CTkLabel(self.event_planner_frame,textvariable = company_variable,text_color = "#000000",font = ctk.CTkFont(size=15,weight="bold"))
+        self.company_value.pack(anchor = "nw",padx = 15,pady = 7)
+
+        company_line = tk.Canvas(self.event_planner_frame,height = 1,width = 600,bg = "lightgray")
+        company_line.pack(anchor = "nw",padx = 15,pady = (0,9))
+
+        self.title_label = ctk.CTkLabel(self.event_planner_frame,text = "Title:",text_color = "#000000",font = ctk.CTkFont(size=20,weight="normal"))
+        self.title_label.pack(anchor = "nw",padx = 15,pady = 10)
+        
+        title_variable = tk.StringVar()
+        title_variable.set("--")
+        self.title_value = ctk.CTkLabel(self.event_planner_frame,textvariable = title_variable,text_color = "#000000",font = ctk.CTkFont(size=15,weight="bold"))
+        self.title_value.pack(anchor = "nw",padx = 15,pady = 7)
+
+        title_line = tk.Canvas(self.event_planner_frame,height = 1,width = 600,bg = "lightgray")
+        title_line.pack(anchor = "nw",padx = 15,pady = (0,9))
+
+        self.email_label = ctk.CTkLabel(self.event_planner_frame,text = "Email:",text_color = "#000000",font = ctk.CTkFont(size=20,weight="normal"))
+        self.email_label.pack(anchor = "nw",padx = 15,pady = 10)
+        
+        email_variable = tk.StringVar()
+        email_variable.set("send2atm@gmail.com")
+        self.email_value = ctk.CTkLabel(self.event_planner_frame,textvariable = email_variable,text_color = "#000000",font = ctk.CTkFont(size=15,weight="bold"))
+        self.email_value.pack(anchor = "nw",padx = 15,pady = 7)
+
+        email_line = tk.Canvas(self.event_planner_frame,height = 1,width = 600,bg = "lightgray")
+        email_line.pack(anchor = "nw",padx = 15,pady = (0,9))
+
+#------------------------------------------------------------------------------------------------------------------
     def event_features(self):
         self.set_screen()
         self.feature_frame = ctk.CTkFrame(self.parent)
@@ -442,6 +645,8 @@ class DashboardPage():
         self.featurepage.title_frame(False)
         self.featurepage.content_frame()
 
+#------------------------------------------------------------------------------------------------------------------
+
     def event_settings(self):
         self.set_screen()
         self.settings_frame = ctk.CTkFrame(self.parent)
@@ -449,7 +654,26 @@ class DashboardPage():
         self.settingpage = Page(main_app=self.main, parent=self.settings_frame, event_name=self.event_name, heading="Event Settings")
         self.settingpage.title_frame(False)
         self.settingpage.content_frame()
-    
+
+        self.event_settings_content_frame = ctk.CTkFrame(self.settingpage.scrollable_frame,fg_color = "#ffffff")
+        self.event_settings_content_frame.pack(fill = "both",expand = True, padx=(10,90),pady=20)
+
+        self.video_label =  ctk.CTkLabel(self.event_settings_content_frame,text = "Video Conferencing Platform",text_color = "#000000",font = ctk.CTkFont("Segoe UI",21,"bold"))
+        self.video_label.pack(anchor = "nw",padx = 15,pady = 10)
+
+        self.choose_video_label = ctk.CTkLabel(self.event_settings_content_frame,text = "Choose the video conferencing platform you're using for your event.",text_color = "#000000",font = ctk.CTkFont(size=19,weight="bold"))
+        self.choose_video_label.pack(anchor = "nw",padx = 15,pady = 10)
+
+        self.platform_name = ctk.CTkLabel(self.event_settings_content_frame,text = "Platform name:",text_color = "#000000",font = ctk.CTkFont(size=20,weight="normal"))
+        self.platform_name.pack(anchor = "nw",padx = 15,pady = 5)
+        
+        platform_variable = tk.StringVar()
+        platform_variable.set("None")
+        self.platform_value = ctk.CTkLabel(self.event_settings_content_frame,textvariable = platform_variable,text_color = "#000000",font = ctk.CTkFont(size=15,weight="bold"))
+        self.platform_value.pack(anchor = "nw",padx = 15,pady = 5)
+
+        platform_line = tk.Canvas(self.event_settings_content_frame,height = 1,width = 600,bg = "lightgray")
+        platform_line.pack(anchor = "nw",padx = 15,pady = (0,12))
 
     def edit_pricing_command(self):
         pass  
