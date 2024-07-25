@@ -271,6 +271,169 @@ class DashboardPage():
         self.infopage.title_frame(False)
         self.infopage.content_frame()
 
+        self.basic_info_frame = ctk.CTkFrame(self.infopage.scrollable_frame,fg_color = "#ffffff")
+        self.basic_info_frame.pack(fill = "both",expand = True, padx=(10,90), pady=30)
+
+        self.basic_info_and_edit_frame = ctk.CTkFrame(self.basic_info_frame,fg_color = "#ffffff",height = 20)
+        self.basic_info_and_edit_frame.pack(anchor = "nw",padx = 15,pady = 5)
+
+        self.basic_info_label = ctk.CTkLabel(self.basic_info_and_edit_frame,text = "Basic Information",text_color = "#000000",font = ctk.CTkFont("Segoe UI",21,"bold"))
+        self.basic_info_label.pack(side = "left",padx = 0,pady = 0)
+        
+        self.created_label = ctk.CTkLabel(self.basic_info_frame,text = "Created:",text_color = "#000000",font = ctk.CTkFont(size=20,weight="normal"))
+        self.created_label.pack(anchor = "nw",padx = 15,pady = 10)
+        
+        created_variable = tk.StringVar()
+        created_variable.set("31-5-2024 16:13 IST by send2atm@gmail.com")
+        self.created_value = ctk.CTkLabel(self.basic_info_frame,textvariable = created_variable,text_color = "#000000",font = ctk.CTkFont(size=15,weight="bold"))
+        self.created_value.pack(anchor = "nw",padx = 15,pady = 7)
+
+        line_under_created_value = tk.Canvas(self.basic_info_frame,height = 1,width = 600,bg = "lightgray")
+        line_under_created_value.pack(anchor = "nw",padx = 15,pady = 0)
+
+        self.language_label = ctk.CTkLabel(self.basic_info_frame,text = "Language:",text_color = "#000000",font = ctk.CTkFont(size=20,weight="normal"))
+        self.language_label.pack(anchor = "nw",padx = 15,pady = 10)
+        
+        language_variable = tk.StringVar()
+        language_variable.set("English")
+        self.langauge_value =  ctk.CTkLabel(self.basic_info_frame,textvariable = language_variable,text_color = "#000000",font = ctk.CTkFont(size=15,weight="bold"))
+        self.langauge_value.pack(anchor = "nw",padx = 15,pady = 7)
+        
+        self.locale_label = ctk.CTkLabel(self.basic_info_frame,text = "Locale",text_color = "#000000",font = ctk.CTkFont(size=20,weight="normal"))
+        self.locale_label.pack(anchor = "nw",padx = 15,pady = 10)
+        
+        locale_variable = tk.StringVar()
+        locale_variable.set("USA")
+        self.locale_value = ctk.CTkLabel(self.basic_info_frame,textvariable = locale_variable,text_color = "#000000",font = ctk.CTkFont(size=15,weight="bold"))
+        self.locale_value.pack(anchor = "nw",padx = 15,pady = 7)
+
+        locale_line = tk.Canvas(self.basic_info_frame,height = 1,width = 600,bg = "lightgray")
+        locale_line.pack(anchor = "nw",padx = 15,pady = 0)
+
+        self.multilanguage_event_label = ctk.CTkLabel(self.basic_info_frame,text = "Multi-Language Event:",text_color = "#000000",font = ctk.CTkFont(size=20,weight="normal"))
+        self.multilanguage_event_label.pack(anchor = "nw",padx = 15,pady = 10)
+        
+        multilanguage_variable = tk.StringVar()
+        multilanguage_variable.set("No")
+        self.multilanguage_value = ctk.CTkLabel(self.basic_info_frame,textvariable = multilanguage_variable,text_color = "#000000",font = ctk.CTkFont(size=15,weight="bold"))
+        self.multilanguage_value.pack(anchor = "nw",padx = 15,pady = 7)
+
+        multilanguage_line = tk.Canvas(self.basic_info_frame,height = 1,width = 600,bg = "lightgray")
+        multilanguage_line.pack(anchor = "nw",padx = 15,pady = 0)
+
+        self.description_label = ctk.CTkLabel(self.basic_info_frame,text = "Description:",text_color = "#000000",font = ctk.CTkFont("Segoe UI",15,"bold"))
+        self.description_label.pack(anchor = "nw",padx = 15,pady = 10)
+
+        self.internal_note_label = ctk.CTkLabel(self.basic_info_frame,text = "Internal Note:",text_color = "#000000",font = ctk.CTkFont(size=20,weight="normal"))
+        self.internal_note_label.pack(anchor = "nw",padx = 15,pady = 10)
+        
+        internal_note_variable = tk.StringVar()
+        internal_note_variable.set("--")
+        self.internal_note_value = ctk.CTkLabel(self.basic_info_frame,textvariable = internal_note_variable,text_color = "#000000",font = ctk.CTkFont(size=15,weight="bold"))
+        self.internal_note_value.pack(anchor = "nw",padx = 15,pady = 7)
+
+        internal_note_line = tk.Canvas(self.basic_info_frame,height = 1,width = 600,bg = "lightgray")
+        internal_note_line.pack(anchor = "nw",padx = 15,pady = (0,9))
+
+#---------------------------------------------------------------------------------------------------------------------
+
+        self.event_information_content_frame = ctk.CTkFrame(self.infopage.scrollable_frame,fg_color = "#ffffff")
+        self.event_information_content_frame.pack(fill = "both",expand = True, padx=(10,90), pady=20)
+
+        self.when_label = ctk.CTkLabel(self.event_information_content_frame,text = "When",text_color = "#000000",font = ctk.CTkFont("Segoe UI",21,"bold"))
+        self.when_label.pack(anchor = "nw",padx = 15,pady = 5)
+
+        self.time_zone_label = ctk.CTkLabel(self.event_information_content_frame,text = "Time Zone",text_color = "#000000",font = ctk.CTkFont(size=20,weight="normal"))
+        self.time_zone_label.pack(anchor = "nw",padx = 15,pady = 10)
+        
+        time_zone_variable = tk.StringVar()
+        time_zone_variable.set("(GMT+05:30) India")
+        self.time_zone_value = ctk.CTkLabel(self.event_information_content_frame,textvariable = time_zone_variable,text_color = "#000000",font = ctk.CTkFont(size=15,weight="bold"))
+        self.time_zone_value.pack(anchor = "nw",padx = 15,pady = 7)
+
+        line_under_time_zone = tk.Canvas(self.event_information_content_frame,height = 1,width = 600,bg = "lightgray")
+        line_under_time_zone.pack(anchor = "nw",padx = 15,pady = 1)
+
+        self.start_date_label = ctk.CTkLabel(self.event_information_content_frame,text = "Start Date:",text_color = "#000000",font = ctk.CTkFont(size=20,weight="normal"))
+        self.start_date_label.pack(anchor = "nw",padx = 15,pady = 10)
+        
+        self.start_date_time_frame = ctk.CTkFrame(self.event_information_content_frame,fg_color = "#ffffff",height = 10,width = 400)
+        self.start_date_time_frame.pack(anchor = "nw",padx = 15,pady = 10)
+
+        start_date_variable = tk.StringVar()
+        start_date_variable.set("30-7-2024")
+        self.start_date_value = ctk.CTkLabel(self.start_date_time_frame,textvariable = start_date_variable,text_color = "#000000",font = ctk.CTkFont(size=15,weight="bold"))
+        self.start_date_value.pack(side = "left",padx = 0,pady = 10)
+
+        start_time_variable = tk.StringVar()
+        start_time_variable.set("18:00")
+        self.start_time_value =  ctk.CTkLabel(self.start_date_time_frame,textvariable = start_time_variable,text_color = "#000000",font = ctk.CTkFont(size=15,weight="bold"))
+        self.start_time_value.pack(side = "right",padx = (150,150),pady = 0)
+        
+        self.start_line_frame = ctk.CTkFrame(self.event_information_content_frame,fg_color = "#ffffff",height = 2,width = 400)
+        self.start_line_frame.pack(anchor = "nw",padx = 10,pady = 0)
+
+        line_under_start_date = tk.Canvas(self.start_line_frame,height = 1,width = 300,bg = "lightgray")
+        line_under_start_date.pack(side = "left",padx = 0,pady = 0)
+
+        line_right_of_start_date = tk.Canvas(self.start_line_frame,height = 1,width = 300,bg = "lightgray")
+        line_right_of_start_date.pack(side = "right",padx = 30,pady = 0)
+
+        self.end_dt_label = ctk.CTkLabel(self.event_information_content_frame,text = "End Date:",text_color = "#000000",font = ctk.CTkFont(size=20,weight="normal"))
+        self.end_dt_label.pack(anchor = "nw",padx = 15,pady = 10)
+
+        self.end_date_time_frame = ctk.CTkFrame(self.event_information_content_frame,fg_color = "#ffffff",height = 10,width = 400)
+        self.end_date_time_frame.pack(anchor = "nw",padx = 15,pady = 10)
+        
+        end_date_variable = tk.StringVar()
+        end_date_variable.set("30-7-2024")
+        self.end_date_value = ctk.CTkLabel(self.end_date_time_frame,textvariable = end_date_variable,text_color = "#000000",font = ctk.CTkFont(size=15,weight="bold"))
+        self.end_date_value.pack(side = "left",padx = 0,pady = 0)
+        
+        end_time_variable = tk.StringVar()
+        end_time_variable.set("22:00")
+        self.end_time_value = ctk.CTkLabel(self.end_date_time_frame,textvariable = end_time_variable,text_color = "#000000",font = ctk.CTkFont(size=15,weight="bold"))
+        self.end_time_value.pack(side = "right",padx = (150,150),pady = 0)
+
+        self.end_line_frame = ctk.CTkFrame(self.event_information_content_frame,fg_color = "#ffffff",height = 2,width = 400)
+        self.end_line_frame.pack(anchor = "nw",padx = 5,pady = 0)
+
+        line_under_end_date = tk.Canvas(self.end_line_frame,height = 1,width = 300,bg = "lightgray")
+        line_under_end_date.pack(side = "left",padx = 0,pady = 0)
+
+        line_right_of_end_date =  tk.Canvas(self.end_line_frame,height = 1,width = 300,bg = "lightgray")
+        line_right_of_end_date.pack(side = "right",padx = 30,pady = 0)
+
+        self.archive_date_label = ctk.CTkLabel(self.event_information_content_frame,text = "Archive Date:",text_color = "#000000",font = ctk.CTkFont(size=20,weight="normal"))
+        self.archive_date_label.pack(anchor = "nw",padx = 15,pady = 10)
+        
+        archive_date_variable = tk.StringVar()
+        archive_date_variable.set("28-10-2024")
+        self.archive_date_value = ctk.CTkLabel(self.event_information_content_frame,textvariable = archive_date_variable,text_color = "#000000",font = ctk.CTkFont(size=15,weight="bold"))
+        self.archive_date_value.pack(anchor = "nw",padx = 15,pady = 7)
+
+        line_under_archive = tk.Canvas(self.event_information_content_frame,height = 1,width = 600,bg = "lightgray")
+        line_under_archive.pack(anchor = "nw",padx = 15,pady = (0,9))
+
+#------------------------------------------------------------------------------------------------------------------
+        self.event_format_frame = ctk.CTkFrame(self.infopage.scrollable_frame,fg_color = "#ffffff")
+        self.event_format_frame.pack(fill = "both",expand = True, padx=(10,90), pady=20)
+
+        self.event_format_label = ctk.CTkLabel(self.event_format_frame,text = "Event Format",text_color = "#000000",font = ctk.CTkFont("Segoe UI",21,"bold"))
+        self.event_format_label.pack(anchor = "nw",padx = 15,pady = 5)
+
+        self.question_label = ctk.CTkLabel(self.event_format_frame,text = "What's your event format?",text_color = "#000000",font = ctk.CTkFont(size=20,weight="normal"))
+        self.question_label.pack(anchor = "nw",padx = 15,pady = 10)
+        
+        question_variable = tk.StringVar()
+        question_variable.set("Hybrid (people can attend in person or virtually)")
+        self.question_value = ctk.CTkLabel(self.event_format_frame,textvariable = question_variable,text_color = "#000000",font =  ctk.CTkFont(size=15,weight="bold"))
+        self.question_value.pack(anchor = "nw",padx = 15,pady = 7)
+
+        question_line = tk.Canvas(self.event_format_frame,height = 1,width = 600,bg = "lightgray")
+        question_line.pack(anchor = "nw",padx = 15,pady = (0,9))
+      
+#------------------------------------------------------------------------------------------------------------------      
     def event_features(self):
         self.set_screen()
         self.feature_frame = ctk.CTkFrame(self.parent)
@@ -286,3 +449,7 @@ class DashboardPage():
         self.settingpage = Page(main_app=self.main, parent=self.settings_frame, event_name=self.event_name, heading="Event Settings")
         self.settingpage.title_frame(False)
         self.settingpage.content_frame()
+    
+
+    def edit_pricing_command(self):
+        pass  

@@ -125,8 +125,12 @@ class RegistrationPage():
         inside_frame.pack(fill="both", expand=True, padx=(20,0), pady=(20,0))
 
         self.general_label = ctk.CTkLabel(inside_frame,text = "General",text_color = "#000000",font = ("Segoe UI",21,"bold"))
-        self.general_label.pack(anchor="nw",padx = 5,pady = 5)
+        self.general_label.pack(anchor = "nw",padx = 5,pady = 5)
         #self.general_label.grid(row = 0,column = 0,padx = 5,pady = 5,sticky = "w")
+        
+        self.edit_button_image = ctk.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\pen.png"),size = (30,30))
+        self.edit_button = ctk.CTkButton(inside_frame,image = self.edit_button_image,text = "",hover_color = "lightgray",fg_color = "#ffffff",width = 35,command = self.edit_button_clicked)
+        self.edit_button.place(x = 750,y = 5)
 
         self.setup_label = ctk.CTkLabel(inside_frame,text = "Set up a few basic registration settings and goals.",text_color = "#000000",font = ctk.CTkFont(size=20,weight="normal"))
         self.setup_label.pack(anchor="nw", padx = 5,pady = 7)
@@ -203,4 +207,7 @@ class RegistrationPage():
         pass
     
     def guest_button(self):
+        pass
+
+    def edit_button_clicked(self):
         pass
