@@ -195,7 +195,56 @@ class RegistrationPage():
         self.filter_image = ctk.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\loupe.png"),size = (25,25))
         self.filter_image_button = ctk.CTkButton(self.filter,image = self.filter_image,text = "",width = 35,fg_color = "#ffffff",hover_color = "lightgray",command = self.filter_command)
         self.filter_image_button.grid(row = 0,column = 0,sticky = "ne",padx = 10,pady = 5)
-   
+
+        self.upp_box_frame = ctk.CTkFrame(self.types_content_frame,fg_color = "#ffffff",height = 75,border_width = 1,border_color = "#000000")
+        self.upp_box_frame.pack(padx = 15,pady = (10,1),fill = "x")
+
+        self.down_box_frame = ctk.CTkFrame(self.types_content_frame,fg_color = "#ffffff",height = 35,border_width = 1,border_color = "#000000")
+        self.down_box_frame.pack(padx = 15,pady = (0,30),fill = "x")
+
+        self.name_label = ctk.CTkLabel(self.upp_box_frame,text = "Name",text_color = "#000000",font = ("Arial",15,"normal"))
+        self.name_label.grid(row = 0,column = 0,sticky = "nw",padx = 5,pady = 5)
+
+        self.code_label = ctk.CTkLabel(self.upp_box_frame,text = "Code",text_color = "#000000",font = ("Arial",15,"normal"))
+        self.code_label.grid(row = 0,column = 1,padx = (140,0),pady = 5)
+
+        self.virtual_label = ctk.CTkLabel(self.upp_box_frame,text = "Virtual",text_color = "#000000",font = ("Arial",15,"normal"))
+        self.virtual_label.grid(row = 0,column = 2,padx = (115,0),pady = 5)
+
+        self.capacity_label = ctk.CTkLabel(self.upp_box_frame,text = "Capacity",text_color = "#000000",font = ("Arial",15,"normal"))
+        self.capacity_label.grid(row = 0,column = 3,padx = (120,0),pady = 5)
+
+        self.registered_label =  ctk.CTkLabel(self.upp_box_frame,text = "Registered",text_color = "#000000",font = ("Arial",15,"normal"))
+        self.registered_label.grid(row = 0,column = 4,padx = (120,0),pady = 5)
+
+        self.up_down_image = ctk.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\elevator.png"),size = (25,25))
+        self.up_down_image_button = ctk.CTkButton(self.upp_box_frame,image = self.up_down_image,text = "",width = 27,fg_color = "#ffffff",hover_color = "lightgray",command = self.up_down_command)
+        self.up_down_image_button.grid(row = 0,column = 5,padx = 15,pady = 5)
+        
+        name_variable = tk.StringVar()
+        name_variable.set("No registered Type")
+        self.name_value = ctk.CTkLabel(self.down_box_frame,textvariable = name_variable,text_color = "#43B2E4",font = ("Arial",15,"normal"))
+        self.name_value.grid(row = 0,column = 0,sticky = "nw",padx = 5,pady = 5)
+
+        self.mail_image = ctk.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\mail.png"),size = (25,25))
+        self.mail_image_button = ctk.CTkButton(self.down_box_frame,image = self.mail_image,text = "",width = 27,fg_color = "#ffffff",hover_color = "lightgray",command = self.mail_command)
+        self.mail_image_button.grid(row = 0,column = 1,padx = (45,0),pady = 5)
+        
+        virtual_variable = tk.StringVar()
+        virtual_variable.set("No")
+        self.virtual_value = ctk.CTkLabel(self.down_box_frame,textvariable = virtual_variable,text_color = "#000000",font = ctk.CTkFont("Arial",15,"normal"))
+        self.virtual_value.grid(row = 0,column = 2,padx = (125,0),pady = 5)
+        
+        capacity_variable = tk.StringVar()
+        capacity_variable.set("Unlimited")
+        self.capacity_value = ctk.CTkLabel(self.down_box_frame,textvariable = capacity_variable,text_color = "#000000",font = ctk.CTkFont("Arial",15,"normal"))
+        self.capacity_value.grid(row = 0,column = 3,padx = (135,0),pady = 5)
+        
+        registered_variable = tk.StringVar()
+        registered_variable.set("0")
+        self.registered_value = ctk.CTkLabel(self.down_box_frame,textvariable = registered_variable,text_color = "#000000",font = ctk.CTkFont("Arial",15,"normal"))
+        self.registered_value.grid(row = 0,column = 4,padx = (145,0),pady = 5)
+
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     def search_widget_command(self):
         pass
@@ -229,4 +278,11 @@ class RegistrationPage():
 
     def filter_command(self):
         pass 
+
+    def mail_command(self):
+        pass
+    
+    def up_down_command(self):
+        pass
+
 
