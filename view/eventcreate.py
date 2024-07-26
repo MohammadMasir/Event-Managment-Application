@@ -17,7 +17,23 @@ class CreateEvent():
         self.main = main_app
 
     def show_location(self):
-        pass
+        img4 = ctk.CTkImage(dark_image = Image.open(r"pics\mall.png"),size = (20,20))
+        labimg4 = ctk.CTkLabel(e8,image = img4,text = "")
+        labimg4.place(x = 653,y = 3)
+
+        label7 = ctk.CTkLabel(self.inside_scrollable_frame,text = "* Address",text_color = "black",font = ("thin",19))
+        label7.place(x = 30,y = 520)
+
+        self.address_main =ctk.StringVar()
+        e9 = ctk.CTkEntry(self.inside_scrollable_frame,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 690,textvariable = self.address_main)
+        e9.place(x = 30,y = 562)
+
+        label8 = ctk.CTkLabel(self.inside_scrollable_frame,text = "City",text_color = "black",font = ("thin",19))
+        label8.place(x = 30,y = 604)
+
+        x13 =ctk.StringVar()
+        e10 = ctk.CTkEntry(self.inside_scrollable_frame,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 145,textvariable = x13)
+        e10.place(x = 30,y = 646)
 
     def data_insert(self):
         # Getting the Data...
