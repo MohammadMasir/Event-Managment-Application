@@ -313,7 +313,7 @@ class DemoApplication(ctk.CTk):
         password_field.grid(row=2, column=1, sticky="nsew", padx=(0, 8))
         retype_pass_field.grid(row=3, column=1, sticky="nsew", pady=10, padx=(0, 8))
 
-        def check(event):
+        def check(event=None):
             if email.get().isdigit() or password.get().isdigit():
                 showerror("Value Error!", "Please input Characters.")
             elif email.get() == "" or password.get() == "":
@@ -332,7 +332,12 @@ class DemoApplication(ctk.CTk):
                         self.cur.execute(sql, (email.get(), password.get()))
                         self.connection.commit()
                         showinfo("Done!", "Registration successful!\nNow you can Login.")
-                        self.login()
+                        query = ("SELECT user_id from user where email=%s")
+                        id = self.cur.execute(query, (email.get()))
+                        print("user_id : ", id)
+                        self.destroy()
+                        new_app = DemoApplication()
+                        new_app.mainloop()
 
         retype_pass_field.bind("<Return>", check)
 
