@@ -22,14 +22,28 @@ class CreateEvent():
         start_time = self.start_time.get()
         end_time = self.end_time.get()
         planner_email = self.planner_email.get()
+        first_name = self.first_name.get()
+        last_name = self.last_name.get()
+        city = self.city.get()
+        mode = self.format.get()
+        capacity = self.capacity.get()
+        language = self.language.get()
+        venue = self.venue.get()
+
 
         insert = DataClass(self.main, self.main.user)
-        insert.insert_data(self.name, event_category, address, start_date, end_date, start_time, end_time, planner_email)
-
-
-        # self.commonpage_obj = Page(main_app = self.main, event_name=self.name)
-        # self.homepage = DashboardPage(self.main)
-        # self.homepage.events_home()
+        insert.insert_data(self.name, 
+                           event_category, 
+                           address, 
+                           start_date, end_date, 
+                           start_time, end_time, 
+                           planner_email,
+                           first_name, last_name,
+                           city,
+                           capacity,
+                           language,
+                           mode
+                           )
 
     def create_event(self):
         for widget in self.parent.winfo_children():
@@ -102,11 +116,14 @@ class CreateEvent():
             if self.event_name.get() == "":
                 showerror(title = "Error",message = "Please input Event Title")
 
+            if self.first_name.get() == "":
+                showerror(title = "Error",message = "Please enter First name")
+
             if self.event_category.get() == "":
                 showerror(title = "Error",message = "Please choose Event Category")
             
             if self.last_name.get() == "":
-                showerror(title = "Error",message = "Please enter your last name")
+                showerror(title = "Error",message = "Please enter your Last name")
 
             if self.planner_email.get() == "":
                 showerror(title = "Error",message = "Please enter your Email")
@@ -135,21 +152,23 @@ class CreateEvent():
         l5.place(x = 30,y = 128)
 
         self.event_category=ctk.StringVar()
-        opt1 = ctk.CTkComboBox(self.inside_scrollable_frame,variable = self.event_category,height = 35,width = 200,corner_radius = 5,border_width = 1,border_color = "gray",fg_color = "white",text_color = "black",button_hover_color = "#7D6D6D",font = ("semibold",17),values = ["Educational","Business","Sports"])
+        opt1 = ctk.CTkComboBox(self.inside_scrollable_frame,variable = self.event_category,height = 35,width = 200,corner_radius = 5,border_width = 1,border_color = "gray",fg_color = "white",text_color = "black",button_hover_color = "#7D6D6D",font = ("semibold",17),values = ["Seminar","Tech Event", "Corporate Event","Training Session","Fundraiser","Concert","Educational","Business","Sports Event", "College Event"])
         opt1.place(x = 30,y = 165)
 
         l6 = ctk.CTkLabel(self.inside_scrollable_frame,text = "Language",text_color = "black",font = ("thin",19))
         l6.place(x = 280,y = 128)
-        x3 =ctk.StringVar()
 
-        opt2 =  ctk.CTkComboBox(self.inside_scrollable_frame,variable = x3,height = 35,width = 200,corner_radius = 5,border_width = 1,border_color = "gray",fg_color = "white",text_color = "black",button_hover_color = "#7D6D6D",font = ("semibold",17),values = ["English","Spanish","Hindi"])
+
+        self.language = ctk.StringVar()
+        opt2 =  ctk.CTkComboBox(self.inside_scrollable_frame,variable = self.language,height = 35,width = 200,corner_radius = 5,border_width = 1,border_color = "gray",fg_color = "white",text_color = "black",button_hover_color = "#7D6D6D",font = ("semibold",17),values = ["Hindi","Marathi", "English"])
         opt2.place(x = 280,y = 165)
-        l7 = ctk.CTkLabel(self.inside_scrollable_frame,text = "Locale",text_color = "black",font = ("thin",19))
-        l7.place(x = 520,y = 128)
+        # l7 = ctk.CTkLabel(self.inside_scrollable_frame,text = "Locale",text_color = "black",font = ("thin",19))
+        # l7.place(x = 520,y = 128)
 
-        x4 =ctk.StringVar()
-        opt3 =  ctk.CTkComboBox(self.inside_scrollable_frame,variable = x4,height = 35,width = 200,corner_radius = 5,border_width = 1,border_color = "gray",fg_color = "white",text_color = "black",button_hover_color = "#7D6D6D",font = ("semibold",17),values = ["USA","INDIA","CANADA"])
-        opt3.place(x = 520,y = 165)
+        # x4 =ctk.StringVar()
+        # opt3 =  ctk.CTkComboBox(self.inside_scrollable_frame,variable = x4,height = 35,width = 200,corner_radius = 5,border_width = 1,border_color = "gray",fg_color = "white",text_color = "black",button_hover_color = "#7D6D6D",font = ("semibold",17),values = ["USA","INDIA","CANADA"])
+
+        # opt3.place(x = 520,y = 165)
         l8 = ctk.CTkLabel(self.inside_scrollable_frame,text = "* Planner First Name",text_color = "black",font = ("thin",19))
         l8.place(x = 30,y = 220)
 
@@ -178,24 +197,48 @@ class CreateEvent():
         label5 = ctk.CTkLabel(self.inside_scrollable_frame,text = "Format",text_color = "black",font = ("thin",19))
         label5.place(x = 30,y = 352)
 
-        x8 =ctk.StringVar()
-        e5 = ctk.CTkEntry(self.inside_scrollable_frame,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 200,textvariable = x8)
-        e5.place(x = 30,y = 394)
+        self.format =ctk.StringVar()
+        hybrid = ctk.CTkButton(
+            self.buttons_frame, 
+            text="Hybrid",
+            font=("helvetica", 20),
+            width=25, height=35,
+            corner_radius=100,
+            fg_color="#8bceba",
+            text_color="#092928",
+            )
+        hybrid.place(x = 30,y = 394)
 
-        x9 =ctk.StringVar()
-        e6 = ctk.CTkEntry(self.inside_scrollable_frame,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 200,textvariable = x9)
-        e6.place(x = 280,y = 394)
+        offline = ctk.CTkButton(
+            self.buttons_frame, 
+            text="Offline", 
+            font=("helvetica", 20),
+            width=25, height=35,
+            corner_radius=100,
+            fg_color="#8bceba",
+            text_color="#092928",
+            )
+        offline.place(x = 280,y = 394)
 
-        x10 =ctk.StringVar()
-        e7 = ctk.CTkEntry(self.inside_scrollable_frame,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 200,textvariable = x10)
-        e7.place(x = 520,y = 394)
+        online = ctk.CTkButton(
+            self.buttons_frame, 
+            text="Online",
+            font=("helvetica", 20),
+            width=25, height=35,
+            corner_radius=100,
+            fg_color="#8bceba",
+            text_color="#092928",
+            )
+        online.place(x = 520,y = 394)
 
         label6 = ctk.CTkLabel(self.inside_scrollable_frame,text = "Venue",text_color = "black",font = ("thin",19))
         label6.place(x = 30,y = 436)
 
-        x11 =ctk.StringVar()
-        e8 = ctk.CTkEntry(self.inside_scrollable_frame,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 690,textvariable = x11)
+        self.venue =ctk.StringVar()
+        e8 = ctk.CTkEntry(self.inside_scrollable_frame,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 690,textvariable = self.venue)
         e8.place(x = 30,y = 478)
+
+        ctk.CTkButton(self.inside_scrollable_frame, text="Can't find your Venue..?, Click here for Custom location")
 
         img4 = ctk.CTkImage(dark_image = Image.open(r"pics\mall.png"),size = (20,20))
         labimg4 = ctk.CTkLabel(e8,image = img4,text = "")
@@ -211,30 +254,23 @@ class CreateEvent():
         label8 = ctk.CTkLabel(self.inside_scrollable_frame,text = "City",text_color = "black",font = ("thin",19))
         label8.place(x = 30,y = 604)
 
-        x13 =ctk.StringVar()
-        e10 = ctk.CTkEntry(self.inside_scrollable_frame,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 145,textvariable = x13)
+        self.city =ctk.StringVar()
+        e10 = ctk.CTkEntry(self.inside_scrollable_frame,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 145,textvariable = self.city)
         e10.place(x = 30,y = 646)
 
-        label9 = ctk.CTkLabel(self.inside_scrollable_frame,text = "State",text_color = "black",font = ("thin",19))
-        label9.place(x = 205,y = 604)
+        # label9 = ctk.CTkLabel(self.inside_scrollable_frame,text = "State",text_color = "black",font = ("thin",19))
+        # label9.place(x = 205,y = 604)
 
-        x14 =ctk.StringVar()
-        opt4 = ctk.CTkComboBox(self.inside_scrollable_frame,variable = x14,height = 35,width = 145,corner_radius = 5,border_width = 1,border_color = "gray",fg_color = "white",text_color = "black",button_hover_color = "#7D6D6D",font = ("semibold",17),values = ["Maharashtra","Rajasthan","Uttar Pradesh","Gujarat","Punjab"])
-        opt4.place(x = 205,y = 646)
+        # self.state =ctk.StringVar()
+        # opt4 = ctk.CTkComboBox(self.inside_scrollable_frame,variable = self.state,height = 35,width = 145,corner_radius = 5,border_width = 1,border_color = "gray",fg_color = "white",text_color = "black",button_hover_color = "#7D6D6D",font = ("semibold",17),values = ["Maharashtra","Rajasthan","Uttar Pradesh","Gujarat","Punjab"])
+        # opt4.place(x = 205,y = 646)
 
         label10 = ctk.CTkLabel(self.inside_scrollable_frame,text = "ZIP/Postal code",text_color = "black",font = ("thin",19))
         label10.place(x = 375,y = 604)
 
-        x15 =ctk.StringVar()
-        e11 = ctk.CTkEntry(self.inside_scrollable_frame,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 145,textvariable = x15)
+        self.zip_code =ctk.StringVar()
+        e11 = ctk.CTkEntry(self.inside_scrollable_frame,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 145,textvariable = self.zip_code)
         e11.place(x = 375,y = 646)
-
-        label11 = ctk.CTkLabel(self.inside_scrollable_frame,text = "Country",text_color = "black",font = ("thin",19))
-        label11.place(x = 540,y = 604)
-
-        x16 =ctk.StringVar()
-        opt5 = ctk.CTkComboBox(self.inside_scrollable_frame,variable = x16,height = 35,width = 145,corner_radius = 5,border_width = 1,border_color = "gray",fg_color = "white",text_color = "black",button_hover_color = "#7D6D6D",font = ("semibold",17),values = ["India","New Zealand","USA","Russia"])
-        opt5.place(x = 540,y = 646)
 
         img6 = ctk.CTkImage(dark_image = Image.open(r"pics\calendar.png"),size = (30,30))
         labimg6 = ctk.CTkLabel(self.inside_scrollable_frame,image = img6,text = "")
@@ -278,11 +314,11 @@ class CreateEvent():
         labimg8 = ctk.CTkLabel(e14,image = img7,text = "")
         labimg8.place(x = 105,y = 2)
 
-        label17 = ctk.CTkLabel(self.inside_scrollable_frame,text = "Time Zone",text_color = "black",font = ("thin",19))
+        label17 = ctk.CTkLabel(self.inside_scrollable_frame,text = "Capacity",text_color = "black",font = ("thin",19))
         label17.place(x = 30,y = 810)
 
-        x21 =ctk.StringVar()
-        opt6 = ctk.CTkComboBox(self.inside_scrollable_frame,variable = x21,height = 35,width = 690,corner_radius = 5,border_width = 1,border_color = "gray",fg_color = "white",text_color = "black",button_hover_color = "#7D6D6D",font = ("semibold",17),values = ["(GMT+05:30) India","(GMT+09:05) USA","(GMT-03:40) New Zealand"])
+        self.capacity =ctk.StringVar()
+        opt6 = ctk.CTkEntry(self.inside_scrollable_frame,textvariable = self.capacity,height = 35,width = 690,corner_radius = 5,border_width = 1,border_color = "gray",fg_color = "white",text_color = "black",button_hover_color = "#7D6D6D",font = ("semibold",17))
         opt6.place(x = 30,y = 850)
 
         b1 = ctk.CTkButton(self.inside_scrollable_frame,text = "Submit",height = 40,width = 170,corner_radius =10,fg_color = "lightgreen",text_color = "black",command = check_x1)

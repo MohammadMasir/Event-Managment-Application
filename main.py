@@ -294,7 +294,7 @@ class DemoApplication(ctk.CTk):
             ipadx=10
         )
 
-        email_label = ctk.CTkLabel(self.buttons_frame, text="Enter email ", font=ctk.CTkFont(size=15, weight="bold"), text_color="#092928")
+        email_label = ctk.CTkLabel(self.buttons_frame, text="Enter username ", font=ctk.CTkFont(size=15, weight="bold"), text_color="#092928")
         password_label = ctk.CTkLabel(self.buttons_frame, text="Enter password ", font=ctk.CTkFont(size=15, weight="bold"), text_color="#092928")
         retype_password_label = ctk.CTkLabel(self.buttons_frame, text="Retype password ", font=ctk.CTkFont(size=15, weight="bold"), text_color="#092928")
 
@@ -323,13 +323,13 @@ class DemoApplication(ctk.CTk):
                 if password.get() != retype_password.get():
                     showwarning("Try Again!", "Passwords do not match. Registration failed.")
                 else:
-                    sql = "SELECT * FROM user WHERE email= %s"
+                    sql = "SELECT * FROM admin WHERE username= %s"
                     self.cur.execute(sql, (email.get(),))
                     result = self.cur.fetchone()
                     if result:
-                        showinfo("Registration failed.", "email already exists.")
+                        showinfo("Registration failed.", "username already exists.")
                     else:
-                        sql = "INSERT INTO user (email, password) VALUES (%s, %s)"
+                        sql = "INSERT INTO admin (username, password) VALUES (%s, %s)"
                         self.cur.execute(sql, (email.get(), password.get()))
                         self.connection.commit()
                         showinfo("Done!", "Registration successful!\nNow you can Login.")
@@ -387,7 +387,7 @@ class DemoApplication(ctk.CTk):
             ipadx=8
         )
 
-        email_label = ctk.CTkLabel(self.buttons_frame, text="Enter email ", font=ctk.CTkFont(size=15, weight="bold"), text_color="#092928")
+        email_label = ctk.CTkLabel(self.buttons_frame, text="Enter username ", font=ctk.CTkFont(size=15, weight="bold"), text_color="#092928")
         password_label = ctk.CTkLabel(self.buttons_frame, text="Enter password ", font=ctk.CTkFont(size=15, weight="bold"), text_color="#092928")
 
         email_label.grid(row=1, column=0, sticky="w", pady=(50,10), padx=(20,10))
