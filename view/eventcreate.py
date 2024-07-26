@@ -238,39 +238,7 @@ class CreateEvent():
         e8 = ctk.CTkEntry(self.inside_scrollable_frame,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 690,textvariable = self.venue)
         e8.place(x = 30,y = 478)
 
-        ctk.CTkButton(self.inside_scrollable_frame, text="Can't find your Venue..?, Click here for Custom location")
-
-        img4 = ctk.CTkImage(dark_image = Image.open(r"pics\mall.png"),size = (20,20))
-        labimg4 = ctk.CTkLabel(e8,image = img4,text = "")
-        labimg4.place(x = 653,y = 3)
-
-        label7 = ctk.CTkLabel(self.inside_scrollable_frame,text = "* Address",text_color = "black",font = ("thin",19))
-        label7.place(x = 30,y = 520)
-
-        self.address_main =ctk.StringVar()
-        e9 = ctk.CTkEntry(self.inside_scrollable_frame,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 690,textvariable = self.address_main)
-        e9.place(x = 30,y = 562)
-
-        label8 = ctk.CTkLabel(self.inside_scrollable_frame,text = "City",text_color = "black",font = ("thin",19))
-        label8.place(x = 30,y = 604)
-
-        self.city =ctk.StringVar()
-        e10 = ctk.CTkEntry(self.inside_scrollable_frame,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 145,textvariable = self.city)
-        e10.place(x = 30,y = 646)
-
-        # label9 = ctk.CTkLabel(self.inside_scrollable_frame,text = "State",text_color = "black",font = ("thin",19))
-        # label9.place(x = 205,y = 604)
-
-        # self.state =ctk.StringVar()
-        # opt4 = ctk.CTkComboBox(self.inside_scrollable_frame,variable = self.state,height = 35,width = 145,corner_radius = 5,border_width = 1,border_color = "gray",fg_color = "white",text_color = "black",button_hover_color = "#7D6D6D",font = ("semibold",17),values = ["Maharashtra","Rajasthan","Uttar Pradesh","Gujarat","Punjab"])
-        # opt4.place(x = 205,y = 646)
-
-        label10 = ctk.CTkLabel(self.inside_scrollable_frame,text = "ZIP/Postal code",text_color = "black",font = ("thin",19))
-        label10.place(x = 375,y = 604)
-
-        self.zip_code =ctk.StringVar()
-        e11 = ctk.CTkEntry(self.inside_scrollable_frame,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 145,textvariable = self.zip_code)
-        e11.place(x = 375,y = 646)
+        ctk.CTkButton(self.inside_scrollable_frame, text="Can't find your Venue..?, Click here for Custom location", fg_color="transparent", command=self.show_location).pack()
 
         img6 = ctk.CTkImage(dark_image = Image.open(r"pics\calendar.png"),size = (30,30))
         labimg6 = ctk.CTkLabel(self.inside_scrollable_frame,image = img6,text = "")
