@@ -32,5 +32,17 @@
       "frame_color": "#393C53",
       "border_color": "#393C53"
     }
+  },
+  {
+    "form_type": 1,
+    "name": "myyy",
+    "colors": {
+      "primary_text_color": "#182261",
+      "secondary_text_color": "#006AE1",
+      "background": "white",
+      "entry_background": "white smoke",
+      "frame_color": "#182261",
+      "border_color": "#182261"
+    }
   }
 ]

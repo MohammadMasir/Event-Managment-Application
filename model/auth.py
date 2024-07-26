@@ -8,12 +8,18 @@ import threading
 import pymysql as pmql
 from google_auth_oauthlib.flow import InstalledAppFlow
 import requests
+import secrets
+from .backend import DataClass
 
 # Define your OAuth 2.0 credentials
 CLIENT_ID = '907112475964-hrf09450qh8p7bjh4j9ppfvd5th0e01q.apps.googleusercontent.com'
 CLIENT_SECRET = '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'
 REDIRECT_URI = 'http://localhost:8001/callback'
-SCOPE = ['https://www.googleapis.com/auth/userinfo.email', 'openid']
+SCOPE = ['https://www.googleapis.com/auth/userinfo.email','https://www.googleapis.com/auth/userinfo.profile', 'openid']
+
+# Global variables
+u_id = None
+login_successful = False
 
 # Set up the MySQL database connection
 def get_db_connection():
@@ -26,10 +32,28 @@ def get_db_connection():
         charset="utf8"
     )
 
+def set_id(user):
+    global u_id
+    u_id = user
+    return u_id
+
+def get_id():
+    global u_id
+    return u_id
+
+def login_succesfull(state=None):
+    global login_successful
+    if state is not None:
+        login_successful = state
+    return login_successful
+
 class GoogleSignInApp:
-    def __init__(self):
+    def __init__(self, main):
         self.conn = get_db_connection()
         self.cursor = self.conn.cursor()
+        self.main = main
+        GoogleSignInApp.instance = self
+        self.backend = DataClass(self.main)
         self.start_server()
 
     def handle_google_sign_in(self):
@@ -40,11 +64,11 @@ class GoogleSignInApp:
             access_type="offline", prompt="consent"
         )
         return webbrowser.open(authorization_url)
-        
     class CallbackHandler(http.server.BaseHTTPRequestHandler):
-        parent_app = None
+        # self.parent_app = None
 
         def do_GET(self):
+            app = GoogleSignInApp.instance
             query = urlparse(self.path).query
             query_components = parse_qs(query)
             if "code" in query_components:
@@ -58,29 +82,41 @@ class GoogleSignInApp:
                     # Get user info
                     session = requests.Session()
                     session.headers.update({'Authorization': f'Bearer {credentials.token}'})
-                    
-                    # First, try to get email from userinfo endpoint
-                    userinfo_response = session.get('https://www.googleapis.com/oauth2/v2/userinfo').json()
-                    print("Userinfo response:", userinfo_response)  # Debug print
-                    
-                    email = userinfo_response.get('email', 'No email found')
-                    
-                    # Then, try to get name from People API
-                    people_response = session.get('https://people.googleapis.com/v1/people/me?personFields=names').json()
-                    print("People API response:", people_response)  # Debug print
-                    
-                    if 'names' in people_response and people_response['names']:
-                        first_name = people_response['names'][0].get('givenName', 'No first name found')
-                        last_name = people_response['names'][0].get('familyName', 'No last name found')
-                    else:
-                        first_name = last_name = 'Name not available'
+                    user_info = session.get('https://www.googleapis.com/oauth2/v2/userinfo').json()
+                    email = user_info['email']
+                    first_name = user_info.get('given_name', '')
+                    last_name = user_info.get('family_name', '')
+                    print(first_name, last_name)
+
+                    # Generate a random password for the user
+                    password = secrets.token_urlsafe(16)
 
                     # Store user info in the database
-                    with self.parent_app.conn.cursor() as c:
-                        c.execute("INSERT INTO user (email, first_name, last_name) VALUES (%s, %s, %s)", 
-                                (email, first_name, last_name))
-                        self.parent_app.conn.commit()
+                    # conn = get_db_connection()
+                    try:
+                        with app.conn.cursor() as c:
+                            # Check if user already exists
+                            c.execute("SELECT * FROM user WHERE email = %s", (email,))
+                            existing_user = c.fetchone()
+                            
+                            if existing_user:
+                                c.execute("SELECT user_id FROM user WHERE email = %s", (email,))
+                                user_id = c.fetchone()
+                                # Update existing user
+                                # c.execute("UPDATE user SET first_name = %s, last_name = %s WHERE email = %s", 
+                                #           (first_name, last_name, email))
+                            else:
+                                # Insert new user
+                                c.execute("INSERT INTO user (email, password, first_name, last_name) VALUES (%s, %s, %s, %s)", 
+                                            (email, password, first_name, last_name))
+                                c.execute("SELECT user_id FROM user WHERE email = %s", (email,))
+                                user_id = c.fetchone()
+                                
+                                app.conn.commit()
+                    finally:
+                        app.conn.close()
 
+                    
                     # Store or use credentials as needed
                     print("Email:", email)
                     print("First Name:", first_name)
@@ -88,6 +124,22 @@ class GoogleSignInApp:
                     print("Access token:", credentials.token)
                     print("Refresh token:", credentials.refresh_token)
                     print("Expires at:", credentials.expiry)
+                    user_id_val = user_id[0]
+                    print("user_id in auth", user_id_val)
+                    set_id(user_id_val)
+                    login_succesfull(True)
+                    if login_succesfull:
+                        print("Login Successfull")
+                        # user = u_id
+                        print("user_id", user_id_val)
+                        app.backend.set_user_id(user_id_val)
+                        if app.backend.is_first_time_user():
+                            app.main.user = user_id_val
+                            app.main.create_widgets()
+                        else:
+                            app.main.user = user_id_val
+                            app.main.show_regular_app()
+
                 except Exception as e:
                     print(f"Error: {e}")
                     print(f"Error details: {str(e)}")
@@ -99,7 +151,7 @@ class GoogleSignInApp:
             self.wfile.write(b"<html><body><h1>You can close this window now.</h1></body></html>")
 
     def start_server(self):
-        GoogleSignInApp.CallbackHandler.parent_app = self
+        # GoogleSignInApp.CallbackHandler.parent_app = self
         server_address = ("", 8001)
         httpd = socketserver.TCPServer(server_address, GoogleSignInApp.CallbackHandler)
         httpd.allow_reuse_address = True  # Allow reuse of the address
@@ -107,7 +159,6 @@ class GoogleSignInApp:
         server_thread = threading.Thread(target=httpd.serve_forever)
         server_thread.daemon = True
         server_thread.start()
-
 
 class Auth():
     def __init__(self):
@@ -118,15 +169,17 @@ class Auth():
         query = "SELECT user_id FROM admin where username=%s and password=%s"
         self.cursor.execute(query, (email, password))
         user_id_value = self.cursor.fetchone()
-        try:
-            self.user_id = user_id_value[0]
-        except:
-            print("Exception is raised")
+        self.connection.close()
+        if user_id_value == None:
             return False
-        if user_id_value:
+        else:
+            self.user_id = user_id_value[0]
+            set_id(self.user_id)
             print("user_id in authenticate :", self.user_id)
             return self.user_id
-        else:
-            return False
-        
-        
+
+
+# # Usage
+# if __name__ == "__main__":
+#     app = GoogleSignInApp()
+#     app.handle_google_sign_in()
