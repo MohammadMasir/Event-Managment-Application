@@ -8,8 +8,13 @@ class DataClass():
         self.cursor = self.main.cur
         self.user_id = user_id # Initialize user_id
 
-    def is_first_time_user(self, user):
-        self.set_user_id(user)
+    def set_user_id(self, user_id):
+        self.user_id = user_id
+
+    def is_first_time_user(self, user_id=None):
+        if self.user_id is None:
+            raise ValueError("User ID not set. Call set_user_id() first.")
+        
         query = "SELECT event_id FROM event WHERE user_id = %s"
         self.cursor.execute(query, (self.user_id,))
         event_id_tuple = self.cursor.fetchone()
@@ -22,15 +27,11 @@ class DataClass():
             else:
                 return True
 
-    def set_user_id(self, user_id):
-        self.user_id = user_id
-        return self.user_id
-
     def get_user_id(self):
         return self.user_id
 
-    def check_existing_user_events(self, user_id):
-        self.set_user_id(user_id)  # Ensure user_id is set
+    def check_existing_user_events(self, user_id=None):
+        # self.set_user_id(user_id)  # Ensure user_id is set
         query = "SELECT * FROM event WHERE user_id = %s"
         self.cursor.execute(query, (self.user_id,))
         event_details = self.cursor.fetchall()

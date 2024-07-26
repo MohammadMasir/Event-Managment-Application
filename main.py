@@ -3,7 +3,7 @@ from PIL import Image
 import pymysql as pmql
 import tkinter as tk
 from tkinter.messagebox import showinfo, showwarning, showerror
-from model.auth import GoogleSignInApp, Auth, set_id, u_id
+from model.auth import GoogleSignInApp, Auth, login_succesfull, u_id
 from model.database_structure import Db
 from view.eventshome import DashboardPage
 from view.registration import RegistrationPage
@@ -60,14 +60,9 @@ class DemoApplication(ctk.CTk):
             self.cur = self.connection.cursor()
 
     def google_sign_in_handler(self):
-        sign_in = GoogleSignInApp()
-        if sign_in.handle_google_sign_in():
-            self.user = u_id
-            print(self.user)
-            if self.backend.is_first_time_user(self.user):
-                self.create_widgets()
-            else:
-                self.show_regular_app(self.user)
+        sign_in = GoogleSignInApp(self)
+        sign_in.handle_google_sign_in()
+
     
     def add_hover_effect(self, widget):
         original_txtcolor = "#092928"
@@ -444,8 +439,10 @@ class DemoApplication(ctk.CTk):
         self.add_hover_effect(check_button)
         self.back_but(self.buttons_frame,row=4, column=0, columnspan=2, padx=(0, 200), pady=(70,10))
 
-    def show_regular_app(self, user_id):
-        self.backend.check_existing_user_events(user_id)
+    def show_regular_app(self, user_id=None):
+        self.backend.set_user_id(self.user)
+        self.backend.check_existing_user_events()
+        print(f"user_id {self.user} has some Events created")
 
     def main_screen(self):
         self.switch_screen(self._main_screen)
@@ -514,7 +511,9 @@ class DemoApplication(ctk.CTk):
     def create_tabs(self, event_name):
         self.count += 1
         if self.count <= 1:
-            if self.backend.is_first_time_user(self.user):
+            print("After event submission, tab creation user_id : ",self.user)
+            self.backend.set_user_id(self.user)
+            if self.backend.is_first_time_user():
                 print("self.user : ",self.user)
                 self.notebook.delete("Event Management")
             else:
