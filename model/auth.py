@@ -13,14 +13,14 @@ import requests
 CLIENT_ID = '907112475964-hrf09450qh8p7bjh4j9ppfvd5th0e01q.apps.googleusercontent.com'
 CLIENT_SECRET = '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'
 REDIRECT_URI = 'http://localhost:8001/callback'
-SCOPE = ['https://www.googleapis.com/auth/userinfo.email', 'openid']
+SCOPE = ['https://www.googleapis.com/auth/userinfo.email','https://www.googleapis.com/auth/userinfo.profile', 'openid']
 
 # Set up the MySQL database connection
 def get_db_connection():
     return pmql.connect(
         host="localhost",
         user="root",
-        password="",
+        password="sankalp",
         database="demo",
         port=3306,
         charset="utf8"
@@ -34,7 +34,7 @@ class GoogleSignInApp:
 
     def handle_google_sign_in(self):
         flow = InstalledAppFlow.from_client_secrets_file(
-            "client_secret.json", scopes=SCOPE, redirect_uri=REDIRECT_URI
+            "model\client_secret.json", scopes=SCOPE, redirect_uri=REDIRECT_URI
         )
         authorization_url, state = flow.authorization_url(
             access_type="offline", prompt="consent"
@@ -51,7 +51,7 @@ class GoogleSignInApp:
             if "code" in query_components:
                 code = query_components["code"][0]
                 flow = InstalledAppFlow.from_client_secrets_file(
-                    "client_secret.json", scopes=SCOPE, redirect_uri=REDIRECT_URI
+                    "model\client_secret.json", scopes=SCOPE, redirect_uri=REDIRECT_URI
                 )
                 try:
                     flow.fetch_token(code=code)
@@ -61,6 +61,9 @@ class GoogleSignInApp:
                     session.headers.update({'Authorization': f'Bearer {credentials.token}'})
                     user_info = session.get('https://www.googleapis.com/oauth2/v2/userinfo').json()
                     email = user_info['email']
+                    first_name = user_info.get('given_name')
+                    last_name = user_info.get('family_name')
+                    print(first_name,last_name)
 
                     # Store user info in the database
                     with self.parent_app.conn.cursor() as c:
