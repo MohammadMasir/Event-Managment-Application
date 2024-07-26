@@ -2,12 +2,11 @@ import tkinter as tk
 import customtkinter as ctk
 from tkinter import messagebox
 from PIL import Image
-#import forms.cancellationform as cancel
-#import forms.confirmationscreen as confirm
-#import forms.declineform as decline
-#import forms.guestinfo as guest
-import forms.Personalinfo as info
-#import forms.Registrationsummary as summary
+from forms.cancellationform import Cancellation
+from forms.confirmationscreen import Confirmation
+from forms.declineform import Decline
+from forms.Personalinfo import Personal_information
+from forms.Registrationsummary import Registration_summary
 from view.commonpages import Page
 
 class RegistrationPage():
@@ -100,15 +99,9 @@ class RegistrationPage():
         self.decline = ctk.CTkLabel(self.registration_process_pages_frame,text = "Decline Form",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "normal"))
         self.decline.grid(row = 8,column = 0,sticky = "nw",padx = 40,pady = 20)
 
-        self.decline_button = ctk.CTkButton(self.registration_process_pages_frame,text = "Customize",fg_color = "#ffffff",hover_color = "lightgray",width = 40,text_color = "#0B77E3",command = self.cancellation_button)
-        self.decline_button.grid(row = 8,column = 2,sticky = "ne",padx = (290,40),pady = (20,0))
+        self.decline_butt = ctk.CTkButton(self.registration_process_pages_frame,text = "Customize",fg_color = "#ffffff",hover_color = "lightgray",width = 40,text_color = "#0B77E3",command = self.decline_button)
+        self.decline_butt.grid(row = 8,column = 2,sticky = "ne",padx = (290,40),pady = (20,0))
 
-        self.guest = ctk.CTkLabel(self.registration_process_pages_frame,text = "Guest Information",text_color = "#000000",font = ctk.CTkFont(size = 15,weight = "normal"))
-        self.guest.grid(row = 9,column = 0,sticky = "nw",padx = 40,pady = 20)
-
-        self.guest_butt = ctk.CTkButton(self.registration_process_pages_frame,text = "Customize",fg_color = "#ffffff",hover_color = "lightgray",width = 40,text_color = "#0B77E3",command = self.guest_button)
-        self.guest_butt.grid(row = 9,column = 2,sticky = "ne",padx = (290,40),pady = (20,0))
-#---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     def registration_settings(self):
         self.set_screen()
         self.settings_frame = ctk.CTkFrame(self.parent)
@@ -207,26 +200,22 @@ class RegistrationPage():
         pass
 
     def personal_info(self):
-        info_form = info.Personal_information(self.main_app,self.process_frame)
+        info_form = Personal_information(self.main, self, self.process_frame)
         info_form.Personal_info()
-        info_form.Theme_design()
-        pass
+        
 
     def registration_summary(self):
-        pass
+        summary_form = Registration_summary(self.main, self, self.process_frame)
+        summary_form.registration_summary()
 
     def confirmation_button(self):
-        pass
+        confirm_form = Confirmation(self.main, self, self.process_frame)
+        confirm_form.confirmation()
 
     def cancellation_button(self):
-        pass
+        cancellation_form = Cancellation(self.main, self, self.process_frame)
+        cancellation_form.cancellation()
     
-    def guest_button(self):
-        pass
-
-    def edit_button_clicked(self):
-        pass
-
-    def filter_command(self):
-        pass 
-
+    def decline_button(self):
+        decline_form = Decline(self.main, self, self.process_frame)
+        decline_form.decline()

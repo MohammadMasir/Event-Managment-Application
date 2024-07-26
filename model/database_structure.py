@@ -95,11 +95,9 @@ class Db():
             self.connection.close()
             return self.connection,self.cur
         else: 
-            print("Database Exists")
             self.cur.close()
             try:
                   self.main.connect_to_database
-                  print("Connected to Demo database successfully")
             except:
                   print("Can't connect to database..")
 

@@ -44,10 +44,10 @@ class DemoApplication(ctk.CTk):
         self.connections = self.connect_to_database()
 
         self.auth = Auth()
+        self.initial_screen()
+        self.backend = DataClass(self)
         self.user = None
         self.count = 0
-        self.backend = DataClass(self)
-        self.initial_screen()
 
     def connect_to_database(self):
             self.connection = pmql.connect(
@@ -483,11 +483,7 @@ class DemoApplication(ctk.CTk):
 
         # Create a self.notebook (tabbed interface)
         self.notebook = ctk.CTkTabview(self, bg_color = self.hovercolor_bg, corner_radius=12) #3fa572 #333333
-        self.notebook.pack(pady=(10,0), fill="both", expand=True)
-
-        # # Dashboard Tab
-        # self.dashboard_tab = self.notebook.add("Dashboard")
-        # self.dashboard_widgets()
+        self.notebook.pack( fill="both", expand=True)
 
         # Event Management Tab
         self.event_tab = self.notebook.add("Event Management")
@@ -533,15 +529,6 @@ class DemoApplication(ctk.CTk):
     def update_screens(self, event_id,  event_name, command=None,event_category=None, address=None, start_date=None, end_date=None, start_time=None, end_time=None, planner_email=None):
         self.create_tabs(event_name[-1])
         self.event_preview.update_event_list(event_name)
-
-        # event = event_name[-1]
-        # self.create_tabs(event)
-
-        # self.event_preview.inner_frame2.configure(fg_color="white")
-        # for name in event_name: # TODO WORKING ON HOW TO GIVE COMMANDS TO THESE BUTTONS..
-        #     button = ctk.CTkButton(self.event_preview.inner_frame2, text=name, text_color="#3fa6fb", command=self.home_page.events_home())
-        #     button.pack()
-        #     self.text_hover(button)
 
     def dashboard_widgets(self):
         ctk.CTkLabel(self.dashboard_tab, text="Welcome to Your Dashboard!", font=ctk.CTkFont(size=20, weight="bold")).pack(pady=20)
