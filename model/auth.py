@@ -20,7 +20,7 @@ def get_db_connection():
     return pmql.connect(
         host="localhost",
         user="root",
-        password="",
+        password="root",
         database="demo",
         port=3306,
         charset="utf8"
