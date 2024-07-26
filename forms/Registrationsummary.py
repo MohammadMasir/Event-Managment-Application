@@ -4,8 +4,17 @@ import tkinter as tk
 import datetime
 from tkinter import messagebox
 from PIL import Image
+from .theme import ThemeDesigner
 
-class Registration_summary(ctk.CTk):
+class Registration_summary():
+    def __init__(self, main_app, registration, frame_name):
+        super().__init__()
+        self.main_app = main_app
+        self.frame_name = frame_name
+        self.frame_name.pack_forget()
+        self.register_page = registration
+        self.main_frame = ctk.CTkFrame(self.main_app.register_tab)
+        self.main_frame.pack(fill="both", expand=True)
 
     def edit_button_command(self):
         pass
@@ -22,21 +31,11 @@ class Registration_summary(ctk.CTk):
     def submit_command(self):
         pass
 
-    def __init__(self):
-        super().__init__()
-        self.registration_summary()
-        self.method_calling()
-
-
     def registration_summary(self):
-        self.title("Personal Information")
-        self.configure(fg_color = "lightgray")
-        self.geometry("800x800")
-
-        self.main_scrollable_frame = ctk.CTkScrollableFrame(self,width = 900,fg_color = "#ffffff")
+        self.main_scrollable_frame = ctk.CTkScrollableFrame(self.main_frame,width = 900,fg_color = "#ffffff")
         self.main_scrollable_frame.pack(side = "left",fill = "y",padx = (20,20),pady = 20)
 
-        self.right_scrollable_frame = ctk.CTkScrollableFrame(self,width = 340,fg_color = "#ffffff")
+        self.right_scrollable_frame = ctk.CTkScrollableFrame(self.main_frame,width = 340,fg_color = "#ffffff")
         self.right_scrollable_frame.pack(side = "right",fill = "y")
 
         self.blue_frame = ctk.CTkFrame(self.main_scrollable_frame,height = 20,width = 900,fg_color = "#273173")
@@ -48,11 +47,11 @@ class Registration_summary(ctk.CTk):
         self.demeven = ctk.CTkLabel(self.main_scrollable_frame,textvariable = demeven_variable,text_color = "#273173",font = ctk.CTkFont(size = 40,weight = "bold"))
         self.demeven.grid(row = 1,column = 0,padx = 40,pady = 20)
         
-        month_variable = tk.StringVar()
-        month_text = "July 30 2024"
-        month_variable.set(month_text)
-        self.month = ctk.CTkLabel(self.main_scrollable_frame,textvariable = month_variable,text_color = "#273173",font = ctk.CTkFont(size = 25,weight = "bold"))
-        self.month.grid(row = 2,column = 0,sticky = "w",padx = 70)
+        date_variable = tk.StringVar()
+        date_text = "July 30 2024"
+        date_variable.set(date_text)
+        self.date = ctk.CTkLabel(self.main_scrollable_frame,textvariable = date_variable,text_color = "#273173",font = ctk.CTkFont(size = 25,weight = "bold"))
+        self.date.grid(row = 2,column = 0,sticky = "w",padx = 70)
         
         time_variable = tk.StringVar()
         time_text = "6:00 PM-10:00 PM"
@@ -60,17 +59,17 @@ class Registration_summary(ctk.CTk):
         self.time = ctk.CTkLabel(self.main_scrollable_frame,textvariable = time_variable,text_color = "#11A2E3",font = ctk.CTkFont(size = 25,weight = "bold"))
         self.time.grid(row = 3,column = 0,sticky = "w",padx = (50,0))
         
-        location_variable = tk.StringVar()
-        location_text = "Chicago"
-        location_variable.set(location_text)
-        self.location = ctk.CTkLabel(self.main_scrollable_frame,textvariable = location_variable,text_color = "#273173",font = ctk.CTkFont(size = 25,weight = "bold"))
-        self.location.grid(row = 2,column = 0,sticky = "e",padx = 70)
+        venue_variable = tk.StringVar()
+        venue_text = "Chicago"
+        venue_variable.set(venue_text)
+        self.venue = ctk.CTkLabel(self.main_scrollable_frame,textvariable = venue_variable,text_color = "#273173",font = ctk.CTkFont(size = 25,weight = "bold"))
+        self.venue.grid(row = 2,column = 0,sticky = "e",padx = 70)
         
-        place_variable = tk.StringVar()
-        place_text = "Chicago, IL"
-        place_variable.set(place_text)
-        self.place = ctk.CTkLabel(self.main_scrollable_frame,textvariable = place_variable,text_color = "#11A2E3",font = ctk.CTkFont(size = 25,weight = "bold"))
-        self.place.grid(row = 3,column = 0,sticky = "e",padx = 50)
+        location_variable = tk.StringVar()
+        location_text = "Chicago, IL"
+        location_variable.set(location_text)
+        self.location = ctk.CTkLabel(self.main_scrollable_frame,textvariable = location_variable,text_color = "#11A2E3",font = ctk.CTkFont(size = 25,weight = "bold"))
+        self.location.grid(row = 3,column = 0,sticky = "e",padx = 50)
 
         self.slider = ctk.CTkProgressBar(self.main_scrollable_frame,height = 15,corner_radius = 10,width = 800,progress_color = "#273173",fg_color = "#D2D2D2",orientation = "horizontal",determinate_speed = 3)
         self.slider.grid(row = 4,column = 0,padx = 20,pady = 20)
@@ -135,9 +134,8 @@ class Registration_summary(ctk.CTk):
         self.submit = ctk.CTkButton(self.main_scrollable_frame,text = "Submit",height = 30,width = 100,corner_radius = 5,border_width = 1,border_color = "#11A2E3",text_color = "#11A2E3",fg_color = "#ffffff",hover_color = "blue",command = self.submit_command)
         self.submit.grid(row = 20,column = 0,sticky = "w",padx = (460,0),pady = (50,0))
 
+        self.theme_designer = ThemeDesigner(self.right_scrollable_frame, self, 2)
+        self.theme_designer.Theme_structure()
+
     def method_calling(self):
         pass
-
-if __name__ == "__main__":
-    registration_summary_object = Registration_summary()
-    registration_summary_object.mainloop()

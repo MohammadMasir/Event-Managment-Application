@@ -1,0 +1,36 @@
+[
+  {
+    "name": "register1",
+    "colors": {
+      "primary_text_color": "#393C53",
+      "secondary_text_color": "#345A5E",
+      "background": "white",
+      "entry_background": "#F0F5F6",
+      "frame_color": "#393C53",
+      "border_color": "#393C53"
+    }
+  },
+  {
+    "name": "register2",
+    "colors": {
+      "primary_text_color": "#572370",
+      "secondary_text_color": "#9237A5",
+      "background": "#FEF6F0",
+      "entry_background": "white",
+      "frame_color": "#572370",
+      "border_color": "#572370"
+    }
+  },
+  {
+    "form_type": 3,
+    "name": "confirmation1",
+    "colors": {
+      "primary_text_color": "#393C53",
+      "secondary_text_color": "#345A5E",
+      "background": "white",
+      "entry_background": "#F0F5F6",
+      "frame_color": "#393C53",
+      "border_color": "#393C53"
+    }
+  }
+]
