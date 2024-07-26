@@ -55,7 +55,7 @@ class DemoApplication(ctk.CTk):
                 user="root",
                 password="root",
                 charset="utf8",
-                # port = 3307,
+                port = 3307,
                 database= self.datab_name,
             )
             self.cur = self.connection.cursor()

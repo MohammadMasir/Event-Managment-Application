@@ -8,7 +8,7 @@ class Db():
                   user="root",
                   password="root",
                   charset="utf8",
-                  # port = 3307
+                  port = 3307
         )
             self.cur=self.connection.cursor()
             
