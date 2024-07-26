@@ -498,20 +498,20 @@ class DemoApplication(ctk.CTk):
         self.event_preview = EventView(self)
         self.event_preview.eventtab_widgets()
 
-    def tab_screens(self, event_name):
-        self.home_page = DashboardPage(self, self.event_tab, event_name)
+    def tab_screens(self, event_name, event_category, address, start_date, end_date, start_time, end_time, planner_email, city, mode, capacity):
+        self.home_page = DashboardPage(self, self.event_tab, event_name, event_category, address, start_date, end_date, start_time, end_time, planner_email, city, mode, capacity)
         self.home_page.events_home()
 
-        self.register_page = RegistrationPage(self, self.register_tab, event_name)
+        self.register_page = RegistrationPage(self, self.register_tab, event_name, event_category, address, start_date, end_date, start_time, end_time, planner_email, city, mode, capacity)
         self.register_page.registration_proccess()
 
-        self.invitation_attendee = InviteeAttendeePage(self, self.invitee_tab, event_name)
+        self.invitation_attendee = InviteeAttendeePage(self, self.invitee_tab, event_name, event_category, address, start_date, end_date, start_time, end_time, planner_email, city, mode, capacity)
         self.invitation_attendee.invitation_list_screen()
 
-        self.survey_response = SurveyResponsePage(self, self.survey_tab, event_name)
+        self.survey_response = SurveyResponsePage(self, self.survey_tab, event_name, event_category, address, start_date, end_date, start_time, end_time, planner_email, city, mode, capacity)
         self.survey_response.feedback_surveys_screen()
 
-    def create_tabs(self, event_name):
+    def create_tabs(self, event_name, event_category, address, start_date, end_date, start_time, end_time, planner_email, city, mode, capacity):
         self.count += 1
         if self.count <= 1:
             print("After event submission, tab creation user_id : ",self.user)
@@ -531,12 +531,12 @@ class DemoApplication(ctk.CTk):
             self.invitee_tab = self.notebook.add("Invitation & Attendees")
             self.survey_tab = self.notebook.add("Survey & Feedback")
 
-            self.tab_screens(event_name)
+            self.tab_screens(event_name, event_category, address, start_date, end_date, start_time, end_time, planner_email, city, mode, capacity)
         else:
-            self.tab_screens(event_name)
+            self.tab_screens(event_name, event_category, address, start_date, end_date, start_time, end_time, planner_email, city, mode, capacity)
 
-    def update_screens(self, event_id,  event_name, command=None,event_category=None, address=None, start_date=None, end_date=None, start_time=None, end_time=None, planner_email=None):
-        self.create_tabs(event_name[-1])
+    def update_screens(self, event_id,  event_name, command=None,event_category=None, address=None, start_date=None, end_date=None, start_time=None, end_time=None, planner_email=None, city=None, mode=None, capacity=None):
+        self.create_tabs(event_name[-1], event_category, address, start_date, end_date, start_time, end_time, planner_email, city, mode, capacity)
         print("event_name in update function", event_name)
         self.event_preview.update_event_list(event_name)
 

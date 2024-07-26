@@ -10,7 +10,7 @@ from forms.Registrationsummary import Registration_summary
 from view.commonpages import Page
 
 class RegistrationPage():
-    def __init__(self, main_app, parent,event_name=None):
+    def __init__(self, main_app, parent,event_name,event_category=None, address=None, start_date=None, end_date=None, start_time=None, end_time=None, planner_email=None, city=None, mode=None, capacity=None):
         super().__init__()
         self.main = main_app
         self.parent = parent

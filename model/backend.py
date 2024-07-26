@@ -60,16 +60,15 @@ class DataClass():
 
     def insert_data(self, 
                     event_name, 
-                    event_category, 
-                    venue, 
+                    event_category,
+                    address,
                     start_date, end_date, 
                     start_time, end_time, 
                     planner_email,
-                    first_name,
-                    last_name,
-                    city,
+                    venue, 
                     capacity,
                     language,
+                    city,
                     mode
                     ):
         if self.user_id is None:
@@ -77,8 +76,8 @@ class DataClass():
 
         self.planner_email = planner_email
 
-        sql = "INSERT INTO event (event_name, event_category, address, start_date, end_date, end_time, start_time, user_id, language, location, planner_email, format, capacity) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-        self.cursor.execute(sql, (event_name, event_category, venue, start_date, end_date, end_time, start_time, self.user_id, language, city, planner_email, mode, capacity))
+        sql = "INSERT INTO event (event_name, event_category, address, start_date, end_date, end_time, start_time, user_id, language, location, planner_email, format, capacity) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        self.cursor.execute(sql, (event_name, event_category, address, start_date, end_date, end_time, start_time, self.user_id, language, city, planner_email, mode, capacity))
         self.main.connection.commit()
 
         self.cursor.execute("SELECT * FROM event WHERE user_id = %s", (self.user_id,))
@@ -104,5 +103,8 @@ class DataClass():
                 end_date=latest_event['end_date'],
                 start_time=latest_event['start_time'],
                 end_time=latest_event['end_time'],
+                city=latest_event['address'],
+                mode=latest_event['format'],
+                capacity=latest_event['capacity'],
                 planner_email=self.planner_email
             )

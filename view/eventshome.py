@@ -2,13 +2,26 @@ import customtkinter as ctk
 import tkinter as tk
 from PIL import Image
 from view.commonpages import Page
+from datetime import datetime, date
 
 class DashboardPage():
-    def __init__(self, main_app, parent, event_name):
+    def __init__(self, main_app, parent, event_name, event_category, address, start_date, end_date, start_time, end_time, planner_email, city, mode, capacity):
         super().__init__()
         self.main = main_app
         self.parent = parent
         self.event_name = event_name
+        self.category = event_category
+        self.address = address
+        self.start_date = start_date
+        print(type(self.start_date))
+        self.end_date = end_date
+        self.start_time = start_time
+        self.end_time = end_time
+        self.planner = planner_email
+        self.city = city
+        self.mode = mode, 
+        self.capacity = capacity
+
 
         self.primary_color = "#093838"
         self.secondary_color = "#8bceba"
@@ -22,16 +35,13 @@ class DashboardPage():
         for widget in self.parent.winfo_children():
             widget.pack_forget()
 
-    def events_home(self, event_category=None, address=None, start_date=None, end_date=None, start_time=None, end_time=None):
-
-        self.event_category = event_category
-        self.event_address = address
-        self.start_date = start_date
-        self.end_date = end_date
-        self.start_time = start_time
-        self.end_time = end_time
-
+    def events_home(self):
         self.set_screen()
+        today = date.today()
+        # today_date = today.date
+        # event_date =  datetime(self.start_date)
+        self.differences = self.start_date - today
+        self.days = self.differences.days
         self.home_main_frame = ctk.CTkFrame(self.main.event_tab, corner_radius=0, fg_color = "#F0F0F0")
         self.home_main_frame.pack(fill="both", expand="true")
         self.main.topbar(self.home_main_frame)
@@ -46,7 +56,7 @@ class DashboardPage():
         labimg8 = ctk.CTkLabel(self.homepage.upper_frame,image = img8,text = "")
         labimg8.pack(side="left")
 
-        label9 = ctk.CTkLabel(self.homepage.upper_frame,text = f" {self.start_date} {self.start_time} pm - {self.end_time} pm  IST (61 days away)",text_color = "black",font = ctk.CTkFont(size = 13,weight = "normal"))
+        label9 = ctk.CTkLabel(self.homepage.upper_frame,text = f" {self.start_date} {self.start_time} pm - {self.end_time} pm  IST ({self.days} days away)",text_color = "black",font = ctk.CTkFont(size = 13,weight = "normal"))
         label9.pack(side="left")
 
         img9 = ctk.CTkImage(dark_image = Image.open(r"pics\location.png"),size = (20,20))
@@ -282,7 +292,7 @@ class DashboardPage():
         
         title_variable = tk.StringVar()
         title_variable.set("lucky")
-        self.title_value = ctk.CTkLabel(self.basic_info_frame,textvariable = title_variable,text_color = "#000000",font = ctk.CTkFont(size=15,weight="bold"))
+        self.title_value = ctk.CTkLabel(self.basic_info_frame,textvariable = self.event_name,text_color = "#000000",font = ctk.CTkFont(size=15,weight="bold"))
         self.title_value.pack(anchor = "nw",padx = 15,pady = 7)
 
         title_line = tk.Canvas(self.basic_info_frame,height = 1,width = 600,bg = "lightgray")
@@ -304,7 +314,7 @@ class DashboardPage():
         
         category_variable = tk.StringVar()
         category_variable.set("Seminar")
-        self.category_value = ctk.CTkLabel(self.basic_info_frame,textvariable = category_variable,text_color = "#000000",font = ctk.CTkFont(size=15,weight="bold"))
+        self.category_value = ctk.CTkLabel(self.basic_info_frame,textvariable = self.category,text_color = "#000000",font = ctk.CTkFont(size=15,weight="bold"))
         self.category_value.pack(anchor = "nw",padx = 15,pady = 7)
 
         category_line = tk.Canvas(self.basic_info_frame,height = 1,width = 600,bg = "lightgray")
@@ -314,7 +324,7 @@ class DashboardPage():
         self.created_label.pack(anchor = "nw",padx = 15,pady = 10)
         
         created_variable = tk.StringVar()
-        created_variable.set("31-5-2024 16:13 IST by send2atm@gmail.com")
+        created_variable.set(f"{self.start_date} by {self.planner}")
         self.created_value = ctk.CTkLabel(self.basic_info_frame,textvariable = created_variable,text_color = "#000000",font = ctk.CTkFont(size=15,weight="bold"))
         self.created_value.pack(anchor = "nw",padx = 15,pady = 7)
 
@@ -329,27 +339,27 @@ class DashboardPage():
         self.langauge_value =  ctk.CTkLabel(self.basic_info_frame,textvariable = language_variable,text_color = "#000000",font = ctk.CTkFont(size=15,weight="bold"))
         self.langauge_value.pack(anchor = "nw",padx = 15,pady = 7)
         
-        self.locale_label = ctk.CTkLabel(self.basic_info_frame,text = "Locale",text_color = "#000000",font = ctk.CTkFont(size=20,weight="normal"))
-        self.locale_label.pack(anchor = "nw",padx = 15,pady = 10)
+        # self.locale_label = ctk.CTkLabel(self.basic_info_frame,text = "Locale",text_color = "#000000",font = ctk.CTkFont(size=20,weight="normal"))
+        # self.locale_label.pack(anchor = "nw",padx = 15,pady = 10)
         
-        locale_variable = tk.StringVar()
-        locale_variable.set("USA")
-        self.locale_value = ctk.CTkLabel(self.basic_info_frame,textvariable = locale_variable,text_color = "#000000",font = ctk.CTkFont(size=15,weight="bold"))
-        self.locale_value.pack(anchor = "nw",padx = 15,pady = 7)
+        # locale_variable = tk.StringVar()
+        # locale_variable.set("USA")
+        # self.locale_value = ctk.CTkLabel(self.basic_info_frame,textvariable = locale_variable,text_color = "#000000",font = ctk.CTkFont(size=15,weight="bold"))
+        # self.locale_value.pack(anchor = "nw",padx = 15,pady = 7)
 
-        locale_line = tk.Canvas(self.basic_info_frame,height = 1,width = 600,bg = "lightgray")
-        locale_line.pack(anchor = "nw",padx = 15,pady = 0)
+        # locale_line = tk.Canvas(self.basic_info_frame,height = 1,width = 600,bg = "lightgray")
+        # locale_line.pack(anchor = "nw",padx = 15,pady = 0)
 
-        self.multilanguage_event_label = ctk.CTkLabel(self.basic_info_frame,text = "Multi-Language Event:",text_color = "#000000",font = ctk.CTkFont(size=20,weight="normal"))
-        self.multilanguage_event_label.pack(anchor = "nw",padx = 15,pady = 10)
+        # self.multilanguage_event_label = ctk.CTkLabel(self.basic_info_frame,text = "Multi-Language Event:",text_color = "#000000",font = ctk.CTkFont(size=20,weight="normal"))
+        # self.multilanguage_event_label.pack(anchor = "nw",padx = 15,pady = 10)
         
-        multilanguage_variable = tk.StringVar()
-        multilanguage_variable.set("No")
-        self.multilanguage_value = ctk.CTkLabel(self.basic_info_frame,textvariable = multilanguage_variable,text_color = "#000000",font = ctk.CTkFont(size=15,weight="bold"))
-        self.multilanguage_value.pack(anchor = "nw",padx = 15,pady = 7)
+        # multilanguage_variable = tk.StringVar()
+        # multilanguage_variable.set("No")
+        # self.multilanguage_value = ctk.CTkLabel(self.basic_info_frame,textvariable = multilanguage_variable,text_color = "#000000",font = ctk.CTkFont(size=15,weight="bold"))
+        # self.multilanguage_value.pack(anchor = "nw",padx = 15,pady = 7)
 
-        multilanguage_line = tk.Canvas(self.basic_info_frame,height = 1,width = 600,bg = "lightgray")
-        multilanguage_line.pack(anchor = "nw",padx = 15,pady = 0)
+        # multilanguage_line = tk.Canvas(self.basic_info_frame,height = 1,width = 600,bg = "lightgray")
+        # multilanguage_line.pack(anchor = "nw",padx = 15,pady = 0)
 
         self.description_label = ctk.CTkLabel(self.basic_info_frame,text = "Description:",text_color = "#000000",font = ctk.CTkFont("Segoe UI",15,"bold"))
         self.description_label.pack(anchor = "nw",padx = 15,pady = 10)
