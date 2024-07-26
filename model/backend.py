@@ -54,14 +54,27 @@ class DataClass():
             )
         return user_event_details
 
-    def insert_data(self, event_name, event_category, address, start_date, end_date, start_time, end_time, planner_email):
+    def insert_data(self, 
+                    event_name, 
+                    event_category, 
+                    address, 
+                    start_date, end_date, 
+                    start_time, end_time, 
+                    planner_email,
+                    first_name,
+                    last_name,
+                    city,
+                    capacity,
+                    language,
+                    mode
+                    ):
         if self.user_id is None:
             raise ValueError("user_id is not set. Call set_user_id() before inserting data.")
 
         self.planner_email = planner_email
 
-        sql = "INSERT INTO event (event_name, event_category, address, start_date, end_date, start_time, end_time, user_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
-        self.cursor.execute(sql, (event_name, event_category, address, start_date, end_date, start_time, end_time, self.user_id))
+        sql = "INSERT INTO event (event_name, event_category, address, start_date, end_date, end_time, start_time, user_id, language, location, planner_email, format, capacity) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+        self.cursor.execute(sql, (event_name, event_category, address, start_date, end_date, end_time, start_time, self.user_id, language, city, planner_email, mode, capacity))
         self.main.connection.commit()
 
         self.cursor.execute("SELECT * FROM event WHERE user_id = %s", (self.user_id,))
