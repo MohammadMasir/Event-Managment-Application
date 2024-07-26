@@ -53,7 +53,7 @@ class DemoApplication(ctk.CTk):
             self.connection = pmql.connect(
                 host="localhost",
                 user="root",
-                password="root",
+                password="sankalp",
                 charset="utf8",
                 database= self.datab_name,
             )

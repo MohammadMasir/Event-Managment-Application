@@ -35,14 +35,14 @@
   },
   {
     "form_type": 1,
-    "name": "re1",
+    "name": "myyy",
     "colors": {
-      "primary_text_color": "#e65722",
-      "secondary_text_color": "#600000",
+      "primary_text_color": "#182261",
+      "secondary_text_color": "#006AE1",
       "background": "white",
-      "entry_background": "#fcefed",
-      "frame_color": "#e65722",
-      "border_color": "#e65722"
+      "entry_background": "white smoke",
+      "frame_color": "#182261",
+      "border_color": "#182261"
     }
   }
 ]
