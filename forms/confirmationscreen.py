@@ -6,7 +6,7 @@ from tkinter import messagebox
 from PIL import Image
 from .theme import ThemeDesigner
 
-class Confirmation(ctk.CTk):
+class Confirmation():
     def __init__(self, main_app, registration, frame_name):
         super().__init__()
         self.main_app = main_app
