@@ -99,11 +99,14 @@ class Auth():
         query = "SELECT user_id FROM user where email=%s and password=%s"
         self.cursor.execute(query, (email, password))
         user_id_value = self.cursor.fetchone()
-        self.user_id = user_id_value[0]
-        if user_id_value:
-            print("user_id in authenticate :", self.user_id)
-            return self.user_id
-        else:
+        if user_id_value == None:
             return False
+        else:
+            self.user_id = user_id_value[0]
+            if user_id_value:
+                print("user_id in authenticate :", self.user_id)
+                return self.user_id
+            else:
+                return False
         
         
