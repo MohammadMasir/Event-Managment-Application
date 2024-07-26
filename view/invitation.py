@@ -161,6 +161,235 @@ class InviteeAttendeePage():
         self.switch5 = ctk.CTkSwitch(self.email_content_frame,height = 50,width = 50,text = "",corner_radius = 10,fg_color = "#43B2E4",button_color = "#F0F0F0",button_hover_color = "#F0F0F0",onvalue = "on",offvalue = "off")
         self.switch5.place(x = 600,y = 365)
 
+#-------------------------------------------------------------------------------------------------------------
+        self.post_content_frame = ctk.CTkFrame(self.emailspage.scrollable_frame,fg_color = "#ffffff")
+        self.post_content_frame.pack(fill = "both",expand = True,padx = (10,20),pady = 20)
+
+        self.post_registration_label = ctk.CTkLabel(self.post_content_frame,text = "Post-Registration Emails",text_color = "#000000",font = ("Segoe UI",21,"bold"))
+        self.post_registration_label.pack(anchor = "nw",padx = 5,pady = 5)
+
+        self.left_frame = ctk.CTkFrame(self.post_content_frame,width = 400,fg_color = "#ffffff")
+        self.left_frame.pack(side = "left",padx = 15,pady = 10,fill = "y")
+
+        self.common_button_frame = ctk.CTkFrame(self.post_content_frame,width = 100,fg_color = "#ffffff")
+        self.common_button_frame.pack(side = "right",padx = (0,10),pady = 10,fill = "y")
+
+        self.common_active_frame = ctk.CTkFrame(self.post_content_frame,width = 200,fg_color = "#ffffff")
+        self.common_active_frame.pack(side = "right",padx = (0,30),pady = 10,fill = "y")
+
+        self.john_label = ctk.CTkLabel(self.left_frame,text = "John",text_color = "#000000",font = ctk.CTkFont("Arial",17,"bold"))
+        self.john_label.pack(anchor = "nw",padx = 0,pady = 0)
+
+        self.send_manual = ctk.CTkLabel(self.left_frame,text = "Send:Manually to All Invitees",text_color = "#000000",font = ctk.CTkFont("Arial",17,"normal"))
+        self.send_manual.pack(anchor = "nw",padx = 0,pady = (1,5))
+
+        self.approval_label = ctk.CTkLabel(self.left_frame,text = "Approval Pending Notification",text_color = "#000000",font = ctk.CTkFont("Arial",17,"bold"))
+        self.approval_label.pack(anchor = "nw",padx = 0,pady = 10)
+
+        self.automatic_label = ctk.CTkLabel(self.left_frame,text = "Send:Automatically to Registrants Pending Approval",text_color = "#000000",font = ctk.CTkFont("Arial",17,"normal"))
+        self.automatic_label.pack(anchor = "nw",padx = 0,pady = (1,5))
+
+        self.event_reminder_label = ctk.CTkLabel(self.left_frame,text = "Event Reminder",text_color = "#000000",font = ctk.CTkFont("Arial",17,"bold"))
+        self.event_reminder_label.pack(anchor = "nw",padx = 0,pady = 10)
+
+        self.accepted_label = ctk.CTkLabel(self.left_frame,text = "Send:Manually to Accepted Registrants",text_color = "#000000",font = ctk.CTkFont("Arial",17,"normal"))
+        self.accepted_label.pack(anchor = "nw",padx = 0,pady = (1,5))
+
+        self.modification_label = ctk.CTkLabel(self.left_frame,text = "Modification Confirmation",text_color = "#000000",font = ctk.CTkFont("Arial",17,"bold"))
+        self.modification_label.pack(anchor = "nw",padx = 0,pady = 10)
+
+        self.automatic_accepted_label = ctk.CTkLabel(self.left_frame,text = "Send:Automatically to Accepted Registrants",text_color = "#000000",font = ctk.CTkFont("Arial",17,"normal"))
+        self.automatic_accepted_label.pack(anchor = "nw",padx = 0,pady = (1,5))
+
+        self.registration_confirmation_label = ctk.CTkLabel(self.left_frame,text = "Registration Confirmation",text_color = "#000000",font = ctk.CTkFont("Arial",17,"bold"))
+        self.registration_confirmation_label.pack(anchor = "nw",padx = 0,pady = 10)
+
+        self.accepted_registrants = ctk.CTkLabel(self.left_frame,text = "Send:Automatically to Accepted Registrants",text_color = "#000000",font = ctk.CTkFont("Arial",17,"normal"))
+        self.accepted_registrants.pack(anchor = "nw",padx = 0,pady = (1,5)) 
+
+        self.guest_event_label = ctk.CTkLabel(self.left_frame,text = "Guest Event Reminder",text_color = "#000000",font = ctk.CTkFont("Arial",17,"bold"))
+        self.guest_event_label.pack(anchor = "nw",padx = 0,pady = 10)
+
+        self.accepted_guest =  ctk.CTkLabel(self.left_frame,text = "Send:Manually to Accepted Guest",text_color = "#000000",font = ctk.CTkFont("Arial",17,"normal"))
+        self.accepted_guest.pack(anchor = "nw",padx = 0,pady = (1,5))
+
+        self.guest_registration_label = ctk.CTkLabel(self.left_frame,text = "Guest Registration Notification",text_color = "#000000",font = ctk.CTkFont("Arial",17,"bold"))
+        self.guest_registration_label.pack(anchor = "nw",padx = 0,pady = 10)
+
+        self.automatic_guest = ctk.CTkLabel(self.left_frame,text = "Send:Automatically to Accepted Guest",text_color = "#000000",font = ctk.CTkFont("Arial",17,"normal"))
+        self.automatic_guest.pack(anchor = "nw",padx = 0,pady = (1,5))
+
+        self.administrator_confirmation_label = ctk.CTkLabel(self.left_frame,text = "Administrator Registration Confirmation ",text_color = "#000000",font = ctk.CTkFont("Arial",17,"bold"))
+        self.administrator_confirmation_label.pack(anchor = "nw",padx = 0,pady = 10)
+
+        self.automatic_administrator = ctk.CTkLabel(self.left_frame,text = "Send:Automatically to Administrator",text_color = "#000000",font = ctk.CTkFont("Arial",17,"normal"))
+        self.automatic_administrator.pack(anchor = "nw",padx = 0,pady = (1,5))
+
+        self.post_active1 = ctk.CTkLabel(self.common_active_frame,text = "Active:",text_color = "#000000",font = ctk.CTkFont("Arial",20,"bold"))
+        self.post_active1.pack(anchor = "n",pady = (0))
+
+        self.post_active2 = ctk.CTkLabel(self.common_active_frame,text = "Active:",text_color = "#000000",font = ctk.CTkFont("Arial",20,"bold"))
+        self.post_active2.pack(anchor = "n",pady = (55,0))
+
+        self.post_active3 = ctk.CTkLabel(self.common_active_frame,text = "Active:",text_color = "#000000",font = ctk.CTkFont("Arial",20,"bold"))
+        self.post_active3.pack(anchor = "n",pady = (55,0))
+
+        self.post_active4 = ctk.CTkLabel(self.common_active_frame,text = "Active:",text_color = "#000000",font = ctk.CTkFont("Arial",20,"bold"))
+        self.post_active4.pack(anchor = "n",pady = (55,0))
+
+        self.post_active5 = ctk.CTkLabel(self.common_active_frame,text = "Active:",text_color = "#000000",font = ctk.CTkFont("Arial",20,"bold"))
+        self.post_active5.pack(anchor = "n",pady = (55,0))
+
+        self.post_active6 = ctk.CTkLabel(self.common_active_frame,text = "Active:",text_color = "#000000",font = ctk.CTkFont("Arial",20,"bold"))
+        self.post_active6.pack(anchor = "n",pady = (55,0))
+
+        self.post_active7 = ctk.CTkLabel(self.common_active_frame,text = "Active:",text_color = "#000000",font = ctk.CTkFont("Arial",20,"bold"))
+        self.post_active7.pack(anchor = "n",pady = (55,0))
+
+        self.post_active8 = ctk.CTkLabel(self.common_active_frame,text = "Active:",text_color = "#000000",font = ctk.CTkFont("Arial",20,"bold"))
+        self.post_active8.pack(anchor = "n",pady = (55,0))
+
+        self.post_switch1 = ctk.CTkSwitch(self.common_button_frame,height = 50,width = 50,text = "",corner_radius = 10,fg_color = "#43B2E4",button_color = "#F0F0F0",button_hover_color = "#F0F0F0",onvalue = "on",offvalue = "off")
+        self.post_switch1.pack(anchor = "n",pady = (0,3))
+
+        self.post_switch2 = ctk.CTkSwitch(self.common_button_frame,height = 50,width = 50,text = "",corner_radius = 10,fg_color = "#43B2E4",button_color = "#F0F0F0",button_hover_color = "#F0F0F0",onvalue = "on",offvalue = "off")
+        self.post_switch2.pack(anchor = "n",pady = (30,0))
+
+        self.post_switch3 = ctk.CTkSwitch(self.common_button_frame,height = 50,width = 50,text = "",corner_radius = 10,fg_color = "#43B2E4",button_color = "#F0F0F0",button_hover_color = "#F0F0F0",onvalue = "on",offvalue = "off")
+        self.post_switch3.pack(anchor = "n",pady = (30,0))
+
+        self.post_switch4 = ctk.CTkSwitch(self.common_button_frame,height = 50,width = 50,text = "",corner_radius = 10,fg_color = "#43B2E4",button_color = "#F0F0F0",button_hover_color = "#F0F0F0",onvalue = "on",offvalue = "off")
+        self.post_switch4.pack(anchor = "n",pady = (30,0))
+
+        self.post_switch5 = ctk.CTkSwitch(self.common_button_frame,height = 50,width = 50,text = "",corner_radius = 10,fg_color = "#43B2E4",button_color = "#F0F0F0",button_hover_color = "#F0F0F0",onvalue = "on",offvalue = "off")
+        self.post_switch5.pack(anchor = "n",pady = (30,0))
+
+        self.post_switch6 = ctk.CTkSwitch(self.common_button_frame,height = 50,width = 50,text = "",corner_radius = 10,fg_color = "#43B2E4",button_color = "#F0F0F0",button_hover_color = "#F0F0F0",onvalue = "on",offvalue = "off")
+        self.post_switch6.pack(anchor = "n",pady = (35,0))
+
+        self.post_switch7 = ctk.CTkSwitch(self.common_button_frame,height = 50,width = 50,text = "",corner_radius = 10,fg_color = "#43B2E4",button_color = "#F0F0F0",button_hover_color = "#F0F0F0",onvalue = "on",offvalue = "off")
+        self.post_switch7.pack(anchor = "n",pady = (35,0))
+
+        self.post_switch8 = ctk.CTkSwitch(self.common_button_frame,height = 50,width = 50,text = "",corner_radius = 10,fg_color = "#43B2E4",button_color = "#F0F0F0",button_hover_color = "#F0F0F0",onvalue = "on",offvalue = "off")
+        self.post_switch8.pack(anchor = "n",pady = (35,0))
+#-------------------------------------------------------------------------------------------------------------
+
+        self.declined_emails_frame = ctk.CTkFrame(self.emailspage.scrollable_frame,fg_color = "#ffffff")
+        self.declined_emails_frame.pack(fill = "both",expand = True,padx = (10,20),pady = 20)
+
+        self.declined_email_label = ctk.CTkLabel(self.declined_emails_frame,text = "Declined-Registration Emails",text_color = "#000000",font = ("Segoe UI",21,"bold"))
+        self.declined_email_label.pack(anchor = "nw",padx = 5,pady = 5)
+
+        self.left_frame1 = ctk.CTkFrame(self.declined_emails_frame,width = 400,fg_color = "#ffffff")
+        self.left_frame1.pack(side = "left",padx = 15,pady = 10,fill = "y")
+
+        self.common_button_frame1 = ctk.CTkFrame(self.declined_emails_frame,width = 100,fg_color = "#ffffff")
+        self.common_button_frame1.pack(side = "right",padx = (0,10),pady = 10,fill = "y")
+
+        self.common_active_frame1 = ctk.CTkFrame(self.declined_emails_frame,width = 200,fg_color = "#ffffff")
+        self.common_active_frame1.pack(side = "right",padx = (0,30),pady = 10,fill = "y")
+
+        self.approval_notification_label = ctk.CTkLabel(self.left_frame1,text = "Approval Denied Notification",text_color = "#000000",font = ctk.CTkFont("Arial",17,"bold"))
+        self.approval_notification_label.pack(anchor = "nw",padx = 0,pady = 0)
+
+        self.automatically_denied = ctk.CTkLabel(self.left_frame1,text = "Send:Automatically to Denied Registrants",text_color = "#000000",font = ctk.CTkFont("Arial",17,"normal"))
+        self.automatically_denied.pack(anchor = "nw",padx = 0,pady = (1,5))
+
+        self.cancellation_form_label = ctk.CTkLabel(self.left_frame1,text = "Cancellation Confirmation",text_color = "#000000",font = ctk.CTkFont("Arial",17,"bold"))
+        self.cancellation_form_label.pack(anchor = "nw",padx = 0,pady = (10,0))
+
+        self.automatically_cancelled = ctk.CTkLabel(self.left_frame1,text = "Send:Automatically to Cancelled Registrants",text_color = "#000000",font = ctk.CTkFont("Arial",17,"normal"))
+        self.automatically_cancelled.pack(anchor = "nw",padx = 0,pady = (1,10))
+
+        self.Regret_label = ctk.CTkLabel(self.left_frame1,text = "Regret",text_color = "#000000",font = ctk.CTkFont("Arial",17,"bold"))
+        self.Regret_label.pack(anchor = "nw",padx = 0,pady = (10,0))
+
+        self.automatically_invitees = ctk.CTkLabel(self.left_frame1,text = "Send:Automatically to Declined Invitees",text_color = "#000000",font = ctk.CTkFont("Arial",17,"normal"))
+        self.automatically_invitees.pack(anchor = "nw",padx = 0,pady = (1,10))
+
+        self.declined_active1 = ctk.CTkLabel(self.common_active_frame1,text = "Active:",text_color = "#000000",font = ctk.CTkFont("Arial",20,"bold"))
+        self.declined_active1.pack(anchor = "n",pady = (0))
+
+        self.declined_active2 = ctk.CTkLabel(self.common_active_frame1,text = "Active:",text_color = "#000000",font = ctk.CTkFont("Arial",20,"bold"))
+        self.declined_active2.pack(anchor = "n",pady = (55,0))
+
+        self.declined_active3 = ctk.CTkLabel(self.common_active_frame1,text = "Active:",text_color = "#000000",font = ctk.CTkFont("Arial",20,"bold"))
+        self.declined_active3.pack(anchor = "n",pady = (55,0))
+
+        self.declined_switch1 =  ctk.CTkSwitch(self.common_button_frame1,height = 50,width = 50,text = "",corner_radius = 10,fg_color = "#43B2E4",button_color = "#F0F0F0",button_hover_color = "#F0F0F0",onvalue = "on",offvalue = "off")
+        self.declined_switch1.pack(anchor = "n",pady = (0))
+
+        self.declined_switch2 = ctk.CTkSwitch(self.common_button_frame1,height = 50,width = 50,text = "",corner_radius = 10,fg_color = "#43B2E4",button_color = "#F0F0F0",button_hover_color = "#F0F0F0",onvalue = "on",offvalue = "off")
+        self.declined_switch2.pack(anchor = "n",pady = (30,0))
+
+        self.declined_switch3 = ctk.CTkSwitch(self.common_button_frame1,height = 50,width = 50,text = "",corner_radius = 10,fg_color = "#43B2E4",button_color = "#F0F0F0",button_hover_color = "#F0F0F0",onvalue = "on",offvalue = "off")
+        self.declined_switch3.pack(anchor = "n",pady = (30,0))
+
+#-------------------------------------------------------------------------------------------------------------
+
+        self.post_event_emails_frame = ctk.CTkFrame(self.emailspage.scrollable_frame,fg_color = "#ffffff")
+        self.post_event_emails_frame.pack(fill = "both",expand = True,padx = (10,20),pady = 20)
+        
+        self.post_event_email_label = ctk.CTkLabel(self.post_event_emails_frame,text = "Post-Event Emails",text_color = "#000000",font = ("Segoe UI",21,"bold"))
+        self.post_event_email_label.pack(anchor = "nw",padx = 5,pady = 5)
+
+        self.left_frame2 = ctk.CTkFrame(self.post_event_emails_frame,width = 400,fg_color = "#ffffff")
+        self.left_frame2.pack(side = "left",padx = 15,pady = 10,fill = "y")
+
+        self.common_button_frame2 = ctk.CTkFrame(self.post_event_emails_frame,width = 100,fg_color = "#ffffff")
+        self.common_button_frame2.pack(side = "right",padx = (0,10),pady = 10,fill = "y")
+
+        self.common_active_frame2 = ctk.CTkFrame(self.post_event_emails_frame,width = 200,fg_color = "#ffffff")
+        self.common_active_frame2.pack(side = "right",padx = (0,30),pady = 10,fill = "y")
+
+        self.event_feedback_label = ctk.CTkLabel(self.left_frame2,text = "Event Feedback",text_color = "#000000",font = ctk.CTkFont("Arial",17,"bold"))
+        self.event_feedback_label.pack(anchor = "nw",padx = 0,pady = 0)
+
+        self.event_feedback_down_label = ctk.CTkLabel(self.left_frame2,text = "Send:Manually to Attended Registrants",text_color = "#000000",font = ctk.CTkFont("Arial",17,"normal"))
+        self.event_feedback_down_label.pack(anchor = "nw",padx = 0,pady = (1,5))
+
+        self.event_feedback_reminder_label = ctk.CTkLabel(self.left_frame2,text = "Event Feedback Reminder",text_color = "#000000",font = ctk.CTkFont("Arial",17,"bold"))
+        self.event_feedback_reminder_label.pack(anchor = "nw",padx = 0,pady = (10,0))
+
+        self.event_feedback_reminder_down = ctk.CTkLabel(self.left_frame2,text = "Send:Manually to Attendees who haven't completed all of their feedback surveys",text_color = "#000000",font = ctk.CTkFont("Arial",17,"normal"))
+        self.event_feedback_reminder_down.pack(anchor = "nw",padx = 0,pady = (1,10))
+
+        self.guest_event_feedback_label =  ctk.CTkLabel(self.left_frame2,text = "Guest Event Feedback",text_color = "#000000",font = ctk.CTkFont("Arial",17,"bold"))
+        self.guest_event_feedback_label.pack(anchor = "nw",padx = 0,pady = (10,0))
+
+        self.guest_event_feedback_down = ctk.CTkLabel(self.left_frame2,text = "Send:Manually to Attended Guest",text_color = "#000000",font = ctk.CTkFont("Arial",17,"normal"))
+        self.guest_event_feedback_down.pack(anchor = "nw",padx = 0,pady = (1,10))
+
+        self.guest_event_feedback_reminder_label = ctk.CTkLabel(self.left_frame2,text = "Guest Event Feedback Reminder",text_color = "#000000",font = ctk.CTkFont("Arial",17,"bold"))
+        self.guest_event_feedback_reminder_label.pack(anchor = "nw",padx = 0,pady = (10,0))
+
+        self.guest_event_feedback_reminder_down = ctk.CTkLabel(self.left_frame2,text = "Send:Manually to Guest who haven't completed all of their feedback surveys",text_color = "#000000",font = ctk.CTkFont("Arial",17,"normal"))
+        self.guest_event_feedback_reminder_down.pack(anchor = "nw",padx = 0,pady = (1,10))
+
+        self.post_event_active1 = ctk.CTkLabel(self.common_active_frame2,text = "Active:",text_color = "#000000",font = ctk.CTkFont("Arial",20,"bold"))
+        self.post_event_active1.pack(anchor = "n",pady = (0))
+
+        self.post_event_active2 = ctk.CTkLabel(self.common_active_frame2,text = "Active:",text_color = "#000000",font = ctk.CTkFont("Arial",20,"bold"))
+        self.post_event_active2.pack(anchor = "n",pady = (55,0))
+
+        self.post_event_active3 = ctk.CTkLabel(self.common_active_frame2,text = "Active:",text_color = "#000000",font = ctk.CTkFont("Arial",20,"bold"))
+        self.post_event_active3.pack(anchor = "n",pady = (55,0))
+
+        self.post_event_active4 = ctk.CTkLabel(self.common_active_frame2,text = "Active:",text_color = "#000000",font = ctk.CTkFont("Arial",20,"bold"))
+        self.post_event_active4.pack(anchor = "n",pady = (55,0))
+
+        self.post_event_switch1 = ctk.CTkSwitch(self.common_button_frame2,height = 50,width = 50,text = "",corner_radius = 10,fg_color = "#43B2E4",button_color = "#F0F0F0",button_hover_color = "#F0F0F0",onvalue = "on",offvalue = "off")
+        self.post_event_switch1.pack(anchor = "n",pady = (0))
+
+        self.post_event_switch2 = ctk.CTkSwitch(self.common_button_frame2,height = 50,width = 50,text = "",corner_radius = 10,fg_color = "#43B2E4",button_color = "#F0F0F0",button_hover_color = "#F0F0F0",onvalue = "on",offvalue = "off")
+        self.post_event_switch2.pack(anchor = "n",pady = (30,0))
+
+        self.post_event_switch3 = ctk.CTkSwitch(self.common_button_frame2,height = 50,width = 50,text = "",corner_radius = 10,fg_color = "#43B2E4",button_color = "#F0F0F0",button_hover_color = "#F0F0F0",onvalue = "on",offvalue = "off")
+        self.post_event_switch3.pack(anchor = "n",pady = (30,0))
+
+        self.post_event_switch4 = ctk.CTkSwitch(self.common_button_frame2,height = 50,width = 50,text = "",corner_radius = 10,fg_color = "#43B2E4",button_color = "#F0F0F0",button_hover_color = "#F0F0F0",onvalue = "on",offvalue = "off")
+        self.post_event_switch4.pack(anchor = "n",pady = (30,0))
+
 #--------------------------------------------------------------------------------------------------------------  
     def planner_alerts(self):
         self.set_screen()
