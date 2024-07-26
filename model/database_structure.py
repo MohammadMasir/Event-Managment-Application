@@ -6,7 +6,7 @@ class Db():
             self.connection= pmql.connect(
                   host="localhost",
                   user="root",
-                  password="sankalp",
+                  password="root",
                   charset="utf8"
         )
             self.cur=self.connection.cursor()

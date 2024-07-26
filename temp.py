@@ -20,32 +20,33 @@ Registration form Themes ;
     8. #dde2e6, white, #f7f7f7, #273f69, #041532 : PT Sans, PT Sans
 
 '''
-
-import tkinter as tk
 import customtkinter as ctk
-from matplotlib import font_manager
 
-# Function to change the font
-def change_font(widget, font_name, font_size):
-    widget.configure(font=(font_name, font_size))
+def switch_event():
+    if switch_var.get() == "on":
+        switch_text.set("Switch is On")
+    else:
+        switch_text.set("Switch is Off")
 
-# Get a list of available fonts
-available_fonts = sorted([f.name for f in font_manager.fontManager.ttflist])
-
-# Initialize the main window
 root = ctk.CTk()
-root.geometry("400x300")
+root.geometry("300x150")
 
-# Example label
-label = ctk.CTkLabel(root, text="Hello, Custom Font!")
-label.pack(pady=20)
+switch_var = ctk.StringVar(value="off")
+switch_text = ctk.StringVar(value="Switch is Off")
 
-# Dropdown menu for font selection
-font_var = tk.StringVar(value=available_fonts[0])
-font_dropdown = tk.OptionMenu(root, font_var, *available_fonts, command=lambda _: change_font(label, font_var.get(), 20))
-font_dropdown.pack(pady=20)
+switch = ctk.CTkSwitch(
+    master=root,
+    textvariable=switch_text,
+    variable=switch_var,
+    onvalue="on",
+    offvalue="off",
+    command=switch_event
+)
+switch.pack(padx=20, pady=10)
 
 root.mainloop()
+
+
 
 
 

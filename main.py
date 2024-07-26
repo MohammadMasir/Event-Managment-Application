@@ -3,7 +3,7 @@ from PIL import Image
 import pymysql as pmql
 import tkinter as tk
 from tkinter.messagebox import showinfo, showwarning, showerror
-from model.auth import GoogleSignInApp, Auth
+from model.auth import GoogleSignInApp, Auth, set_id, u_id
 from model.database_structure import Db
 from view.eventshome import DashboardPage
 from view.registration import RegistrationPage
@@ -53,7 +53,7 @@ class DemoApplication(ctk.CTk):
             self.connection = pmql.connect(
                 host="localhost",
                 user="root",
-                password="sankalp",
+                password="root",
                 charset="utf8",
                 database= self.datab_name,
             )
@@ -62,9 +62,12 @@ class DemoApplication(ctk.CTk):
     def google_sign_in_handler(self):
         sign_in = GoogleSignInApp()
         if sign_in.handle_google_sign_in():
-            self.create_widgets()
-        else:
-            self.initial_screen()
+            self.user = u_id
+            print(self.user)
+            if self.backend.is_first_time_user(self.user):
+                self.create_widgets()
+            else:
+                self.show_regular_app(self.user)
     
     def add_hover_effect(self, widget):
         original_txtcolor = "#092928"
