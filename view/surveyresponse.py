@@ -54,7 +54,7 @@ class SurveyResponsePage():
         self.active_label = ctk.CTkLabel(self.top_frame,text = "Active",text_color = "#000000",font = ("Arial",15,"normal"))
         self.active_label.place(x = 570,y = 5)
 
-        self.up_down_image = ctk.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\elevator.png"),size = (25,25))
+        self.up_down_image = ctk.CTkImage(dark_image = Image.open(r"pics\elevator.png"),size = (25,25))
         self.up_down_image_button = ctk.CTkButton(self.top_frame,image = self.up_down_image,text = "",width = 27,fg_color = "#ffffff",hover_color = "lightgray",command = self.up_down_command)
         self.up_down_image_button.place(x = 720,y = 5)
 
@@ -98,7 +98,7 @@ class SurveyResponsePage():
         self.response_search = ctk.CTkEntry(self.responsespage.scrollable_frame,height = 40,placeholder_text = "Filter by name or code",placeholder_text_color = "#000000",width = 250,fg_color = "#ffffff",corner_radius = 5)
         self.response_search.pack(anchor = "ne",padx = (0,25),pady = 20)
 
-        self.filter_image = ctk.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\loupe.png"),size = (25,25))
+        self.filter_image = ctk.CTkImage(dark_image = Image.open(r"pics\loupe.png"),size = (25,25))
         self.filter_image_button = ctk.CTkButton(self.response_search,image = self.filter_image,text = "",width = 35,fg_color = "#ffffff",hover_color = "lightgray",command = self.filter_command)
         self.filter_image_button.grid(row = 0,column = 0,sticky = "ne",padx = 10,pady = 5)
 

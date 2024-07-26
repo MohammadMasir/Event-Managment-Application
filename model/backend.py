@@ -19,13 +19,16 @@ class DataClass():
         self.cursor.execute(query, (self.user_id,))
         event_id_tuple = self.cursor.fetchone()
         if event_id_tuple == None:
+            print(f"No Events created by user_id : {self.user_id}")
             return True
         else:
-            event_id = event_id_tuple[0]
-            if event_id != None:
-                return False
-            else:
-                return True
+            print(f"user_id : {self.user_id} is not a first time user.")
+            return False
+            # event_id = event_id_tuple[0]
+            # if event_id != None:
+            #     return False
+            # else:
+            #     return True
 
     def get_user_id(self):
         return self.user_id
@@ -58,7 +61,7 @@ class DataClass():
     def insert_data(self, 
                     event_name, 
                     event_category, 
-                    address, 
+                    venue, 
                     start_date, end_date, 
                     start_time, end_time, 
                     planner_email,
@@ -74,8 +77,8 @@ class DataClass():
 
         self.planner_email = planner_email
 
-        sql = "INSERT INTO event (event_name, event_category, address, start_date, end_date, end_time, start_time, user_id, language, location, planner_email, format, capacity) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
-        self.cursor.execute(sql, (event_name, event_category, address, start_date, end_date, end_time, start_time, self.user_id, language, city, planner_email, mode, capacity))
+        sql = "INSERT INTO event (event_name, event_category, address, start_date, end_date, end_time, start_time, user_id, language, location, planner_email, format, capacity) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        self.cursor.execute(sql, (event_name, event_category, venue, start_date, end_date, end_time, start_time, self.user_id, language, city, planner_email, mode, capacity))
         self.main.connection.commit()
 
         self.cursor.execute("SELECT * FROM event WHERE user_id = %s", (self.user_id,))
@@ -88,6 +91,7 @@ class DataClass():
     def update_views(self):
         if self.event_details:
             event_names = [event['event_name'] for event in self.event_details.values()]
+            print("event_name :",event_names)
             latest_event_id = max(self.event_details.keys())
             latest_event = self.event_details[latest_event_id]
             

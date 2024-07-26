@@ -4,7 +4,11 @@ from PIL import Image
 import pymysql as pmql
 from view.commonpages import Page
 from model.backend import DataClass
-
+from .location_search import LocationSearch
+import requests
+from tkinter import StringVar, Listbox, END
+import threading
+import queue
 
 class CreateEvent():
     def __init__(self, parent, main_app):
@@ -12,11 +16,14 @@ class CreateEvent():
         self.parent = parent
         self.main = main_app
 
+    def show_location(self):
+        pass
+
     def data_insert(self):
         # Getting the Data...
         self.name = self.event_name.get()
         event_category = self.event_category.get()
-        address = self.address_main.get()
+        # address = self.address_main.get()
         start_date = self.start_date.get()
         end_date = self.end_date.get()
         start_time = self.start_time.get()
@@ -24,22 +31,22 @@ class CreateEvent():
         planner_email = self.planner_email.get()
         first_name = self.first_name.get()
         last_name = self.last_name.get()
-        city = self.city.get()
+        # city = self.city.get()
         mode = self.format.get()
         capacity = self.capacity.get()
         language = self.language.get()
-        venue = self.venue.get()
+        venue = self.location_wid.get_selected_venue()
 
 
         insert = DataClass(self.main, self.main.user)
         insert.insert_data(self.name, 
                            event_category, 
-                           address, 
+                           venue, 
                            start_date, end_date, 
                            start_time, end_time, 
                            planner_email,
                            first_name, last_name,
-                           city,
+                           venue,
                            capacity,
                            language,
                            mode
@@ -128,8 +135,8 @@ class CreateEvent():
             if self.planner_email.get() == "":
                 showerror(title = "Error",message = "Please enter your Email")
 
-            if self.address_main.get() == "":
-                showerror(title = "Error",message = "Please Enter address")
+            # if self.address_main.get() == "":
+            #     showerror(title = "Error",message = "Please Enter address")
 
             if self.start_date.get() == "":
                 showerror(title = "Error",message = "Please Enter start date")
@@ -199,7 +206,7 @@ class CreateEvent():
 
         self.format =ctk.StringVar()
         hybrid = ctk.CTkButton(
-            self.buttons_frame, 
+            self.inside_scrollable_frame, 
             text="Hybrid",
             font=("helvetica", 20),
             width=25, height=35,
@@ -210,7 +217,7 @@ class CreateEvent():
         hybrid.place(x = 30,y = 394)
 
         offline = ctk.CTkButton(
-            self.buttons_frame, 
+            self.inside_scrollable_frame, 
             text="Offline", 
             font=("helvetica", 20),
             width=25, height=35,
@@ -221,7 +228,7 @@ class CreateEvent():
         offline.place(x = 280,y = 394)
 
         online = ctk.CTkButton(
-            self.buttons_frame, 
+            self.inside_scrollable_frame, 
             text="Online",
             font=("helvetica", 20),
             width=25, height=35,
@@ -232,13 +239,19 @@ class CreateEvent():
         online.place(x = 520,y = 394)
 
         label6 = ctk.CTkLabel(self.inside_scrollable_frame,text = "Venue",text_color = "black",font = ("thin",19))
-        label6.place(x = 30,y = 436)
+        label6.place(x = 440,y = 436)
 
         self.venue =ctk.StringVar()
-        e8 = ctk.CTkEntry(self.inside_scrollable_frame,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 690,textvariable = self.venue)
-        e8.place(x = 30,y = 478)
+        # e8 = ctk.CTkEntry(self.inside_scrollable_frame,corner_radius = 5,text_color = "black",fg_color = "white",height = 35,width = 690,textvariable = self.venue)
+        # e8.place(x = 30,y = 478)
 
-        ctk.CTkButton(self.inside_scrollable_frame, text="Can't find your Venue..?, Click here for Custom location", fg_color="transparent", command=self.show_location).pack()
+        venue_frame = ctk.CTkFrame(self.inside_scrollable_frame, fg_color="transparent")
+        venue_frame.place(x = 520,y = 436)
+
+        self.location_wid = LocationSearch(self.main, venue_frame)
+        self.location_wid.pack(fill="both", expand=True)
+
+        ctk.CTkButton(self.inside_scrollable_frame, text="Can't find your Venue..?, Click here for Custom location", fg_color="transparent", text_color="black", command=self.show_location).place(x = 30,y = 610)
 
         img6 = ctk.CTkImage(dark_image = Image.open(r"pics\calendar.png"),size = (30,30))
         labimg6 = ctk.CTkLabel(self.inside_scrollable_frame,image = img6,text = "")
@@ -286,7 +299,7 @@ class CreateEvent():
         label17.place(x = 30,y = 810)
 
         self.capacity =ctk.StringVar()
-        opt6 = ctk.CTkEntry(self.inside_scrollable_frame,textvariable = self.capacity,height = 35,width = 690,corner_radius = 5,border_width = 1,border_color = "gray",fg_color = "white",text_color = "black",button_hover_color = "#7D6D6D",font = ("semibold",17))
+        opt6 = ctk.CTkEntry(self.inside_scrollable_frame,textvariable = self.capacity,height = 35,width = 690,corner_radius = 5,border_width = 1,border_color = "gray",fg_color = "white",text_color = "black",font = ("semibold",17))
         opt6.place(x = 30,y = 850)
 
         b1 = ctk.CTkButton(self.inside_scrollable_frame,text = "Submit",height = 40,width = 170,corner_radius =10,fg_color = "lightgreen",text_color = "black",command = check_x1)

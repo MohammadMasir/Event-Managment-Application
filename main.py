@@ -414,10 +414,12 @@ class DemoApplication(ctk.CTk):
                 self.user = self.auth.authenticate(email.get(), password.get())
                 if self.user:
                     showinfo("", "Login successful")
-                    if self.backend.is_first_time_user(self.user):
+                    self.backend.set_user_id(self.user)
+                    if self.backend.is_first_time_user():
                         self.create_widgets() 
                     else:
-                        self.show_regular_app(self.user)
+                        self.backend.set_user_id(self.user)
+                        self.show_regular_app()
                 else:
                     msg = showwarning("User Not found", "You have to Sign-Up..")
                     if msg == 'ok':
@@ -535,6 +537,7 @@ class DemoApplication(ctk.CTk):
 
     def update_screens(self, event_id,  event_name, command=None,event_category=None, address=None, start_date=None, end_date=None, start_time=None, end_time=None, planner_email=None):
         self.create_tabs(event_name[-1])
+        print("event_name in update function", event_name)
         self.event_preview.update_event_list(event_name)
 
     def dashboard_widgets(self):

@@ -48,7 +48,7 @@ class InviteeAttendeePage():
         self.emails_label = ctk.CTkLabel(self.top_frame,text = "Emails",text_color = "#000000",font = ("Arial",15,"normal"))
         self.emails_label.place(x = 440,y = 5)
 
-        self.up_down_image = ctk.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\elevator.png"),size = (25,25))
+        self.up_down_image = ctk.CTkImage(dark_image = Image.open(r"pics\elevator.png"),size = (25,25))
         self.up_down_image_button = ctk.CTkButton(self.top_frame,image = self.up_down_image,text = "",width = 27,fg_color = "#ffffff",hover_color = "lightgray",command = self.up_down_command)
         self.up_down_image_button.place(x = 700,y = 5)
 
@@ -60,7 +60,7 @@ class InviteeAttendeePage():
         self.internal_frame1_name = ctk.CTkLabel(self.internal_frame1,textvariable = internal_name_variable,text_color = "#43B2E4",font = ("Arial",17,"bold"))
         self.internal_frame1_name.place(x = 5,y = 5)
 
-        self.mail_image = ctk.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\mail.png"),size = (25,25))
+        self.mail_image = ctk.CTkImage(dark_image = Image.open(r"pics\mail.png"),size = (25,25))
         self.mail_image_button = ctk.CTkButton(self.internal_frame1,image = self.mail_image,text = "",width = 25,fg_color = "#ffffff",hover_color = "lightgray",command = self.mail_command)
         self.mail_image_button.place(x = 210,y = 5)
         
@@ -423,7 +423,7 @@ class InviteeAttendeePage():
         self.active_label = ctk.CTkLabel(self.top_frame,text = "Active",text_color = "#000000",font = ("Arial",15,"normal"))
         self.active_label.place(x = 660,y = 5)
 
-        self.up_down_image = ctk.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\elevator.png"),size = (25,25))
+        self.up_down_image = ctk.CTkImage(dark_image = Image.open(r"pics\elevator.png"),size = (25,25))
         self.up_down_image_button = ctk.CTkButton(self.top_frame,image = self.up_down_image,text = "",width = 27,fg_color = "#ffffff",hover_color = "lightgray",command = self.up_down_command)
         self.up_down_image_button.place(x = 770,y = 5)
         
@@ -450,7 +450,7 @@ class InviteeAttendeePage():
         self.search_bar = ctk.CTkEntry(self.top_frame1,height = 40,placeholder_text = "send2atm",placeholder_text_color = "#000000",width = 250,fg_color = "#ffffff",corner_radius = 5)
         self.search_bar.pack(side = "right",padx = (0,25))
 
-        self.filter_image = ctk.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\loupe.png"),size = (25,25))
+        self.filter_image = ctk.CTkImage(dark_image = Image.open(r"pics\loupe.png"),size = (25,25))
         self.filter_image_button = ctk.CTkButton(self.search_bar,image = self.filter_image,text = "",width = 35,fg_color = "#ffffff",hover_color = "lightgray",command = self.filter_command)
         self.filter_image_button.grid(row = 0,column = 0,sticky = "ne",padx = 10,pady = 5)
 
@@ -478,7 +478,7 @@ class InviteeAttendeePage():
         self.status_label = ctk.CTkLabel(self.top_frame,text = "Status",text_color = "#000000",font = ("Arial",15,"normal"))
         self.status_label.place(x = 660,y = 5)
 
-        self.up_down_image = ctk.CTkImage(dark_image = Image.open(r"C:\Users\lucky\OneDrive\Desktop\python programs\pics\elevator.png"),size = (25,25))
+        self.up_down_image = ctk.CTkImage(dark_image = Image.open(r"pics\elevator.png"),size = (25,25))
         self.up_down_image_button = ctk.CTkButton(self.top_frame,image = self.up_down_image,text = "",width = 27,fg_color = "#ffffff",hover_color = "lightgray",command = self.up_down_command)
         self.up_down_image_button.place(x = 770,y = 5)
 
